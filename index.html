@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBF3C Course Hub</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 { color: var(--primary-color); margin-bottom: 10px; }
+        p { color: #7f8c8d; margin-bottom: 30px; }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #aaa; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>MBF3C Math Course</h1>
+    <p>Foundations for College Mathematics</p>
+
+    <div class="grid">
+        <button onclick="window.location.href='unit1.html'">Unit 1: Trigonometry</button>
+        <button onclick="window.location.href='unit2.html'">Unit 2: Quadratic Relations</button>
+        <button onclick="window.location.href='unit3.html'">Unit 3: Exponential Relations</button>
+        <button onclick="window.location.href='unit4.html'">Unit 4: Personal Finance</button>
+        <button onclick="window.location.href='unit5.html'">Unit 5: Statistics</button>
+        <button onclick="window.location.href='unit6.html'">Unit 6: Probability</button>
+    </div>
+
+    <div class="footer">
+        © 2025 MBF3C Class Resource
+    </div>
+</div>
+
+</body>
+</html>

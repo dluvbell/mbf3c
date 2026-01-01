@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBF3C - Unit 6: Probability</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            --money-color: #d35400;
+            --money-bg: #fff5e6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--accent-color);
+            border-bottom: 3px solid white;
+        }
+        
+        .home-btn { background-color: #e67e22 !important; }
+
+        /* Content Structure */
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Lesson Accordion */
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:first-child { border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); }
+        .accordion:last-of-type { border-bottom-left-radius: var(--border-radius); border-bottom-right-radius: var(--border-radius); }
+
+        .active-acc, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .accordion:after {
+            content: '\002B';
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .active-acc:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .example-box {
+            background-color: #f0f3f4;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .money-box {
+            background-color: var(--money-bg);
+            border: 2px solid var(--money-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .money-header {
+            color: var(--money-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Math Formatting */
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 2px;
+            font-size: 0.9em;
+        }
+        .top { border-bottom: 1px solid #000; display: block; padding: 0 2px; }
+        .bottom { display: block; padding: 0 2px; }
+
+        /* Practice Section */
+        .practice-controls {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        select, input[type="text"], input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover { background-color: #2980b9; }
+
+        .score-board {
+            margin-left: auto;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        #question-area {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed #bdc3c7;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Option Buttons for Which Rule */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .option-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        #feedback-area {
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 24px;
+        }
+
+        .correct { color: var(--success-color); }
+        .incorrect { color: var(--error-color); }
+
+        /* Visual Elements for Practice */
+        /* Dice */
+        .dice {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 4px;
+            gap: 2px;
+            margin: 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .dot { background: #333; border-radius: 50%; width: 100%; height: 100%; visibility: hidden; }
+        .d-show { visibility: visible; }
+
+        /* Cards */
+        .playing-card {
+            width: 80px;
+            height: 110px;
+            background: white;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            margin: 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .card-red { color: #e74c3c; }
+        .card-black { color: #2c3e50; }
+        .corner-top { position: absolute; top: 2px; left: 5px; font-size: 1rem; }
+        .corner-bottom { position: absolute; bottom: 2px; right: 5px; font-size: 1rem; transform: rotate(180deg); }
+
+        /* Spinner */
+        .spinner-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 10px;
+        }
+        .spinner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #333;
+            background: conic-gradient(red 0deg 90deg, blue 90deg 180deg, green 180deg 270deg, yellow 270deg 360deg);
+        }
+        .arrow {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #333;
+        }
+
+        /* Assignment Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: var(--primary-color); color: white; }
+
+        /* Print Button */
+        .print-btn {
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            float: right;
+        }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 600px) {
+            nav { flex-direction: column; }
+            nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            .histogram-container { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MBF3C Unit 6: Probability</h1>
+    <p>Ontario Curriculum | College Preparation</p>
+</header>
+
+<nav>
+    <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
+    <button class="active" onclick="openTab('tab-calculator')">Calculator</button>
+    <button onclick="openTab('tab-lessons')">Lessons</button>
+    <button onclick="openTab('tab-practice')">Practice</button>
+    <button onclick="openTab('tab-assignment')">Assignment</button>
+</nav>
+
+<main>
+    <div id="tab-calculator" class="tab-content active">
+        <h2>Probability Calculator</h2>
+        <p>Use the calculator below for complex calculations. For practice problems, try to calculate mentally or on paper first.</p>
+        <button class="btn-primary" onclick="window.open('https://www.calculator.net/probability-calculator.html', '_blank')">Open Calculator.net in New Tab</button>
+        <br><br>
+        <iframe src="https://www.calculator.net/probability-calculator.html?calctype=twoevent&x=0.5&y=0.5&v=&s=1" width="100%" height="600" frameborder="0"></iframe>
+    </div>
+
+    <div id="tab-lessons" class="tab-content">
+        <h2>Unit 6 Lessons</h2>
+        <p>Click on a topic to expand the lesson. Look for the <strong>💸 Money Connection</strong> to see how this applies to real life.</p>
+
+        <button class="accordion">6.1 Experimental vs. Theoretical Probability</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p><strong>Theoretical Probability:</strong> Based on math and analyzing what <em>should</em> happen.</p>
+            <p>Formula: P(A) = <span class="fraction"><span class="top">Number of Favourable Outcomes</span><span class="bottom">Total Number of Possible Outcomes</span></span></p>
+            <p><strong>Experimental Probability:</strong> Based on data from what <em>actually</em> happened.</p>
+            <p>Formula: P(A) = <span class="fraction"><span class="top">Number of Times Event Occurred</span><span class="bottom">Total Number of Trials</span></span></p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example 1 (Theoretical):</strong> A fair die is rolled. P(rolling > 4) = <span class="fraction"><span class="top">2</span><span class="bottom">6</span></span> or 33.3%.
+            </div>
+            <div class="example-box">
+                <strong>Example 2 (Experimental):</strong> You flipped a coin 50 times and got Heads 28 times. P(Heads) = <span class="fraction"><span class="top">28</span><span class="bottom">50</span></span> = 56%.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Insurance Rates</div>
+                <p>Car insurance companies use this every day. <br>
+                <strong>Theoretical:</strong> "Young drivers <em>should</em> be riskier." <br>
+                <strong>Experimental:</strong> They look at actual accident data (stats) from last year. If 16-year-olds had more accidents than predicted, the insurance price (premium) goes up next year to cover the cost.</p>
+            </div>
+        </div>
+
+        <button class="accordion">6.2 Odds</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p><strong>Odds</strong> compare what you want to happen vs. what you don't want to happen.</p>
+            <p><strong>Odds in Favour:</strong> Favourable : Unfavourable</p>
+            <p><strong>Odds Against:</strong> Unfavourable : Favourable</p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example:</strong> Rain probability is 20% (20 rain, 80 no rain).<br>
+                Odds in favour of rain = 20 : 80 = <strong>1 : 4</strong>.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Sports Betting & Lotteries</div>
+                <p>In horse racing or sports, you see "7 to 1 Odds." <br>
+                This means for every $1 you bet, you get $7 profit if you win. The bookmakers set these odds based on how likely they think the team is to lose. High payout = Low chance of winning.</p>
+            </div>
+        </div>
+
+        <button class="accordion">6.3 Mutually Exclusive Events (OR)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p>Two events that <strong>cannot</strong> happen at the same time.</p>
+            <p>Keyword: <strong>OR</strong> -> <strong>ADD</strong> the probabilities.</p>
+            <p>Formula: P(A or B) = P(A) + P(B)</p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example:</strong> Rolling a die. P(2 OR 5) = <span class="fraction"><span class="top">1</span><span class="bottom">6</span></span> + <span class="fraction"><span class="top">1</span><span class="bottom">6</span></span> = <span class="fraction"><span class="top">2</span><span class="bottom">6</span></span>.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Business Choices</div>
+                <p>Imagine you have a limited budget for a new phone. You can buy an iPhone <strong>OR</strong> a Samsung. You cannot buy both with that money.<br>
+                When companies calculate market share, a customer is usually counted as exclusively buying Brand A or Brand B in that moment.</p>
+            </div>
+        </div>
+
+        <button class="accordion">6.4 Non-Mutually Exclusive Events (OR)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p>Events that <strong>can</strong> happen at the same time (overlap).</p>
+            <p>Formula: P(A or B) = P(A) + P(B) - P(A and B)</p>
+            <p><em>We subtract the overlap so we don't count it twice.</em></p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example:</strong> Drawing a Heart OR a Face Card.<br>
+                P(Heart) + P(Face) - P(Heart Face Cards).
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Scholarships & Grants</div>
+                <p>Can you get an Academic Scholarship? Yes. Can you get an Athletic Scholarship? Yes. <br>
+                Can you get <strong>both</strong>? Yes!<br>
+                When a university calculates how many students received financial aid, they have to subtract the students who got *both* so they don't count the same student twice in their budget report.</p>
+            </div>
+        </div>
+
+        <button class="accordion">6.5 Independent Events (AND)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p>The first event does <strong>not</strong> affect the second event.</p>
+            <p>Keyword: <strong>AND</strong> -> <strong>MULTIPLY</strong>.</p>
+            <p>Formula: P(A and B) = P(A) × P(B)</p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example:</strong> Flipping a coin AND rolling a die.<br>
+                P(Heads and 6) = <span class="fraction"><span class="top">1</span><span class="bottom">2</span></span> × <span class="fraction"><span class="top">1</span><span class="bottom">6</span></span> = <span class="fraction"><span class="top">1</span><span class="bottom">12</span></span>.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The "Gambler's Fallacy"</div>
+                <p>In Roulette, if the ball lands on "Red" 5 times in a row, gamblers think "Black" is due to hit next. <br>
+                <strong>Wrong!</strong> The wheel has no memory. The spins are <em>Independent</em>. Betting money thinking the past affects the future in random games is the fastest way to go broke.</p>
+            </div>
+        </div>
+
+        <button class="accordion">6.6 Dependent Events (AND)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p>The first event <strong>changes</strong> the probability of the second event (e.g., eating a candy, not putting a card back).</p>
+            <p>Formula: P(A and B) = P(A) × P(B after A happened)</p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example:</strong> Drawing two Aces without replacement.<br>
+                P(1st Ace) = <span class="fraction"><span class="top">4</span><span class="bottom">52</span></span>. P(2nd Ace) = <span class="fraction"><span class="top">3</span><span class="bottom">51</span></span> (one is gone!).<br>
+                Result = <span class="fraction"><span class="top">4</span><span class="bottom">52</span></span> × <span class="fraction"><span class="top">3</span><span class="bottom">51</span></span>.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Blackjack & Card Counting</div>
+                <p>In Blackjack, if high cards (Aces, Kings) are played, they are gone from the deck. This is a <em>Dependent</em> event.<br>
+                Professional "Card Counters" track this. If many low cards are gone, the remaining deck is rich in high cards (which is good for the player). They bet more money when the math is in their favour.</p>
+            </div>
+        </div>
+
+        <button class="accordion">6.7 Tree Diagrams & Expected Value</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save PDF</button>
+            <h3>Key Concepts</h3>
+            <p>A visual map of all possible outcomes. It helps us calculate the <strong>Expected Value</strong> (the average result over time).</p>
+            
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example:</strong> Mapping out 3 coin flips to see that HHH is just 1 out of 8 paths.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Business Risk Analysis</div>
+                <p>Companies use Tree Diagrams to decide on new products.<br>
+                Branch 1: "Product Succeeds" (60% chance) -> Profit $1 Million.<br>
+                Branch 2: "Product Fails" (40% chance) -> Loss $200,000.<br>
+                They multiply the probability by the money to see if the risk is worth taking.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-practice" class="tab-content">
+        <h2>Practice Problems</h2>
+        <div class="practice-controls">
+            <label for="practice-mode">Select Mode:</label>
+            <select id="practice-mode" onchange="resetPracticeUI()">
+                <option value="visual">Single Problem (Visual)</option>
+                <option value="text">Text Based (Word Problems)</option>
+                <option value="rule">Which Rule? (Scenario Analysis)</option>
+                <option value="all">All in One (Random)</option>
+            </select>
+            <button class="btn-primary" onclick="generateQuestion()">New Question</button>
+            <span class="score-board">Score: <span id="score-display">0</span></span>
+        </div>
+
+        <div id="question-area">
+            <p>Select a mode and click "New Question" to begin.</p>
+        </div>
+
+        <div id="input-area" style="text-align: center; margin-top: 15px;">
+            <input type="text" id="user-answer" placeholder="Enter answer (e.g., 25 or 1/4)">
+            <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
+        </div>
+        
+        <div id="feedback-area"></div>
+        <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;" id="format-hint">
+            * Acceptable formats: Fractions (1/2), Decimals (0.5), or Percent (50%).
+        </p>
+    </div>
+
+    <div id="tab-assignment" class="tab-content">
+        <h2>Unit 6 Assignment: The Smart Risk Taker</h2>
+        <p><strong>Scenario:</strong> You are a Junior Financial Planner at 'Future Wealth'. Your client, <strong>Mr. Kim</strong>, has two financial dilemmas. You must use your knowledge of Probability and Expected Value to write a report giving him the best financial advice.</p>
+        
+        <div class="money-box">
+            <div class="money-header">💼 Your Mission</div>
+            <p>Help Mr. Kim understand the math behind gambling and warranties so he can save money.</p>
+        </div>
+
+        <h3>Part A: The Gambling Analysis ("The Jackpot Fantasy")</h3>
+        <p>Mr. Kim wants to bet big on a casino game or lottery. He believes he is "due" for a win.</p>
+        <ol>
+            <li><strong>Choose a Game:</strong> Pick a simple game (e.g., rolling dice, flipping coins, or a card game).</li>
+            <li><strong>Analyze the Math:</strong>
+                <ul>
+                    <li>Calculate P(Winning) and P(Losing).</li>
+                    <li>Calculate the <strong>Odds in Favour</strong> of winning.</li>
+                    <li>Calculate the <strong>Expected Value (EV)</strong>. (How much money is lost on average per game?)</li>
+                </ul>
+            </li>
+            <li><strong>Financial Advice:</strong> Explain to Mr. Kim why this game is not a valid investment strategy based on your EV calculation.</li>
+        </ol>
+
+        <h3>Part B: The Warranty Decision ("Peace of Mind?")</h3>
+        <p>Mr. Kim is buying a <strong>$1,200 smartphone</strong>. The store offers a <strong>2-year extended warranty for $150</strong>. Statistics show there is an <strong>8% chance</strong> the phone will break within 2 years.</p>
+        <ol>
+            <li><strong>Analyze Options:</strong>
+                <ul>
+                    <li>Option 1 (Buy Warranty): Cost is fixed at $150.</li>
+                    <li>Option 2 (No Warranty): 8% chance of paying $1,200, 92% chance of paying $0.</li>
+                </ul>
+            </li>
+            <li><strong>Calculate Expected Cost:</strong> Calculate the Expected Value of the cost for Option 2.</li>
+            <li><strong>Financial Advice:</strong> 
+                <ul>
+                    <li>Mathematically, which option is cheaper?</li>
+                    <li>Is there a reason to buy the warranty despite the math? (Hint: Peace of mind).</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Grading Rubric (KICA)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Level 4 (80-100%)</th>
+                    <th>Level 3 (70-79%)</th>
+                    <th>Level 2 (60-69%)</th>
+                    <th>Level 1 (50-59%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Knowledge</strong></td>
+                    <td>Calculations (Prob, Odds, EV) are accurate and error-free.</td>
+                    <td>Calculations are logical with minor errors.</td>
+                    <td>Basic calculations done with some errors.</td>
+                    <td>Significant calculation errors.</td>
+                </tr>
+                <tr>
+                    <td><strong>Inquiry</strong></td>
+                    <td>Analysis of the game and warranty is logical and insightful.</td>
+                    <td>Analysis uses appropriate mathematical models.</td>
+                    <td>Analysis is simple or incomplete.</td>
+                    <td>Limited analysis shown.</td>
+                </tr>
+                <tr>
+                    <td><strong>Communication</strong></td>
+                    <td>Explains math concepts clearly using correct terminology.</td>
+                    <td>Explains concepts clearly.</td>
+                    <td>Explanation is somewhat clear.</td>
+                    <td>Explanation is confusing.</td>
+                </tr>
+                <tr>
+                    <td><strong>Application</strong></td>
+                    <td>Connects math results to financial advice expertly.</td>
+                    <td>Connects math results to financial advice well.</td>
+                    <td>Weak connection between math and advice.</td>
+                    <td>No connection made to the scenario.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+    // --- State Management ---
+    let currentScore = 0; // Initialize logic variable
+    
+    // --- Navigation Logic ---
+    function openTab(tabId) {
+        // Hide all tabs
+        const contents = document.getElementsByClassName('tab-content');
+        for (let content of contents) {
+            content.classList.remove('active');
+        }
+        // Show selected tab
+        document.getElementById(tabId).classList.add('active');
+
+        // Update nav buttons
+        const navBtns = document.querySelectorAll('nav button');
+        navBtns.forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    // --- Accordion Logic ---
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-acc");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+    // --- Print Logic ---
+    function printLesson(btn) {
+        alert("Printing functionality would open a system dialog here.");
+        window.print();
+    }
+
+    // --- Helpers ---
+    function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    function randChoice(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // --- Visual Generators ---
+    function getDiceHTML(num) {
+        let dots = '';
+        const patterns = {
+            1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8]
+        };
+        for(let i=0; i<9; i++) {
+            let visibility = patterns[num].includes(i) ? 'd-show' : '';
+            dots += `<div class="dot ${visibility}"></div>`;
+        }
+        return `<div class="dice">${dots}</div>`;
+    }
+
+    function getCardHTML(value, suit) {
+        const suits = {'H': '♥', 'D': '♦', 'C': '♣', 'S': '♠'};
+        const colorClass = (suit === 'H' || suit === 'D') ? 'card-red' : 'card-black';
+        return `
+        <div class="playing-card ${colorClass}">
+            <div class="corner-top">${value}${suits[suit]}</div>
+            <div>${suits[suit]}</div>
+            <div class="corner-bottom">${value}${suits[suit]}</div>
+        </div>`;
+    }
+
+    function getSpinnerHTML(sections) {
+        // Simplified spinner visual representation
+        return `
+        <div class="spinner-container">
+            <div class="arrow"></div>
+            <div class="spinner"></div>
+        </div>
+        <p>Sections: Red, Blue, Green, Yellow (Equal Size)</p>
+        `;
+    }
+
+    // --- Main Logic ---
+    function resetPracticeUI() {
+        document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'New Question' to begin.</p>";
+        document.getElementById('user-answer').value = "";
+        
+        // Reset score on section change
+        currentScore = 0;
+        document.getElementById('score-display').innerText = currentScore;
+        
+        const mode = document.getElementById('practice-mode').value;
+        if (mode === 'rule') {
+            document.getElementById('input-area').style.display = 'none';
+            document.getElementById('format-hint').style.display = 'none';
+        } else {
+            document.getElementById('input-area').style.display = 'block';
+            document.getElementById('format-hint').style.display = 'block';
+        }
+    }
+
+    let currentQuestion = null;
+
+    function generateQuestion() {
+        const mode = document.getElementById('practice-mode').value;
+        const qArea = document.getElementById('question-area');
+        const feedback = document.getElementById('feedback-area');
+        const input = document.getElementById('user-answer');
+        
+        feedback.innerText = "";
+        feedback.className = "";
+        input.value = "";
+        
+        let qType = mode;
+        if (mode === 'all') {
+            const types = ['visual', 'text', 'rule'];
+            qType = types[Math.floor(Math.random() * types.length)];
+        }
+
+        // Adjust UI based on type
+        if (qType === 'rule') {
+            document.getElementById('input-area').style.display = 'none';
+            document.getElementById('format-hint').style.display = 'none';
+        } else {
+            document.getElementById('input-area').style.display = 'block';
+            document.getElementById('format-hint').style.display = 'block';
+        }
+
+        if (qType === 'visual') {
+            generateVisualQuestion(qArea);
+        } else if (qType === 'text') {
+            generateTextQuestion(qArea);
+        } else if (qType === 'rule') {
+            generateRuleQuestion(qArea);
+        }
+    }
+
+    // --- 1. Infinite Visual Questions ---
+    function generateVisualQuestion(container) {
+        const rand = Math.random();
+        let ans, qText;
+
+        if (rand < 0.33) {
+            // Dice
+            const target = randInt(1, 6);
+            // Dynamic Question Type
+            const qType = randChoice(['specific', 'less', 'greater', 'parity']);
+            
+            if (qType === 'specific') {
+                qText = `What is the probability of rolling a <strong>${target}</strong>?`;
+                ans = 1/6;
+            } else if (qType === 'less') {
+                // "less than X" (X from 2 to 7)
+                const limit = randInt(2, 6); 
+                qText = `What is the probability of rolling a number <strong>less than ${limit}</strong>?`;
+                ans = (limit - 1) / 6;
+            } else if (qType === 'greater') {
+                // "greater than X" (X from 0 to 5)
+                const limit = randInt(1, 5);
+                qText = `What is the probability of rolling a number <strong>greater than ${limit}</strong>?`;
+                ans = (6 - limit) / 6;
+            } else {
+                const isEven = Math.random() > 0.5;
+                qText = `What is the probability of rolling an <strong>${isEven ? "Even" : "Odd"}</strong> number?`;
+                ans = 0.5;
+            }
+            
+            // Show a random dice face for flavor
+            container.innerHTML = `
+                ${getDiceHTML(randInt(1,6))}
+                <p>Consider a standard fair die. ${qText}</p>
+            `;
+        } else if (rand < 0.66) {
+            // Spinner (Red, Blue, Green, Yellow)
+            const colors = ['Red', 'Blue', 'Green', 'Yellow'];
+            const targetC = randChoice(colors);
+            const isOr = Math.random() > 0.5;
+            
+            if (isOr) {
+                // P(A or B)
+                let secondC = targetC;
+                while(secondC === targetC) secondC = randChoice(colors);
+                qText = `What is the probability of landing on <strong>${targetC} OR ${secondC}</strong>?`;
+                ans = 2/4;
+            } else {
+                qText = `What is the probability of landing on <strong>${targetC}</strong>?`;
+                ans = 1/4;
+            }
+            
+            container.innerHTML = `
+                ${getSpinnerHTML()}
+                <p>${qText}</p>
+            `;
+        } else {
+            // Cards
+            const v = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'][Math.floor(Math.random()*13)];
+            const s = ['H', 'D', 'C', 'S'][Math.floor(Math.random()*4)];
+            
+            const qType = randChoice(['suit', 'face', 'color', 'specific']);
+            
+            if (qType === 'suit') {
+                const suitName = {'H':'Hearts','D':'Diamonds','C':'Clubs','S':'Spades'}[s];
+                qText = `What is the probability of drawing a <strong>${suitName}</strong> from a full deck?`;
+                ans = 13/52;
+            } else if (qType === 'face') {
+                qText = `What is the probability of drawing a <strong>Face Card</strong> (J, Q, K)?`;
+                ans = 12/52;
+            } else if (qType === 'color') {
+                const color = (s === 'H' || s === 'D') ? "Red" : "Black";
+                qText = `What is the probability of drawing a <strong>${color}</strong> card?`;
+                ans = 26/52;
+            } else {
+                qText = `What is the probability of drawing exactly the <strong>${v} of ${s}</strong>?`;
+                ans = 1/52;
+            }
+
+            container.innerHTML = `
+                ${getCardHTML(v, s)}
+                <p>Consider a standard 52-card deck. ${qText}</p>
+            `;
+        }
+        currentQuestion = { answer: ans, type: 'numeric' };
+    }
+
+    // --- 2. Infinite Text Questions ---
+    function generateTextQuestion(container) {
+        // Procedurally generated scenarios
+        const type = randInt(0, 5); // 6 types
+        let qText, ans, ansType = 'numeric';
+
+        if (type === 0) {
+            // Marbles in Bag
+            const red = randInt(2, 10);
+            const blue = randInt(2, 10);
+            const total = red + blue;
+            qText = `A bag contains ${red} Red marbles and ${blue} Blue marbles. What is the probability of picking a <strong>Red</strong> marble?`;
+            ans = red / total;
+        } else if (type === 1) {
+            // Odds Calculation
+            const win = randInt(1, 5);
+            const lose = randInt(1, 10);
+            // 50% Odds in Favour, 50% Probability from Odds
+            if (Math.random() > 0.5) {
+                const total = win + lose;
+                qText = `The odds against winning are ${lose}:${win}. What is the <strong>probability</strong> of winning?`;
+                ans = win / total;
+            } else {
+                const p = randInt(10, 90); // percent
+                const favorable = p;
+                const unfavorable = 100 - p;
+                // Simplify roughly for display? No, just ask for format
+                qText = `The probability of rain is ${p}%. What are the <strong>Odds in Favour</strong> of rain? (Format: Yes:No, e.g. 20:80)`;
+                ans = `${favorable}:${unfavorable}`;
+                ansType = 'string';
+            }
+        } else if (type === 2) {
+            // Coin Flips (Independent)
+            const flips = randInt(2, 4);
+            qText = `You flip a fair coin <strong>${flips} times</strong>. What is the probability of getting Heads every single time?`;
+            ans = Math.pow(0.5, flips);
+        } else if (type === 3) {
+            // Mutually Exclusive (P(A or B))
+            const pA = randInt(1, 4) / 10; // 0.1 to 0.4
+            const pB = randInt(1, 4) / 10;
+            qText = `Event A and B are Mutually Exclusive. P(A)=${pA}, P(B)=${pB}. What is <strong>P(A or B)</strong>?`;
+            ans = pA + pB;
+        } else if (type === 4) {
+            // Independent (P(A and B))
+            const pA = 0.5;
+            const pB = randInt(1, 6) / 6; // Dice roll prob
+            // e.g. 1/6 = 0.166...
+            qText = `You flip a coin and roll a die. What is P(Heads <strong>AND</strong> rolling less than ${randInt(2,6)})?`; 
+            // Let's simplify: fixed numbers for easier checking
+            const limit = randInt(2, 5); // less than 2,3,4,5
+            const probDie = (limit - 1) / 6;
+            qText = `You flip a coin and roll a die. What is P(Heads <strong>AND</strong> rolling a number less than ${limit})?`;
+            ans = 0.5 * probDie;
+        } else {
+            // Dependent (No replacement)
+            const total = randInt(10, 20);
+            const winners = randInt(2, 5);
+            qText = `A raffle has ${total} tickets. You buy 2 tickets. There are ${winners} winning tickets. What is the probability that <strong>BOTH</strong> of your tickets are winners?`;
+            ans = (winners / total) * ((winners - 1) / (total - 1));
+        }
+
+        container.innerHTML = `<p>${qText}</p>`;
+        currentQuestion = { answer: ans, type: ansType };
+    }
+
+    // --- 3. Infinite Rule Questions ---
+    function generateRuleQuestion(container) {
+        // Templates to generate scenarios
+        const templates = [
+            {
+                q: "Rolling a [N1] OR a [N2] on a single die.",
+                a: "Mutually Exclusive",
+                vars: { N1: randInt(1,3), N2: randInt(4,6) } 
+            },
+            {
+                q: "Drawing a King OR a [Suit] from a deck.",
+                a: "Non-Mutually Exclusive",
+                vars: { Suit: randChoice(['Heart', 'Spade', 'Diamond']) }
+            },
+            {
+                q: "Flipping Heads AND then rolling a [N].",
+                a: "Independent",
+                vars: { N: randInt(1,6) }
+            },
+            {
+                q: "Picking a [Color] marble, NOT replacing it, then picking another.",
+                a: "Dependent",
+                vars: { Color: randChoice(['Red', 'Blue', 'Green']) }
+            },
+            {
+                q: "Buying a lottery ticket AND getting struck by lightning.",
+                a: "Independent",
+                vars: {}
+            },
+            {
+                q: "Being in Grade 11 OR being in Grade 12 (at the same time).",
+                a: "Mutually Exclusive",
+                vars: {}
+            },
+            {
+                q: "Drawing two Aces from a deck [Condition].",
+                a: "Dependent", // Default if condition is no replacement
+                special: true 
+            }
+        ];
+
+        let item = randChoice(templates);
+        let text = item.q;
+
+        // Special handling for variations
+        if (item.special) {
+            if (Math.random() > 0.5) {
+                text = "Drawing two Aces WITHOUT replacement.";
+                item.a = "Dependent";
+            } else {
+                text = "Drawing an Ace, putting it back, then drawing another.";
+                item.a = "Independent";
+            }
+        } else {
+            // Replace vars
+            for (const [key, val] of Object.entries(item.vars)) {
+                text = text.replace(`[${key}]`, val);
+            }
+        }
+
+        container.innerHTML = `
+            <p><strong>Scenario:</strong> ${text}</p>
+            <p>Identify the Scenario Type:</p>
+            <div class="option-grid">
+                <button class="option-btn" onclick="checkRuleAnswer('Mutually Exclusive')">Mutually Exclusive (OR)</button>
+                <button class="option-btn" onclick="checkRuleAnswer('Non-Mutually Exclusive')">Non-Mutually Exclusive (OR)</button>
+                <button class="option-btn" onclick="checkRuleAnswer('Independent')">Independent (AND)</button>
+                <button class="option-btn" onclick="checkRuleAnswer('Dependent')">Dependent (AND)</button>
+            </div>
+        `;
+        
+        currentQuestion = { answer: item.a, type: 'rule_selection' };
+    }
+
+    function checkRuleAnswer(selected) {
+        const feedback = document.getElementById('feedback-area');
+        if (selected === currentQuestion.answer) {
+            feedback.innerHTML = "Correct! It is " + selected + ".";
+            feedback.className = "correct";
+            updateScore();
+            setTimeout(generateQuestion, 1500);
+        } else {
+            feedback.innerHTML = "Incorrect. Try again.";
+            feedback.className = "incorrect";
+        }
+    }
+
+    function checkAnswer() {
+        if (!currentQuestion || currentQuestion.type === 'rule_selection') return;
+        
+        const userRaw = document.getElementById('user-answer').value.trim();
+        const feedback = document.getElementById('feedback-area');
+        
+        let isCorrect = false;
+
+        if (currentQuestion.type === 'string') {
+            if (userRaw.toLowerCase() === currentQuestion.answer.toString().toLowerCase()) {
+                isCorrect = true;
+            }
+        } else {
+            // Numeric handling
+            let userVal = parseFloat(userRaw);
+            
+            // Handle fractions (e.g., "1/2")
+            if (userRaw.includes('/')) {
+                const parts = userRaw.split('/');
+                userVal = parseInt(parts[0]) / parseInt(parts[1]);
+            }
+            // Handle percentages (e.g., "50" or "50%")
+            else if (userRaw.includes('%') || (userVal > 1 && userVal <= 100)) {
+                userVal = parseFloat(userRaw) / 100;
+            }
+
+            // Margin of error for decimals
+            if (Math.abs(userVal - currentQuestion.answer) < 0.01) {
+                isCorrect = true;
+            }
+        }
+
+        if (isCorrect) {
+            feedback.innerHTML = "Correct!";
+            feedback.className = "correct";
+            updateScore();
+            setTimeout(generateQuestion, 1500);
+        } else {
+            feedback.innerHTML = "Incorrect. Try again.";
+            feedback.className = "incorrect";
+        }
+    }
+    
+    function updateScore() {
+        currentScore++;
+        // We generally don't persist mixed session scores, but consistent with UI
+        document.getElementById('score-display').innerText = currentScore;
+    }
+
+    // Initial Load
+    generateQuestion();
+
+</script>
+</body>
+</html>

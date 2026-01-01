@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBF3C - Unit 2: Quadratic Relations</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            --money-color: #d35400;
+            --money-bg: #fff5e6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--accent-color);
+            border-bottom: 3px solid white;
+        }
+
+        .home-btn { background-color: #e67e22 !important; }
+
+        /* Content Structure */
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Lesson Accordion */
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:first-child { border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); }
+        .accordion:last-of-type { border-bottom-left-radius: var(--border-radius); border-bottom-right-radius: var(--border-radius); }
+
+        .active-acc, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .accordion:after {
+            content: '\002B';
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .active-acc:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .example-box {
+            background-color: #f0f3f4;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .money-box {
+            background-color: var(--money-bg);
+            border: 2px solid var(--money-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .money-header {
+            color: var(--money-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Math Formatting */
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 4px;
+            font-size: 1.1em;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .top { border-bottom: 1px solid #000; display: block; padding: 0 2px; }
+        .bottom { display: block; padding: 0 2px; }
+
+        /* Practice Section */
+        .practice-controls {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+        }
+
+        select, input[type="text"], input[type="number"] {
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .btn-primary:hover { background-color: #2980b9; }
+
+        .score-board {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            float: right;
+            margin-top: 10px;
+        }
+
+        #question-area {
+            margin: 20px 0;
+            padding: 30px;
+            border: 2px dashed #bdc3c7;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        /* Option Buttons */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .option-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        #feedback-area {
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 24px;
+            font-size: 1.1rem;
+        }
+
+        .correct { color: var(--success-color); }
+        .incorrect { color: var(--error-color); }
+
+        /* Print Button */
+        .print-btn { background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; float: right; }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 600px) {
+            nav { flex-direction: column; }
+            nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MBF3C Unit 2: Quadratic Relations</h1>
+    <p>Ontario Curriculum | College Preparation</p>
+</header>
+
+<nav>
+    <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
+    <button class="active" onclick="openTab('tab-calculator')">Calculator</button>
+    <button onclick="openTab('tab-lessons')">Lessons</button>
+    <button onclick="openTab('tab-practice')">Practice</button>
+    <button onclick="openTab('tab-assignment')">Assignment</button>
+</nav>
+
+<main>
+    <div id="tab-calculator" class="tab-content active">
+        <h2>Graphing Calculator</h2>
+        <p>Use Desmos to visualize parabolas. Type the equations from the practice questions here to find the Vertex.</p>
+        <button class="btn-primary" onclick="window.open('https://www.desmos.com/calculator', '_blank')">Open Desmos in New Tab</button>
+        <br><br>
+        <iframe src="https://www.desmos.com/calculator" width="100%" height="800" frameborder="0"></iframe>
+    </div>
+
+    <div id="tab-lessons" class="tab-content">
+        <h2>Unit 2 Lessons</h2>
+        <p>Learn how curves (parabolas) model real-world trends like profit, gravity, and market cycles.</p>
+
+        <button class="accordion">2.1 The "Parabolic" Trend (Linear vs Quadratic)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Linear:</strong> A straight line trend. (Steady growth). <code>y = mx + b</code><br>
+            <strong>Quadratic:</strong> A curve (U-shape) called a <strong>Parabola</strong>. It goes up and comes down (or down then up). <code>y = ax² + bx + c</code></p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Example 1: Hourly Wage (Linear)</span>
+                You earn $15 per hour. If you work more hours, your money goes up in a straight line.<br>
+                <em>This is NOT Quadratic.</em>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 2: Throwing a Ball (Quadratic)</span>
+                You throw a ball in the air. It goes up, slows down, reaches a peak, and falls back down.<br>
+                <em>The path is a Parabola.</em>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 3: Finite Differences</span>
+                Look at the y-values: 1, 4, 9, 16, 25.<br>
+                1st Diff: 3, 5, 7, 9 (Not constant).<br>
+                2nd Diff: 2, 2, 2 (Constant).<br>
+                <em>If the Second Difference is constant, it's Quadratic.</em>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 4: The Equation</span>
+                Which is quadratic?<br>
+                A) y = 2x + 5 (Linear)<br>
+                B) y = x² - 4 (Quadratic because of the exponent ²)
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The Hype Cycle & Impulse Buying</div>
+                <p>Fashion trends, memes, and viral products often follow a parabolic curve. They shoot up in popularity quickly to a peak (Vertex), and then crash just as fast.</p>
+                <p><strong>Financial Lesson:</strong> Don't buy into the hype on the steep right side of the curve (FOMO). If you buy at the peak (Vertex), the value will only go down. Smart consumers wait for the trend to stabilize or buy before the curve goes vertical.</p>
+            </div>
+        </div>
+
+        <button class="accordion">2.2 The Vertex (Highs & Lows)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Vertex:</strong> The turning point of the parabola. It is either the <strong>Maximum</strong> (Peak) or <strong>Minimum</strong> (Valley).</p>
+            <p><strong>Vertex Form:</strong> <code>y = a(x - h)² + k</code><br>
+            The Vertex is at <strong>(h, k)</strong>.</p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Example 1: Finding the Vertex</span>
+                Equation: y = 2(x - 3)² + 5<br>
+                <strong>Solution:</strong> Vertex is (3, 5). This is the lowest point (Minimum) because 'a' is positive.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 2: A Negative Curve</span>
+                Equation: y = -1(x + 2)² + 10<br>
+                <strong>Solution:</strong> h is -2 (sign switch!), k is 10.<br>
+                Vertex is (-2, 10). This is the highest point (Maximum) because 'a' is negative (-1).
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 3: Interpretation</span>
+                A rocket's height is y = -5(t - 4)² + 100.<br>
+                <strong>Solution:</strong> Vertex is (4, 100). This means at 4 seconds, the rocket reaches its max height of 100 meters.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 4: Profit Model</span>
+                Profit P = -20(x - 50)² + 5000.<br>
+                <strong>Solution:</strong> The Vertex is (50, 5000). Max profit is $5000 when the price x is $50.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Speeding vs. Gas Money</div>
+                <p>Did you know air resistance increases with the square of your speed ($v^2$)? Driving at 120km/h uses significantly more gas than 100km/h for a small time gain.</p>
+                <p><strong>Financial Lesson:</strong> Every car has an "Optimal Speed" (Vertex) for fuel efficiency, usually around 90-100km/h. Driving faster than this vertex literally burns money out of your tailpipe. Finding the vertex saves your wallet.</p>
+            </div>
+        </div>
+
+        <button class="accordion">2.3 Expanding & Intercepts</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Standard Form:</strong> <code>y = ax² + bx + c</code>.<br>
+            <strong>y-intercept:</strong> The point where the graph crosses the y-axis (where x=0). In standard form, the y-intercept is <strong>c</strong>.</p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Example 1: Expanding (FOIL)</span>
+                Convert y = (x + 2)(x + 3) to standard form.<br>
+                <strong>Solution:</strong> x² + 3x + 2x + 6 = <strong>x² + 5x + 6</strong>.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 2: Finding y-intercept</span>
+                Equation: y = 2x² - 5x + 12.<br>
+                <strong>Solution:</strong> Let x = 0. y = 12. The y-intercept is 12.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 3: Business Start</span>
+                A business profit model is y = -x² + 10x - 50.<br>
+                <strong>Solution:</strong> The y-intercept is -50. This means at day 0 (start), the business has a loss of $50 (Setup cost).
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 4: Direction</span>
+                y = -3x² + 4x + 1.<br>
+                <strong>Solution:</strong> Since 'a' is negative (-3), the parabola opens DOWN (frown).
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Side Hustle Startup Costs</div>
+                <p>In a business quadratic model ($y = ax^2 + bx + c$), the constant <strong>'c'</strong> represents your <strong>Startup Cost</strong> (Initial Investment). It is usually a negative number in your bank account.</p>
+                <p><strong>Financial Lesson:</strong> Whether it's buying a lawnmower or art supplies, you start in debt ($c$). You must work hard to cross the "Break-even point" (x-intercept) before you actually start making profit. Watch your 'c' value!</p>
+            </div>
+        </div>
+
+        <button class="accordion">2.4 Maximizing Profit (The Sweet Spot)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p>In business, you can't just raise prices forever. If price is too high, no one buys. If too low, you make no money.</p>
+            <p>The relationship between Price and Profit is often <strong>Quadratic</strong>. The <strong>Vertex</strong> is the "Sweet Spot".</p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Example 1: The Concept</span>
+                Low Price = High Sales but Low Margin.<br>
+                High Price = High Margin but Low Sales.<br>
+                Middle Price = <strong>Maximum Profit</strong>.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 2: Analyzing the Model</span>
+                Profit P = -5(x - 20)² + 1000. (x is price).<br>
+                <strong>Solution:</strong> Max Profit is $1000. It happens when Price = $20.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 3: Break-Even Points</span>
+                The x-intercepts (where y=0) are the break-even points. Below the lower x or above the higher x, you lose money. You must price between them.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 4: Real Estate</span>
+                House value usually rises linearly, but in a bubble, it goes quadratic. If y = -2(t-2022)² + 800k.<br>
+                The peak was in 2022 at $800k. Now it is dropping.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The Vertex of Happiness</div>
+                <p>Economists call this "Diminishing Returns." The joy you get from spending money follows a downward parabola. The first coffee gives you energy and joy. The 5th coffee just gives you a stomach ache.</p>
+                <p><strong>Financial Lesson:</strong> Spending more doesn't always equal more happiness. There is a "Vertex" of satisfaction. The key to wealth is knowing when you've reached that peak and stopping there.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-practice" class="tab-content">
+        <h2>Practice Problems</h2>
+        
+        <div class="practice-controls">
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Problem Type:</label>
+            <select id="practice-selector" onchange="resetPracticeUI()">
+                <option value="" disabled selected>-- Choose a Topic --</option>
+                
+                <optgroup label="Main Concepts">
+                    <option value="vis-vertex">Find Vertex (Equation)</option>
+                    <option value="vis-direction">Find Direction (Equation)</option>
+                    <option value="txt-2.1">Linear vs Quadratic (2.1)</option>
+                    <option value="txt-2.2">Vertex Form Analysis (2.2)</option>
+                    <option value="txt-2.3">Standard Form Intercepts (2.3)</option>
+                    <option value="txt-2.4">Profit & Max/Min Models (2.4)</option>
+                </optgroup>
+
+                <option value="all">All in One (Random Mix)</option>
+            </select>
+
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
+            <div class="score-board">Score: <span id="score-display">0</span></div>
+        </div>
+
+        <div id="question-area">
+            <p>Please select a topic from the dropdown above to begin.</p>
+        </div>
+
+        <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
+            <input type="text" id="user-answer" placeholder="Enter answer (e.g., UP or (3,5))">
+            <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
+        </div>
+        
+        <div id="feedback-area"></div>
+    </div>
+
+    <div id="tab-assignment" class="tab-content">
+        <h2>Unit 2 Assignment: The Profit Maximizer</h2>
+        <p><strong>Scenario:</strong> You are the Marketing Director for a new streetwear brand dropping a limited edition hoodie. Your goal is not just to sell out, but to make the <strong>Maximum Profit</strong>.</p>
+        
+        <div class="money-box">
+            <div class="money-header">💼 Your Mission</div>
+            <p>Use Quadratic Relations to find the "Sweet Spot" price that generates the most money.</p>
+        </div>
+
+        <h3>Part A: The Model</h3>
+        <p>Your analytics team has given you the following Profit Equation based on market research:</p>
+        <p style="font-size: 1.2rem; text-align: center; font-weight: bold; padding: 10px; background: #eee;">P = -10(x - 60)² + 15000</p>
+        <p>Where <strong>P</strong> is Profit (in dollars) and <strong>x</strong> is the Price of the hoodie (in dollars).</p>
+        
+        <ol>
+            <li><strong>Identify the Vertex:</strong> What are the coordinates (h, k)?</li>
+            <li><strong>Interpret the Vertex:</strong> 
+                <ul>
+                    <li>What implies the "Best Price" to sell at?</li>
+                    <li>What is the "Maximum Profit" you can expect at that price?</li>
+                </ul>
+            </li>
+            <li><strong>The "Rip-off" Scenario:</strong> What happens to the Profit (P) if you get greedy and set the price (x) to $100? Calculate P.</li>
+        </ol>
+
+        <h3>Part B: Analysis</h3>
+        <ol>
+            <li><strong>Direction:</strong> Does this graph open UP or DOWN? How does this relate to "Peak Profit"?</li>
+            <li><strong>Recommendation:</strong> Write a short email to the CEO recommending the price. Explain why pricing it higher than your recommendation would actually lose the company money.</li>
+        </ol>
+
+        <h3>Grading Rubric (KICA)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Level 4 (80-100%)</th>
+                    <th>Level 3 (70-79%)</th>
+                    <th>Level 2 (60-69%)</th>
+                    <th>Level 1 (50-59%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Knowledge</strong></td>
+                    <td>Identifies Vertex and calculates values with 100% accuracy.</td>
+                    <td>Identifies Vertex correctly with minor calculation errors.</td>
+                    <td>Basic understanding of Vertex shown, but with errors.</td>
+                    <td>Cannot identify the Vertex.</td>
+                </tr>
+                <tr>
+                    <td><strong>Inquiry</strong></td>
+                    <td>Logic regarding pricing models is insightful and clear.</td>
+                    <td>Logic is sound.</td>
+                    <td>Logic is simple.</td>
+                    <td>Little logic shown.</td>
+                </tr>
+                <tr>
+                    <td><strong>Communication</strong></td>
+                    <td>Email to CEO is professional, persuasive, and uses math terms correctly.</td>
+                    <td>Email is clear and correct.</td>
+                    <td>Email is understandable but lacks math terms.</td>
+                    <td>Email is confusing.</td>
+                </tr>
+                <tr>
+                    <td><strong>Application</strong></td>
+                    <td>Connects the abstract equation to real business strategy perfectly.</td>
+                    <td>Connects equation to business strategy.</td>
+                    <td>Weak connection between equation and money.</td>
+                    <td>No connection made.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+    // --- State Management ---
+    let currentScore = 0; // Initialize logic variable
+    
+    // --- Navigation ---
+    function openTab(tabId) {
+        const contents = document.getElementsByClassName('tab-content');
+        for (let content of contents) content.classList.remove('active');
+        document.getElementById(tabId).classList.add('active');
+        const navBtns = document.querySelectorAll('nav button');
+        navBtns.forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    // --- Accordion ---
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-acc");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) panel.style.maxHeight = null;
+            else panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+    }
+
+    function printLesson(btn) {
+        alert("Printing functionality would open a system dialog here.");
+        window.print();
+    }
+
+    // --- Infinite Generator Helpers ---
+    function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function randChoice(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // --- Main Logic: Generate Question ---
+    function resetPracticeUI() {
+        document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
+        document.getElementById('input-area').style.display = 'none';
+        
+        // RESET SCORE when switching sections
+        currentScore = 0;
+        document.getElementById('score-display').innerText = currentScore;
+    }
+
+    let currentQuestion = null;
+
+    function generateQuestion() {
+        const selector = document.getElementById('practice-selector');
+        let val = selector.value;
+        const qArea = document.getElementById('question-area');
+        const inputArea = document.getElementById('input-area');
+        const feedback = document.getElementById('feedback-area');
+
+        // Reset
+        feedback.innerText = ""; feedback.className = "";
+        document.getElementById('user-answer').value = "";
+        inputArea.style.display = 'block';
+
+        // Handle "All in One" - Pick any generator
+        if (val === 'all') {
+            const options = ['vis-vertex','vis-direction','txt-2.1','txt-2.2','txt-2.3','txt-2.4'];
+            val = randChoice(options);
+        }
+
+        // Route to Procedural Generators
+        if (val === 'vis-vertex') genVertexEq(qArea);
+        else if (val === 'vis-direction') genDirectionEq(qArea);
+        else if (val === 'txt-2.1') genLinearVsQuad(qArea);
+        else if (val === 'txt-2.2') genVertexAnalysis(qArea);
+        else if (val === 'txt-2.3') genStandardIntercept(qArea);
+        else if (val === 'txt-2.4') genProfitModel(qArea);
+    }
+
+    // --- 1. Vertex from Equation (Whole Numbers) ---
+    function genVertexEq(container) {
+        // y = a(x - h)^2 + k
+        let a = randInt(1, 5) * (Math.random() > 0.5 ? 1 : -1);
+        let h = randInt(-10, 10);
+        let k = randInt(-20, 20);
+
+        // Build Equation String Logic (No zero handling)
+        let eq = `y = ${a}`;
+        if (h === 0) {
+            eq += `x²`;
+        } else {
+            let signH = h > 0 ? `- ${h}` : `+ ${Math.abs(h)}`;
+            eq += `(x ${signH})²`;
+        }
+        
+        if (k !== 0) {
+            if (k > 0) eq += ` + ${k}`;
+            else eq += ` - ${Math.abs(k)}`;
+        }
+
+        // Handle vertex answer format
+        // Answer is (h, k)
+        container.innerHTML = `
+            <p>Equation: ${eq}</p>
+            <p>Identify the coordinates of the <strong>Vertex</strong>.<br>
+            <small><em>Hint: Use the Calculator tab to check!</em></small></p>
+            <p>Format: (x,y)</p>
+        `;
+        currentQuestion = { answer: `(${h},${k})`, type: 'string' };
+    }
+
+    // --- 2. Direction from Equation ---
+    function genDirectionEq(container) {
+        let a = 0;
+        while (a === 0) a = randInt(-5, 5); // Ensure non-zero
+        
+        let h = randInt(-5, 5);
+        let k = randInt(-10, 10);
+        
+        let eq = `y = ${a}`;
+        if (h === 0) {
+            eq += `x²`;
+        } else {
+            let signH = h > 0 ? `- ${h}` : `+ ${Math.abs(h)}`;
+            eq += `(x ${signH})²`;
+        }
+        
+        if (k !== 0) {
+            if (k > 0) eq += ` + ${k}`;
+            else eq += ` - ${Math.abs(k)}`;
+        }
+
+        container.innerHTML = `
+            <p>Equation: ${eq}</p>
+            <p>Does this parabola open <strong>UP</strong> or <strong>DOWN</strong>?</p>
+        `;
+        currentQuestion = { answer: a > 0 ? "UP" : "DOWN", type: 'string' };
+    }
+
+    // --- 3. Linear vs Quadratic (Infinite Pool) ---
+    function genLinearVsQuad(container) {
+        let isQuad = Math.random() > 0.5;
+        let qText = "";
+
+        // Types: Equation, Pattern, Scenario
+        let type = randChoice(['eq', 'diff', 'word']);
+
+        if (type === 'eq') {
+            if (isQuad) {
+                // Quad: y = ax^2 + k
+                let a = randInt(1,3);
+                let k = randInt(1,10);
+                qText = `Equation: y = ${a}x²`;
+                if (k!==0) qText += ` + ${k}`;
+            } else {
+                // Linear: y = mx + b
+                let m = randInt(2,8);
+                let b = randInt(0,20);
+                qText = `Equation: y = ${m}x`;
+                if (b!==0) qText += ` + ${b}`;
+            }
+        } else if (type === 'diff') {
+            if (isQuad) qText = "A table of values has a constant <strong>Second Difference</strong>.";
+            else qText = "A table of values has a constant <strong>First Difference</strong>.";
+        } else {
+            // Word Scenarios
+            let linScenarios = ["Hourly wage of $15/hr", "Driving at constant speed", "Cost of apples per kg"];
+            let quadScenarios = ["Path of a thrown ball", "Area of a square (s²)", "Profit model with a peak"];
+            qText = isQuad ? randChoice(quadScenarios) : randChoice(linScenarios);
+            qText += ". Is this Linear or Quadratic?";
+        }
+
+        container.innerHTML = `<p>${qText}</p>`;
+        currentQuestion = { answer: isQuad ? "Quadratic" : "Linear", type: 'string' };
+    }
+
+    // --- 4. Vertex Form Analysis ---
+    function genVertexAnalysis(container) {
+        // Generate y = a(x-h)^2 + k
+        let a = randInt(1, 4) * (Math.random()>0.5?1:-1);
+        let h = randInt(0, 20); 
+        let k = randInt(0, 100);
+        
+        let eq = `y = ${a}`;
+        if (h === 0) {
+            eq += `x²`;
+        } else {
+            let signH = h > 0 ? `- ${h}` : `+ ${Math.abs(h)}`;
+            eq += `(x ${signH})²`;
+        }
+        if (k !== 0) {
+            let signK = k > 0 ? `+ ${k}` : `- ${Math.abs(k)}`;
+            eq += ` ${signK}`;
+        }
+        
+        // 50% ask for max/min val, 50% ask for x val
+        let askY = Math.random() > 0.5;
+        
+        container.innerHTML = `<p>Equation: ${eq}</p>`;
+        if (askY) {
+            let type = a < 0 ? "Maximum (High point)" : "Minimum (Low point)";
+            container.innerHTML += `<p>What is the ${type} y-value?</p>`;
+            currentQuestion = { answer: k.toString(), type: 'string' };
+        } else {
+            container.innerHTML += `<p>At what x-value does the vertex occur?</p>`;
+            currentQuestion = { answer: h.toString(), type: 'string' };
+        }
+    }
+
+    // --- 5. Standard Form Intercepts ---
+    function genStandardIntercept(container) {
+        // y = ax^2 + bx + c
+        let c = randInt(-500, 500);
+        let b = randInt(-20, 20);
+        let a = randInt(-5, 5); if(a==0) a=1;
+
+        let eq = `y = ${a}x²`;
+        if (b !== 0) {
+            if (b > 0) eq += ` + ${b}x`; else eq += ` - ${Math.abs(b)}x`;
+        }
+        if (c !== 0) {
+            if (c > 0) eq += ` + ${c}`; else eq += ` - ${Math.abs(c)}`;
+        }
+
+        container.innerHTML = `
+            <p>Equation: ${eq}</p>
+            <p>What is the <strong>y-intercept</strong>?</p>
+            <p><small>(Hint: It's the 'c' value, or when x=0)</small></p>
+        `;
+        currentQuestion = { answer: c.toString(), type: 'string' };
+    }
+
+    // --- 6. Profit Models ---
+    function genProfitModel(container) {
+        // Profit P = -a(x - price)^2 + maxProfit
+        let bestPrice = randInt(20, 100);
+        let maxP = randInt(1000, 50000);
+        let a = randInt(1, 10);
+
+        // Profit usually has x-h because price is rarely 0, so no h=0 check needed practically, but good to strictly follow rule if needed.
+        // Assuming price > 0 always.
+        let eq = `P = -${a}(x - ${bestPrice})² + ${maxP}`;
+        
+        let type = randChoice(['maxP', 'bestPrice']);
+        
+        container.innerHTML = `<p>Profit Model: ${eq}</p>`;
+        if (type === 'maxP') {
+            container.innerHTML += `<p>What is the <strong>Maximum Profit</strong>?</p>`;
+            currentQuestion = { answer: maxP.toString(), type: 'string' };
+        } else {
+            container.innerHTML += `<p>What <strong>Price (x)</strong> gives the maximum profit?</p>`;
+            currentQuestion = { answer: bestPrice.toString(), type: 'string' };
+        }
+    }
+
+    // --- Answer Checking ---
+    function checkAnswer() {
+        if (!currentQuestion) return;
+        
+        let userRaw = document.getElementById('user-answer').value.trim();
+        let feedback = document.getElementById('feedback-area');
+        
+        // Normalize for comparison (remove spaces, lowercase)
+        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
+        let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
+
+        if (cleanUser === cleanAns) {
+            feedback.innerHTML = "Correct!";
+            feedback.className = "correct";
+            updateScore();
+        } else {
+            feedback.innerHTML = "Incorrect. Try again.";
+            feedback.className = "incorrect";
+        }
+    }
+
+    function updateScore() {
+        currentScore++;
+        // We don't need local storage for this transient practice session per user request, 
+        // but if we did, we'd key it differently.
+        // For now, just UI update.
+        document.getElementById('score-display').innerText = currentScore;
+    }
+
+    // Init
+    generateQuestion();
+
+</script>
+</body>
+</html>

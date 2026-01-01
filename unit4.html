@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBF3C - Unit 4: Personal Finance</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            --money-color: #d35400;
+            --money-bg: #fff5e6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--accent-color);
+            border-bottom: 3px solid white;
+        }
+
+        .home-btn { background-color: #e67e22 !important; }
+
+        /* Content Structure */
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Lesson Accordion */
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:first-child { border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); }
+        .accordion:last-of-type { border-bottom-left-radius: var(--border-radius); border-bottom-right-radius: var(--border-radius); }
+
+        .active-acc, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .accordion:after {
+            content: '\002B';
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .active-acc:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .example-box {
+            background-color: #f0f3f4;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .money-box {
+            background-color: var(--money-bg);
+            border: 2px solid var(--money-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .money-header {
+            color: var(--money-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Math Formatting */
+        .math-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+        }
+        sup {
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+
+        /* Practice Section */
+        .practice-controls {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+        }
+
+        select, input[type="text"], input[type="number"] {
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .btn-primary:hover { background-color: #2980b9; }
+
+        .score-board {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            float: right;
+            margin-top: 10px;
+        }
+
+        #question-area {
+            margin: 20px 0;
+            padding: 30px;
+            border: 2px dashed #bdc3c7;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        #feedback-area {
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 24px;
+            font-size: 1.1rem;
+        }
+
+        .correct { color: var(--success-color); }
+        .incorrect { color: var(--error-color); }
+
+        /* Print Button */
+        .print-btn { background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; float: right; }
+        
+        /* Assignment Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: var(--primary-color); color: white; }
+
+        /* Assignment Task Box */
+        .task-box {
+            border-left: 5px solid var(--accent-color);
+            background: #fdfdfd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .task-step {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 600px) {
+            nav { flex-direction: column; }
+            nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MBF3C Unit 4: Personal Finance</h1>
+    <p>Ontario Curriculum | College Preparation</p>
+</header>
+
+<nav>
+    <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
+    <button class="active" onclick="openTab('tab-calculator')">Calculator</button>
+    <button onclick="openTab('tab-lessons')">Lessons</button>
+    <button onclick="openTab('tab-practice')">Practice</button>
+    <button onclick="openTab('tab-assignment')">Assignment</button>
+</nav>
+
+<main>
+    <div id="tab-calculator" class="tab-content active">
+        <h2>Car Loan & Finance Calculator</h2>
+        <p>Use this tool to calculate monthly payments and total interest. Essential for the assignment.</p>
+        <button class="btn-primary" onclick="window.open('https://www.calculator.net/auto-loan-calculator.html', '_blank')">Open Calculator in New Tab</button>
+        <br><br>
+        <iframe src="https://www.calculator.net/auto-loan-calculator.html?csaleprice=30000&cmonths=60&cinterestrate=5.5&cdownpayment=2000&ctradeinvalue=0&cstate=ON&csaletax=13&ctitlereg=100&printit=0&ctype=standard&x=64&y=16" width="100%" height="800" frameborder="0"></iframe>
+    </div>
+
+    <div id="tab-lessons" class="tab-content">
+        <h2>Unit 4 Lessons</h2>
+        <p>Don't be the person who only asks "What's the monthly payment?" Learn the real cost of money.</p>
+
+        <button class="accordion">4.1 Simple vs. Compound Interest</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Simple Interest:</strong> <span class="math-text">I = Prt</span>. Interest is linear. You only earn on the Principal.</p>
+            <p><strong>Compound Interest:</strong> <span class="math-text">A = P(1 + i)<sup>n</sup></span>. Interest is exponential. You earn "interest on interest".</p>
+            
+            <h3>Head-to-Head Comparisons</h3>
+            
+            <div class="example-box">
+                <span class="example-title">Comparison 1: Investing (Making Money)</span>
+                <p><strong>Scenario:</strong> You invest <strong>$10,000</strong> at <strong>5%</strong> for <strong>20 years</strong>.</p>
+                <hr>
+                <p><strong>Simple Interest:</strong><br>
+                <span class="math-text">I = 10,000 &times; 0.05 &times; 20 = $10,000</span><br>
+                Total Value: $10,000 (Principal) + $10,000 (Interest) = <strong>$20,000</strong></p>
+                
+                <p><strong>Compound Interest:</strong><br>
+                <span class="math-text">A = 10,000(1.05)<sup>20</sup> = $26,532.98</span></p>
+                <hr>
+                <p><strong>Difference:</strong> Compound Interest earned you an extra <strong>$6,532</strong> for doing nothing differently.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Comparison 2: Debt (The Danger Zone)</span>
+                <p><strong>Scenario:</strong> You owe <strong>$5,000</strong> on a Credit Card at <strong>20%</strong>. You don't pay it for <strong>10 years</strong>.</p>
+                <hr>
+                <p><strong>Simple Interest (If it existed):</strong><br>
+                <span class="math-text">I = 5,000 &times; 0.20 &times; 10 = $10,000</span><br>
+                Total Owed: $15,000</p>
+                
+                <p><strong>Compound Interest (Reality):</strong><br>
+                <span class="math-text">A = 5,000(1.20)<sup>10</sup> = $30,958.68</span></p>
+                <hr>
+                <p><strong>Difference:</strong> Because of compounding, the real debt is <strong>DOUBLE</strong> what simple interest would be.</p>
+            </div>
+            
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The "Rule of 72"</div>
+                <p>Want to know when your debt doubles? Divide 72 by the interest rate.<br>
+                At 20% interest (Credit Card), <span class="math-text">72 &div; 20 = 3.6</span> years. Your debt doubles every 3.6 years if you don't pay it!</p>
+            </div>
+        </div>
+
+        <button class="accordion">4.2 Buying a Car (The Real Cost)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Total Cost of Borrowing (C.O.B.):</strong> The difference between the Cash Price and what you actually pay.</p>
+            <p>Formula: <span class="math-text">Total Paid = (Monthly Payment &times; Months) + Down Payment</span></p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 1: The "Low" Monthly Payment Trap</span>
+                Car Price: $30,000. Loan: $500/month for 84 months (7 years).<br>
+                Total Paid: <span class="math-text">500 &times; 84 = $42,000</span>.<br>
+                <strong>Cost of Borrowing:</strong> $42,000 - $30,000 = <strong>$12,000 Extra!</strong>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 2: Shorter Term = Less Interest</span>
+                Same Car ($30k). Loan: $800/month for 48 months (4 years).<br>
+                Total Paid: <span class="math-text">800 &times; 48 = $38,400</span>.<br>
+                <strong>Savings:</strong> You save $3,600 by paying it off faster.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 3: Depreciation vs Payments</span>
+                By the time you finish paying off the 7-year loan (Ex 1), the $30,000 car might only be worth $10,000. You paid $42,000 for a $10,000 asset.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 4: 0% Financing?</span>
+                Dealers sometimes offer 0% interest but increase the car price by $3,000. Always ask for the "Cash Price" to compare.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The 1/10th Rule</div>
+                <p>Financial experts say your car expenses (gas, insurance, payment) should not exceed 10-15% of your monthly income. If you make $3000/month, your car budget is $300-$450 max.</p>
+            </div>
+        </div>
+
+        <button class="accordion">4.3 Credit Cards (The Debt Trap)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p>Credit Cards use <strong>Compound Interest</strong> calculated daily. The average rate is <strong>19.99%</strong>.</p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 1: How Interest Works</span>
+                Balance: $1000. Rate: 20%.<br>
+                Annual Interest: $200. Monthly Interest: ~$16.66.<br>
+                If you pay $0, next month your balance is $1016.66 (Interest becomes Principal).
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 2: The Minimum Payment Trap</span>
+                You owe $5,000 on a credit card. Min payment is $100.<br>
+                If you only pay $100/month, it will take over <strong>20 years</strong> to pay off and cost you thousands in interest.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 3: The Grace Period</span>
+                If you pay your <strong>Full Statement Balance</strong> by the due date, interest is $0. This is the only smart way to use a credit card.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 4: Cash Advances</span>
+                Taking cash out of an ATM with a credit card has NO grace period. Interest starts immediately, often at 22%+. Never do this.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Credit Score</div>
+                <p>Your Credit Score (300-900) determines if you can buy a house or car. Missing a $20 credit card payment can ruin your score for years.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-practice" class="tab-content">
+        <h2>Practice Problems</h2>
+        
+        <div class="practice-controls">
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic:</label>
+            <select id="practice-selector" onchange="resetPracticeUI()">
+                <option value="" disabled selected>-- Choose a Topic --</option>
+                <optgroup label="Interest Math">
+                    <option value="simple">Simple Interest (I = Prt)</option>
+                    <option value="compound">Compound Interest (A = P(1+i)^n)</option>
+                </optgroup>
+                <optgroup label="Real World Scenarios">
+                    <option value="car_loan">Car Loans (Total Cost)</option>
+                    <option value="credit_card">Credit Card Interest</option>
+                    <option value="buy_vs_lease">Analysis: Which is cheaper?</option>
+                </optgroup>
+                <option value="all">All in One (Random Mix)</option>
+            </select>
+
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
+            <div class="score-board">Score: <span id="score-display">0</span></div>
+        </div>
+
+        <div id="question-area">
+            <p>Select a topic to begin.</p>
+        </div>
+
+        <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
+            <input type="text" id="user-answer" placeholder="Enter answer (numbers only)">
+            <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
+        </div>
+        
+        <div id="feedback-area"></div>
+    </div>
+
+    <div id="tab-assignment" class="tab-content">
+        <h2>Unit 4 Assignment: "The Reality Check" Project</h2>
+        <p><strong>Objective:</strong> You will apply the financial concepts from this unit to make a realistic plan for purchasing and maintaining a vehicle based on a future career scenario.</p>
+        <p><strong>Instructions:</strong> Complete the following sections in a separate document. You may use the Calculator Tab to help you. Submit your final report to your teacher.</p>
+
+        <div class="money-box">
+            <div class="money-header">💼 Scenario</div>
+            <p>You have just graduated from college and landed your first full-time job. You need a car to get to work. Your goal is to find a reliable vehicle that fits within your budget (<strong>The 15% Rule</strong>).</p>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Part A: The Income (Inquiry)</span>
+            <p>1. Choose a career you are interested in (e.g., Electrician, Nurse, Graphic Designer).</p>
+            <p>2. Find the average <strong>entry-level annual salary</strong> for this job in Ontario. (Cite your source).</p>
+            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). <br><em>(Hint: Assume tax takes about 25%. So multiply Annual Salary by 0.75, then divide by 12).</em></p>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Part B: The Car Hunt (Inquiry & Application)</span>
+            <p>1. Go to <strong>AutoTrader.ca</strong> and find a used vehicle you would like to buy.</p>
+            <p>2. Record the <strong>Cash Price</strong>, Year, Make, and Model. (Include the link).</p>
+            <p>3. Use the Calculator Tab to calculate the <strong>Monthly Finance Payment</strong>.</p>
+            <ul>
+                <li>Assume a <strong>Interest Rate of 7.99%</strong> (Standard used car rate).</li>
+                <li>Assume a <strong>Term of 60 Months</strong> (5 Years).</li>
+                <li>Assume <strong>13% HST</strong> is added to the price.</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Part C: The Monthly Burn (Application)</span>
+            <p>Owning a car is more than just the loan payment. Calculate your Total Monthly Car Budget:</p>
+            <ul>
+                <li><strong>Loan Payment:</strong> (From Part B)</li>
+                <li><strong>Insurance Estimate:</strong> (Assume $250/month if you are under 25, or find a real quote).</li>
+                <li><strong>Gas/Charging:</strong> (Assume $150/month for average driving).</li>
+            </ul>
+            <p><strong>Total Monthly Cost = Loan + Insurance + Gas</strong></p>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Part D: The Verdict (Communication)</span>
+            <p><strong>The Rule:</strong> Financial experts warn that your Total Car Costs should not exceed <strong>15%</strong> of your Monthly Net Income.</p>
+            <p>1. Calculate your percentage: <span class="math-text">(Total Monthly Cost &div; Monthly Net Income) &times; 100</span>.</p>
+            <p>2. <strong>Conclusion:</strong> Can you afford this car? </p>
+            <ul>
+                <li>If <strong>Yes</strong>: Explain why this is a smart financial decision.</li>
+                <li>If <strong>No</strong>: What will you change? (Cheaper car? Longer term? Get a roommate to save money?). Write a specific plan.</li>
+            </ul>
+        </div>
+
+        <h3>Assessment Rubric (Growing Success)</h3>
+        <table style="font-size: 0.9rem;">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Category</th>
+                    <th style="width: 20%;">Level 1 (50-59%)</th>
+                    <th style="width: 20%;">Level 2 (60-69%)</th>
+                    <th style="width: 20%;">Level 3 (70-79%)</th>
+                    <th style="width: 20%;">Level 4 (80-100%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Knowledge & Understanding</strong></td>
+                    <td>Calculations of Net Income and Loan Payments contain multiple errors.</td>
+                    <td>Calculations are mostly correct but contain some errors.</td>
+                    <td>Calculations of Net Income and Loan Payments are correct.</td>
+                    <td>Calculations are thorough, accurate, and precise.</td>
+                </tr>
+                <tr>
+                    <td><strong>Inquiry</strong></td>
+                    <td>Data gathered (Job, Car) is missing or unrealistic. Sources not cited.</td>
+                    <td>Data gathered is somewhat realistic. Sources verified.</td>
+                    <td>Data gathered is realistic and relevant to the scenario.</td>
+                    <td>Data gathered is highly realistic, specific, and fully sourced.</td>
+                </tr>
+                <tr>
+                    <td><strong>Application</strong></td>
+                    <td>Difficulty applying the 15% rule to the budget.</td>
+                    <td>Applies the 15% rule to the budget with some assistance.</td>
+                    <td>Correctly applies the 15% rule to determine affordability.</td>
+                    <td>Insightfully applies financial constraints to make a sound decision.</td>
+                </tr>
+                <tr>
+                    <td><strong>Communication</strong></td>
+                    <td>Conclusion is missing or does not follow from the data.</td>
+                    <td>Conclusion is stated but justification is weak.</td>
+                    <td>Conclusion is clear and justified by the calculations.</td>
+                    <td>Conclusion is persuasive, deeply detailed, and shows high financial literacy.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+    // --- State Management ---
+    let currentScore = 0;
+    
+    // --- Navigation ---
+    function openTab(tabId) {
+        const contents = document.getElementsByClassName('tab-content');
+        for (let content of contents) content.classList.remove('active');
+        document.getElementById(tabId).classList.add('active');
+        const navBtns = document.querySelectorAll('nav button');
+        navBtns.forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    // --- Accordion ---
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-acc");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) panel.style.maxHeight = null;
+            else panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+    }
+
+    function printLesson(btn) {
+        alert("Printing functionality would open a system dialog here.");
+        window.print();
+    }
+
+    // --- Helpers ---
+    function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function randChoice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function formatMoney(num) { return '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }
+
+    // --- Main Logic: Generate Question ---
+    function resetPracticeUI() {
+        document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
+        document.getElementById('input-area').style.display = 'none';
+        currentScore = 0;
+        document.getElementById('score-display').innerText = currentScore;
+    }
+
+    let currentQuestion = null;
+
+    function generateQuestion() {
+        const selector = document.getElementById('practice-selector');
+        let val = selector.value;
+        const qArea = document.getElementById('question-area');
+        const inputArea = document.getElementById('input-area');
+        const feedback = document.getElementById('feedback-area');
+
+        // Reset
+        feedback.innerText = ""; feedback.className = "";
+        document.getElementById('user-answer').value = "";
+        inputArea.style.display = 'block';
+
+        // All in One Handler
+        if (val === 'all') {
+            const options = ['simple', 'compound', 'car_loan', 'credit_card', 'buy_vs_lease'];
+            val = randChoice(options);
+        }
+
+        // Router
+        if (val === 'simple') genSimple(qArea);
+        else if (val === 'compound') genCompound(qArea);
+        else if (val === 'car_loan') genCarLoan(qArea);
+        else if (val === 'credit_card') genCreditCard(qArea);
+        else if (val === 'buy_vs_lease') genBuyVsLease(qArea);
+    }
+
+    // --- 1. Simple Interest ($I=Prt$) ---
+    function genSimple(qArea) {
+        const P = randInt(1, 20) * 500; // 500 to 10000
+        const r = randInt(2, 10); // percent
+        const t = randInt(1, 5); // years
+        
+        // Scenario Pool
+        const subjects = ["a friend", "a short-term bond", "a family member"];
+        const subject = randChoice(subjects);
+
+        const ans = P * (r/100) * t;
+
+        qArea.innerHTML = `
+            <p>You borrow <strong>$${P}</strong> from ${subject}.</p>
+            <p>Simple Interest Rate: <strong>${r}%</strong> per year.</p>
+            <p>Time: <strong>${t} years</strong>.</p>
+            <p>Calculate the <strong>Interest Only</strong> ($I$).</p>
+            <p>Formula: <span class="math-text">I = Prt</span></p>
+        `;
+        currentQuestion = { answer: ans, type: 'money' };
+    }
+
+    // --- 2. Compound Interest ($A=P(1+i)^n$) ---
+    function genCompound(qArea) {
+        const P = randInt(1, 10) * 1000;
+        const r = randInt(3, 12);
+        const t = randInt(2, 10);
+        
+        const ans = P * Math.pow((1 + r/100), t);
+
+        qArea.innerHTML = `
+            <p>You invest <strong>$${P}</strong> in a GIC.</p>
+            <p>Interest Rate: <strong>${r}%</strong> compounded annually.</p>
+            <p>Time: <strong>${t} years</strong>.</p>
+            <p>Calculate the <strong>Final Amount</strong> ($A$).</p>
+            <p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p>
+        `;
+        currentQuestion = { answer: ans, type: 'money' };
+    }
+
+    // --- 3. Car Loan (Total Cost) ---
+    function genCarLoan(qArea) {
+        const cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Kia Forte"];
+        const car = randChoice(cars);
+        const monthly = randInt(300, 800);
+        const months = randChoice([36, 48, 60, 72, 84]);
+        const down = randChoice([0, 1000, 2000, 5000]);
+
+        const totalPaid = (monthly * months) + down;
+
+        qArea.innerHTML = `
+            <p>You buy a <strong>${car}</strong>.</p>
+            <p>Monthly Payment: <strong>$${monthly}</strong></p>
+            <p>Term: <strong>${months} months</strong></p>
+            <p>Down Payment: <strong>$${down}</strong></p>
+            <p>What is the <strong>Total Amount Paid</strong> for this car?</p>
+        `;
+        currentQuestion = { answer: totalPaid, type: 'money' };
+    }
+
+    // --- 4. Credit Card Interest ---
+    function genCreditCard(qArea) {
+        const balance = randInt(5, 50) * 100; // 500 to 5000
+        const rate = 19.99; // Standard
+        
+        // Monthly interest roughly = (Balance * 0.1999) / 12
+        const ans = (balance * (rate/100)) / 12;
+
+        qArea.innerHTML = `
+            <p>Credit Card Balance: <strong>$${balance}</strong>.</p>
+            <p>Annual Interest Rate: <strong>${rate}%</strong>.</p>
+            <p>Calculate the interest charge for <strong>one month</strong>.</p>
+            <p><small>Hint: (Balance &times; Rate) &div; 12</small></p>
+        `;
+        currentQuestion = { answer: ans, type: 'money' };
+    }
+
+    // --- 5. Buy vs Lease (Logic) ---
+    function genBuyVsLease(qArea) {
+        // Simple logic question
+        const buyCost = randInt(25000, 35000);
+        const leasePayment = randInt(300, 400);
+        const leaseTerm = 48;
+        const buyout = randInt(12000, 15000);
+        
+        const leaseTotal = (leasePayment * leaseTerm) + buyout;
+        const diff = Math.abs(buyCost - leaseTotal);
+        
+        // Randomly ask "How much more does Leasing cost?" or "Total cost of Leasing?"
+        const type = Math.random() > 0.5 ? 'total' : 'diff';
+
+        qArea.innerHTML = `
+            <p><strong>Option A (Finance):</strong> Total price is <strong>$${buyCost}</strong>.</p>
+            <p><strong>Option B (Lease-to-own):</strong> $${leasePayment}/month for ${leaseTerm} months, plus a buyout of $${buyout} at the end.</p>
+        `;
+
+        if (type === 'total') {
+            qArea.innerHTML += `<p>What is the total cost of <strong>Option B</strong>?</p>`;
+            currentQuestion = { answer: leaseTotal, type: 'money' };
+        } else {
+            qArea.innerHTML += `<p>How much <strong>more</strong> expensive is Option B than Option A? (Find the difference)</p>`;
+            currentQuestion = { answer: leaseTotal - buyCost, type: 'money' };
+        }
+    }
+
+    // --- Check Answer (NO SPOILERS) ---
+    function checkAnswer() {
+        if (!currentQuestion) return;
+        
+        let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
+        let userVal = parseFloat(userRaw);
+        let feedback = document.getElementById('feedback-area');
+        
+        if (isNaN(userVal)) {
+            feedback.innerHTML = "Please enter a valid number.";
+            feedback.className = "";
+            return;
+        }
+
+        let isCorrect = false;
+        let correctVal = currentQuestion.answer;
+        const margin = 1.0; // Money rounding allowance
+
+        if (Math.abs(userVal - correctVal) <= margin) {
+            isCorrect = true;
+        }
+
+        if (isCorrect) {
+            feedback.innerHTML = "Correct!";
+            feedback.className = "correct";
+            currentScore++;
+            document.getElementById('score-display').innerText = currentScore;
+        } else {
+            feedback.innerHTML = "Incorrect. Try again.";
+            feedback.className = "incorrect";
+        }
+    }
+
+    // Init
+    generateQuestion();
+
+</script>
+</body>
+</html>
