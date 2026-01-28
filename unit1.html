@@ -883,7 +883,8 @@
         const u = parseFloat(document.getElementById('p-input').value);
         const fb = document.getElementById('p-feed');
         if(isNaN(u)) { fb.innerText = "Enter number"; return; }
-        if(Math.abs(u - pAns) <= 0.5) {
+        // *** 수정됨: 오차 범위를 0.5에서 0.01로 변경 ***
+        if(Math.abs(u - pAns) <= 0.01) {
             fb.className = "feedback correct"; fb.innerText = "Correct!";
             saveScore(true);
         } else {
@@ -975,7 +976,8 @@
         if(listType === 'select') {
              if(val === ans) correct = true;
         } else {
-             if(Math.abs(parseFloat(val) - ans) <= 0.5) correct = true;
+             // *** 수정됨: 오차 범위를 0.5에서 0.01로 변경 ***
+             if(Math.abs(parseFloat(val) - ans) <= 0.01) correct = true;
         }
 
         if(correct) {
@@ -1005,3 +1007,4 @@
 
 </body>
 </html>
+
