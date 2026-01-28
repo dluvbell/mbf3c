@@ -274,6 +274,8 @@
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
         }
+        
+        .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
     </style>
 </head>
 <body>
@@ -548,9 +550,17 @@
     </div>
 </main>
 
+<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+
 <script>
+    /* --- UTILS --- */
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const formatMoney = (num) => '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
     // --- State Management ---
     let currentScore = 0;
+    let isQuestionSolved = false; // New Anti-Spam flag
     
     // --- Navigation ---
     function openTab(tabId) {
@@ -578,11 +588,6 @@
         window.print();
     }
 
-    // --- Helpers ---
-    function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-    function randChoice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-    function formatMoney(num) { return '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }
-
     // --- Main Logic: Generate Question ---
     function resetPracticeUI() {
         document.getElementById('feedback-area').innerHTML = "";
@@ -605,6 +610,9 @@
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
         inputArea.style.display = 'block';
+        
+        // Anti-Spam Reset
+        isQuestionSolved = false;
 
         // All in One Handler
         if (val === 'all') {
@@ -725,31 +733,39 @@
         }
     }
 
-    // --- Check Answer (NO SPOILERS) ---
+    // --- Check Answer (Updated with Precision & Anti-Spam) ---
     function checkAnswer() {
         if (!currentQuestion) return;
+        
+        // Anti-Spam: Stop if already solved
+        if (isQuestionSolved) return;
         
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
         let userVal = parseFloat(userRaw);
         let feedback = document.getElementById('feedback-area');
         
-        if (isNaN(userVal)) {
-            feedback.innerHTML = "Please enter a valid number.";
-            feedback.className = "";
-            return;
-        }
-
+        // Attempt numeric parsing logic
         let isCorrect = false;
-        let correctVal = currentQuestion.answer;
-        const margin = 1.0; // Money rounding allowance
+        let ansNum = parseFloat(currentQuestion.answer);
 
-        if (Math.abs(userVal - correctVal) <= margin) {
-            isCorrect = true;
+        if (!isNaN(userVal) && !isNaN(ansNum)) {
+             // 0.01 Precision for Numbers/Money
+             if (Math.abs(userVal - ansNum) <= 0.01) {
+                 isCorrect = true;
+             }
+        } else {
+            // String comparison (fallback for non-numeric logic if added later)
+            let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
+            let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
+            if (cleanUser === cleanAns) {
+                isCorrect = true;
+            }
         }
 
         if (isCorrect) {
             feedback.innerHTML = "Correct!";
             feedback.className = "correct";
+            isQuestionSolved = true; // Lock
             currentScore++;
             document.getElementById('score-display').innerText = currentScore;
         } else {
