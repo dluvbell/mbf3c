@@ -3,79 +3,1007 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBF3C Course Hub</title>
+    <title>MBF3C - Unit 1: Trigonometry</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #f4f6f7;
-            --card-bg: #ffffff;
+        /* --- General Styles --- */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f6f7; color: #2c3e50; }
+        header { background-color: #2c3e50; color: white; padding: 1.5rem; text-align: center; border-bottom: 5px solid #1abc9c; }
+        h1 { margin: 0; font-size: 1.8rem; }
+        h2 { border-bottom: 2px solid #1abc9c; padding-bottom: 10px; margin-top: 0; }
+        
+        /* --- Navigation --- */
+        nav { display: flex; justify-content: center; background-color: #34495e; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000; }
+        nav button { background: none; border: none; color: #ecf0f1; padding: 15px 20px; cursor: pointer; font-size: 16px; font-weight: 500; transition: 0.3s; border-bottom: 4px solid transparent; }
+        nav button:hover { background-color: #1abc9c; }
+        nav button.active { background-color: #16a085; border-bottom: 4px solid #f1c40f; color: white; }
+
+        .home-btn { background-color: #e67e22 !important; }
+
+        /* --- Main Container --- */
+        .container { max-width: 900px; margin: 30px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: none; }
+        .container.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Math Formatting --- */
+        .math-line { display: flex; align-items: center; flex-wrap: wrap; font-size: 1.1rem; font-family: 'Times New Roman', serif; margin: 8px 0; color: #2c3e50; }
+        .fraction { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 5px; text-align: center; font-size: 0.95em; }
+        .top { border-bottom: 1px solid #000; padding: 0 3px; display: block; width: 100%; }
+        .bottom { padding: 0 3px; display: block; width: 100%; }
+        .op { margin: 0 8px; font-style: normal; }
+        .given-text { font-weight: bold; color: #555; display: block; margin-bottom: 5px; }
+
+        /* --- Lesson Components --- */
+        .lesson-group { border: 1px solid #e0e0e0; margin-bottom: 15px; border-radius: 6px; overflow: hidden; }
+        .lesson-header { background-color: #f7f9f9; padding: 15px 20px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+        .lesson-header:hover { background-color: #eabced; color: #2c3e50; }
+        .lesson-content { display: none; padding: 20px; background: white; border-top: 1px solid #e0e0e0; }
+        .lesson-content.show { display: block; }
+        .example-box { background-color: #fff8e1; border: 1px solid #ffe0b2; padding: 15px; margin-top: 15px; border-radius: 5px; page-break-inside: avoid; }
+
+        /* Print Button inside Lesson */
+        .print-btn { float: right; padding: 5px 10px; font-size: 0.8rem; background-color: #7f8c8d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .print-btn:hover { background-color: #95a5a6; }
+
+        /* --- Practice UI --- */
+        .input-group { margin: 20px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee; }
+        .action-btn { padding: 10px 25px; background-color: #2980b9; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 5px;}
+        .action-btn:hover { background-color: #3498db; }
+        
+        .diagram-container { position: relative; width: 100%; max-width: 400px; height: 280px; margin: 20px auto; background: #fff; border: 1px solid #ddd; border-radius: 8px; }
+        svg { width: 100%; height: 100%; }
+        .diagram-label { position: absolute; font-weight: bold; font-size: 16px; color: #d35400; background: rgba(255,255,255,0.9); padding: 2px 4px; border-radius: 4px; border: 1px solid #ddd; }
+        
+        .text-problem-box { padding: 30px; background: #eef2f3; border-radius: 8px; margin: 20px 0; font-size: 1.2rem; text-align: center; border: 2px dashed #bdc3c7; }
+
+        .aio-item { border-bottom: 1px dashed #ccc; padding: 20px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+        .aio-svg-box { width: 150px; height: 120px; background: white; border: 1px solid #eee; margin-right: 20px; position: relative; }
+        .aio-q-box { flex: 1; min-width: 250px; }
+        .aio-check-box { margin-left: 20px; text-align: right; min-width: 150px; }
+
+        .feedback { margin-top: 10px; font-weight: bold; padding: 5px; border-radius: 4px; text-align: center; display: inline-block; }
+        .correct { color: #27ae60; background: #eafaf1; border: 1px solid #27ae60; }
+        .incorrect { color: #c0392b; background: #fdedec; border: 1px solid #c0392b; }
+
+        /* --- Assignment Styles --- */
+        .assign-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .assign-title { color: #d35400; border-bottom: 2px solid #e67e22; padding-bottom: 5px; margin-bottom: 15px; }
+        
+        .rubric-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.85rem; }
+        .rubric-table th, .rubric-table td { border: 1px solid #bdc3c7; padding: 8px; text-align: center; vertical-align: middle; }
+        .rubric-table th { background-color: #2c3e50; color: white; }
+        .rubric-table .category-col { text-align: left; background-color: #ecf0f1; font-weight: bold; width: 15%; }
+        .rubric-table .criteria-col { text-align: left; width: 20%; }
+        
+        /* --- PRINT MEDIA QUERY (For PDF Export) --- */
+        @media print {
+            body * { visibility: hidden; } /* Hide everything by default */
+            .printable-area, .printable-area * { visibility: visible; } /* Show target */
+            .printable-area { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+            .print-btn, nav, header { display: none !important; } /* Hide controls */
+            .container { box-shadow: none; border: none; margin: 0; width: 100%; max-width: 100%; }
+            .lesson-content { display: block !important; border: none; } /* Force expand */
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 600px) {
+            nav { flex-direction: column; }
+            nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            .container { padding: 15px; }
         }
-        .container {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
-        }
-        h1 { color: var(--primary-color); margin-bottom: 10px; }
-        p { color: #7f8c8d; margin-bottom: 30px; }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        button {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 20px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-            font-weight: bold;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-        .footer { margin-top: 30px; font-size: 0.8rem; color: #aaa; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>MBF3C Math Course</h1>
-    <p>Foundations for College Mathematics</p>
+<header>
+    <h1>MBF3C: Foundations for College Mathematics</h1>
+    <p>Unit 1: Trigonometry</p>
+</header>
 
-    <div class="grid">
-        <button onclick="window.location.href='unit1.html'">Unit 1: Trigonometry</button>
-        <button onclick="window.location.href='unit2.html'">Unit 2: Quadratic Relations</button>
-        <button onclick="window.location.href='unit3.html'">Unit 3: Exponential Relations</button>
-        <button onclick="window.location.href='unit4.html'">Unit 4: Personal Finance</button>
-        <button onclick="window.location.href='unit5.html'">Unit 5: Statistics</button>
-        <button onclick="window.location.href='unit6.html'">Unit 6: Probability</button>
+<nav>
+    <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
+    <button onclick="showTab('calc')">0. Calculator</button>
+    <button onclick="showTab('lesson')" class="active">1. Lessons</button>
+    <button onclick="showTab('practice')">2. Practice</button>
+    <button onclick="showTab('assignment')">3. Assignment</button>
+</nav>
+
+<div id="calc" class="container">
+    <h2>Online Triangle Calculator</h2>
+    <p>Use this calculator to verify your answers. (Powered by Calculator.net)</p>
+    
+    <div style="text-align:center; margin-bottom:20px;">
+        <a href="https://www.calculator.net/triangle-calculator.html" target="_blank">
+            <button class="action-btn" style="background-color:#27ae60;">Open Calculator in New Tab</button>
+        </a>
     </div>
 
-    <div class="footer">
-        © 2025 MBF3C Class Resource
+    <div style="border:1px solid #ddd; border-radius:8px; overflow:hidden;">
+        <iframe src="https://www.calculator.net/triangle-calculator.html" width="100%" height="800px" style="border:none;" title="Triangle Calculator"></iframe>
     </div>
 </div>
+
+<div id="lesson" class="container active">
+    <h2>Unit 1 Lessons</h2>
+    <p>Select a lesson to view examples. You can print individual lessons.</p>
+
+    <div class="lesson-group" id="L1-1">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 1-1: Trigonometric Ratios (SOH CAH TOA) <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L1-1')">📄 Print / Save as PDF</button>
+            <h3>Lesson 1-1: Trigonometric Ratios</h3>
+            <p><strong>Goal:</strong> Identify SOH CAH TOA ratios from side lengths.</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: Given Opp=3, Hyp=5. Find sin θ.</span>
+                <div class="math-line">sin θ <span class="op">=</span> <div class="fraction"><span class="top">3</span><span class="bottom">5</span></div> <span class="op">=</span> 0.6</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: Given Opp=5, Adj=12. Find tan θ.</span>
+                <div class="math-line">tan θ <span class="op">=</span> <div class="fraction"><span class="top">5</span><span class="bottom">12</span></div> <span class="op">≈</span> 0.417</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: Given Adj=4, Hyp=7. Find cos θ.</span>
+                <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">4</span><span class="bottom">7</span></div> <span class="op">≈</span> 0.571</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: Given Opp=8, Hyp=10. Find sin θ.</span>
+                <div class="math-line">sin θ <span class="op">=</span> <div class="fraction"><span class="top">8</span><span class="bottom">10</span></div> <span class="op">=</span> 0.8</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-group" id="L1-2">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 1-2: Finding Missing Angles <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L1-2')">📄 Print / Save as PDF</button>
+            <h3>Lesson 1-2: Finding Missing Angles</h3>
+            <p><strong>Goal:</strong> Use inverse trig functions (sin⁻¹, cos⁻¹, tan⁻¹) to find angles.</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: Given sin θ = 0.5.</span>
+                <div class="math-line">θ <span class="op">=</span> sin⁻¹(0.5) <span class="op">=</span> 30°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: Given Opp=7, Adj=10. Find θ.</span>
+                <div class="math-line">tan θ <span class="op">=</span> 0.7 <span class="op">→</span> θ <span class="op">=</span> tan⁻¹(0.7) <span class="op">≈</span> 35°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: Given Adj=5, Hyp=9. Find θ.</span>
+                <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">5</span><span class="bottom">9</span></div> <span class="op">→</span> θ <span class="op">≈</span> 56.3°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: Given Opp=15, Hyp=20. Find θ.</span>
+                <div class="math-line">sin θ <span class="op">=</span> 0.75 <span class="op">→</span> θ <span class="op">=</span> sin⁻¹(0.75) <span class="op">≈</span> 48.6°</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-group" id="L1-3">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 1-3: Finding Missing Sides (Right Tri) <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L1-3')">📄 Print / Save as PDF</button>
+            <h3>Lesson 1-3: Finding Missing Sides</h3>
+            <p><strong>Goal:</strong> Solve for side x using algebra.</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: sin(30°) = x / 10.</span>
+                <div class="math-line">x <span class="op">=</span> 10 <span class="op">×</span> sin(30°) <span class="op">=</span> 5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: cos(60°) = 5 / x.</span>
+                <div class="math-line">x <span class="op">=</span> 5 <span class="op">÷</span> cos(60°) <span class="op">=</span> 10</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: tan(45°) = x / 12.</span>
+                <div class="math-line">x <span class="op">=</span> 12 <span class="op">×</span> 1 <span class="op">=</span> 12</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: sin(50°) = 20 / x.</span>
+                <div class="math-line">x <span class="op">=</span> 20 <span class="op">÷</span> sin(50°) <span class="op">≈</span> 26.1</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-group" id="L2-1">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 2-1: The Sine Law (Sides) <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L2-1')">📄 Print / Save as PDF</button>
+            <h3>Lesson 2-1: The Sine Law (Finding Sides)</h3>
+            <p><strong>Formula:</strong> a/sinA = b/sinB</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: A=40°, a=10, B=60°. Find b.</span>
+                <div class="math-line">b <span class="op">=</span> <div class="fraction"><span class="top">10 × sin 60°</span><span class="bottom">sin 40°</span></div> <span class="op">≈</span> 13.5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: A=30°, a=15, C=80°. Find c.</span>
+                <div class="math-line">c <span class="op">=</span> <div class="fraction"><span class="top">15 × sin 80°</span><span class="bottom">sin 30°</span></div> <span class="op">≈</span> 29.5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: B=50°, b=20, A=45°. Find a.</span>
+                <div class="math-line">a <span class="op">=</span> <div class="fraction"><span class="top">20 × sin 45°</span><span class="bottom">sin 50°</span></div> <span class="op">≈</span> 18.5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: A=100°, a=50, B=30°. Find b.</span>
+                <div class="math-line">b <span class="op">=</span> <div class="fraction"><span class="top">50 × sin 30°</span><span class="bottom">sin 100°</span></div> <span class="op">≈</span> 25.4</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-group" id="L2-2">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 2-2: The Sine Law (Angles) <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L2-2')">📄 Print / Save as PDF</button>
+            <h3>Lesson 2-2: The Sine Law (Finding Angles)</h3>
+            <p><strong>Formula:</strong> sinA/a = sinB/b</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: a=15, A=40°, b=20. Find B.</span>
+                <div class="math-line">sin B <span class="op">=</span> 0.857 <span class="op">→</span> B <span class="op">≈</span> 59°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: c=10, C=30°, a=15. Find A.</span>
+                <div class="math-line">sin A <span class="op">=</span> 0.75 <span class="op">→</span> A <span class="op">≈</span> 48.6°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: a=25, A=60°, b=20. Find B.</span>
+                <div class="math-line">sin B <span class="op">=</span> 0.693 <span class="op">→</span> B <span class="op">≈</span> 43.9°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: b=30, B=120°, c=15. Find C.</span>
+                <div class="math-line">sin C <span class="op">=</span> 0.433 <span class="op">→</span> C <span class="op">≈</span> 25.7°</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-group" id="L3-1">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 3-1: The Cosine Law (Sides) <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L3-1')">📄 Print / Save as PDF</button>
+            <h3>Lesson 3-1: The Cosine Law (Finding Sides)</h3>
+            <p><strong>Formula:</strong> c² = a² + b² - 2ab cos C</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: a=5, b=8, C=60°. Find c.</span>
+                <div class="math-line">c² <span class="op">=</span> 25 + 64 - 80(0.5) <span class="op">=</span> 49 <span class="op">→</span> c=7</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: a=3, b=4, C=90°. Find c.</span>
+                <div class="math-line">c² <span class="op">=</span> 9 + 16 <span class="op">=</span> 25 <span class="op">→</span> c=5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: a=10, b=10, C=45°. Find c.</span>
+                <div class="math-line">c² <span class="op">≈</span> 58.6 <span class="op">→</span> c <span class="op">≈</span> 7.7</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: a=6, b=7, C=50°. Find c.</span>
+                <div class="math-line">c² <span class="op">≈</span> 31.0 <span class="op">→</span> c <span class="op">≈</span> 5.6</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-group" id="L3-2">
+        <div class="lesson-header" onclick="toggleLesson(this)">Lesson 3-2: The Cosine Law (Angles) <span>▼</span></div>
+        <div class="lesson-content">
+            <button class="print-btn" onclick="printLesson('L3-2')">📄 Print / Save as PDF</button>
+            <h3>Lesson 3-2: The Cosine Law (Finding Angles)</h3>
+            <p><strong>Formula:</strong> cos C = (a² + b² - c²) / 2ab</p>
+            
+            <div class="example-box">
+                <span class="given-text">Ex 1: a=3, b=4, c=5. Find C.</span>
+                <div class="math-line">cos C <span class="op">=</span> 0 <span class="op">→</span> C <span class="op">=</span> 90°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 2: a=5, b=5, c=8. Find C.</span>
+                <div class="math-line">cos C <span class="op">=</span> -0.28 <span class="op">→</span> C <span class="op">≈</span> 106.3°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 3: a=6, b=6, c=6. Find C.</span>
+                <div class="math-line">cos C <span class="op">=</span> 0.5 <span class="op">→</span> C <span class="op">=</span> 60°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 4: a=10, b=15, c=20. Find C.</span>
+                <div class="math-line">cos C <span class="op">=</span> -0.25 <span class="op">→</span> C <span class="op">≈</span> 104.5°</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="practice" class="container">
+    <h2>Practice Problems</h2>
+    <div style="background:#2c3e50; color:white; padding:10px; border-radius:5px; display:flex; justify-content:space-between; align-items:center;">
+        <span><strong>Score:</strong> <span id="p-score" style="color:#2ecc71">0</span> / <span id="p-total">0</span></span>
+        <button onclick="resetPracticeScore()" style="background:transparent; border:1px solid #7f8c8d; color:#bdc3c7; cursor:pointer; font-size:0.8rem; padding:2px 5px;">Reset Score</button>
+    </div>
+    
+    <div class="input-group">
+        <label><strong>Topic:</strong></label>
+        <select id="p-topic" style="padding:8px; font-size:1rem; width:100%; max-width:350px; margin-top:5px;">
+            <optgroup label="Single Problem (Visual)">
+                <option value="1-1">1-1: Ratios (SOH CAH TOA)</option>
+                <option value="1-2">1-2: Finding Angle (Right Tri)</option>
+                <option value="1-3">1-3: Finding Side (Right Tri)</option>
+                <option value="2-1">2-1: Sine Law (Find Side)</option>
+                <option value="2-2">2-2: Sine Law (Find Angle)</option>
+                <option value="3-1">3-1: Cosine Law (Find Side)</option>
+                <option value="3-2">3-2: Cosine Law (Find Angle)</option>
+            </optgroup>
+            <optgroup label="Text Based">
+                <option value="adv">Advanced (Text Only)</option>
+                <option value="word">Word Problems</option>
+            </optgroup>
+            <optgroup label="Multi-Problem Set (List)">
+                <option value="which-ratio">Which Ratio? (10 Questions)</option>
+                <option value="all-10">All in One (10 Questions)</option>
+            </optgroup>
+        </select>
+        <br>
+        <button class="action-btn" onclick="newPractice()">Generate</button>
+    </div>
+
+    <div id="single-practice-wrapper">
+        <div id="prac-diagram-wrapper" class="diagram-container">
+            <svg viewBox="0 0 400 280">
+                <polygon id="prac-poly" points="" fill="#fcfcfc" stroke="#2c3e50" stroke-width="2.5"></polygon>
+                <text x="40" y="260" font-weight="bold" fill="#95a5a6" id="txt-B-lbl">B</text>
+                <text x="360" y="260" font-weight="bold" fill="#95a5a6" id="txt-C-lbl">C</text>
+                <text x="200" y="30" font-weight="bold" fill="#95a5a6" id="txt-A-lbl">A</text>
+            </svg>
+            <div id="lbl-A" class="diagram-label" style="display:none;"></div>
+            <div id="lbl-B" class="diagram-label" style="display:none;"></div>
+            <div id="lbl-C" class="diagram-label" style="display:none;"></div>
+            <div id="lbl-a" class="diagram-label" style="display:none;"></div>
+            <div id="lbl-b" class="diagram-label" style="display:none;"></div>
+            <div id="lbl-c" class="diagram-label" style="display:none;"></div>
+        </div>
+
+        <div id="text-problem-box" class="text-problem-box" style="display:none;">
+            <p id="text-problem-content"></p>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <p id="question-text" style="font-size:1.2em; margin-bottom:15px; font-weight:500;"></p>
+            <div id="single-input-area" style="display:inline-block; background:#ecf0f1; padding:15px; border-radius:8px;">
+                <label>Answer: </label>
+                <input type="number" id="p-input" step="0.1" style="width:100px; padding:5px; font-size:1.1em;">
+                <button class="action-btn" onclick="checkPractice()">Check</button>
+            </div>
+            <div id="p-feed" class="feedback"></div>
+        </div>
+    </div>
+
+    <div id="aio-wrapper" style="display:none;">
+        <h3 id="aio-title">Multi-Question Set</h3>
+        <p id="aio-desc"></p>
+        <div id="aio-list"></div>
+    </div>
+</div>
+
+<div id="assignment" class="container">
+    <h2>Assignment: "The Accessible Backyard" Project</h2>
+    <p><strong>Goal:</strong> You are a contractor designing a home renovation. You must submit a proposal (e.g., Google Slides) demonstrating your understanding of Trigonometry in real-world construction.</p>
+    
+    <div class="assign-section">
+        <h3 class="assign-title">Part A: The Safety Ramp (Right Triangles)</h3>
+        <p>Your client needs a wheelchair ramp for their deck. The Ontario Building Code requires the ramp angle to be safe.</p>
+        <ul>
+            <li><strong>Task:</strong> Design a ramp where the vertical rise is <strong>0.8 meters</strong>.</li>
+            <li><strong>Constraint:</strong> The angle of elevation (slope) must not exceed <strong>4.8°</strong>.</li>
+            <li><strong>Deliverables:</strong>
+                <ol>
+                    <li>Draw a diagram (Triangle) labeling Rise, Run, and Ramp Length.</li>
+                    <li>Calculate the minimum required <strong>Ramp Length</strong> (Hypotenuse).</li>
+                    <li>Calculate the <strong>Horizontal Run</strong> (Adjacent).</li>
+                    <li>Explain which Trig Ratios (SOH CAH TOA) you used and why.</li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+
+    <div class="assign-section">
+        <h3 class="assign-title">Part B: The Garden Shed Roof (Non-Right Triangles)</h3>
+        <p>The client wants a modern, asymmetrical shed roof (not a standard peak).</p>
+        <ul>
+            <li><strong>Task:</strong> Design a roof truss.</li>
+            <li><strong>Given:</strong> The total width of the shed is <strong>4.0 meters</strong>. The roof rafters meet at the top at non-equal angles:
+                <ul>
+                    <li>Left Rafter Angle (at wall): <strong>30°</strong></li>
+                    <li>Right Rafter Angle (at wall): <strong>50°</strong></li>
+                </ul>
+            </li>
+            <li><strong>Deliverables:</strong>
+                <ol>
+                    <li>Draw the triangle representing the roof truss. Find the 3rd angle (at the peak).</li>
+                    <li>Use the <strong>Sine Law</strong> to calculate the lengths of both rafters (Left and Right sides).</li>
+                    <li>(Advanced) Explain why you used Sine Law <strong>instead of SOH CAH TOA or Cosine Law</strong>.</li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+
+    <div class="assign-section">
+        <h3 class="assign-title">Assessment Rubric (Growing Success)</h3>
+        <table class="rubric-table">
+            <thead>
+                <tr>
+                    <th class="category-col">Category</th>
+                    <th class="criteria-col">Criteria</th>
+                    <th>Level 4<br>(80-100%)</th>
+                    <th>Level 3<br>(70-79%)</th>
+                    <th>Level 2<br>(60-69%)</th>
+                    <th>Level 1<br>(50-59%)</th>
+                    <th>Below Level 1<br>(< 50%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="category-col">Knowledge & Understanding</td>
+                    <td class="criteria-col">Selection of Correct Tools (Ratios/Laws)</td>
+                    <td>Selects correct ratios/laws with a <strong>high degree</strong> of accuracy.</td>
+                    <td>Selects correct ratios/laws with <strong>considerable</strong> accuracy.</td>
+                    <td>Selects correct ratios/laws with <strong>some</strong> accuracy.</td>
+                    <td>Selects correct ratios/laws with <strong>limited</strong> accuracy.</td>
+                    <td>Does not demonstrate understanding of tool selection.</td>
+                </tr>
+                <tr>
+                    <td class="category-col">Thinking & Inquiry</td>
+                    <td class="criteria-col">Critical Thinking (Constraints)</td>
+                    <td>Analyzes constraints (4.8° limit) with a <strong>high degree</strong> of effectiveness.</td>
+                    <td>Analyzes constraints with <strong>considerable</strong> effectiveness.</td>
+                    <td>Analyzes constraints with <strong>some</strong> effectiveness.</td>
+                    <td>Analyzes constraints with <strong>limited</strong> effectiveness.</td>
+                    <td>Does not analyze constraints effectively.</td>
+                </tr>
+                <tr>
+                    <td class="category-col">Communication</td>
+                    <td class="criteria-col">Visuals (Diagrams) & Explanations</td>
+                    <td>Diagrams and steps are communicated with a <strong>high degree</strong> of clarity/precision.</td>
+                    <td>Diagrams and steps are communicated with <strong>considerable</strong> clarity/precision.</td>
+                    <td>Diagrams and steps are communicated with <strong>some</strong> clarity/precision.</td>
+                    <td>Diagrams and steps are communicated with <strong>limited</strong> clarity/precision.</td>
+                    <td>Communication is unclear or missing.</td>
+                </tr>
+                <tr>
+                    <td class="category-col">Application</td>
+                    <td class="criteria-col">Accuracy of Calculations</td>
+                    <td>Applies formulas to find lengths/angles with a <strong>high degree</strong> of accuracy.</td>
+                    <td>Applies formulas to find lengths/angles with <strong>considerable</strong> accuracy.</td>
+                    <td>Applies formulas to find lengths/angles with <strong>some</strong> accuracy.</td>
+                    <td>Applies formulas to find lengths/angles with <strong>limited</strong> accuracy.</td>
+                    <td>Calculations are incorrect or missing.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    /* --- UTILS --- */
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const r2d = 180 / Math.PI;
+    const d2r = Math.PI / 180;
+    const round = (n) => Math.round(n * 10) / 10;
+    const round2 = (n) => Math.round(n * 100) / 100;
+
+    /* --- NAVIGATION --- */
+    function showTab(id) {
+        document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+    }
+    function toggleLesson(header) { header.nextElementSibling.classList.toggle('show'); }
+
+    /* --- PERSISTENCE --- */
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_prac_data')) || { correct: 0, total: 0 };
+    updateScoreDisplay();
+
+    function updateScoreDisplay() {
+        document.getElementById('p-score').innerText = practiceData.correct;
+        document.getElementById('p-total').innerText = practiceData.total;
+    }
+
+    function saveScore(isCorrect) {
+        practiceData.total++;
+        if(isCorrect) practiceData.correct++;
+        localStorage.setItem('mbf3c_prac_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeScore() {
+        practiceData = { correct: 0, total: 0 };
+        localStorage.setItem('mbf3c_prac_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    /* --- PRACTICE LOGIC --- */
+    let pAns = 0; 
+    let listAnswers = {}; 
+    let listType = ''; 
+
+    const lbls = { A: 'lbl-A', B: 'lbl-B', C: 'lbl-C', a: 'lbl-a', b: 'lbl-b', c: 'lbl-c' };
+
+    function hideLabels() {
+        for(let k in lbls) document.getElementById(lbls[k]).style.display = 'none';
+        document.getElementById('p-feed').innerText = '';
+        document.getElementById('p-feed').className = 'feedback';
+        document.getElementById('p-input').value = '';
+    }
+
+    // --- Data Generators (Infinite) ---
+    function generateProblemData(type) {
+        let data = { type: type, ans: 0, qTxt: '', svg: null, labels: {} };
+        
+        // --- SOH CAH TOA SECTIONS (Dynamic) ---
+        if(type === '1-1' || type === '1-2' || type === '1-3') {
+            data.svg = 'right';
+            
+            // 1. Generate Triangle Values (Pythagorean-ish approximation)
+            let s_bottom = rand(5, 12); // side 'a' in SVG
+            let s_left = rand(5, 12);   // side 'c' in SVG
+            let s_hyp = round2(Math.sqrt(s_bottom*s_bottom + s_left*s_left)); // side 'b' in SVG
+            
+            // 2. Pick a Reference Angle (A or C) - NOT B (90 deg)
+            // In the SVG: A is Top, C is Bottom-Right.
+            let refAngle = (Math.random() > 0.5) ? 'A' : 'C';
+            
+            // 3. Map Relative Roles (Opp, Adj, Hyp) to SVG Labels (a, c, b)
+            // Relative to A (Top): Opp=a (bottom), Adj=c (left), Hyp=b
+            // Relative to C (Right): Opp=c (left), Adj=a (bottom), Hyp=b
+            let map = {};
+            if (refAngle === 'A') { map = { opp: 'a', adj: 'c', hyp: 'b' }; } 
+            else { map = { opp: 'c', adj: 'a', hyp: 'b' }; }
+            
+            // Values map
+            let vals = {};
+            vals[map.opp] = (refAngle === 'A') ? s_bottom : s_left;
+            vals[map.adj] = (refAngle === 'A') ? s_left : s_bottom;
+            vals['b'] = s_hyp;
+
+            if(type === '1-1') {
+                // Ratios: Sin, Cos, or Tan
+                let rType = ['sin', 'cos', 'tan'][rand(0, 2)];
+                data.qTxt = `Calc ${rType} ${refAngle}`;
+                data.labels[refAngle] = 'θ';
+                
+                if (rType === 'sin') {
+                    // Given Opp & Hyp
+                    data.labels[map.opp] = vals[map.opp];
+                    data.labels['b'] = vals['b'];
+                    data.ans = round2(vals[map.opp] / vals['b']);
+                } else if (rType === 'cos') {
+                    // Given Adj & Hyp
+                    data.labels[map.adj] = vals[map.adj];
+                    data.labels['b'] = vals['b'];
+                    data.ans = round2(vals[map.adj] / vals['b']);
+                } else {
+                    // Given Opp & Adj
+                    data.labels[map.opp] = vals[map.opp];
+                    data.labels[map.adj] = vals[map.adj];
+                    data.ans = round2(vals[map.opp] / vals[map.adj]);
+                }
+            }
+            else if(type === '1-2') {
+                // Find Angle
+                data.qTxt = `Find angle ${refAngle}`;
+                data.labels[refAngle] = 'x';
+                
+                // Randomize which two sides are given
+                let mode = rand(0, 2); // 0:Opp/Hyp, 1:Adj/Hyp, 2:Opp/Adj
+                
+                if (mode === 0) { // Sin
+                    data.labels[map.opp] = vals[map.opp];
+                    data.labels['b'] = vals['b'];
+                    data.ans = round(Math.asin(vals[map.opp] / vals['b']) * r2d);
+                } else if (mode === 1) { // Cos
+                    data.labels[map.adj] = vals[map.adj];
+                    data.labels['b'] = vals['b'];
+                    data.ans = round(Math.acos(vals[map.adj] / vals['b']) * r2d);
+                } else { // Tan
+                    data.labels[map.opp] = vals[map.opp];
+                    data.labels[map.adj] = vals[map.adj];
+                    data.ans = round(Math.atan(vals[map.opp] / vals[map.adj]) * r2d);
+                }
+            }
+            else if(type === '1-3') {
+                // Find Side
+                // Given: Reference Angle + 1 Side. Find: 1 Other Side.
+                let angVal = rand(25, 65);
+                data.labels[refAngle] = angVal + '°';
+                let rad = angVal * d2r;
+                
+                let sides = ['opp', 'adj', 'hyp'];
+                let uIdx = rand(0, 2); 
+                let kIdx = rand(0, 2);
+                while(uIdx === kIdx) kIdx = rand(0, 2);
+                
+                let uRole = sides[uIdx]; // Unknown role
+                let kRole = sides[kIdx]; // Known role
+                
+                // Set Labels
+                let uKey = (uRole === 'hyp') ? 'b' : map[uRole];
+                let kKey = (kRole === 'hyp') ? 'b' : map[kRole];
+                
+                data.labels[uKey] = 'x';
+                let kVal = (kKey === 'b') ? vals['b'] : vals[kKey];
+                data.labels[kKey] = kVal;
+                
+                data.qTxt = "Find side x";
+                
+                // Logic
+                // If finding Hyp
+                if (uRole === 'hyp') {
+                    // Known is Opp -> sin = o/h -> h = o/sin
+                    if (kRole === 'opp') data.ans = round(kVal / Math.sin(rad));
+                    // Known is Adj -> cos = a/h -> h = a/cos
+                    else data.ans = round(kVal / Math.cos(rad));
+                }
+                // If finding Opp
+                else if (uRole === 'opp') {
+                    // Known is Hyp -> sin = o/h -> o = h*sin
+                    if (kRole === 'hyp') data.ans = round(kVal * Math.sin(rad));
+                    // Known is Adj -> tan = o/a -> o = a*tan
+                    else data.ans = round(kVal * Math.tan(rad));
+                }
+                // If finding Adj
+                else {
+                    // Known is Hyp -> cos = a/h -> a = h*cos
+                    if (kRole === 'hyp') data.ans = round(kVal * Math.cos(rad));
+                    // Known is Opp -> tan = o/a -> a = o/tan
+                    else data.ans = round(kVal / Math.tan(rad));
+                }
+            }
+            return data;
+        }
+        
+        // --- NON-RIGHT SECTIONS (Preserved) ---
+        else if(type === '2-1') {
+            const A=rand(40,60), B=rand(40,60), b=rand(10,20);
+            data.labels = {A:A+'°', B:B+'°', b:b, a:'x'};
+            data.ans = round(b * Math.sin(A*d2r) / Math.sin(B*d2r));
+            data.qTxt = "Sine Law: Find side x";
+            data.svg = 'acute';
+        }
+        else if(type === '2-2') {
+            const A=rand(30,50), a=rand(12,20), b=rand(10,15);
+            data.labels = {A:A+'°', a:a, b:b, B:'x'};
+            data.ans = round(Math.asin(b * Math.sin(A*d2r) / a)*r2d);
+            data.qTxt = "Sine Law: Find angle x";
+            data.svg = 'acute';
+        }
+        else if(type === '3-1') {
+            const a=rand(10,20), b=rand(10,20), C=rand(40,80);
+            data.labels = {a:a, b:b, C:C+'°', c:'x'}; 
+            data.ans = round(Math.sqrt(a*a+b*b - 2*a*b*Math.cos(C*d2r)));
+            data.qTxt = "Cosine Law: Find side x";
+            data.svg = 'acute';
+        }
+        else if(type === '3-2') {
+            const a=rand(10,15), b=rand(10,15), c=rand(10,15);
+            if(a+b<=c) return generateProblemData(type); 
+            data.labels = {a:a, b:b, c:c, C:'x'};
+            data.ans = round(Math.acos((a*a+b*b-c*c)/(2*a*b))*r2d);
+            data.qTxt = "Cosine Law: Find angle x";
+            data.svg = 'acute';
+        }
+        return data;
+    }
+
+    // --- Infinite Text Generators ---
+    function generateTextProblem(type) {
+        let content = "";
+        let ans = 0;
+        
+        if (type === 'adv') {
+            // Advanced Text Only (Randomized)
+            const sub = rand(0, 5); // 6 variations
+            if (sub === 0) {
+                const a = rand(5, 15), b = rand(5, 15);
+                content = `Right Triangle: Leg a = ${a}, Leg b = ${b}. Find the Hypotenuse.`;
+                ans = round(Math.sqrt(a*a + b*b));
+            } else if (sub === 1) {
+                const hyp = rand(20, 30), ang = rand(25, 65);
+                content = `Right Triangle: Hypotenuse = ${hyp}, Angle = ${ang}°. Find the Opposite side.`;
+                ans = round(hyp * Math.sin(ang * d2r));
+            } else if (sub === 2) {
+                const adj = rand(10, 20), ang = rand(20, 70);
+                content = `Right Triangle: Adjacent = ${adj}, Angle = ${ang}°. Find the Hypotenuse.`;
+                ans = round(adj / Math.cos(ang * d2r));
+            } else if (sub === 3) {
+                const A = rand(30, 50), B = rand(40, 60), b = rand(10, 25);
+                content = `Sine Law: Angle A=${A}°, Angle B=${B}°, side b=${b}. Find side a.`;
+                ans = round(b * Math.sin(A * d2r) / Math.sin(B * d2r));
+            } else if (sub === 4) {
+                const a = rand(10, 20), b = rand(10, 20), C = rand(80, 110);
+                content = `Cosine Law: Side a=${a}, Side b=${b}, Angle C=${C}°. Find side c.`;
+                ans = round(Math.sqrt(a*a + b*b - 2*a*b * Math.cos(C * d2r)));
+            } else {
+                const a = rand(8, 15), c = rand(16, 30);
+                content = `Right Triangle: Opposite=${a}, Hypotenuse=${c}. Find the angle (sin⁻¹).`;
+                ans = round(Math.asin(a/c) * r2d);
+            }
+        } else {
+            // Word Problems (Infinite Scenarios)
+            const sub = rand(0, 6); // 7 scenarios
+            if (sub === 0) { // Ladder
+                const L = rand(5, 12), A = rand(60, 80);
+                content = `A ${L}m ladder leans against a wall at ${A}° to the ground. How high up the wall does it reach?`;
+                ans = round(L * Math.sin(A * d2r));
+            } else if (sub === 1) { // Shadow
+                const S = rand(10, 30), A = rand(30, 60);
+                content = `A tree casts a ${S}m shadow when the sun's angle of elevation is ${A}°. How tall is the tree?`;
+                ans = round(S * Math.tan(A * d2r));
+            } else if (sub === 2) { // Kite
+                const L = rand(30, 100), A = rand(20, 50);
+                content = `A kite string is ${L}m long. The angle with the ground is ${A}°. Find the kite's height.`;
+                ans = round(L * Math.sin(A * d2r));
+            } else if (sub === 3) { // Ramp
+                const D = rand(5, 15), H = rand(1, 3);
+                content = `A wheelchair ramp rises ${H}m over a horizontal distance of ${D}m. Find the angle of elevation.`;
+                ans = round(Math.atan(H/D) * r2d);
+            } else if (sub === 4) { // Ships (Cosine)
+                const D1 = rand(10, 50), D2 = rand(10, 50), A = rand(40, 120);
+                content = `Two ships leave a port. One goes ${D1}km, the other goes ${D2}km. Their paths diverge at ${A}°. How far apart are they?`;
+                ans = round(Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r)));
+            } else if (sub === 5) { // Walkers (Cosine)
+                const A = rand(60, 100), D1 = rand(2, 6), D2 = rand(2, 6);
+                content = `Two paths diverge at ${A}°. Walker A walks ${D1}km, Walker B walks ${D2}km. Find the distance between them.`;
+                ans = round(Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r)));
+            } else { // Bridge (Sine Law)
+                const D = rand(50, 200), A1 = rand(30, 60), A2 = rand(30, 60);
+                // Angle C = 180 - A1 - A2. Side AC corresponds to angle A2.
+                // AC / sin(A2) = AB / sin(C) => AC = AB * sin(A2) / sin(C)
+                const C = 180 - A1 - A2;
+                content = `Surveyors measure a baseline AB of ${D}m along a river. A point C across the river makes angles ∠A=${A1}° and ∠B=${A2}°. Find distance AC.`;
+                ans = round(D * Math.sin(A2 * d2r) / Math.sin(C * d2r));
+            }
+        }
+        return { content: content, ans: ans };
+    }
+
+    // --- "Which Ratio" Generator ---
+    function generateRatioProblem() {
+        const r = rand(1, 5); // 1=SOH, 2=CAH, 3=TOA, 4=Sine, 5=Cos
+        let ans = '', qTxt = '', labels = {}, svg = 'right';
+        
+        if (r <= 3) {
+            const o=rand(3,10), a=rand(3,10), h=round(Math.sqrt(o*o+a*a));
+            svg = 'right';
+            if (r === 1) { // SOH
+                ans = 'SOH';
+                labels = { C:'90°', b:h, A:rand(30,60)+'°', a:'?' }; 
+                qTxt = "Given Angle & Hyp, need Opp.";
+            } else if (r === 2) { // CAH
+                ans = 'CAH';
+                labels = { C:'90°', b:h, A:rand(30,60)+'°', c:'?' };
+                qTxt = "Given Angle & Hyp, need Adj.";
+            } else { // TOA
+                ans = 'TOA';
+                labels = { C:'90°', a:o, c:a, A:'?' };
+                qTxt = "Given Opp & Adj, need Angle.";
+            }
+        } else if (r === 4) { // Sine Law
+            ans = 'Sine Law';
+            svg = 'acute';
+            labels = { A:rand(40,60)+'°', a:rand(10,20), B:rand(40,60)+'°', b:'?' };
+            qTxt = "Non-Right: Matching pair known.";
+        } else { // Cosine Law
+            ans = 'Cosine Law';
+            svg = 'acute';
+            if (rand(0,1)) { // SAS
+                labels = { a:rand(5,10), b:rand(5,10), C:rand(50,100)+'°', c:'?' };
+                qTxt = "Non-Right: SAS known, find side.";
+            } else { // SSS
+                labels = { a:10, b:10, c:15, C:'?' };
+                qTxt = "Non-Right: SSS known, find angle.";
+            }
+        }
+        return { type:'ratio', ans:ans, qTxt:qTxt, svg:svg, labels:labels };
+    }
+
+    // --- Main Controller ---
+    function newPractice() {
+        hideLabels();
+        const type = document.getElementById('p-topic').value;
+        const singleWrapper = document.getElementById('single-practice-wrapper');
+        const aioWrapper = document.getElementById('aio-wrapper');
+        const diagWrap = document.getElementById('prac-diagram-wrapper');
+        const txtBox = document.getElementById('text-problem-box');
+        const qText = document.getElementById('question-text');
+        const singleInput = document.getElementById('single-input-area');
+
+        // MODE SWITCHING
+        if(type === 'all-10' || type === 'which-ratio') {
+            singleWrapper.style.display = 'none';
+            aioWrapper.style.display = 'block';
+            if(type === 'all-10') generateAllInOne();
+            else generateWhichRatioSet();
+            return;
+        } else {
+            singleWrapper.style.display = 'block';
+            aioWrapper.style.display = 'none';
+        }
+
+        // SINGLE MODES
+        diagWrap.style.display = 'block';
+        txtBox.style.display = 'none';
+        qText.innerHTML = "";
+        singleInput.style.display = 'inline-block';
+
+        if(type === 'adv' || type === 'word') {
+            diagWrap.style.display = 'none';
+            txtBox.style.display = 'block';
+            
+            // New Infinite Text Generator Call
+            const prob = generateTextProblem(type);
+            pAns = prob.ans;
+            document.getElementById('text-problem-content').innerHTML = prob.content;
+        } 
+        else {
+            const data = generateProblemData(type);
+            pAns = data.ans;
+            qText.innerHTML = data.qTxt;
+            const poly = document.getElementById('prac-poly');
+            if(data.svg === 'right') {
+                poly.setAttribute('points', "40,40 40,240 360,240");
+                document.getElementById('txt-A-lbl').setAttribute('x', 40);
+                setLbl('B', '90°', 'right');
+            } else {
+                poly.setAttribute('points', "200,40 40,240 360,240");
+                document.getElementById('txt-A-lbl').setAttribute('x', 200);
+            }
+            for (const [key, val] of Object.entries(data.labels)) setLbl(key, val, data.svg);
+        }
+    }
+
+    function setLbl(k, txt, type) {
+        const el = document.getElementById(lbls[k]);
+        if(!el) return;
+        el.innerText = txt;
+        el.style.display = 'block';
+        if(type === 'right') { 
+            if(k==='A') { el.style.top='30px'; el.style.left='50px'; }
+            if(k==='B') { el.style.top='220px'; el.style.left='50px'; }
+            if(k==='C') { el.style.top='220px'; el.style.left='320px'; }
+            if(k==='c') { el.style.top='130px'; el.style.left='10px'; } 
+            if(k==='b') { el.style.top='130px'; el.style.left='200px'; } 
+            if(k==='a') { el.style.top='250px'; el.style.left='180px'; } 
+        } else { 
+            if(k==='A') { el.style.top='30px'; el.style.left='190px'; }
+            if(k==='B') { el.style.top='220px'; el.style.left='50px'; }
+            if(k==='C') { el.style.top='220px'; el.style.left='320px'; }
+            if(k==='c') { el.style.top='130px'; el.style.left='90px'; } 
+            if(k==='b') { el.style.top='130px'; el.style.left='280px'; } 
+            if(k==='a') { el.style.top='250px'; el.style.left='190px'; } 
+        }
+    }
+
+    function checkPractice() {
+        const u = parseFloat(document.getElementById('p-input').value);
+        const fb = document.getElementById('p-feed');
+        if(isNaN(u)) { fb.innerText = "Enter number"; return; }
+        // *** 수정됨: 오차 범위를 0.5에서 0.01로 변경 ***
+        if(Math.abs(u - pAns) <= 0.01) {
+            fb.className = "feedback correct"; fb.innerText = "Correct!";
+            saveScore(true);
+        } else {
+            fb.className = "feedback incorrect"; fb.innerText = "Incorrect. Try again.";
+            saveScore(false);
+        }
+    }
+
+    // --- ALL IN ONE & WHICH RATIO LIST GENERATOR ---
+    function generateListMode(isRatioMode) {
+        listAnswers = {};
+        listType = isRatioMode ? 'select' : 'number';
+        const list = document.getElementById('aio-list');
+        list.innerHTML = '';
+        
+        document.getElementById('aio-title').innerText = isRatioMode ? "Which Ratio? (10 Qs)" : "All In One Practice (10 Qs)";
+        document.getElementById('aio-desc').innerText = isRatioMode ? "Select the correct method (SOH/CAH/TOA/Sine/Cos)." : "Solve and enter the value.";
+
+        const types = ['1-1','1-2','1-3','2-1','2-2','3-1','3-2'];
+        
+        for(let i=0; i<10; i++) {
+            let d = isRatioMode ? generateRatioProblem() : generateProblemData(types[rand(0, types.length-1)]);
+            listAnswers[i] = d.ans;
+
+            // Small SVG Render
+            let svgContent = '';
+            if(d.svg === 'right') {
+                svgContent = `<polygon points="10,10 10,90 140,90" fill="none" stroke="#333" stroke-width="2"/>
+                <text x="15" y="85" font-size="12" font-weight="bold">90°</text>`;
+                if(d.labels.A) svgContent += `<text x="10" y="25" font-size="12">${d.labels.A}</text>`;
+                if(d.labels.C) svgContent += `<text x="120" y="85" font-size="12">${d.labels.C}</text>`;
+                if(d.labels.c) svgContent += `<text x="0" y="50" font-size="12">${d.labels.c}</text>`; 
+                if(d.labels.b) svgContent += `<text x="80" y="45" font-size="12">${d.labels.b}</text>`;
+                if(d.labels.a) svgContent += `<text x="70" y="105" font-size="12">${d.labels.a}</text>`;
+            } else {
+                svgContent = `<polygon points="75,10 10,90 140,90" fill="none" stroke="#333" stroke-width="2"/>`;
+                if(d.labels.A) svgContent += `<text x="70" y="25" font-size="12">${d.labels.A}</text>`;
+                if(d.labels.B) svgContent += `<text x="15" y="85" font-size="12">${d.labels.B}</text>`;
+                if(d.labels.C) svgContent += `<text x="120" y="85" font-size="12">${d.labels.C}</text>`;
+                if(d.labels.c) svgContent += `<text x="35" y="50" font-size="12">${d.labels.c}</text>`;
+                if(d.labels.b) svgContent += `<text x="110" y="50" font-size="12">${d.labels.b}</text>`;
+                if(d.labels.a) svgContent += `<text x="70" y="105" font-size="12">${d.labels.a}</text>`;
+            }
+
+            let inputHTML = '';
+            if(isRatioMode) {
+                inputHTML = `<select id="aio-in-${i}" style="padding:5px;">
+                    <option value="">Select...</option>
+                    <option value="SOH">SOH</option>
+                    <option value="CAH">CAH</option>
+                    <option value="TOA">TOA</option>
+                    <option value="Sine Law">Sine Law</option>
+                    <option value="Cosine Law">Cosine Law</option>
+                </select>`;
+            } else {
+                inputHTML = `<input type="number" id="aio-in-${i}" style="width:70px; padding:5px;">`;
+            }
+
+            const html = `
+            <div class="aio-item">
+                <div class="aio-svg-box">
+                    <svg viewBox="0 0 150 120">${svgContent}</svg>
+                </div>
+                <div class="aio-q-box">
+                    <strong>Q${i+1}.</strong> ${d.qTxt}
+                </div>
+                <div class="aio-check-box">
+                    ${inputHTML}
+                    <button class="action-btn" onclick="checkAIO(${i})" style="margin:0; font-size:12px;">Check</button>
+                    <div id="aio-res-${i}"></div>
+                </div>
+            </div>`;
+            list.insertAdjacentHTML('beforeend', html);
+        }
+    }
+
+    function generateAllInOne() { generateListMode(false); }
+    function generateWhichRatioSet() { generateListMode(true); }
+
+    function checkAIO(idx) {
+        const el = document.getElementById(`aio-in-${idx}`);
+        const res = document.getElementById(`aio-res-${idx}`);
+        const ans = listAnswers[idx];
+        const val = el.value;
+
+        if(!val) return;
+
+        let correct = false;
+        if(listType === 'select') {
+             if(val === ans) correct = true;
+        } else {
+             // *** 수정됨: 오차 범위를 0.5에서 0.01로 변경 ***
+             if(Math.abs(parseFloat(val) - ans) <= 0.01) correct = true;
+        }
+
+        if(correct) {
+            res.innerHTML = "<span style='color:green; font-weight:bold;'>✓ Correct (+1)</span>";
+            saveScore(true);
+        } else {
+            res.innerHTML = `<span style='color:red; font-weight:bold;'>✗ Incorrect</span>`;
+            saveScore(false);
+        }
+    }
+
+    // --- PRINT LESSON LOGIC (Improved) ---
+    function printLesson(lessonId) {
+        const lessonElement = document.getElementById(lessonId);
+        let printArea = document.getElementById('print-area');
+        if (!printArea) {
+            printArea = document.createElement('div');
+            printArea.id = 'print-area';
+            printArea.className = 'printable-area';
+            document.body.appendChild(printArea);
+        }
+        printArea.innerHTML = lessonElement.innerHTML;
+        window.print();
+        printArea.innerHTML = '';
+    }
+</script>
 
 </body>
 </html>
