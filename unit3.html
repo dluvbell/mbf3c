@@ -258,6 +258,8 @@
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
         }
+        
+        .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
     </style>
 </head>
 <body>
@@ -555,9 +557,16 @@
     </div>
 </main>
 
+<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+
 <script>
+    /* --- UTILS --- */
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const round = (n) => Math.round(n * 10) / 10;
+    
     // --- State Management ---
     let currentScore = 0;
+    let isQuestionSolved = false; // New Anti-Spam flag
     
     // --- Navigation ---
     function openTab(tabId) {
@@ -619,6 +628,9 @@
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
         inputArea.style.display = 'block';
+        
+        // Anti-Spam Reset
+        isQuestionSolved = false;
 
         // All in One Handler - Pick any generator
         if (val === 'all') {
@@ -816,38 +828,42 @@
         }
     }
 
-    // --- Check Answer (NO SPOILERS) ---
+    // --- Check Answer (Smart Logic Updated) ---
     function checkAnswer() {
         if (!currentQuestion) return;
+        
+        // Anti-Spam: Stop if already solved
+        if (isQuestionSolved) return;
         
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
         let userVal = parseFloat(userRaw);
         let feedback = document.getElementById('feedback-area');
         
-        if (isNaN(userVal)) {
-            feedback.innerHTML = "Please enter a valid number.";
-            feedback.className = "";
-            return;
-        }
-
+        // Attempt numeric parsing logic
         let isCorrect = false;
-        let correctVal = currentQuestion.answer;
+        let ansNum = parseFloat(currentQuestion.answer);
 
-        // Money/Large: Allow +/- 1.0 margin
-        // Small numeric: Allow +/- 0.1 margin
-        const margin = (currentQuestion.type === 'money' || correctVal > 100) ? 1.0 : 0.1;
-
-        if (Math.abs(userVal - correctVal) <= margin) {
-            isCorrect = true;
+        if (!isNaN(userVal) && !isNaN(ansNum)) {
+             // 0.01 Precision for Numbers/Money
+             if (Math.abs(userVal - ansNum) <= 0.01) {
+                 isCorrect = true;
+             }
+        } else {
+            // String comparison (just in case future mixed types appear)
+            let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
+            let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
+            if (cleanUser === cleanAns) {
+                isCorrect = true;
+            }
         }
 
         if (isCorrect) {
             feedback.innerHTML = "Correct!";
             feedback.className = "correct";
+            isQuestionSolved = true; // Lock
             currentScore++;
             document.getElementById('score-display').innerText = currentScore;
         } else {
-            // UPDATED: No correct answer shown
             feedback.innerHTML = "Incorrect. Try again.";
             feedback.className = "incorrect";
         }
