@@ -334,6 +334,8 @@
             table { display: block; overflow-x: auto; white-space: nowrap; }
             .histogram-container { width: 100%; }
         }
+        
+        .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
     </style>
 </head>
 <body>
@@ -459,10 +461,6 @@
             <div class="example-box">
                 <span class="example-title">Ex 1: Normal Distribution (Bell Curve)</span>
                 <p>Most data is in the middle (e.g., Average Grades). Frequencies: 5, 20, 35, 20, 5.</p>
-                
-
-[Image of Normal Distribution Curve]
-
                 <div class="histogram-container">
                     <div class="hist-bin"><div class="hist-bar" style="height: 14%;"><span class="hist-value">5</span></div><div class="hist-label">F</div></div>
                     <div class="hist-bin"><div class="hist-bar" style="height: 57%;"><span class="hist-value">20</span></div><div class="hist-label">D</div></div>
@@ -633,9 +631,17 @@
     </div>
 </main>
 
+<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+
 <script>
+    /* --- UTILS --- */
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const formatMoney = (num) => '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
     // --- State Management ---
     let currentScore = 0;
+    let isQuestionSolved = false; // New Anti-Spam flag
     
     // --- Navigation ---
     function openTab(tabId) {
@@ -690,6 +696,9 @@
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
         inputArea.style.display = 'block';
+        
+        // Anti-Spam Reset
+        isQuestionSolved = false;
 
         // All in One Handler
         if (val === 'all') {
@@ -854,9 +863,12 @@
         currentQuestion = { answer: ans, type: 'numeric' };
     }
 
-    // --- Check Answer ---
+    // --- Check Answer (Updated with Precision & Anti-Spam) ---
     function checkAnswer() {
         if (!currentQuestion) return;
+        
+        // Anti-Spam: Stop if already solved
+        if (isQuestionSolved) return;
         
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
         let userVal = parseFloat(userRaw);
@@ -870,7 +882,8 @@
 
         let isCorrect = false;
         let correctVal = currentQuestion.answer;
-        const margin = 0.1;
+        // Smart Accuracy: 0.01 tolerance
+        const margin = 0.01;
 
         if (Math.abs(userVal - correctVal) <= margin) {
             isCorrect = true;
@@ -879,6 +892,7 @@
         if (isCorrect) {
             feedback.innerHTML = "Correct!";
             feedback.className = "correct";
+            isQuestionSolved = true; // Lock
             currentScore++;
             document.getElementById('score-display').innerText = currentScore;
         } else {
