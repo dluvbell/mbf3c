@@ -354,6 +354,8 @@
             table { display: block; overflow-x: auto; white-space: nowrap; }
             .histogram-container { width: 100%; }
         }
+        
+        .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
     </style>
 </head>
 <body>
@@ -650,9 +652,12 @@
     </div>
 </main>
 
+<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+
 <script>
     // --- State Management ---
     let currentScore = 0; // Initialize logic variable
+    let isQuestionSolved = false; // New Anti-Spam flag
     
     // --- Navigation Logic ---
     function openTab(tabId) {
@@ -744,6 +749,9 @@
         currentScore = 0;
         document.getElementById('score-display').innerText = currentScore;
         
+        // Anti-Spam Reset
+        isQuestionSolved = false;
+
         const mode = document.getElementById('practice-mode').value;
         if (mode === 'rule') {
             document.getElementById('input-area').style.display = 'none';
@@ -766,6 +774,9 @@
         feedback.className = "";
         input.value = "";
         
+        // Anti-Spam Reset
+        isQuestionSolved = false;
+
         let qType = mode;
         if (mode === 'all') {
             const types = ['visual', 'text', 'rule'];
@@ -1017,10 +1028,15 @@
     }
 
     function checkRuleAnswer(selected) {
+        // Anti-Spam Lock
+        if (isQuestionSolved) return;
+
         const feedback = document.getElementById('feedback-area');
         if (selected === currentQuestion.answer) {
             feedback.innerHTML = "Correct! It is " + selected + ".";
             feedback.className = "correct";
+            
+            isQuestionSolved = true; // Lock
             updateScore();
             setTimeout(generateQuestion, 1500);
         } else {
@@ -1031,6 +1047,9 @@
 
     function checkAnswer() {
         if (!currentQuestion || currentQuestion.type === 'rule_selection') return;
+        
+        // Anti-Spam Lock
+        if (isQuestionSolved) return;
         
         const userRaw = document.getElementById('user-answer').value.trim();
         const feedback = document.getElementById('feedback-area');
@@ -1064,6 +1083,8 @@
         if (isCorrect) {
             feedback.innerHTML = "Correct!";
             feedback.className = "correct";
+            
+            isQuestionSolved = true; // Lock
             updateScore();
             setTimeout(generateQuestion, 1500);
         } else {
