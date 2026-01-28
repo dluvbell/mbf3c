@@ -271,6 +271,8 @@
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
         }
+        
+        .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
     </style>
 </head>
 <body>
@@ -563,10 +565,17 @@
     </div>
 </main>
 
+<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+
 <script>
-    // --- State Management ---
-    let currentScore = 0; // Initialize logic variable
+    /* --- UTILS --- */
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const round = (n) => Math.round(n * 10) / 10;
     
+    // --- State Management ---
+    let currentScore = 0;
+    let isQuestionSolved = false; // New Anti-Spam flag
+
     // --- Navigation ---
     function openTab(tabId) {
         const contents = document.getElementsByClassName('tab-content');
@@ -626,6 +635,9 @@
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
         inputArea.style.display = 'block';
+        
+        // Anti-Spam Reset
+        isQuestionSolved = false;
 
         // Handle "All in One" - Pick any generator
         if (val === 'all') {
@@ -818,32 +830,56 @@
         }
     }
 
-    // --- Answer Checking ---
+    // --- Answer Checking (Updated with Precision & Anti-Spam) ---
     function checkAnswer() {
         if (!currentQuestion) return;
+        
+        // Anti-Spam: Stop if already solved
+        if (isQuestionSolved) return;
         
         let userRaw = document.getElementById('user-answer').value.trim();
         let feedback = document.getElementById('feedback-area');
         
-        // Normalize for comparison (remove spaces, lowercase)
-        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
-        let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
+        // Attempt numeric parsing
+        let userNum = parseFloat(userRaw);
+        let ansNum = parseFloat(currentQuestion.answer);
+        
+        let isCorrect = false;
 
-        if (cleanUser === cleanAns) {
+        // Check if both input and answer are valid numbers (and exclude strings like coordinates/UP/DOWN)
+        // Note: parseFloat("3") works, parseFloat("(3,5)") works partly but we filter text
+        // simple heuristic: if answer string has no special chars
+        const isAnswerPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf(',') === -1;
+
+        if (isAnswerPureNumber && !isNaN(userNum)) {
+             // It's a pure number question (like Profit or Intercept)
+             // Use 0.01 tolerance
+             if (Math.abs(userNum - ansNum) <= 0.01) {
+                 isCorrect = true;
+             }
+        } else {
+            // String comparison for (h,k), UP/DOWN, or Linear/Quadratic
+            let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
+            let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
+            if (cleanUser === cleanAns) {
+                isCorrect = true;
+            }
+        }
+
+        if (isCorrect) {
             feedback.innerHTML = "Correct!";
             feedback.className = "correct";
+            isQuestionSolved = true; // Lock
             updateScore();
         } else {
             feedback.innerHTML = "Incorrect. Try again.";
             feedback.className = "incorrect";
+            // No lock on incorrect
         }
     }
 
     function updateScore() {
         currentScore++;
-        // We don't need local storage for this transient practice session per user request, 
-        // but if we did, we'd key it differently.
-        // For now, just UI update.
         document.getElementById('score-display').innerText = currentScore;
     }
 
