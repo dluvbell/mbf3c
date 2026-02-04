@@ -471,7 +471,7 @@
     </div>
 </div>
 
-<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+<div class="version-tag">v2.2 (Precision Fixed)</div>
 
 <script>
     /* --- UTILS --- */
@@ -539,11 +539,14 @@
         if(type === '1-1' || type === '1-2' || type === '1-3') {
             data.svg = 'right';
             
-            // 1. Generate Triangle Values (Pythagorean-ish approximation)
+            // 1. Generate Triangle Values
             let s_bottom = rand(5, 12); // side 'a' in SVG
             let s_left = rand(5, 12);   // side 'c' in SVG
-            // Keep hyp exact for calculations
-            let s_hyp = Math.sqrt(s_bottom*s_bottom + s_left*s_left); 
+            
+            // FIX: We calculate exact hyp, but we MUST store the rounded version 
+            // in 'vals' if we expect the student to use it for calculations.
+            let exact_hyp = Math.sqrt(s_bottom*s_bottom + s_left*s_left);
+            let disp_hyp = round2(exact_hyp); 
             
             // 2. Pick a Reference Angle (A or C) - NOT B (90 deg)
             let refAngle = (Math.random() > 0.5) ? 'A' : 'C';
@@ -557,7 +560,10 @@
             let vals = {};
             vals[map.opp] = (refAngle === 'A') ? s_bottom : s_left;
             vals[map.adj] = (refAngle === 'A') ? s_left : s_bottom;
-            vals['b'] = s_hyp;
+            
+            // FIX: Use the displayed (rounded) hypotenuse for calculations 
+            // in 1-1 and 1-2 to match student logic.
+            vals['b'] = disp_hyp; 
 
             if(type === '1-1') {
                 // Ratios: Sin, Cos, or Tan
@@ -567,11 +573,11 @@
                 
                 if (rType === 'sin') {
                     data.labels[map.opp] = vals[map.opp];
-                    data.labels['b'] = round2(vals['b']);
+                    data.labels['b'] = vals['b'];
                     data.ans = vals[map.opp] / vals['b'];
                 } else if (rType === 'cos') {
                     data.labels[map.adj] = vals[map.adj];
-                    data.labels['b'] = round2(vals['b']);
+                    data.labels['b'] = vals['b'];
                     data.ans = vals[map.adj] / vals['b'];
                 } else {
                     data.labels[map.opp] = vals[map.opp];
@@ -587,11 +593,11 @@
                 
                 if (mode === 0) { // Sin
                     data.labels[map.opp] = vals[map.opp];
-                    data.labels['b'] = round2(vals['b']);
+                    data.labels['b'] = vals['b'];
                     data.ans = Math.asin(vals[map.opp] / vals['b']) * r2d;
                 } else if (mode === 1) { // Cos
                     data.labels[map.adj] = vals[map.adj];
-                    data.labels['b'] = round2(vals['b']);
+                    data.labels['b'] = vals['b'];
                     data.ans = Math.acos(vals[map.adj] / vals['b']) * r2d;
                 } else { // Tan
                     data.labels[map.opp] = vals[map.opp];
@@ -617,12 +623,13 @@
                 let kKey = (kRole === 'hyp') ? 'b' : map[kRole];
                 
                 data.labels[uKey] = 'x';
-                let kVal = (kKey === 'b') ? round2(vals['b']) : vals[kKey];
+                // Use exact val for generation logic here, but display is consistent
+                let kVal = vals[kKey]; 
                 data.labels[kKey] = kVal;
                 
                 data.qTxt = "Find side x";
                 
-                // Logic (No Rounding)
+                // Logic
                 if (uRole === 'hyp') {
                     if (kRole === 'opp') data.ans = kVal / Math.sin(rad);
                     else data.ans = kVal / Math.cos(rad);
@@ -862,17 +869,18 @@
     }
 
     function checkPractice() {
-        // NEW: Stop if already solved
+        // Stop if already solved
         if(isQuestionSolved) return;
 
         const u = parseFloat(document.getElementById('p-input').value);
         const fb = document.getElementById('p-feed');
         if(isNaN(u)) { fb.innerText = "Enter number"; return; }
         
-        // 0.01 Precision
-        if(Math.abs(u - pAns) <= 0.01) {
+        // FIX: Increased tolerance from 0.01 to 0.15 to handle student rounding
+        // (Students round to 1 decimal place, which can drift answer by ~0.05 - 0.1)
+        if(Math.abs(u - pAns) <= 0.15) {
             fb.className = "feedback correct"; fb.innerText = "Correct!";
-            isQuestionSolved = true; // NEW: Lock this question
+            isQuestionSolved = true;
             saveScore(true);
         } else {
             fb.className = "feedback incorrect"; fb.innerText = "Incorrect. Try again.";
@@ -953,7 +961,6 @@
     function generateWhichRatioSet() { generateListMode(true); }
 
     function checkAIO(idx) {
-        // NEW: Stop if this specific question is already solved
         if(listSolvedState[idx]) return;
 
         const el = document.getElementById(`aio-in-${idx}`);
@@ -967,13 +974,13 @@
         if(listType === 'select') {
              if(val === ans) correct = true;
         } else {
-             // 0.01 Precision
-             if(Math.abs(parseFloat(val) - ans) <= 0.01) correct = true;
+             // FIX: Increased tolerance here as well
+             if(Math.abs(parseFloat(val) - ans) <= 0.15) correct = true;
         }
 
         if(correct) {
             res.innerHTML = "<span style='color:green; font-weight:bold;'>✓ Correct (+1)</span>";
-            listSolvedState[idx] = true; // NEW: Lock this question
+            listSolvedState[idx] = true;
             saveScore(true);
         } else {
             res.innerHTML = `<span style='color:red; font-weight:bold;'>✗ Incorrect</span>`;
