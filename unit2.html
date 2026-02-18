@@ -295,11 +295,29 @@
 
 <main>
     <div id="tab-calculator" class="tab-content active">
-        <h2>Graphing Calculator</h2>
-        <p>Use Desmos to visualize parabolas. Type the equations from the practice questions here to find the Vertex.</p>
-        <button class="btn-primary" onclick="window.open('https://www.desmos.com/calculator', '_blank')">Open Desmos in New Tab</button>
-        <br><br>
-        <iframe src="https://www.desmos.com/calculator" width="100%" height="800" frameborder="0"></iframe>
+        <h2>Vertex Form Calculator</h2>
+        <p>Enter the values to find the Vertex (h, k) without graphs.</p>
+        
+        <script async src="https://cdn.omnicalculator.com/sdk.js"></script>
+        <div class="omni-calculator" 
+             data-calculator="math/vertex-form" 
+             data-width="100%" 
+             data-config='{}' 
+             data-currency="USD" 
+             data-show-row-controls="false" 
+             data-version="1" 
+             data-t="1">
+            <div class="omni-calculator-header">Vertex Form Calculator</div>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <p style="font-size:0.9rem; color:#7f8c8d;">
+                * If the calculator does not load, click the button below.
+            </p>
+            <a href="https://www.omnicalculator.com/math/vertex-form" target="_blank">
+                <button class="btn-primary" style="background-color:#27ae60;">Open Calculator in New Tab</button>
+            </a>
+        </div>
     </div>
 
     <div id="tab-lessons" class="tab-content">
