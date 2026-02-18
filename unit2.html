@@ -207,9 +207,12 @@
         .score-board {
             font-weight: bold;
             color: var(--primary-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             float: right;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         #question-area {
@@ -474,7 +477,10 @@
             </select>
 
             <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
-            <div class="score-board">Score: <span id="score-display">0</span></div>
+            <div class="score-board">
+                Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
+                <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
+            </div>
         </div>
 
         <div id="question-area">
@@ -565,16 +571,17 @@
     </div>
 </main>
 
-<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+<div class="version-tag">v2.2 (Persistent Scoring)</div>
 
 <script>
     /* --- UTILS --- */
     const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const round = (n) => Math.round(n * 10) / 10;
     
-    // --- State Management ---
-    let currentScore = 0;
-    let isQuestionSolved = false; // New Anti-Spam flag
+    // --- State Management (UPDATED) ---
+    // Load object for multiple keys instead of single score
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit2_data')) || {};
+    let isQuestionSolved = false; // Anti-Spam flag
 
     // --- Navigation ---
     function openTab(tabId) {
@@ -611,15 +618,48 @@
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
+    // --- Scoring Logic (NEW) ---
+    function updateScoreDisplay() {
+        const selector = document.getElementById('practice-selector');
+        let type = selector.value || 'default';
+        let data = practiceData[type] || { correct: 0, total: 0 };
+        
+        const scoreEl = document.getElementById('p-score');
+        const totalEl = document.getElementById('p-total');
+        if(scoreEl && totalEl) {
+            scoreEl.innerText = data.correct;
+            totalEl.innerText = data.total;
+        }
+    }
+
+    function saveScore(isCorrect) {
+        let type = document.getElementById('practice-selector').value || 'default';
+        if (!practiceData[type]) {
+            practiceData[type] = { total: 0, correct: 0 };
+        }
+        
+        practiceData[type].total++;
+        if(isCorrect) practiceData[type].correct++;
+        
+        localStorage.setItem('mbf3c_unit2_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeScore() {
+        let type = document.getElementById('practice-selector').value || 'default';
+        practiceData[type] = { correct: 0, total: 0 };
+        localStorage.setItem('mbf3c_unit2_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
     // --- Main Logic: Generate Question ---
     function resetPracticeUI() {
         document.getElementById('feedback-area').innerHTML = "";
         document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
         document.getElementById('input-area').style.display = 'none';
         
-        // RESET SCORE when switching sections
-        currentScore = 0;
-        document.getElementById('score-display').innerText = currentScore;
+        // RESET/LOAD SCORE when switching sections
+        updateScoreDisplay();
     }
 
     let currentQuestion = null;
@@ -870,17 +910,13 @@
             feedback.innerHTML = "Correct!";
             feedback.className = "correct";
             isQuestionSolved = true; // Lock
-            updateScore();
+            saveScore(true); // UPDATED: Save Correct
         } else {
             feedback.innerHTML = "Incorrect. Try again.";
             feedback.className = "incorrect";
             // No lock on incorrect
+            saveScore(false); // UPDATED: Save Attempt
         }
-    }
-
-    function updateScore() {
-        currentScore++;
-        document.getElementById('score-display').innerText = currentScore;
     }
 
     // Init
