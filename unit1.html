@@ -312,7 +312,7 @@
     
     <div class="input-group">
         <label><strong>Topic:</strong></label>
-        <select id="p-topic" style="padding:8px; font-size:1rem; width:100%; max-width:350px; margin-top:5px;">
+        <select id="p-topic" onchange="newPractice()" style="padding:8px; font-size:1rem; width:100%; max-width:350px; margin-top:5px;">
             <optgroup label="Single Problem (Visual)">
                 <option value="1-1">1-1: Ratios (SOH CAH TOA)</option>
                 <option value="1-2">1-2: Finding Angle (Right Tri)</option>
@@ -495,24 +495,37 @@
     }
     function toggleLesson(header) { header.nextElementSibling.classList.toggle('show'); }
 
-    /* --- PERSISTENCE --- */
-    let practiceData = JSON.parse(localStorage.getItem('mbf3c_prac_data')) || { correct: 0, total: 0 };
-    updateScoreDisplay();
+    /* --- PERSISTENCE (MODIFIED) --- */
+    // CHANGED: Load object for multiple keys instead of single score
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_prac_data')) || {};
+    // Not calling updateScoreDisplay() here because it's called in newPractice which runs on load or select
 
+    // CHANGED: Update score based on CURRENT topic selection
     function updateScoreDisplay() {
-        document.getElementById('p-score').innerText = practiceData.correct;
-        document.getElementById('p-total').innerText = practiceData.total;
+        let type = document.getElementById('p-topic').value;
+        let data = practiceData[type] || { correct: 0, total: 0 };
+        document.getElementById('p-score').innerText = data.correct;
+        document.getElementById('p-total').innerText = data.total;
     }
 
+    // CHANGED: Save score to current topic key
     function saveScore(isCorrect) {
-        practiceData.total++;
-        if(isCorrect) practiceData.correct++;
+        let type = document.getElementById('p-topic').value;
+        if (!practiceData[type]) {
+            practiceData[type] = { total: 0, correct: 0 };
+        }
+        
+        practiceData[type].total++;
+        if(isCorrect) practiceData[type].correct++;
+        
         localStorage.setItem('mbf3c_prac_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
+    // CHANGED: Reset only current topic score
     function resetPracticeScore() {
-        practiceData = { correct: 0, total: 0 };
+        let type = document.getElementById('p-topic').value;
+        practiceData[type] = { correct: 0, total: 0 };
         localStorage.setItem('mbf3c_prac_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
@@ -871,6 +884,7 @@
 
     // --- Main Controller ---
     function newPractice() {
+        updateScoreDisplay(); // ADDED: Update score when topic changes
         hideLabels();
         const type = document.getElementById('p-topic').value;
         const singleWrapper = document.getElementById('single-practice-wrapper');
