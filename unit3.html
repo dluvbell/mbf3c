@@ -206,9 +206,12 @@
         .score-board {
             font-weight: bold;
             color: var(--primary-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             float: right;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         #question-area {
@@ -224,6 +227,31 @@
             align-items: center;
             font-size: 1.3rem;
             font-weight: 500;
+        }
+
+        /* Option Buttons for KICA */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .option-btn:hover {
+            background: var(--accent-color);
+            color: white;
         }
 
         #feedback-area {
@@ -444,32 +472,52 @@
     </div>
 
     <div id="tab-practice" class="tab-content">
-        <h2>Practice Problems</h2>
+        <h2>Practice Problems (KICA Training)</h2>
+        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills.</p>
         
         <div class="practice-controls">
-            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Problem Type:</label>
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic & KICA Skill:</label>
             <select id="practice-selector" onchange="resetPracticeUI()">
-                <option value="" disabled selected>-- Choose a Topic --</option>
+                <option value="" disabled selected>-- Choose a Training Module --</option>
                 
-                <optgroup label="Skills">
-                    <option value="rules">Exponent Laws (Simplify)</option>
-                    <option value="growth">Calculate Growth (y = ab^x)</option>
-                    <option value="decay">Calculate Decay (Depreciation)</option>
+                <optgroup label="3.1 Exponent Laws">
+                    <option value="3.1-K">Knowledge: Simplify Expressions</option>
+                    <option value="3.1-A">Application: Evaluate to a Number</option>
+                    <option value="3.1-I">Inquiry: Exponent Rules & Patterns</option>
+                    <option value="3.1-C">Comm: The Penny Problem Logic</option>
                 </optgroup>
-                <optgroup label="Financial Literacy">
-                    <option value="compound">Compound Interest (A = P(1+i)^n)</option>
-                    <option value="rule72">Rule of 72 (Doubling Time)</option>
-                    <option value="word">Word Problems (Real World)</option>
+
+                <optgroup label="3.2 Exponential Growth">
+                    <option value="3.2-K">Knowledge: Identify 'a' and 'b'</option>
+                    <option value="3.2-A">Application: Calculate Future Value</option>
+                    <option value="3.2-I">Inquiry: Linear vs Exponential</option>
+                    <option value="3.2-C">Comm: Explain the Rule of 72</option>
                 </optgroup>
-                <option value="all">All in One (Random Mix)</option>
+
+                <optgroup label="3.3 Compound Interest">
+                    <option value="3.3-K">Knowledge: Calculate A = P(1+i)^n</option>
+                    <option value="3.3-A">Application: Cost of Waiting (Compare)</option>
+                    <option value="3.3-I">Inquiry: The Power of Time ('n')</option>
+                    <option value="3.3-C">Comm: Advise a Client on Investing</option>
+                </optgroup>
+
+                <optgroup label="3.4 Exponential Decay">
+                    <option value="3.4-K">Knowledge: Find the Decay Factor ('b')</option>
+                    <option value="3.4-A">Application: Calculate Depreciation</option>
+                    <option value="3.4-I">Inquiry: The Asymptote (Does it hit zero?)</option>
+                    <option value="3.4-C">Comm: The New Car Trap</option>
+                </optgroup>
             </select>
 
-            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
-            <div class="score-board">Score: <span id="score-display">0</span></div>
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Random Question</button>
+            <div class="score-board">
+                Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
+                <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
+            </div>
         </div>
 
         <div id="question-area">
-            <p>Please select a topic from the dropdown above to begin.</p>
+            <p>Please select a module from the dropdown above to begin.</p>
         </div>
 
         <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
@@ -477,9 +525,10 @@
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
         
+        <div id="mc-area" class="option-grid" style="display:none;"></div>
+
         <div id="feedback-area"></div>
     </div>
-
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 3 Assignment: The Personal Financial Plan</h2>
         <p><strong>Scenario:</strong> Instead of solving a generic textbook problem, you will apply the math to <strong>Your Own Life</strong>. This project requires you to research real-world data and plan your own financial future.</p>
@@ -557,16 +606,18 @@
     </div>
 </main>
 
-<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+<div class="version-tag">v3.1 (KICA Isolated Scoring)</div>
 
 <script>
     /* --- UTILS --- */
-    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-    const round = (n) => Math.round(n * 10) / 10;
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // --- State Management ---
-    let currentScore = 0;
-    let isQuestionSolved = false; // New Anti-Spam flag
+    // --- State Management (ISOLATED KICA SCORING) ---
+    // Load object for multiple keys instead of single score. 
+    // Uses mbf3c_unit3_data to keep it isolated from Unit 2.
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
+    let isQuestionSolved = false; // Anti-Spam flag
     
     // --- Navigation ---
     function openTab(tabId) {
@@ -590,287 +641,308 @@
     }
 
     function printLesson(btn) {
-        alert("Printing functionality would open a system dialog here.");
         window.print();
     }
 
-    // --- Helpers ---
-    function randInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    // --- Scoring Logic (ISOLATED PER SECTION) ---
+    function updateScoreDisplay() {
+        const selector = document.getElementById('practice-selector');
+        let type = selector.value || 'default'; // e.g., "3.1-K"
+        let data = practiceData[type] || { correct: 0, total: 0 };
+        
+        const scoreEl = document.getElementById('p-score');
+        const totalEl = document.getElementById('p-total');
+        if(scoreEl && totalEl) {
+            scoreEl.innerText = data.correct;
+            totalEl.innerText = data.total;
+        }
     }
-    function randChoice(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
+
+    function saveScore(isCorrect) {
+        let type = document.getElementById('practice-selector').value || 'default';
+        if (!practiceData[type]) {
+            practiceData[type] = { total: 0, correct: 0 };
+        }
+        
+        practiceData[type].total++;
+        if(isCorrect) practiceData[type].correct++;
+        
+        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
     }
-    function formatMoney(num) {
-        return '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+    function resetPracticeScore() {
+        let type = document.getElementById('practice-selector').value || 'default';
+        practiceData[type] = { correct: 0, total: 0 };
+        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeUI() {
+        document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
+        document.getElementById('input-area').style.display = 'none';
+        
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) {
+            mcArea.style.display = 'none';
+            mcArea.innerHTML = "";
+        }
+        
+        // RESET/LOAD SCORE when switching sections -> Guarantees isolation
+        updateScoreDisplay();
     }
 
     // --- Main Logic: Generate Question ---
-    function resetPracticeUI() {
-        document.getElementById('feedback-area').innerHTML = "";
-        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
-        document.getElementById('input-area').style.display = 'none';
-        
-        currentScore = 0;
-        document.getElementById('score-display').innerText = currentScore;
-    }
-
     let currentQuestion = null;
 
     function generateQuestion() {
         const selector = document.getElementById('practice-selector');
         let val = selector.value;
+        if(!val) return;
+
         const qArea = document.getElementById('question-area');
         const inputArea = document.getElementById('input-area');
+        const mcArea = document.getElementById('mc-area');
         const feedback = document.getElementById('feedback-area');
 
-        // Reset
+        // Reset UI
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
-        inputArea.style.display = 'block';
+        inputArea.style.display = 'none';
+        mcArea.style.display = 'none';
+        mcArea.innerHTML = "";
         
         // Anti-Spam Reset
         isQuestionSolved = false;
 
-        // All in One Handler - Pick any generator
-        if (val === 'all') {
-            const options = ['rules', 'growth', 'decay', 'compound', 'rule72', 'word'];
-            val = randChoice(options);
-        }
+        let parts = val.split('-');
+        let section = parts[0];
+        let kica = parts[1];
 
-        // Router
-        if (val === 'rules') genRules(qArea);
-        else if (val === 'growth') genGrowth(qArea);
-        else if (val === 'decay') genDecay(qArea);
-        else if (val === 'compound') genCompound(qArea);
-        else if (val === 'rule72') genRule72(qArea);
-        else if (val === 'word') genWordProblem(qArea);
+        if (section === "3.1") gen3_1(kica, qArea);
+        else if (section === "3.2") gen3_2(kica, qArea);
+        else if (section === "3.3") gen3_3(kica, qArea);
+        else if (section === "3.4") gen3_4(kica, qArea);
     }
 
-    // --- 1. Exponent Laws (Infinite Variations) ---
-    function genRules(qArea) {
-        const type = randInt(1, 4); // Added 4th type
-        let qText = "";
-        let ans = 0;
-
-        if (type === 1) { // Product: x^a * x^b
-            const base = randInt(2, 5);
-            const a = randInt(2, 6);
-            const b = randInt(2, 6);
-            qText = `Simplify and Evaluate: <br><span class="math-text">${base}<sup>${a}</sup> &times; ${base}<sup>${b}</sup></span>`;
-            ans = Math.pow(base, a + b);
-        } else if (type === 2) { // Quotient: x^a / x^b
-            const base = randInt(2, 6);
-            const b = randInt(2, 4);
-            const diff = randInt(1, 4);
-            const a = b + diff; 
-            qText = `Simplify and Evaluate: <br><span class="math-text">${base}<sup>${a}</sup> &div; ${base}<sup>${b}</sup></span>`;
-            ans = Math.pow(base, diff);
-        } else if (type === 3) { // Power: (x^a)^b
+    // --- Section 3.1: Exponent Laws ---
+    function gen3_1(kica, qArea) {
+        if (kica === "K") {
+            const rule = randInt(1, 3);
+            let ans = 0;
+            let qText = "";
+            if (rule === 1) { // Product
+                const a = randInt(2, 6); const b = randInt(2, 5);
+                qText = `Simplify: <span class="math-text">x<sup>${a}</sup> &times; x<sup>${b}</sup></span> = x<sup>?</sup>`;
+                ans = a + b;
+            } else if (rule === 2) { // Quotient
+                const a = randInt(5, 10); const b = randInt(2, 4);
+                qText = `Simplify: <span class="math-text">x<sup>${a}</sup> &div; x<sup>${b}</sup></span> = x<sup>?</sup>`;
+                ans = a - b;
+            } else { // Power
+                const a = randInt(2, 4); const b = randInt(2, 4);
+                qText = `Simplify: <span class="math-text">(x<sup>${a}</sup>)<sup>${b}</sup></span> = x<sup>?</sup>`;
+                ans = a * b;
+            }
+            qArea.innerHTML = `<p>${qText}</p><p>What is the new exponent?</p>`;
+            setupInput(ans);
+        } else if (kica === "A") {
             const base = randInt(2, 4);
-            const a = randInt(2, 3);
-            const b = randInt(2, 3);
-            qText = `Simplify and Evaluate: <br><span class="math-text">(${base}<sup>${a}</sup>)<sup>${b}</sup></span>`;
-            ans = Math.pow(base, a * b);
-        } else { // Zero Exponent (Tricky mix)
-            const base = randInt(10, 100);
-            const extra = randInt(2, 10);
-            qText = `Simplify and Evaluate: <br><span class="math-text">${extra} &times; ${base}<sup>0</sup></span>`;
-            ans = extra * 1; 
-        }
-
-        qArea.innerHTML = `<p>${qText}</p><p>What is the final number value?</p>`;
-        currentQuestion = { answer: ans, type: 'numeric' };
-    }
-
-    // --- 2. Growth (Multiple Scenarios) ---
-    function genGrowth(qArea) {
-        // Scenarios for Growth
-        const scenarios = [
-            { name: "Bacteria Culture", start: [50, 200], rateType: "doubles", b: 2, tUnit: "hours" },
-            { name: "Viral Video", start: [100, 1000], rateType: "triples", b: 3, tUnit: "hours" },
-            { name: "Town Population", start: [1000, 10000], rateType: "grows 5%", b: 1.05, tUnit: "years" },
-            { name: "Real Estate", start: [200000, 500000], rateType: "grows 10%", b: 1.10, tUnit: "years" },
-            { name: "Investment", start: [500, 2000], rateType: "quadruples", b: 4, tUnit: "decades" }
-        ];
-
-        const s = randChoice(scenarios);
-        const a = randInt(s.start[0], s.start[1]);
-        const x = randInt(2, 5);
-        
-        // Adjust for percent scenarios
-        let rateText = s.rateType;
-        let bVal = s.b;
-        if(s.rateType.includes("%")) {
-             // For variety, randomize percent slightly if it's the percent type
-             if(s.name === "Town Population") { 
-                 const p = randInt(2, 8); 
-                 bVal = 1 + (p/100); 
-                 rateText = `grows by ${p}%`; 
-             }
-        }
-
-        const ans = a * Math.pow(bVal, x);
-
-        qArea.innerHTML = `
-            <p><strong>Scenario: ${s.name}</strong></p>
-            <p>Initial Amount: <strong>${a}</strong></p>
-            <p>Growth Rate: <strong>${rateText}</strong> every ${s.tUnit}.</p>
-            <p>Find the amount after <strong>${x} ${s.tUnit}</strong>.</p>
-            <p><small>(Round to nearest whole number)</small></p>
-        `;
-        currentQuestion = { answer: ans, type: 'money' }; // Use money logic for int rounding
-    }
-
-    // --- 3. Decay (Multiple Scenarios) ---
-    function genDecay(qArea) {
-        const scenarios = [
-            { name: "Radioactive Isotope", start: [100, 500], rate: "Half-life (50%)", b: 0.5, unit: "days" },
-            { name: "Car Value", start: [20000, 60000], rate: "Depreciates 20%", b: 0.8, unit: "years" },
-            { name: "Caffeine in Body", start: [100, 200], rate: "Eliminates 15%", b: 0.85, unit: "hours" },
-            { name: "Tennis Tournament", start: [64, 128], rate: "Half eliminated", b: 0.5, unit: "rounds" },
-            { name: "Buying Power (Inflation)", start: [100, 1000], rate: "Loses 5% value", b: 0.95, unit: "years" }
-        ];
-
-        const s = randChoice(scenarios);
-        const a = randInt(s.start[0], s.start[1]);
-        const x = randInt(2, 4);
-
-        const ans = a * Math.pow(s.b, x);
-
-        qArea.innerHTML = `
-            <p><strong>Scenario: ${s.name}</strong></p>
-            <p>Start Value: <strong>${a}</strong></p>
-            <p>Rate: <strong>${s.rate}</strong> per ${s.unit}.</p>
-            <p>Find the value after <strong>${x} ${s.unit}</strong>.</p>
-            <p><small>(Round to nearest whole number)</small></p>
-        `;
-        currentQuestion = { answer: ans, type: 'money' };
-    }
-
-    // --- 4. Compound Interest (Varied Rates) ---
-    function genCompound(qArea) {
-        // A = P(1+i)^n
-        const P = randInt(1, 50) * 500; // 500 to 25000
-        const rate = randInt(2, 12); // percent
-        const n = randInt(3, 20); // years
-        
-        const i = rate / 100;
-        const ans = P * Math.pow(1 + i, n);
-
-        qArea.innerHTML = `
-            <p>Principal: <strong>$${P}</strong></p>
-            <p>Interest Rate: <strong>${rate}%</strong> (compounded annually)</p>
-            <p>Time: <strong>${n} years</strong></p>
-            <p>Calculate the Final Amount (A).</p>
-            <p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p>
-        `;
-        currentQuestion = { answer: ans, type: 'money' };
-    }
-
-    // --- 5. Rule of 72 (Infinite) ---
-    function genRule72(qArea) {
-        // Can ask for Time OR Rate
-        const mode = Math.random() > 0.5 ? 'time' : 'rate';
-        const vals = [2, 3, 4, 6, 8, 9, 12, 18, 24, 36]; // Clean divisors
-        const val = randChoice(vals);
-        const other = 72 / val;
-
-        if (mode === 'time') {
-            qArea.innerHTML = `
-                <p>Investment Rate: <strong>${val}%</strong> per year.</p>
-                <p>Using Rule of 72, how many <strong>years</strong> to double?</p>
-            `;
-            currentQuestion = { answer: other, type: 'numeric' };
-        } else {
-            qArea.innerHTML = `
-                <p>You want your money to double in <strong>${val} years</strong>.</p>
-                <p>Using Rule of 72, what <strong>interest rate (%)</strong> do you need?</p>
-            `;
-            currentQuestion = { answer: other, type: 'numeric' };
+            const a = randInt(2, 3); const b = randInt(1, 2);
+            let ans = Math.pow(base, a + b);
+            qArea.innerHTML = `<p>Evaluate to a final number:</p><p><span class="math-text">${base}<sup>${a}</sup> &times; ${base}<sup>${b}</sup></span></p>`;
+            setupInput(ans);
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>You calculate <span class="math-text">1,500,000<sup>0</sup></span>.</p><p>What is the mathematical result?</p>`;
+            setupMC([
+                { text: "1", correct: true },
+                { text: "0", correct: false },
+                { text: "1,500,000", correct: false }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>In the \"Penny Problem\", a penny doubles every day for 30 days. How do you explain the massive result using exponents?</p>`;
+            setupMC([
+                { text: "Because 0.01 is multiplied by 30.", correct: false },
+                { text: "Because multiplying by 2 repeatedly means the exponent grows, causing the value to accelerate upward (J-Curve).", correct: true },
+                { text: "Because the base gets bigger every single day.", correct: false }
+            ]);
         }
     }
 
-    // --- 6. Word Problems (Complex) ---
-    function genWordProblem(qArea) {
-        const type = randInt(1, 3);
-        
-        if (type === 1) { // Comparison
+    // --- Section 3.2: Exponential Growth ---
+    function gen3_2(kica, qArea) {
+        if (kica === "K") {
+            const a = randInt(100, 500);
+            const r = randInt(5, 15);
+            const b = 1 + (r / 100);
+            const askA = Math.random() > 0.5;
+            
+            qArea.innerHTML = `<p>Equation: <strong>y = ${a}(${b})<sup>x</sup></strong></p><p>What is the <strong>${askA ? "Initial Value (a)" : "Growth Factor (b)"}</strong>?</p>`;
+            setupInput(askA ? a : b);
+        } else if (kica === "A") {
+            const start = randInt(100, 500);
+            const x = randInt(2, 4);
+            const ans = start * Math.pow(2, x); // doubles
+            qArea.innerHTML = `<p>A bacteria culture starts with <strong>${start}</strong> cells and <strong>doubles</strong> every hour.</p><p>Calculate the population after <strong>${x} hours</strong>.</p>`;
+            setupInput(ans);
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>Job A pays $1000 a day. Job B pays $1 the first day, but the pay doubles every day.</p><p>Which job pays more in the long run and why?</p>`;
+            setupMC([
+                { text: "Job A, because $1000 is much bigger than $1.", correct: false },
+                { text: "Job B, because exponential growth always overtakes linear growth eventually.", correct: true },
+                { text: "They will pay the exact same amount after 30 days.", correct: false }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>A friend asks you to explain the \"Rule of 72\" for their investments.</p><p>Which statement is correct?</p>`;
+            setupMC([
+                { text: "\"If you divide 72 by your interest rate, it tells you roughly how many years it takes for your money to double.\"", correct: true },
+                { text: "\"It means you will make 72% profit if you leave your money in the bank.\"", correct: false },
+                { text: "\"You have to wait until you are 72 years old to withdraw your money.\"", correct: false }
+            ]);
+        }
+    }
+
+    // --- Section 3.3: Compound Interest ---
+    function gen3_3(kica, qArea) {
+        if (kica === "K") {
+            const P = randInt(5, 10) * 100;
+            const rate = randInt(3, 8);
+            const n = randInt(2, 5);
+            const i = rate / 100;
+            const ans = P * Math.pow(1 + i, n);
+            qArea.innerHTML = `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i}, and n = ${n}, calculate <strong>A</strong>.</p><p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(ans.toFixed(2));
+        } else if (kica === "A") {
             const P = 1000;
-            const r1 = 5, r2 = 10;
-            const t = 10;
-            const ans = (P * Math.pow(1.10, t)) - (P * Math.pow(1.05, t));
-            qArea.innerHTML = `
-                <p>You invest $1000 in Fund A (5%) and $1000 in Fund B (10%).</p>
-                <p>After 10 years, how much <strong>MORE</strong> money is in Fund B?</p>
-                <p><small>(Find A for both, subtract A - B)</small></p>
-            `;
-            currentQuestion = { answer: ans, type: 'money' };
-        } else if (type === 2) { // Depreciation Target
-            const P = 20000;
-            const r = 0.5; // Half life
-            const t = 3;
-            const ans = P * Math.pow(0.5, 3);
-            qArea.innerHTML = `
-                <p>A piece of machinery costs $20,000. Its value is cut in half every 5 years.</p>
-                <p>After <strong>3 half-life cycles</strong> (15 years), what is it worth?</p>
-            `;
-            currentQuestion = { answer: ans, type: 'money' };
-        } else { // Penny Doubling
-            const days = randInt(15, 25);
-            const ans = 0.01 * Math.pow(2, days - 1);
-            qArea.innerHTML = `
-                <p>A magic penny doubles in value every day.</p>
-                <p>Day 1 = $0.01. Day 2 = $0.02.</p>
-                <p>What is its value on <strong>Day ${days}</strong>?</p>
-            `;
-            currentQuestion = { answer: ans, type: 'money' };
+            const ansA = P * Math.pow(1.10, 20); // 20 years
+            const ansB = P * Math.pow(1.10, 10); // 10 years
+            const diff = ansA - ansB;
+            qArea.innerHTML = `<p>You invest $1000 at 10% interest.</p><p>Person A waits 20 years. Person B waits 10 years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p><p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(diff.toFixed(2));
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the most powerful variable for building wealth?</p>`;
+            setupMC([
+                { text: "Because it is just added to the principal.", correct: false },
+                { text: "Because it acts as an exponent, causing the money to compound and curve upwards rapidly over long periods.", correct: true },
+                { text: "Because time reduces inflation.", correct: false }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>A 20-year-old client thinks they don't have enough money to start investing, so they want to wait until they are 40.</p><p>What is your financial advice?</p>`;
+            setupMC([
+                { text: "Wait until 40. You need at least $10,000 to start compounding.", correct: false },
+                { text: "Start now with whatever you have. The longer the money stays invested, the harder compound interest works for you.", correct: true },
+                { text: "Put it all in a checking account to avoid exponential decay.", correct: false }
+            ]);
         }
     }
 
-    // --- Check Answer (Smart Logic Updated) ---
-    function checkAnswer() {
-        if (!currentQuestion) return;
-        
-        // Anti-Spam: Stop if already solved
-        if (isQuestionSolved) return;
-        
-        let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
-        let userVal = parseFloat(userRaw);
-        let feedback = document.getElementById('feedback-area');
-        
-        // Attempt numeric parsing logic
-        let isCorrect = false;
-        let ansNum = parseFloat(currentQuestion.answer);
+    // --- Section 3.4: Exponential Decay ---
+    function gen3_4(kica, qArea) {
+        if (kica === "K") {
+            const drop = randInt(10, 25);
+            const b = (100 - drop) / 100;
+            qArea.innerHTML = `<p>A car's value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) used in the equation <span class="math-text">y = a(b)<sup>x</sup></span>?</p><p><small>(Enter as a decimal)</small></p>`;
+            setupInput(b);
+        } else if (kica === "A") {
+            const P = randInt(20, 40) * 1000;
+            const years = randInt(3, 5);
+            // Assuming 15% depreciation
+            const ans = P * Math.pow(0.85, years);
+            qArea.innerHTML = `<p>You buy a new car for <strong>$${P}</strong>.</p><p>It depreciates at 15% per year (b = 0.85).</p><p>Calculate its value after <strong>${years} years</strong>.</p><p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(ans.toFixed(2));
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>In exponential decay (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets extremely large?</p>`;
+            setupMC([
+                { text: "It goes into negative numbers.", correct: false },
+                { text: "It gets closer and closer to zero, but mathematically never actually touches it (an asymptote).", correct: true },
+                { text: "It turns around and starts going back up.", correct: false }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>How would you explain the \"New Car Trap\" to someone using the concept of Exponential Decay?</p>`;
+            setupMC([
+                { text: "New cars gain value quickly because of compound interest.", correct: false },
+                { text: "New cars lose the largest chunk of their value in the first few years. You are paying heavily for the steepest part of the decay curve.", correct: true },
+                { text: "New cars lose value in a straight, linear line, so it doesn't matter when you buy them.", correct: false }
+            ]);
+        }
+    }
 
-        if (!isNaN(userVal) && !isNaN(ansNum)) {
-             // 0.01 Precision for Numbers/Money
-             if (Math.abs(userVal - ansNum) <= 0.01) {
+    // --- Answer Checking Logic ---
+    function setupInput(correctAnswer) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
+        document.getElementById('input-area').style.display = 'block';
+    }
+
+    function setupMC(options) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
+        
+        // Shuffle options
+        options.sort(() => Math.random() - 0.5);
+
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt.text;
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
+    }
+
+    function checkAnswer() {
+        if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
+        
+        // Strip out $ and commas
+        let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
+        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
+        
+        // Try parsing for math tolerance
+        let userNum = parseFloat(cleanUser);
+        let ansNum = parseFloat(currentQuestion.answer);
+        
+        let isCorrect = false;
+
+        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1;
+
+        if (isPureNumber && !isNaN(userNum)) {
+             // Financial Math Tolerance (0.01)
+             if (Math.abs(userNum - ansNum) <= 0.011) {
                  isCorrect = true;
              }
         } else {
-            // String comparison (just in case future mixed types appear)
-            let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
-            let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
-            if (cleanUser === cleanAns) {
+            // String fallback
+            if (cleanUser === currentQuestion.answer) {
                 isCorrect = true;
             }
         }
 
-        if (isCorrect) {
-            feedback.innerHTML = "Correct!";
-            feedback.className = "correct";
-            isQuestionSolved = true; // Lock
-            currentScore++;
-            document.getElementById('score-display').innerText = currentScore;
-        } else {
-            feedback.innerHTML = "Incorrect. Try again.";
-            feedback.className = "incorrect";
-        }
+        displayFeedback(isCorrect);
     }
 
-    // Init
-    generateQuestion();
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        // Highlight chosen button
+        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+        btn.style.color = 'white';
+        
+        displayFeedback(isCorrect);
+    }
+
+    function displayFeedback(isCorrect) {
+        let feedback = document.getElementById('feedback-area');
+        if (isCorrect) {
+            feedback.innerHTML = "✅ Correct! Great job applying exponential relations.";
+            feedback.className = "correct";
+            isQuestionSolved = true; 
+            saveScore(true);
+        } else {
+            feedback.innerHTML = "❌ Incorrect. Try again or check your rounding.";
+            feedback.className = "incorrect";
+            saveScore(false);
+        }
+    }
 
 </script>
 </body>
