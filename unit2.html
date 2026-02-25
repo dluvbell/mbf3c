@@ -276,6 +276,11 @@
         }
         
         .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
+        
+        /* Rubric Table styling for the new assignment tab */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background-color: #ecf0f1; color: var(--primary-color); }
     </style>
 </head>
 <body>
@@ -514,35 +519,56 @@
     </div>
 
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 2 Assignment: The Profit Maximizer</h2>
-        <p><strong>Scenario:</strong> You are the Marketing Director for a new streetwear brand dropping a limited edition hoodie. Your goal is not just to sell out, but to make the <strong>Maximum Profit</strong>.</p>
+        <h2>Unit 2 Assignment: E-Commerce Brand Launch</h2>
+        <p><strong>Scenario:</strong> You are launching a new e-commerce brand. Choose an item to sell (e.g., custom t-shirts, phone cases, sneakers). Your goal is not just to sell a lot of items, but to find the <strong>"Sweet Spot" (perfect price)</strong> to generate the <strong>Maximum Profit</strong>.</p>
         
         <div class="money-box">
-            <div class="money-header">💼 Your Mission</div>
-            <p>Use Quadratic Relations to find the "Sweet Spot" price that generates the most money.</p>
+            <div class="money-header">💼 Your Business Setup (Fill in the blanks)</div>
+            <p>1. The item I am selling: ____________________</p>
+            <p>2. My ideal <strong>Selling Price</strong> for this item (h): $________</p>
+            <p>3. The <strong>Maximum Profit</strong> I expect at that price (k): $________</p>
+            <p><em>*Note: For these calculations, we will lock the 'a' value (the steepness of the curve) at <strong>-2</strong>.</em></p>
         </div>
 
-        <h3>Part A: The Model</h3>
-        <p>Your analytics team has given you the following Profit Equation based on market research:</p>
-        <p style="font-size: 1.2rem; text-align: center; font-weight: bold; padding: 10px; background: #eee;">P = -10(x - 60)² + 15000</p>
-        <p>Where <strong>P</strong> is Profit (in dollars) and <strong>x</strong> is the Price of the hoodie (in dollars).</p>
-        
-        <ol>
-            <li><strong>Identify the Vertex:</strong> What are the coordinates (h, k)?</li>
-            <li><strong>Interpret the Vertex:</strong> 
-                <ul>
-                    <li>What implies the "Best Price" to sell at?</li>
-                    <li>What is the "Maximum Profit" you can expect at that price?</li>
-                </ul>
-            </li>
-            <li><strong>The "Rip-off" Scenario:</strong> What happens to the Profit (P) if you get greedy and set the price (x) to $100? Calculate P.</li>
-        </ol>
+        <h3>Question 1: The Model & The Peak (Vertex Form)</h3>
+        <p>In business mathematics, the <strong>Vertex</strong> represents your "Peak Profit". Substitute your chosen <strong>h</strong> and <strong>k</strong> values into the equation below to create your personal profit model.</p>
+        <p style="font-size: 1.2rem; text-align: center; font-weight: bold; padding: 10px; background: #eee;">
+            <strong>P = -2(x - ____ )² + ____</strong>
+        </p>
+        <ul>
+            <li><strong>Explain:</strong> What are the coordinates of your Vertex (h, k)? What does this specific point mean for your business in the real world?</li>
+            <li><em>Hint: Use business terms. Explain that selling your item for $___ will result in making the most money possible: $___.</em></li>
+        </ul>
 
-        <h3>Part B: Analysis</h3>
-        <ol>
-            <li><strong>Direction:</strong> Does this graph open UP or DOWN? How does this relate to "Peak Profit"?</li>
-            <li><strong>Recommendation:</strong> Write a short email to the CEO recommending the price. Explain why pricing it higher than your recommendation would actually lose the company money.</li>
-        </ol>
+        <h3>Question 2: Startup Costs (Standard Form & y-intercept)</h3>
+        <p>Before you even sell a single item, you have to spend money (website hosting, manufacturing, marketing). Let's find out your initial costs by expanding your <strong>Vertex Form</strong> equation from Question 1 into <strong>Standard Form (P = ax² + bx + c)</strong>.</p>
+        <ul>
+            <li><strong>Calculate:</strong> Expand your equation. (Remember: FOIL the $(x - h)(x - h)$ first, then multiply everything by -2, and finally add your $k$ value).</li>
+            <li><strong>Explain:</strong> What is your <strong>y-intercept ('c' value)</strong>? Explain why your profit (P) is a negative number when the product price (x) is $0, connecting it to the concept of "Startup Costs".</li>
+        </ul>
+
+        <h3>Question 3: Breaking Even (x-intercepts)</h3>
+        <p>A profit parabola typically has two <strong>x-intercepts</strong> (points where your profit is exactly $0 or your "break-even" points). One happens when your price is too low, and the other happens when your price is too high.</p>
+        <ul>
+            <li><strong>Explain:</strong> Using logic and consumer psychology, explain why pricing your item <em>too high</em> would cause your total profit to drop to $0 (or go negative).</li>
+            <li><em>Hint: Even if your profit margin per item is huge, what happens to customer demand (the number of people buying) if the price is outrageous?</em></li>
+        </ul>
+
+        <h3>Question 4: The "Greed" Scenario (Application)</h3>
+        <p>Imagine you get greedy and decide to sell your product for <strong>$30 more</strong> than your ideal price (h).</p>
+        <ul>
+            <li><strong>Calculate:</strong> Substitute this new, expensive price into the <strong>x</strong> variable of your equation from Question 1 and calculate your new Profit (P).</li>
+            <li><strong>Explain:</strong> Write a short email to your investors. Show them the math result, and explain why increasing the price per item actually caused the company to lose money overall.</li>
+        </ul>
+
+        <h3>Question 5: Market Shifts & Risk (Inquiry)</h3>
+        <p>A massive competitor enters the market, making consumers hyper-aware of prices. Mathematically, this changes your 'a' value from -2 to <strong>-10</strong>.</p>
+        <ul>
+            <li><strong>Explain:</strong> Changing 'a' to -10 makes the parabola much narrower and steeper. Without doing any math, deduce what this visual change means for your pricing strategy's <strong>Risk</strong>.</li>
+            <li><em>Hint: If the curve is extremely narrow, what happens to your profit if your price misses the "Sweet Spot" (Vertex) by just a few dollars?</em></li>
+        </ul>
+
+        <hr>
 
         <h3>Grading Rubric (KICA)</h3>
         <table>
@@ -557,37 +583,37 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Knowledge</strong></td>
-                    <td>Identifies Vertex and calculates values with 100% accuracy.</td>
-                    <td>Identifies Vertex correctly with minor calculation errors.</td>
-                    <td>Basic understanding of Vertex shown, but with errors.</td>
-                    <td>Cannot identify the Vertex.</td>
+                    <td><strong>Knowledge (Q1, Q2)</strong></td>
+                    <td>Accurately creates the Vertex equation and flawlessly expands it into Standard Form.</td>
+                    <td>Creates the equation correctly, but makes minor sign/addition errors during expansion.</td>
+                    <td>Understands the equation structure, but struggles significantly with the expansion (FOIL).</td>
+                    <td>Unable to set up the equation or expand it correctly.</td>
                 </tr>
                 <tr>
-                    <td><strong>Inquiry</strong></td>
-                    <td>Logic regarding pricing models is insightful and clear.</td>
-                    <td>Logic is sound.</td>
-                    <td>Logic is simple.</td>
-                    <td>Little logic shown.</td>
+                    <td><strong>Inquiry (Q3, Q5)</strong></td>
+                    <td>Insightfully connects the shape of the parabola and its intercepts to real market risks and consumer behavior.</td>
+                    <td>Draws a logical connection between the graph's shape and business impact.</td>
+                    <td>Understands the graph changes, but the real-world connection is weak.</td>
+                    <td>Cannot connect the mathematical changes to the real world.</td>
                 </tr>
                 <tr>
-                    <td><strong>Communication</strong></td>
-                    <td>Email to CEO is professional, persuasive, and uses math terms correctly.</td>
-                    <td>Email is clear and correct.</td>
-                    <td>Email is understandable but lacks math terms.</td>
-                    <td>Email is confusing.</td>
+                    <td><strong>Communication (Overall & Q4)</strong></td>
+                    <td>The investor email and explanations are professional, persuasive, and use math terms (Vertex, Intercepts) perfectly in context.</td>
+                    <td>Explanations are clear and mathematical terms are used correctly.</td>
+                    <td>Explanations are somewhat vague; relies on everyday language instead of math terminology.</td>
+                    <td>Explanations are confusing and lack logical flow.</td>
                 </tr>
                 <tr>
-                    <td><strong>Application</strong></td>
-                    <td>Connects the abstract equation to real business strategy perfectly.</td>
-                    <td>Connects equation to business strategy.</td>
-                    <td>Weak connection between equation and money.</td>
-                    <td>No connection made.</td>
+                    <td><strong>Application (Q2, Q4)</strong></td>
+                    <td>Perfectly applies the concept of y-intercept to startup costs, and accurately calculates the greed scenario to prove a business point.</td>
+                    <td>Successfully applies the math results to the business scenarios.</td>
+                    <td>Calculates the math correctly, but struggles to fully apply the meaning to the scenarios.</td>
+                    <td>Unable to apply mathematical results to the business context.</td>
                 </tr>
             </tbody>
         </table>
     </div>
-</main>
+    </main>
 
 <div class="version-tag">v2.2 (Persistent Scoring)</div>
 
