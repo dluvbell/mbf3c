@@ -480,26 +480,44 @@
     </div>
 
     <div id="tab-practice" class="tab-content">
-        <h2>Practice Problems</h2>
+        <h2>Practice Problems (KICA Training)</h2>
+        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills.</p>
         
         <div class="practice-controls">
-            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Problem Type:</label>
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic & KICA Skill:</label>
             <select id="practice-selector" onchange="resetPracticeUI()">
-                <option value="" disabled selected>-- Choose a Topic --</option>
+                <option value="" disabled selected>-- Choose a Training Module --</option>
                 
-                <optgroup label="Main Concepts">
-                    <option value="vis-vertex">Find Vertex (Equation)</option>
-                    <option value="vis-direction">Find Direction (Equation)</option>
-                    <option value="txt-2.1">Linear vs Quadratic (2.1)</option>
-                    <option value="txt-2.2">Vertex Form Analysis (2.2)</option>
-                    <option value="txt-2.3">Standard Form Intercepts (2.3)</option>
-                    <option value="txt-2.4">Profit & Max/Min Models (2.4)</option>
+                <optgroup label="2.1 Linear vs Quadratic (Trends)">
+                    <option value="2.1-K">Knowledge: Identify the Equation</option>
+                    <option value="2.1-A">Application: Identify the Scenario</option>
+                    <option value="2.1-I">Inquiry: Data Patterns</option>
+                    <option value="2.1-C">Comm: Explain the Hype Cycle</option>
                 </optgroup>
 
-                <option value="all">All in One (Random Mix)</option>
+                <optgroup label="2.2 The Vertex (The Sweet Spot)">
+                    <option value="2.2-K">Knowledge: Find (h, k) from Equation</option>
+                    <option value="2.2-A">Application: Calculate Max Profit / Ideal Price</option>
+                    <option value="2.2-I">Inquiry: Distance from the Vertex</option>
+                    <option value="2.2-C">Comm: Explain the Vertex to CEO</option>
+                </optgroup>
+
+                <optgroup label="2.3 Intercepts (Startup Costs)">
+                    <option value="2.3-K">Knowledge: Expand to Standard Form (Find 'c')</option>
+                    <option value="2.3-A">Application: Calculate Startup Cost</option>
+                    <option value="2.3-I">Inquiry: The Break-Even Meaning</option>
+                    <option value="2.3-C">Comm: Explain Negative Profit</option>
+                </optgroup>
+
+                <optgroup label="2.4 Maximizing Profit (Greed & Risk)">
+                    <option value="2.4-K">Knowledge: Substitute and Calculate P</option>
+                    <option value="2.4-A">Application: The "Greed" Calculation</option>
+                    <option value="2.4-I">Inquiry: Market Shift (Changing 'a' value)</option>
+                    <option value="2.4-C">Comm: Explain the Greed Loss</option>
+                </optgroup>
             </select>
 
-            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Random Question</button>
             <div class="score-board">
                 Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
                 <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
@@ -507,17 +525,18 @@
         </div>
 
         <div id="question-area">
-            <p>Please select a topic from the dropdown above to begin.</p>
+            <p>Please select a module from the dropdown above to begin.</p>
         </div>
 
         <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
-            <input type="text" id="user-answer" placeholder="Enter answer (e.g., UP or (3,5))">
+            <input type="text" id="user-answer" placeholder="Enter answer (e.g., 500 or (30,500))">
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
         
+        <div id="mc-area" class="option-grid" style="display:none;"></div>
+
         <div id="feedback-area"></div>
     </div>
-
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 2 Assignment: E-Commerce Brand Launch</h2>
         <p><strong>Scenario:</strong> You are launching a new e-commerce brand. Choose an item to sell (e.g., custom t-shirts, phone cases, sneakers). Your goal is not just to sell a lot of items, but to find the <strong>"Sweet Spot" (perfect price)</strong> to generate the <strong>Maximum Profit</strong>.</p>
@@ -613,17 +632,19 @@
             </tbody>
         </table>
     </div>
-    </main>
+</main>
 
-<div class="version-tag">v2.2 (Persistent Scoring)</div>
+<div class="version-tag">v2.3 (KICA Isolated Scoring)</div>
 
 <script>
     /* --- UTILS --- */
-    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-    const round = (n) => Math.round(n * 10) / 10;
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const items = ["Custom Hoodies", "Smartphone Cases", "Sneakers", "Energy Drinks", "Graphic Tees", "Wireless Earbuds"];
     
     // --- State Management (UPDATED) ---
-    // Load object for multiple keys instead of single score
+    // Load object for multiple keys instead of single score. 
+    // This entirely isolates scores per selection (e.g. 2.1-K, 2.3-A)
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit2_data')) || {};
     let isQuestionSolved = false; // Anti-Spam flag
 
@@ -653,19 +674,10 @@
         window.print();
     }
 
-    // --- Infinite Generator Helpers ---
-    function randInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function randChoice(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    // --- Scoring Logic (NEW) ---
+    // --- Scoring Logic (ISOLATED PER SECTION) ---
     function updateScoreDisplay() {
         const selector = document.getElementById('practice-selector');
-        let type = selector.value || 'default';
+        let type = selector.value || 'default'; // e.g., "2.1-K"
         let data = practiceData[type] || { correct: 0, total: 0 };
         
         const scoreEl = document.getElementById('p-score');
@@ -696,275 +708,244 @@
         updateScoreDisplay();
     }
 
-    // --- Main Logic: Generate Question ---
     function resetPracticeUI() {
         document.getElementById('feedback-area').innerHTML = "";
-        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
         document.getElementById('input-area').style.display = 'none';
         
-        // RESET/LOAD SCORE when switching sections
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) {
+            mcArea.style.display = 'none';
+            mcArea.innerHTML = "";
+        }
+        
+        // RESET/LOAD SCORE when switching sections -> Guarantees isolation
         updateScoreDisplay();
     }
 
+    // --- Main Logic: Generate Question ---
     let currentQuestion = null;
 
     function generateQuestion() {
         const selector = document.getElementById('practice-selector');
         let val = selector.value;
+        if(!val) return;
+
         const qArea = document.getElementById('question-area');
         const inputArea = document.getElementById('input-area');
+        const mcArea = document.getElementById('mc-area');
         const feedback = document.getElementById('feedback-area');
 
-        // Reset
+        // Reset UI
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
-        inputArea.style.display = 'block';
+        inputArea.style.display = 'none';
+        mcArea.style.display = 'none';
+        mcArea.innerHTML = "";
         
         // Anti-Spam Reset
         isQuestionSolved = false;
 
-        // Handle "All in One" - Pick any generator
-        if (val === 'all') {
-            const options = ['vis-vertex','vis-direction','txt-2.1','txt-2.2','txt-2.3','txt-2.4'];
-            val = randChoice(options);
-        }
+        let parts = val.split('-');
+        let section = parts[0];
+        let kica = parts[1];
 
-        // Route to Procedural Generators
-        if (val === 'vis-vertex') genVertexEq(qArea);
-        else if (val === 'vis-direction') genDirectionEq(qArea);
-        else if (val === 'txt-2.1') genLinearVsQuad(qArea);
-        else if (val === 'txt-2.2') genVertexAnalysis(qArea);
-        else if (val === 'txt-2.3') genStandardIntercept(qArea);
-        else if (val === 'txt-2.4') genProfitModel(qArea);
+        if (section === "2.1") gen2_1(kica, qArea);
+        else if (section === "2.2") gen2_2(kica, qArea);
+        else if (section === "2.3") gen2_3(kica, qArea);
+        else if (section === "2.4") gen2_4(kica, qArea);
     }
 
-    // --- 1. Vertex from Equation (Whole Numbers) ---
-    function genVertexEq(container) {
-        // y = a(x - h)^2 + k
-        let a = randInt(1, 5) * (Math.random() > 0.5 ? 1 : -1);
-        let h = randInt(-10, 10);
-        let k = randInt(-20, 20);
-
-        // Build Equation String Logic (No zero handling)
-        let eq = `y = ${a}`;
-        if (h === 0) {
-            eq += `x²`;
-        } else {
-            let signH = h > 0 ? `- ${h}` : `+ ${Math.abs(h)}`;
-            eq += `(x ${signH})²`;
-        }
-        
-        if (k !== 0) {
-            if (k > 0) eq += ` + ${k}`;
-            else eq += ` - ${Math.abs(k)}`;
-        }
-
-        // Handle vertex answer format
-        // Answer is (h, k)
-        container.innerHTML = `
-            <p>Equation: ${eq}</p>
-            <p>Identify the coordinates of the <strong>Vertex</strong>.<br>
-            <small><em>Hint: Use the Calculator tab to check!</em></small></p>
-            <p>Format: (x,y)</p>
-        `;
-        currentQuestion = { answer: `(${h},${k})`, type: 'string' };
-    }
-
-    // --- 2. Direction from Equation ---
-    function genDirectionEq(container) {
-        let a = 0;
-        while (a === 0) a = randInt(-5, 5); // Ensure non-zero
-        
-        let h = randInt(-5, 5);
-        let k = randInt(-10, 10);
-        
-        let eq = `y = ${a}`;
-        if (h === 0) {
-            eq += `x²`;
-        } else {
-            let signH = h > 0 ? `- ${h}` : `+ ${Math.abs(h)}`;
-            eq += `(x ${signH})²`;
-        }
-        
-        if (k !== 0) {
-            if (k > 0) eq += ` + ${k}`;
-            else eq += ` - ${Math.abs(k)}`;
-        }
-
-        container.innerHTML = `
-            <p>Equation: ${eq}</p>
-            <p>Does this parabola open <strong>UP</strong> or <strong>DOWN</strong>?</p>
-        `;
-        currentQuestion = { answer: a > 0 ? "UP" : "DOWN", type: 'string' };
-    }
-
-    // --- 3. Linear vs Quadratic (Infinite Pool) ---
-    function genLinearVsQuad(container) {
+    // --- Section 2.1 Generators ---
+    function gen2_1(kica, qArea) {
         let isQuad = Math.random() > 0.5;
-        let qText = "";
-
-        // Types: Equation, Pattern, Scenario
-        let type = randChoice(['eq', 'diff', 'word']);
-
-        if (type === 'eq') {
-            if (isQuad) {
-                // Quad: y = ax^2 + k
-                let a = randInt(1,3);
-                let k = randInt(1,10);
-                qText = `Equation: y = ${a}x²`;
-                if (k!==0) qText += ` + ${k}`;
-            } else {
-                // Linear: y = mx + b
-                let m = randInt(2,8);
-                let b = randInt(0,20);
-                qText = `Equation: y = ${m}x`;
-                if (b!==0) qText += ` + ${b}`;
-            }
-        } else if (type === 'diff') {
-            if (isQuad) qText = "A table of values has a constant <strong>Second Difference</strong>.";
-            else qText = "A table of values has a constant <strong>First Difference</strong>.";
-        } else {
-            // Word Scenarios
-            let linScenarios = ["Hourly wage of $15/hr", "Driving at constant speed", "Cost of apples per kg"];
-            let quadScenarios = ["Path of a thrown ball", "Area of a square (s²)", "Profit model with a peak"];
-            qText = isQuad ? randChoice(quadScenarios) : randChoice(linScenarios);
-            qText += ". Is this Linear or Quadratic?";
-        }
-
-        container.innerHTML = `<p>${qText}</p>`;
-        currentQuestion = { answer: isQuad ? "Quadratic" : "Linear", type: 'string' };
-    }
-
-    // --- 4. Vertex Form Analysis ---
-    function genVertexAnalysis(container) {
-        // Generate y = a(x-h)^2 + k
-        let a = randInt(1, 4) * (Math.random()>0.5?1:-1);
-        let h = randInt(0, 20); 
-        let k = randInt(0, 100);
-        
-        let eq = `y = ${a}`;
-        if (h === 0) {
-            eq += `x²`;
-        } else {
-            let signH = h > 0 ? `- ${h}` : `+ ${Math.abs(h)}`;
-            eq += `(x ${signH})²`;
-        }
-        if (k !== 0) {
-            let signK = k > 0 ? `+ ${k}` : `- ${Math.abs(k)}`;
-            eq += ` ${signK}`;
-        }
-        
-        // 50% ask for max/min val, 50% ask for x val
-        let askY = Math.random() > 0.5;
-        
-        container.innerHTML = `<p>Equation: ${eq}</p>`;
-        if (askY) {
-            let type = a < 0 ? "Maximum (High point)" : "Minimum (Low point)";
-            container.innerHTML += `<p>What is the ${type} y-value?</p>`;
-            currentQuestion = { answer: k.toString(), type: 'string' };
-        } else {
-            container.innerHTML += `<p>At what x-value does the vertex occur?</p>`;
-            currentQuestion = { answer: h.toString(), type: 'string' };
+        if (kica === "K") {
+            let eq = isQuad ? `y = ${randInt(-5,5)}x² + ${randInt(1,10)}` : `y = ${randInt(2,8)}x + ${randInt(1,20)}`;
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Is this Linear or Quadratic?</p>`;
+            setupInput(isQuad ? "Quadratic" : "Linear");
+        } else if (kica === "A") {
+            let item = randChoice(items);
+            let scenarios = {
+                true: [`The profit of selling ${item} goes up as price increases, hits a peak, then drops.`, `The path of a basketball thrown into the hoop.`],
+                false: [`You earn $15 per hour packing ${item}.`, `A car drives at a steady 80 km/h.`]
+            };
+            qArea.innerHTML = `<p>Scenario: <strong>${randChoice(scenarios[isQuad])}</strong></p><p>Is this relationship Linear or Quadratic?</p>`;
+            setupInput(isQuad ? "Quadratic" : "Linear");
+        } else if (kica === "I") {
+            let diff = isQuad ? "Second" : "First";
+            qArea.innerHTML = `<p>Your sales data shows that the <strong>${diff} Differences</strong> are constant.</p><p>What shape will the graph make?</p>`;
+            setupMC([
+                { text: "A straight line", correct: !isQuad },
+                { text: "A U-shaped curve (Parabola)", correct: isQuad },
+                { text: "A random scatter plot", correct: false }
+            ]);
+        } else if (kica === "C") {
+            let item = randChoice(items);
+            qArea.innerHTML = `<p>How would you explain the "Hype Cycle" of ${item} to your business partner using math terms?</p>`;
+            setupMC([
+                { text: "It's linear. Popularity just keeps going up forever at the same speed.", correct: false },
+                { text: "It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies.", correct: true },
+                { text: "It's standard form because the y-intercept is always zero.", correct: false }
+            ]);
         }
     }
 
-    // --- 5. Standard Form Intercepts ---
-    function genStandardIntercept(container) {
-        // y = ax^2 + bx + c
-        let c = randInt(-500, 500);
-        let b = randInt(-20, 20);
-        let a = randInt(-5, 5); if(a==0) a=1;
+    // --- Section 2.2 Generators ---
+    function gen2_2(kica, qArea) {
+        let h = randInt(10, 50);
+        let k = randInt(500, 5000);
+        let a = randInt(-5, -1);
+        let item = randChoice(items);
+        let eq = `P = ${a}(x - ${h})² + ${k}`;
 
-        let eq = `y = ${a}x²`;
-        if (b !== 0) {
-            if (b > 0) eq += ` + ${b}x`; else eq += ` - ${Math.abs(b)}x`;
-        }
-        if (c !== 0) {
-            if (c > 0) eq += ` + ${c}`; else eq += ` - ${Math.abs(c)}`;
-        }
-
-        container.innerHTML = `
-            <p>Equation: ${eq}</p>
-            <p>What is the <strong>y-intercept</strong>?</p>
-            <p><small>(Hint: It's the 'c' value, or when x=0)</small></p>
-        `;
-        currentQuestion = { answer: c.toString(), type: 'string' };
-    }
-
-    // --- 6. Profit Models ---
-    function genProfitModel(container) {
-        // Profit P = -a(x - price)^2 + maxProfit
-        let bestPrice = randInt(20, 100);
-        let maxP = randInt(1000, 50000);
-        let a = randInt(1, 10);
-
-        // Profit usually has x-h because price is rarely 0, so no h=0 check needed practically, but good to strictly follow rule if needed.
-        // Assuming price > 0 always.
-        let eq = `P = -${a}(x - ${bestPrice})² + ${maxP}`;
-        
-        let type = randChoice(['maxP', 'bestPrice']);
-        
-        container.innerHTML = `<p>Profit Model: ${eq}</p>`;
-        if (type === 'maxP') {
-            container.innerHTML += `<p>What is the <strong>Maximum Profit</strong>?</p>`;
-            currentQuestion = { answer: maxP.toString(), type: 'string' };
-        } else {
-            container.innerHTML += `<p>What <strong>Price (x)</strong> gives the maximum profit?</p>`;
-            currentQuestion = { answer: bestPrice.toString(), type: 'string' };
+        if (kica === "K") {
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>What is the Vertex? (Format: (h,k))</p>`;
+            setupInput(`(${h},${k})`);
+        } else if (kica === "A") {
+            let askPrice = Math.random() > 0.5;
+            qArea.innerHTML = `<p>Your ${item} profit model is: <strong>${eq}</strong></p><p>What is the ${askPrice ? "<strong>Ideal Price (Sweet Spot)</strong>" : "<strong>Maximum Profit</strong>"}?</p>`;
+            setupInput(askPrice ? h.toString() : k.toString());
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>Your profit model is <strong>${eq}</strong>. The ideal price is $${h}.</p><p>What happens to your profit if you set the price to $${h + 20}?</p>`;
+            setupMC([
+                { text: `It stays at $${k} because the price is higher.`, correct: false },
+                { text: `It will be exactly $0.`, correct: false },
+                { text: `It will be lower than $${k} because you moved away from the Vertex.`, correct: true }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>Your vertex is <strong>(${h}, ${k})</strong>.</p><p>Which email sentence best explains this to your investors?</p>`;
+            setupMC([
+                { text: `"If we price the item at $${h}, we will make our maximum possible profit of $${k}."`, correct: true },
+                { text: `"We have to spend $${k} to make $${h}."`, correct: false },
+                { text: `"If we sell ${h} items, we break even at $${k}."`, correct: false }
+            ]);
         }
     }
 
-    // --- Answer Checking (Updated with Precision & Anti-Spam) ---
+    // --- Section 2.3 Generators ---
+    function gen2_3(kica, qArea) {
+        let h = randInt(10, 30);
+        let k = randInt(1000, 3000);
+        let a = -2; 
+        // P = -2(x - h)^2 + k  => -2(x^2 - 2hx + h^2) + k => -2x^2 + 4hx - 2h^2 + k
+        let b = 4 * h;
+        let c = (-2 * h * h) + k;
+        let item = randChoice(items);
+
+        let standardEq = `P = -2x² + ${b}x ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}`;
+
+        if (kica === "K") {
+            qArea.innerHTML = `<p>Expand this equation: <strong>P = -2(x - ${h})² + ${k}</strong></p><p>What is the 'c' value (y-intercept)?</p>`;
+            setupInput(c.toString());
+        } else if (kica === "A") {
+            qArea.innerHTML = `<p>Your ${item} profit model is expanded to: <strong>${standardEq}</strong></p><p>What is your <strong>Startup Cost</strong> (Profit when x = 0)?</p>`;
+            setupInput(c.toString());
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>Your parabola crosses the x-axis at $15 and $45.</p><p>What do these x-intercepts represent in your business?</p>`;
+            setupMC([
+                { text: "The points where we make the maximum profit.", correct: false },
+                { text: "The Break-Even points. Below $15 or above $45, we lose money.", correct: true },
+                { text: "The startup costs for the business.", correct: false }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>Your y-intercept is <strong>${c}</strong>.</p><p>Why is this number negative in a real business scenario?</p>`;
+            setupMC([
+                { text: "Because no one wants to buy the product.", correct: false },
+                { text: "Because it represents the money spent on website hosting and inventory before selling anything.", correct: true },
+                { text: "Because math formulas always have a negative 'c' value.", correct: false }
+            ]);
+        }
+    }
+
+    // --- Section 2.4 Generators ---
+    function gen2_4(kica, qArea) {
+        let h = randInt(20, 50);
+        let k = randInt(2000, 5000);
+        let item = randChoice(items);
+        let eq = `P = -2(x - ${h})² + ${k}`;
+
+        if (kica === "K") {
+            let testX = h + 10;
+            let result = -2 * Math.pow((testX - h), 2) + k;
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Calculate P when x = <strong>${testX}</strong>.</p>`;
+            setupInput(result.toString());
+        } else if (kica === "A") {
+            let greedPrice = h + 15;
+            let greedResult = -2 * Math.pow((greedPrice - h), 2) + k;
+            qArea.innerHTML = `<p>The perfect price for ${item} is $${h} to make $${k} (<strong>${eq}</strong>).</p><p>You get greedy and charge <strong>$${greedPrice}</strong>. Calculate your new Profit.</p>`;
+            setupInput(greedResult.toString());
+        } else if (kica === "I") {
+            qArea.innerHTML = `<p>A competitor enters the market. Your 'a' value changes from <strong>-2</strong> to <strong>-10</strong>.</p><p>What does this mean for your pricing strategy?</p>`;
+            setupMC([
+                { text: "The curve is steeper. If I miss the sweet spot by even a little, profits will crash rapidly (High Risk).", correct: true },
+                { text: "The curve is wider. I can charge whatever I want and still make money (Low Risk).", correct: false },
+                { text: "It changes my startup costs, but the risk remains exactly the same.", correct: false }
+            ]);
+        } else if (kica === "C") {
+            qArea.innerHTML = `<p>You raised the price of ${item} from $${h} to $${h+20}, but total profit dropped.</p><p>Which email correctly explains this to the CEO?</p>`;
+            setupMC([
+                { text: `"We are making more money per item, but the high price caused customer demand to drop so much that overall profit fell."`, correct: true },
+                { text: `"The math formula is broken. Higher price should always mean higher profit."`, correct: false },
+                { text: `"Our startup costs increased suddenly, which ruined the profit margins."`, correct: false }
+            ]);
+        }
+    }
+
+    // --- Answer Checking Logic ---
+    function setupInput(correctAnswer) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
+        document.getElementById('input-area').style.display = 'block';
+    }
+
+    function setupMC(options) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
+        
+        // Shuffle options
+        options.sort(() => Math.random() - 0.5);
+
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt.text;
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
+    }
+
     function checkAnswer() {
-        if (!currentQuestion) return;
-        
-        // Anti-Spam: Stop if already solved
-        if (isQuestionSolved) return;
+        if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
         let userRaw = document.getElementById('user-answer').value.trim();
-        let feedback = document.getElementById('feedback-area');
-        
-        // Attempt numeric parsing
-        let userNum = parseFloat(userRaw);
-        let ansNum = parseFloat(currentQuestion.answer);
-        
-        let isCorrect = false;
+        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
+        let isCorrect = (cleanUser === currentQuestion.answer);
 
-        // Check if both input and answer are valid numbers (and exclude strings like coordinates/UP/DOWN)
-        // Note: parseFloat("3") works, parseFloat("(3,5)") works partly but we filter text
-        // simple heuristic: if answer string has no special chars
-        const isAnswerPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf(',') === -1;
-
-        if (isAnswerPureNumber && !isNaN(userNum)) {
-             // It's a pure number question (like Profit or Intercept)
-             // Use 0.01 tolerance
-             if (Math.abs(userNum - ansNum) <= 0.01) {
-                 isCorrect = true;
-             }
-        } else {
-            // String comparison for (h,k), UP/DOWN, or Linear/Quadratic
-            let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
-            let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
-            if (cleanUser === cleanAns) {
-                isCorrect = true;
-            }
-        }
-
-        if (isCorrect) {
-            feedback.innerHTML = "Correct!";
-            feedback.className = "correct";
-            isQuestionSolved = true; // Lock
-            saveScore(true); // UPDATED: Save Correct
-        } else {
-            feedback.innerHTML = "Incorrect. Try again.";
-            feedback.className = "incorrect";
-            // No lock on incorrect
-            saveScore(false); // UPDATED: Save Attempt
-        }
+        displayFeedback(isCorrect);
     }
 
-    // Init
-    generateQuestion();
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        // Highlight chosen button
+        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+        btn.style.color = 'white';
+        
+        displayFeedback(isCorrect);
+    }
+
+    function displayFeedback(isCorrect) {
+        let feedback = document.getElementById('feedback-area');
+        if (isCorrect) {
+            feedback.innerHTML = "✅ Correct! Great job connecting the math to the real world.";
+            feedback.className = "correct";
+            isQuestionSolved = true; 
+            saveScore(true);
+        } else {
+            feedback.innerHTML = "❌ Incorrect. Try again or check your calculations.";
+            feedback.className = "incorrect";
+            saveScore(false);
+        }
+    }
 
 </script>
 </body>
