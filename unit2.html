@@ -634,7 +634,7 @@
     </div>
 </main>
 
-<div class="version-tag">v2.3 (KICA Isolated Scoring)</div>
+<div class="version-tag">v2.4 (KICA Fully Randomized Pools)</div>
 
 <script>
     /* --- UTILS --- */
@@ -642,9 +642,7 @@
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     const items = ["Custom Hoodies", "Smartphone Cases", "Sneakers", "Energy Drinks", "Graphic Tees", "Wireless Earbuds"];
     
-    // --- State Management (UPDATED) ---
-    // Load object for multiple keys instead of single score. 
-    // This entirely isolates scores per selection (e.g. 2.1-K, 2.3-A)
+    // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit2_data')) || {};
     let isQuestionSolved = false; // Anti-Spam flag
 
@@ -670,14 +668,13 @@
     }
 
     function printLesson(btn) {
-        alert("Printing functionality would open a system dialog here.");
         window.print();
     }
 
-    // --- Scoring Logic (ISOLATED PER SECTION) ---
+    // --- Scoring Logic ---
     function updateScoreDisplay() {
         const selector = document.getElementById('practice-selector');
-        let type = selector.value || 'default'; // e.g., "2.1-K"
+        let type = selector.value || 'default';
         let data = practiceData[type] || { correct: 0, total: 0 };
         
         const scoreEl = document.getElementById('p-score');
@@ -719,7 +716,6 @@
             mcArea.innerHTML = "";
         }
         
-        // RESET/LOAD SCORE when switching sections -> Guarantees isolation
         updateScoreDisplay();
     }
 
@@ -772,21 +768,37 @@
             qArea.innerHTML = `<p>Scenario: <strong>${randChoice(scenarios[isQuad])}</strong></p><p>Is this relationship Linear or Quadratic?</p>`;
             setupInput(isQuad ? "Quadratic" : "Linear");
         } else if (kica === "I") {
-            let diff = isQuad ? "Second" : "First";
-            qArea.innerHTML = `<p>Your sales data shows that the <strong>${diff} Differences</strong> are constant.</p><p>What shape will the graph make?</p>`;
-            setupMC([
-                { text: "A straight line", correct: !isQuad },
-                { text: "A U-shaped curve (Parabola)", correct: isQuad },
-                { text: "A random scatter plot", correct: false }
-            ]);
+            const diff1 = randInt(2, 5);
+            const diff2 = randInt(2, 5);
+            const pool = [
+                {
+                    q: `<p>Your sales data shows that the <strong>Second Differences</strong> are a constant number (${diff2}).</p><p>What shape will the graph make?</p>`,
+                    opts: [ {text: "A U-shaped curve (Parabola)", correct: true}, {text: "A straight line", correct: false}, {text: "A random scatter plot", correct: false} ]
+                },
+                {
+                    q: `<p>Your sales data shows that the <strong>First Differences</strong> are constantly increasing by ${diff1} each time.</p><p>What kind of relationship is this?</p>`,
+                    opts: [ {text: "Quadratic (because the first differences are changing steadily).", correct: true}, {text: "Linear (because it goes up).", correct: false}, {text: "Neither.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         } else if (kica === "C") {
             let item = randChoice(items);
-            qArea.innerHTML = `<p>How would you explain the "Hype Cycle" of ${item} to your business partner using math terms?</p>`;
-            setupMC([
-                { text: "It's linear. Popularity just keeps going up forever at the same speed.", correct: false },
-                { text: "It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies.", correct: true },
-                { text: "It's standard form because the y-intercept is always zero.", correct: false }
-            ]);
+            let wage = randInt(15, 25);
+            const pool = [
+                {
+                    q: `<p>How would you explain the "Hype Cycle" of selling ${item} to your business partner using math terms?</p>`,
+                    opts: [ {text: "It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies.", correct: true}, {text: "It's linear. Popularity just keeps going up forever at the same speed.", correct: false}, {text: "It's standard form because the y-intercept is always zero.", correct: false} ]
+                },
+                {
+                    q: `<p>You hire an employee at $${wage} per hour. Explain this cost using math terminology.</p>`,
+                    opts: [ {text: "It is a linear cost. For every hour worked, the cost goes up by a constant $${wage} in a straight line.", correct: true}, {text: "It is a quadratic cost because it forms a parabola.", correct: false}, {text: "It has a constant second difference.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         }
     }
 
@@ -806,19 +818,35 @@
             qArea.innerHTML = `<p>Your ${item} profit model is: <strong>${eq}</strong></p><p>What is the ${askPrice ? "<strong>Ideal Price (Sweet Spot)</strong>" : "<strong>Maximum Profit</strong>"}?</p>`;
             setupInput(askPrice ? h.toString() : k.toString());
         } else if (kica === "I") {
-            qArea.innerHTML = `<p>Your profit model is <strong>${eq}</strong>. The ideal price is $${h}.</p><p>What happens to your profit if you set the price to $${h + 20}?</p>`;
-            setupMC([
-                { text: `It stays at $${k} because the price is higher.`, correct: false },
-                { text: `It will be exactly $0.`, correct: false },
-                { text: `It will be lower than $${k} because you moved away from the Vertex.`, correct: true }
-            ]);
+            let badPrice = h + randInt(10, 30);
+            let badPriceLow = h - randInt(5, 15);
+            const pool = [
+                {
+                    q: `<p>Your profit model is <strong>${eq}</strong>. The ideal price is $${h}.</p><p>What happens to your profit if you set the price to $${badPrice}?</p>`,
+                    opts: [ {text: `It will be lower than $${k} because you moved right on the parabola, away from the Vertex.`, correct: true}, {text: `It stays at $${k} because higher prices mean higher profits.`, correct: false}, {text: `It will be exactly $0.`, correct: false} ]
+                },
+                {
+                    q: `<p>Your profit model is <strong>${eq}</strong>. You decide to lower the price to $${badPriceLow} to \"sell more items\".</p><p>What happens to the profit (P)?</p>`,
+                    opts: [ {text: `Profit drops because you moved left, away from the Vertex.`, correct: true}, {text: `Profit goes up because more people are buying.`, correct: false}, {text: `Profit stays at $${k}.`, correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         } else if (kica === "C") {
-            qArea.innerHTML = `<p>Your vertex is <strong>(${h}, ${k})</strong>.</p><p>Which email sentence best explains this to your investors?</p>`;
-            setupMC([
-                { text: `"If we price the item at $${h}, we will make our maximum possible profit of $${k}."`, correct: true },
-                { text: `"We have to spend $${k} to make $${h}."`, correct: false },
-                { text: `"If we sell ${h} items, we break even at $${k}."`, correct: false }
-            ]);
+            const pool = [
+                {
+                    q: `<p>Your vertex is <strong>(${h}, ${k})</strong>.</p><p>Which email sentence best explains this to your investors?</p>`,
+                    opts: [ {text: `"If we price the item at $${h}, we will make our maximum possible profit of $${k}."`, correct: true}, {text: `"We have to spend $${k} to make $${h}."`, correct: false}, {text: `"If we sell ${h} items, we break even at $${k}."`, correct: false} ]
+                },
+                {
+                    q: `<p>A customer asks why you don't just sell the ${item} for $${h + 50}. How do you explain the math to them?</p>`,
+                    opts: [ {text: `"Our profit follows a parabola. If we raise the price too far past the peak (vertex), the loss in sales volume ruins our total profit."`, correct: true}, {text: `"Because the equation has a negative y-intercept."`, correct: false}, {text: `"We actually would make more money, but we want to be nice."`, correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         }
     }
 
@@ -827,7 +855,6 @@
         let h = randInt(10, 30);
         let k = randInt(1000, 3000);
         let a = -2; 
-        // P = -2(x - h)^2 + k  => -2(x^2 - 2hx + h^2) + k => -2x^2 + 4hx - 2h^2 + k
         let b = 4 * h;
         let c = (-2 * h * h) + k;
         let item = randChoice(items);
@@ -841,19 +868,36 @@
             qArea.innerHTML = `<p>Your ${item} profit model is expanded to: <strong>${standardEq}</strong></p><p>What is your <strong>Startup Cost</strong> (Profit when x = 0)?</p>`;
             setupInput(c.toString());
         } else if (kica === "I") {
-            qArea.innerHTML = `<p>Your parabola crosses the x-axis at $15 and $45.</p><p>What do these x-intercepts represent in your business?</p>`;
-            setupMC([
-                { text: "The points where we make the maximum profit.", correct: false },
-                { text: "The Break-Even points. Below $15 or above $45, we lose money.", correct: true },
-                { text: "The startup costs for the business.", correct: false }
-            ]);
+            let x1 = randInt(5, 15);
+            let x2 = randInt(35, 60);
+            const pool = [
+                {
+                    q: `<p>Your profit parabola crosses the x-axis at $${x1} and $${x2}.</p><p>What do these x-intercepts represent in your business?</p>`,
+                    opts: [ {text: `The Break-Even points. Pricing below $${x1} or above $${x2} results in a loss.`, correct: true}, {text: `The points where we make the maximum profit.`, correct: false}, {text: `The startup costs for the business.`, correct: false} ]
+                },
+                {
+                    q: `<p>Your business model equation is factored to <span class="math-text">P = -2(x - ${x1})(x - ${x2})</span>.</p><p>What happens if you set the price at exactly $${x1}?</p>`,
+                    opts: [ {text: `Your profit will be exactly $0 (You break even).`, correct: true}, {text: `You will reach your maximum profit.`, correct: false}, {text: `You will owe the bank money.`, correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         } else if (kica === "C") {
-            qArea.innerHTML = `<p>Your y-intercept is <strong>${c}</strong>.</p><p>Why is this number negative in a real business scenario?</p>`;
-            setupMC([
-                { text: "Because no one wants to buy the product.", correct: false },
-                { text: "Because it represents the money spent on website hosting and inventory before selling anything.", correct: true },
-                { text: "Because math formulas always have a negative 'c' value.", correct: false }
-            ]);
+            let negC = randInt(-800, -200);
+            const pool = [
+                {
+                    q: `<p>Your y-intercept is calculated as <strong>${negC}</strong>.</p><p>Why is this number negative in a real business scenario?</p>`,
+                    opts: [ {text: "Because it represents the money spent on website hosting and inventory before selling anything (Startup Costs).", correct: true}, {text: "Because no one wants to buy the product at price 0.", correct: false}, {text: "Because math formulas always have a negative 'c' value.", correct: false} ]
+                },
+                {
+                    q: `<p>A new employee asks why the profit graph starts below the x-axis when the price (x) is 0.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: "At x=0, we haven't sold anything yet, so we are in the hole for our initial setup costs.", correct: true}, {text: "It's a mistake in the calculation. Profit should always start at 0.", correct: false}, {text: "It means our product is priced too high.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         }
     }
 
@@ -875,19 +919,38 @@
             qArea.innerHTML = `<p>The perfect price for ${item} is $${h} to make $${k} (<strong>${eq}</strong>).</p><p>You get greedy and charge <strong>$${greedPrice}</strong>. Calculate your new Profit.</p>`;
             setupInput(greedResult.toString());
         } else if (kica === "I") {
-            qArea.innerHTML = `<p>A competitor enters the market. Your 'a' value changes from <strong>-2</strong> to <strong>-10</strong>.</p><p>What does this mean for your pricing strategy?</p>`;
-            setupMC([
-                { text: "The curve is steeper. If I miss the sweet spot by even a little, profits will crash rapidly (High Risk).", correct: true },
-                { text: "The curve is wider. I can charge whatever I want and still make money (Low Risk).", correct: false },
-                { text: "It changes my startup costs, but the risk remains exactly the same.", correct: false }
-            ]);
+            let a1 = randInt(-3, -1);
+            let a2 = randInt(-15, -8); 
+            let a3 = randChoice([-0.5, -0.2]); 
+            const pool = [
+                {
+                    q: `<p>A competitor enters the market. Your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this mean for your pricing strategy?</p>`,
+                    opts: [ {text: "The curve is steeper. If I miss the sweet spot by even a little, profits will crash rapidly (High Risk).", correct: true}, {text: "The curve is wider. I can charge whatever I want and still make money (Low Risk).", correct: false}, {text: "It changes my startup costs, but the risk remains exactly the same.", correct: false} ]
+                },
+                {
+                    q: `<p>You find a cheaper supplier, making your profit curve wider (from 'a' = ${a2} to 'a' = ${a3}).</p><p>What is the business impact?</p>`,
+                    opts: [ {text: "Pricing is more forgiving. You have a wider range of prices that still generate good profit (Lower Risk).", correct: true}, {text: "You are forced to charge a much higher price to survive.", correct: false}, {text: "Your maximum profit point moves to a lower price.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         } else if (kica === "C") {
-            qArea.innerHTML = `<p>You raised the price of ${item} from $${h} to $${h+20}, but total profit dropped.</p><p>Which email correctly explains this to the CEO?</p>`;
-            setupMC([
-                { text: `"We are making more money per item, but the high price caused customer demand to drop so much that overall profit fell."`, correct: true },
-                { text: `"The math formula is broken. Higher price should always mean higher profit."`, correct: false },
-                { text: `"Our startup costs increased suddenly, which ruined the profit margins."`, correct: false }
-            ]);
+            let inc = randInt(10, 25);
+            let dec = randInt(5, 15);
+            const pool = [
+                {
+                    q: `<p>You raised the price of ${item} from the optimal $${h} to $${h + inc}, but total profit dropped.</p><p>Which email correctly explains this to the CEO?</p>`,
+                    opts: [ {text: `"We are making more money per item, but the high price caused customer demand to drop so much that overall profit fell."`, correct: true}, {text: `"The math formula is broken. Higher price should always mean higher profit."`, correct: false}, {text: `"Our startup costs increased suddenly, which ruined the profit margins."`, correct: false} ]
+                },
+                {
+                    q: `<p>You panicked and lowered the price of ${item} from the optimal $${h} to $${h - dec}. Sales went up, but total profit dropped.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: `"Even though we sold more items, the profit margin per item became too small to make a good total profit."`, correct: true}, {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean less people want to buy the product."`, correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
         }
     }
 
