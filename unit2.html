@@ -637,7 +637,7 @@
     </div>
 </main>
 
-<div class="version-tag">v2.6 (Dynamic 'a' values & Randomized Narrow/Wide Risks)</div>
+<div class="version-tag">v2.7 (Advanced I&C Randomization Pools)</div>
 
 <script>
     /* --- UTILS --- */
@@ -780,7 +780,11 @@
                 },
                 {
                     q: `<p>Your sales data shows that the <strong>First Differences</strong> are constantly increasing by ${diff1} each time.</p><p>What kind of relationship is this?</p>`,
-                    opts: [ {text: "Quadratic (because the first differences are changing steadily).", correct: true}, {text: "Linear (because it goes up).", correct: false}, {text: "Neither.", correct: false} ]
+                    opts: [ {text: "Linear (because it goes up).", correct: false}, {text: "Quadratic (because the first differences are changing steadily).", correct: true}, {text: "Neither.", correct: false} ]
+                },
+                {
+                    q: `<p>You track the daily profit of a viral product. The profit goes up for 5 days, reaches a peak, and then starts dropping.</p><p>What kind of mathematical trend is this?</p>`,
+                    opts: [ {text: "Quadratic (Parabolic)", correct: true}, {text: "Linear", correct: false}, {text: "Exponential", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -792,11 +796,15 @@
             const pool = [
                 {
                     q: `<p>How would you explain the "Hype Cycle" of selling ${item} to your business partner using math terms?</p>`,
-                    opts: [ {text: "It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies.", correct: true}, {text: "It's linear. Popularity just keeps going up forever at the same speed.", correct: false}, {text: "It's standard form because the y-intercept is always zero.", correct: false} ]
+                    opts: [ {text: "It's linear. Popularity just keeps going up forever at the same speed.", correct: false}, {text: "It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies.", correct: true}, {text: "It's standard form because the y-intercept is always zero.", correct: false} ]
                 },
                 {
                     q: `<p>You hire an employee at $${wage} per hour. Explain this cost using math terminology.</p>`,
-                    opts: [ {text: "It is a linear cost. For every hour worked, the cost goes up by a constant $${wage} in a straight line.", correct: true}, {text: "It is a quadratic cost because it forms a parabola.", correct: false}, {text: "It has a constant second difference.", correct: false} ]
+                    opts: [ {text: "It is a quadratic cost because it forms a parabola.", correct: false}, {text: "It has a constant second difference.", correct: false}, {text: "It is a linear cost. For every hour worked, the cost goes up by a constant $${wage} in a straight line.", correct: true} ]
+                },
+                {
+                    q: `<p>A student says that Quadratic and Linear relationships both just "go up". How do you correct them?</p>`,
+                    opts: [ {text: "Linear relationships go up by the same amount every time, but Quadratic relationships accelerate or decelerate, creating a curve.", correct: true}, {text: "They are exactly the same, just different formulas.", correct: false}, {text: "Linear goes up, but Quadratic only goes down.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -823,14 +831,19 @@
         } else if (kica === "I") {
             let badPrice = h + randInt(10, 30);
             let badPriceLow = h - randInt(5, 15);
+            let matSave = randInt(500, 1000);
             const pool = [
                 {
                     q: `<p>Your profit model is <strong>${eq}</strong>. The ideal price is $${h}.</p><p>What happens to your profit if you set the price to $${badPrice}?</p>`,
-                    opts: [ {text: `It will be lower than $${k} because you moved right on the parabola, away from the Vertex.`, correct: true}, {text: `It stays at $${k} because higher prices mean higher profits.`, correct: false}, {text: `It will be exactly $0.`, correct: false} ]
+                    opts: [ {text: `It stays at $${k} because higher prices mean higher profits.`, correct: false}, {text: `It will be lower than $${k} because you moved right on the parabola, away from the Vertex.`, correct: true}, {text: `It will be exactly $0.`, correct: false} ]
                 },
                 {
                     q: `<p>Your profit model is <strong>${eq}</strong>. You decide to lower the price to $${badPriceLow} to \"sell more items\".</p><p>What happens to the profit (P)?</p>`,
                     opts: [ {text: `Profit drops because you moved left, away from the Vertex.`, correct: true}, {text: `Profit goes up because more people are buying.`, correct: false}, {text: `Profit stays at $${k}.`, correct: false} ]
+                },
+                {
+                    q: `<p>You find a cheaper way to make the product, increasing your maximum profit by $${matSave}.</p><p>What happens to the Vertex of your graph?</p>`,
+                    opts: [ {text: "The Vertex shifts horizontally to a lower price.", correct: false}, {text: "The Vertex shifts upwards (the 'k' value increases).", correct: true}, {text: "The Vertex disappears completely.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -840,11 +853,15 @@
             const pool = [
                 {
                     q: `<p>Your vertex is <strong>(${h}, ${k})</strong>.</p><p>Which email sentence best explains this to your investors?</p>`,
-                    opts: [ {text: `"If we price the item at $${h}, we will make our maximum possible profit of $${k}."`, correct: true}, {text: `"We have to spend $${k} to make $${h}."`, correct: false}, {text: `"If we sell ${h} items, we break even at $${k}."`, correct: false} ]
+                    opts: [ {text: `"We have to spend $${k} to make $${h}."`, correct: false}, {text: `"If we price the item at $${h}, we will make our maximum possible profit of $${k}."`, correct: true}, {text: `"If we sell ${h} items, we break even at $${k}."`, correct: false} ]
                 },
                 {
                     q: `<p>A customer asks why you don't just sell the ${item} for $${h + 50}. How do you explain the math to them?</p>`,
-                    opts: [ {text: `"Our profit follows a parabola. If we raise the price too far past the peak (vertex), the loss in sales volume ruins our total profit."`, correct: true}, {text: `"Because the equation has a negative y-intercept."`, correct: false}, {text: `"We actually would make more money, but we want to be nice."`, correct: false} ]
+                    opts: [ {text: `"Because the equation has a negative y-intercept."`, correct: false}, {text: `"We actually would make more money, but we want to be nice."`, correct: false}, {text: `"Our profit follows a parabola. If we raise the price too far past the peak (vertex), the loss in sales volume ruins our total profit."`, correct: true} ]
+                },
+                {
+                    q: `<p>A new partner asks why the profit equation has a negative number (<strong>${a}</strong>) at the front.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: "Because a negative 'a' value means the parabola opens DOWN, which creates a 'Peak' or Maximum profit. If it opened up, it would mean infinite profit, which is impossible.", correct: true}, {text: "Because we are losing money.", correct: false}, {text: "It is a typo in the math formula.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -879,14 +896,19 @@
         } else if (kica === "I") {
             let x1 = randInt(5, 15);
             let x2 = randInt(35, 60);
+            let moreCost = randInt(200, 500);
             const pool = [
                 {
                     q: `<p>Your profit parabola crosses the x-axis at $${x1} and $${x2}.</p><p>What do these x-intercepts represent in your business?</p>`,
-                    opts: [ {text: `The Break-Even points. Pricing below $${x1} or above $${x2} results in a loss.`, correct: true}, {text: `The points where we make the maximum profit.`, correct: false}, {text: `The startup costs for the business.`, correct: false} ]
+                    opts: [ {text: `The points where we make the maximum profit.`, correct: false}, {text: `The Break-Even points. Pricing below $${x1} or above $${x2} results in a loss.`, correct: true}, {text: `The startup costs for the business.`, correct: false} ]
                 },
                 {
                     q: `<p>Your business model equation is factored to <span class="math-text">P = ${a}(x - ${x1})(x - ${x2})</span>.</p><p>What happens if you set the price at exactly $${x1}?</p>`,
-                    opts: [ {text: `Your profit will be exactly $0 (You break even).`, correct: true}, {text: `You will reach your maximum profit.`, correct: false}, {text: `You will owe the bank money.`, correct: false} ]
+                    opts: [ {text: `You will reach your maximum profit.`, correct: false}, {text: `You will owe the bank money.`, correct: false}, {text: `Your profit will be exactly $0 (You break even).`, correct: true} ]
+                },
+                {
+                    q: `<p>Your y-intercept is currently ${c}. Suddenly, your website hosting fees increase by $${moreCost}.</p><p>What happens to the y-intercept?</p>`,
+                    opts: [ {text: `It moves further down into the negatives (becomes ${c - moreCost}).`, correct: true}, {text: `It moves up and becomes positive.`, correct: false}, {text: `The y-intercept stays the same, but the x-intercepts move.`, correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -897,11 +919,15 @@
             const pool = [
                 {
                     q: `<p>Your y-intercept is calculated as <strong>${negC}</strong>.</p><p>Why is this number negative in a real business scenario?</p>`,
-                    opts: [ {text: "Because it represents the money spent on website hosting and inventory before selling anything (Startup Costs).", correct: true}, {text: "Because no one wants to buy the product at price 0.", correct: false}, {text: "Because math formulas always have a negative 'c' value.", correct: false} ]
+                    opts: [ {text: "Because no one wants to buy the product at price 0.", correct: false}, {text: "Because it represents the money spent on website hosting and inventory before selling anything (Startup Costs).", correct: true}, {text: "Because math formulas always have a negative 'c' value.", correct: false} ]
                 },
                 {
                     q: `<p>A new employee asks why the profit graph starts below the x-axis when the price (x) is 0.</p><p>How do you explain this?</p>`,
-                    opts: [ {text: "At x=0, we haven't sold anything yet, so we are in the hole for our initial setup costs.", correct: true}, {text: "It's a mistake in the calculation. Profit should always start at 0.", correct: false}, {text: "It means our product is priced too high.", correct: false} ]
+                    opts: [ {text: "It's a mistake in the calculation. Profit should always start at 0.", correct: false}, {text: "At x=0, we haven't sold anything yet, so we are in the hole for our initial setup costs.", correct: true}, {text: "It means our product is priced too high.", correct: false} ]
+                },
+                {
+                    q: `<p>A business partner says, "We should only look at the Vertex Form."</p><p>Why is the <strong>Standard Form</strong> (y = ax² + bx + c) also useful to communicate?</p>`,
+                    opts: [ {text: "Because the 'c' value instantly tells us our exact startup costs before we even launch.", correct: true}, {text: "Because standard form tells us the maximum profit directly.", correct: false}, {text: "It isn't useful, Vertex form is always better.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -951,15 +977,20 @@
             let bp1 = randInt(10, 25);
             let bp2 = randInt(45, 70);
             let badP = bp2 + randInt(5, 15);
+            let shiftUp = randInt(1000, 3000);
             
             const pool = [
                 {
                     q: `<p>Due to market changes, your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this mean for your Break-Even points?</p>`,
-                    opts: [ {text: correctText, correct: true}, {text: wrongText, correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false} ]
+                    opts: [ {text: wrongText, correct: false}, {text: correctText, correct: true}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false} ]
                 },
                 {
                     q: `<p>Your profit graph has x-intercepts (Break-Even points) at $${bp1} and $${bp2}.</p><p>If you price your product at $${badP}, what happens?</p>`,
-                    opts: [ {text: "You operate at a loss (negative profit) because you are outside the break-even window.", correct: true}, {text: "You make a massive profit because the price is so high.", correct: false}, {text: "You break even.", correct: false} ]
+                    opts: [ {text: "You make a massive profit because the price is so high.", correct: false}, {text: "You operate at a loss (negative profit) because you are outside the break-even window.", correct: true}, {text: "You break even.", correct: false} ]
+                },
+                {
+                    q: `<p>A celebrity wears your ${item}, increasing overall demand. Your entire profit parabola shifts UP by $${shiftUp}.</p><p>What happens to your Break-Even points (x-intercepts)?</p>`,
+                    opts: [ {text: "They spread further apart, giving you a wider and safer range of prices to choose from.", correct: true}, {text: "They get closer together.", correct: false}, {text: "They remain exactly the same.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -968,14 +999,19 @@
         } else if (kica === "C") {
             let inc = randInt(10, 25);
             let dec = randInt(5, 15);
+            let highM = randInt(40, 60);
             const pool = [
                 {
                     q: `<p>You raised the price of ${item} from the optimal $${h} to $${h + inc}, but total profit dropped.</p><p>Which email correctly explains this to the CEO?</p>`,
-                    opts: [ {text: `"We are making more money per item, but the high price caused customer demand to drop so much that overall profit fell."`, correct: true}, {text: `"The math formula is broken. Higher price should always mean higher profit."`, correct: false}, {text: `"Our startup costs increased suddenly, which ruined the profit margins."`, correct: false} ]
+                    opts: [ {text: `"The math formula is broken. Higher price should always mean higher profit."`, correct: false}, {text: `"We are making more money per item, but the high price caused customer demand to drop so much that overall profit fell."`, correct: true}, {text: `"Our startup costs increased suddenly, which ruined the profit margins."`, correct: false} ]
                 },
                 {
                     q: `<p>You lowered the price of ${item} to $${h - dec}. You sold record numbers of items, but still made less total profit than the sweet spot.</p><p>How do you explain this?</p>`,
-                    opts: [ {text: `"Even though we sold more volume, the profit margin per item became too small to generate maximum total profit."`, correct: true}, {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean fewer people want to buy the product."`, correct: false} ]
+                    opts: [ {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean fewer people want to buy the product."`, correct: false}, {text: `"Even though we sold more volume, the profit margin per item became too small to generate maximum total profit."`, correct: true} ]
+                },
+                {
+                    q: `<p>An investor asks: "Why don't we just aim for the highest possible profit margin ($${highM} per item)?"</p><p>How do you explain the flaw in this logic using parabolas?</p>`,
+                    opts: [ {text: "Because the profit curve is a parabola. Maximizing margin usually destroys sales volume. The peak is found by balancing margin AND volume.", correct: true}, {text: "Because a high margin changes our 'a' value to positive.", correct: false}, {text: "Actually, they are right. The highest margin always creates the maximum total profit.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -1000,7 +1036,7 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerText = opt.text;
+            btn.innerHTML = opt.text; // Ensure HTML tags (like superscripts) render in buttons if present
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
