@@ -454,21 +454,24 @@
                 <span class="example-title">Example 1: The Concept</span>
                 Low Price = High Sales but Low Margin.<br>
                 High Price = High Margin but Low Sales.<br>
-                Middle Price = <strong>Maximum Profit</strong>.
+                Middle Price = <strong>Maximum Profit (Vertex)</strong>.
             </div>
             <div class="example-box">
-                <span class="example-title">Example 2: Analyzing the Model</span>
-                Profit P = -5(x - 20)² + 1000. (x is price).<br>
-                <strong>Solution:</strong> Max Profit is $1000. It happens when Price = $20.
+                <span class="example-title">Example 2: Break-Even Points (x-intercepts)</span>
+                The x-intercepts (where Profit = $0) are the break-even points. You must price your product <em>between</em> these two points to make any money.
             </div>
             <div class="example-box">
-                <span class="example-title">Example 3: Break-Even Points</span>
-                The x-intercepts (where y=0) are the break-even points. Below the lower x or above the higher x, you lose money. You must price between them.
+                <span class="example-title">Example 3: Substitution (The Greed Scenario)</span>
+                Profit P = -5(x - 20)² + 1000. (Max profit is $1000 at $20).<br>
+                What if you get greedy and charge $30?<br>
+                <strong>Solution:</strong> Substitute x = 30.<br>
+                P = -5(30 - 20)² + 1000 &rarr; -5(100) + 1000 = $500.<br>
+                <em>Result: You raised the price, but total profit dropped!</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Example 4: Real Estate</span>
-                House value usually rises linearly, but in a bubble, it goes quadratic. If y = -2(t-2022)² + 800k.<br>
-                The peak was in 2022 at $800k. Now it is dropping.
+                <span class="example-title">Example 4: Market Risk (The 'a' value)</span>
+                If a competitor enters, consumers become price-sensitive. Your 'a' value changes from -2 to -10.<br>
+                <strong>Meaning:</strong> The parabola becomes extremely narrow. The break-even points get much closer together. If your price misses the sweet spot by just a little, profits crash.
             </div>
 
             <div class="money-box">
@@ -634,7 +637,7 @@
     </div>
 </main>
 
-<div class="version-tag">v2.4 (KICA Fully Randomized Pools)</div>
+<div class="version-tag">v2.5 (Aligned Lesson 2.4 & Practice 2.4)</div>
 
 <script>
     /* --- UTILS --- */
@@ -911,7 +914,7 @@
         if (kica === "K") {
             let testX = h + 10;
             let result = -2 * Math.pow((testX - h), 2) + k;
-            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Calculate P when x = <strong>${testX}</strong>.</p>`;
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Substitute x = <strong>${testX}</strong> into the equation and calculate P.</p>`;
             setupInput(result.toString());
         } else if (kica === "A") {
             let greedPrice = h + 15;
@@ -921,15 +924,18 @@
         } else if (kica === "I") {
             let a1 = randInt(-3, -1);
             let a2 = randInt(-15, -8); 
-            let a3 = randChoice([-0.5, -0.2]); 
+            let bp1 = randInt(10, 25);
+            let bp2 = randInt(45, 70);
+            let badP = bp2 + randInt(5, 15);
+            
             const pool = [
                 {
-                    q: `<p>A competitor enters the market. Your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this mean for your pricing strategy?</p>`,
-                    opts: [ {text: "The curve is steeper. If I miss the sweet spot by even a little, profits will crash rapidly (High Risk).", correct: true}, {text: "The curve is wider. I can charge whatever I want and still make money (Low Risk).", correct: false}, {text: "It changes my startup costs, but the risk remains exactly the same.", correct: false} ]
+                    q: `<p>A competitor enters the market. Your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this mean for your Break-Even points?</p>`,
+                    opts: [ {text: "The curve gets steeper, meaning the break-even points get closer together. You have a much narrower 'safe' pricing window.", correct: true}, {text: "The break-even points spread further apart, meaning less risk.", correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false} ]
                 },
                 {
-                    q: `<p>You find a cheaper supplier, making your profit curve wider (from 'a' = ${a2} to 'a' = ${a3}).</p><p>What is the business impact?</p>`,
-                    opts: [ {text: "Pricing is more forgiving. You have a wider range of prices that still generate good profit (Lower Risk).", correct: true}, {text: "You are forced to charge a much higher price to survive.", correct: false}, {text: "Your maximum profit point moves to a lower price.", correct: false} ]
+                    q: `<p>Your profit graph has x-intercepts (Break-Even points) at $${bp1} and $${bp2}.</p><p>If you price your product at $${badP}, what happens?</p>`,
+                    opts: [ {text: "You operate at a loss (negative profit) because you are outside the break-even window.", correct: true}, {text: "You make a massive profit because the price is so high.", correct: false}, {text: "You break even.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -944,8 +950,8 @@
                     opts: [ {text: `"We are making more money per item, but the high price caused customer demand to drop so much that overall profit fell."`, correct: true}, {text: `"The math formula is broken. Higher price should always mean higher profit."`, correct: false}, {text: `"Our startup costs increased suddenly, which ruined the profit margins."`, correct: false} ]
                 },
                 {
-                    q: `<p>You panicked and lowered the price of ${item} from the optimal $${h} to $${h - dec}. Sales went up, but total profit dropped.</p><p>How do you explain this?</p>`,
-                    opts: [ {text: `"Even though we sold more items, the profit margin per item became too small to make a good total profit."`, correct: true}, {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean less people want to buy the product."`, correct: false} ]
+                    q: `<p>You lowered the price of ${item} to $${h - dec}. You sold record numbers of items, but still made less total profit than the sweet spot.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: `"Even though we sold more volume, the profit margin per item became too small to generate maximum total profit."`, correct: true}, {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean fewer people want to buy the product."`, correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
