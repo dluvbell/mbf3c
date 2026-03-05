@@ -637,7 +637,7 @@
     </div>
 </main>
 
-<div class="version-tag">v2.5 (Aligned Lesson 2.4 & Practice 2.4)</div>
+<div class="version-tag">v2.6 (Dynamic 'a' values & Randomized Narrow/Wide Risks)</div>
 
 <script>
     /* --- UTILS --- */
@@ -857,15 +857,21 @@
     function gen2_3(kica, qArea) {
         let h = randInt(10, 30);
         let k = randInt(1000, 3000);
-        let a = -2; 
-        let b = 4 * h;
-        let c = (-2 * h * h) + k;
+        
+        // Randomize 'a' (must be negative for a max profit model)
+        let a = randInt(-5, -1); 
+        
+        // Standard Form: P = a(x-h)^2 + k  => ax^2 - 2ahx + ah^2 + k
+        // So b = -2ah, and c = ah^2 + k
+        let b = -2 * a * h; 
+        let c = (a * h * h) + k;
+        
         let item = randChoice(items);
 
-        let standardEq = `P = -2x² + ${b}x ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}`;
+        let standardEq = `P = ${a}x² + ${b}x ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}`;
 
         if (kica === "K") {
-            qArea.innerHTML = `<p>Expand this equation: <strong>P = -2(x - ${h})² + ${k}</strong></p><p>What is the 'c' value (y-intercept)?</p>`;
+            qArea.innerHTML = `<p>Expand this equation: <strong>P = ${a}(x - ${h})² + ${k}</strong></p><p>What is the 'c' value (y-intercept)?</p>`;
             setupInput(c.toString());
         } else if (kica === "A") {
             qArea.innerHTML = `<p>Your ${item} profit model is expanded to: <strong>${standardEq}</strong></p><p>What is your <strong>Startup Cost</strong> (Profit when x = 0)?</p>`;
@@ -879,7 +885,7 @@
                     opts: [ {text: `The Break-Even points. Pricing below $${x1} or above $${x2} results in a loss.`, correct: true}, {text: `The points where we make the maximum profit.`, correct: false}, {text: `The startup costs for the business.`, correct: false} ]
                 },
                 {
-                    q: `<p>Your business model equation is factored to <span class="math-text">P = -2(x - ${x1})(x - ${x2})</span>.</p><p>What happens if you set the price at exactly $${x1}?</p>`,
+                    q: `<p>Your business model equation is factored to <span class="math-text">P = ${a}(x - ${x1})(x - ${x2})</span>.</p><p>What happens if you set the price at exactly $${x1}?</p>`,
                     opts: [ {text: `Your profit will be exactly $0 (You break even).`, correct: true}, {text: `You will reach your maximum profit.`, correct: false}, {text: `You will owe the bank money.`, correct: false} ]
                 }
             ];
@@ -908,30 +914,48 @@
     function gen2_4(kica, qArea) {
         let h = randInt(20, 50);
         let k = randInt(2000, 5000);
+        
+        // Randomize 'a' (must be negative for a max profit model)
+        let a = randInt(-5, -1);
+        
         let item = randChoice(items);
-        let eq = `P = -2(x - ${h})² + ${k}`;
+        let eq = `P = ${a}(x - ${h})² + ${k}`;
 
         if (kica === "K") {
             let testX = h + 10;
-            let result = -2 * Math.pow((testX - h), 2) + k;
+            let result = a * Math.pow((testX - h), 2) + k;
             qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Substitute x = <strong>${testX}</strong> into the equation and calculate P.</p>`;
             setupInput(result.toString());
         } else if (kica === "A") {
             let greedPrice = h + 15;
-            let greedResult = -2 * Math.pow((greedPrice - h), 2) + k;
+            let greedResult = a * Math.pow((greedPrice - h), 2) + k;
             qArea.innerHTML = `<p>The perfect price for ${item} is $${h} to make $${k} (<strong>${eq}</strong>).</p><p>You get greedy and charge <strong>$${greedPrice}</strong>. Calculate your new Profit.</p>`;
             setupInput(greedResult.toString());
         } else if (kica === "I") {
-            let a1 = randInt(-3, -1);
-            let a2 = randInt(-15, -8); 
+            // Randomize whether the market gets riskier (narrower) or safer (wider)
+            let isNarrowing = Math.random() > 0.5;
+            let a1, a2, correctText, wrongText;
+            
+            if (isNarrowing) {
+                a1 = randInt(-3, -1);
+                a2 = randInt(-15, -8); 
+                correctText = "The curve gets steeper, meaning the break-even points get closer together. You have a much narrower 'safe' pricing window (Higher Risk).";
+                wrongText = "The curve gets wider, meaning the break-even points spread further apart. You have a wider 'safe' pricing window (Lower Risk).";
+            } else {
+                a1 = randInt(-15, -8);
+                a2 = randInt(-3, -1); 
+                correctText = "The curve gets wider, meaning the break-even points spread further apart. You have a wider 'safe' pricing window (Lower Risk).";
+                wrongText = "The curve gets steeper, meaning the break-even points get closer together. You have a much narrower 'safe' pricing window (Higher Risk).";
+            }
+
             let bp1 = randInt(10, 25);
             let bp2 = randInt(45, 70);
             let badP = bp2 + randInt(5, 15);
             
             const pool = [
                 {
-                    q: `<p>A competitor enters the market. Your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this mean for your Break-Even points?</p>`,
-                    opts: [ {text: "The curve gets steeper, meaning the break-even points get closer together. You have a much narrower 'safe' pricing window.", correct: true}, {text: "The break-even points spread further apart, meaning less risk.", correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false} ]
+                    q: `<p>Due to market changes, your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this mean for your Break-Even points?</p>`,
+                    opts: [ {text: correctText, correct: true}, {text: wrongText, correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false} ]
                 },
                 {
                     q: `<p>Your profit graph has x-intercepts (Break-Even points) at $${bp1} and $${bp2}.</p><p>If you price your product at $${badP}, what happens?</p>`,
