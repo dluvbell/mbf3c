@@ -324,7 +324,7 @@
             <h3>Concept Overview</h3>
             <p>Exponents represent repeated multiplication. In <span class="math-text">b<sup>x</sup></span>, <strong>b</strong> is the base and <strong>x</strong> is the exponent.</p>
             
-            <h3>4 Examples</h3>
+            <h3>5 Examples</h3>
             <div class="example-box">
                 <span class="example-title">Ex 1: Product Rule (Multiply)</span>
                 Rule: <span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span><br>
@@ -344,6 +344,11 @@
                 <span class="example-title">Ex 4: Zero Exponent</span>
                 Rule: <span class="math-text">x<sup>0</sup> = 1</span> (Always!)<br>
                 Example: <span class="math-text">1,000,000<sup>0</sup> = 1</span>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 5: Negative Exponents</span>
+                Rule: <span class="math-text">x<sup>-a</sup> = 1 / x<sup>a</sup></span> (A negative exponent creates a fraction, NOT a negative number!)<br>
+                Example: <span class="math-text">2<sup>-3</sup> = 1 / 2<sup>3</sup> = 1 / 8</span>
             </div>
 
             <div class="money-box">
@@ -405,7 +410,7 @@
                 <li><strong>n:</strong> Number of years/periods</li>
             </ul>
             
-            <h3>4 Examples</h3>
+            <h3>5 Examples</h3>
             <div class="example-box">
                 <span class="example-title">Ex 1: Savings Account</span>
                 $1,000 at 5% for 3 years.<br>
@@ -426,6 +431,10 @@
                 $2,000 in Tech ETF at 12% for 5 years.<br>
                 <span class="math-text">A = 2000(1.12)<sup>5</sup> = $3,524.68</span>
             </div>
+            <div class="example-box">
+                <span class="example-title">Ex 5: Compounding Frequency</span>
+                Interest can be calculated Annually (1 time a year), Monthly (12 times a year), or Daily. The more frequently interest is calculated, the larger your final amount will be, because you start earning "interest on your interest" much sooner.
+            </div>
 
             <div class="money-box">
                 <div class="money-header">💸 Money Connection: Start Early</div>
@@ -437,7 +446,7 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
@@ -529,7 +538,6 @@
 
         <div id="feedback-area"></div>
     </div>
-
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 3 Assignment: The Wealth Formula</h2>
         <p><strong>Scenario:</strong> Instead of solving a generic textbook problem, you will apply the math to <strong>Your Own Life</strong>. You will research a real-world depreciating asset (a car) and compare it against the power of compounding investments.</p>
@@ -619,7 +627,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.3 (KICA Fully Randomized Pools)</div>
+<div class="version-tag">v3.5 (Aligned Curriculum & Advanced Randomized Pools)</div>
 
 <script>
     /* --- UTILS --- */
@@ -764,28 +772,41 @@
             qArea.innerHTML = `<p>Evaluate to a final number:</p><p><span class="math-text">${base}<sup>${a}</sup> &times; ${base}<sup>${b}</sup></span></p>`;
             setupInput(ans);
         } else if (kica === "I") {
-            const pool = [
+            let a = randInt(2, 5), b = randInt(2, 5);
+            let zeroBase = randInt(10, 99) * 1000;
+            let pool = [
                 {
-                    q: `<p>You calculate <span class="math-text">1,500,000<sup>0</sup></span>.</p><p>What is the mathematical result?</p>`,
-                    opts: [ {text: "1", correct: true}, {text: "0", correct: false}, {text: "1,500,000", correct: false} ]
+                    q: `<p>A student simplified <span class="math-text">(x<sup>${a}</sup>)<sup>${b}</sup></span> as <span class="math-text">x<sup>${a+b}</sup></span>. What mistake did they make?</p>`,
+                    opts: [ {text: `They added the exponents. They must multiply them to get x^${a*b}.`, correct: true}, {text: "No mistake, it is correct.", correct: false}, {text: `They should have divided them.`, correct: false} ]
                 },
                 {
-                    q: `<p>When using the Product Rule (<span class="math-text">x<sup>a</sup> &times; x<sup>b</sup></span>), why do we <strong>ADD</strong> the exponents instead of multiplying them?</p>`,
-                    opts: [ {text: "Because we are simply counting the total number of times 'x' is being multiplied by itself.", correct: true}, {text: "Because the base 'x' turns multiplication into addition automatically.", correct: false}, {text: "Because you always add numbers when you see a multiplication sign in algebra.", correct: false} ]
+                    q: `<p>You plug <span class="math-text">${zeroBase}<sup>0</sup></span> into your calculator. The screen shows 1. Why?</p>`,
+                    opts: [ {text: "Any non-zero number to the power of zero is exactly 1.", correct: true}, {text: "The calculator rounded down to 1.", correct: false}, {text: "It is an error. The answer should be 0.", correct: false} ]
+                },
+                {
+                    q: `<p>Why do we ADD exponents for <span class="math-text">x<sup>${a}</sup> &times; x<sup>${b}</sup></span>?</p>`,
+                    opts: [ {text: `Because we are counting the total number of 'x's being multiplied (${a} + ${b}).`, correct: true}, {text: "Because the multiplication sign changes into a plus sign.", correct: false}, {text: "We don't add them, we multiply them.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
             qArea.innerHTML = selected.q;
             setupMC(selected.opts);
         } else if (kica === "C") {
-            const pool = [
+            let item = randChoice(["penny", "dime", "magic bean"]);
+            let action = randChoice(["doubles", "triples"]);
+            let days = randInt(20, 30);
+            let pool = [
                 {
-                    q: `<p>In the "Penny Problem", a penny doubles every day for 30 days. How do you explain the massive result using exponents?</p>`,
-                    opts: [ {text: "Because multiplying by 2 repeatedly means the exponent grows, causing the value to accelerate upward rapidly (J-Curve).", correct: true}, {text: "Because $0.01 is multiplied by 30 days.", correct: false}, {text: "Because the base gets bigger every single day.", correct: false} ]
+                    q: `<p>A ${item} ${action} every day for ${days} days. How do you explain the massive final amount using math?</p>`,
+                    opts: [ {text: `Because multiplying repeatedly means the exponent grows, accelerating the value upward rapidly in a J-Curve.`, correct: true}, {text: `Because the starting value of the ${item} was so high.`, correct: false}, {text: `Because it is multiplied by ${days}.`, correct: false} ]
                 },
                 {
                     q: `<p>A classmate thinks <span class="math-text">2x</span> and <span class="math-text">2<sup>x</sup></span> mean the same thing. How do you correct them?</p>`,
                     opts: [ {text: "2x is linear (adding 2 repeatedly), while 2^x is exponential (multiplying by 2 repeatedly).", correct: true}, {text: "They are the same, just written differently.", correct: false}, {text: "2^x means x is multiplied by 2, and 2x means 2 is multiplied by x.", correct: false} ]
+                },
+                {
+                    q: `<p>Explain why a Negative Exponent like <span class="math-text">x<sup>-2</sup></span> does not result in a negative number.</p>`,
+                    opts: [ {text: "A negative exponent means fraction (division), so it becomes 1/x^2, which is still a positive amount.", correct: true}, {text: "It does result in a negative number.", correct: false}, {text: "Because the base is positive.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -811,28 +832,45 @@
             qArea.innerHTML = `<p>A bacteria culture starts with <strong>${start}</strong> cells and <strong>doubles</strong> every hour.</p><p>Calculate the population after <strong>${x} hours</strong>.</p>`;
             setupInput(ans);
         } else if (kica === "I") {
-            const pool = [
+            let rate = randInt(4, 15);
+            let dec = rate / 100;
+            let bVal = (1 + dec).toFixed(2);
+            let linWage = randInt(500, 2000);
+            
+            let pool = [
                 {
-                    q: `<p>Job A pays $1000 a day. Job B pays $1 the first day, but the pay doubles every day.</p><p>Which job pays more in the long run and why?</p>`,
-                    opts: [ {text: "Job B, because exponential growth always overtakes linear growth eventually.", correct: true}, {text: "Job A, because $1000 is much bigger than $1.", correct: false}, {text: "They will pay the exact same amount after 30 days.", correct: false} ]
+                    q: `<p>A population equation is <span class="math-text">P = 500(${bVal})<sup>t</sup></span>. What does the ${bVal} tell you?</p>`,
+                    opts: [ {text: `The population is growing by ${rate}% every time period.`, correct: true}, {text: `The population started at ${bVal} people.`, correct: false}, {text: `The population goes up by ${bVal} people every year.`, correct: false} ]
                 },
                 {
-                    q: `<p>If a population equation is <span class="math-text">P = 500(1.08)<sup>t</sup></span>, what does the 1.08 tell you?</p>`,
-                    opts: [ {text: "The population is growing by 8% every time period.", correct: true}, {text: "The population started at 108 people.", correct: false}, {text: "The population goes up by 1.08 people every year.", correct: false} ]
+                    q: `<p>Job A pays $${linWage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for 30 days, which is better and why?</p>`,
+                    opts: [ {text: "Job B, because exponential growth always explodes and overtakes linear growth eventually.", correct: true}, {text: `Job A, because $${linWage} is much bigger than $1.`, correct: false}, {text: "They will pay the exact same amount.", correct: false} ]
+                },
+                {
+                    q: `<p>If a town is shrinking by ${rate}% a year, a student writes the growth factor as ${bVal}. Are they correct?</p>`,
+                    opts: [ {text: `No. Since it's shrinking, they should subtract from 1, making it ${(1-dec).toFixed(2)}.`, correct: true}, {text: `Yes, ${bVal} represents ${rate}%.`, correct: false}, {text: `No, it should just be ${dec}.`, correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
             qArea.innerHTML = selected.q;
             setupMC(selected.opts);
         } else if (kica === "C") {
-            const pool = [
+            let r1 = randInt(4, 9);
+            let r2 = randInt(10, 15);
+            let r72_1 = (72/r1).toFixed(1);
+            let r72_2 = (72/r2).toFixed(1);
+            let pool = [
                 {
-                    q: `<p>A friend asks you to explain the "Rule of 72" for their investments.</p><p>Which statement is correct?</p>`,
-                    opts: [ {text: "\"If you divide 72 by your interest rate, it tells you roughly how many years it takes for your money to double.\"", correct: true}, {text: "\"It means you will make 72% profit if you leave your money in the bank.\"", correct: false}, {text: "\"You have to wait until you are 72 years old to withdraw your money.\"", correct: false} ]
+                    q: `<p>How would you explain the "Rule of 72" to a friend who wants to invest at ${r1}%?</p>`,
+                    opts: [ {text: `"If you divide 72 by ${r1}, it tells you it will take roughly ${r72_1} years for your money to double."`, correct: true}, {text: `"It means you will make a 72% profit in ${r1} years."`, correct: false}, {text: `"You have to wait until you are 72 years old to withdraw."`, correct: false} ]
                 },
                 {
-                    q: `<p>How do you visually describe an Exponential Growth graph compared to a Linear graph to a client?</p>`,
+                    q: `<p>How do you visually describe an Exponential Growth graph compared to a Linear graph?</p>`,
                     opts: [ {text: "Linear is a straight line, while Exponential is a J-Curve that starts slow and shoots upward.", correct: true}, {text: "Linear goes up, but Exponential goes down in a U-shape.", correct: false}, {text: "They both look like straight lines, but Exponential is steeper.", correct: false} ]
+                },
+                {
+                    q: `<p>Your friend is confused why an investment returning ${r2}% is so much better than ${r1}%. How do you explain the long-term effect?</p>`,
+                    opts: [ {text: "The higher the rate, the steeper the exponential curve. Over decades, that small percentage gap translates to massive differences in total wealth.", correct: true}, {text: `Because ${r2} is a bigger number than ${r1}.`, correct: false}, {text: "It actually doesn't matter much in the long term.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -852,7 +890,6 @@
             qArea.innerHTML = `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i}, and n = ${n}, calculate <strong>A</strong>.</p><p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
         } else if (kica === "A") {
-            // FIXED: Fully randomized variables
             const P = randInt(1, 5) * 1000;
             const rate = randInt(5, 12);
             const i = rate / 100;
@@ -865,28 +902,42 @@
             qArea.innerHTML = `<p>You invest <strong>$${P}</strong> at <strong>${rate}%</strong> interest.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p><p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
         } else if (kica === "I") {
-            const pool = [
+            let rate = randInt(5, 12);
+            let nYears = randInt(20, 40);
+            let pool = [
                 {
-                    q: `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the most powerful variable for building wealth?</p>`,
-                    opts: [ {text: "Because it acts as an exponent, causing the money to compound and curve upwards rapidly over long periods.", correct: true}, {text: "Because it is simply added to the principal at the end.", correct: false}, {text: "Because more time reduces the effect of inflation.", correct: false} ]
+                    q: `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) so powerful in growing wealth?</p>`,
+                    opts: [ {text: "Because it is an exponent. The money compounds on itself, curving upward rapidly over time.", correct: true}, {text: "Because it gets multiplied by the interest rate.", correct: false}, {text: "Because more time reduces bank fees.", correct: false} ]
                 },
                 {
-                    q: `<p>If you compound your money \"monthly\" instead of \"annually\", what happens to your final amount?</p>`,
-                    opts: [ {text: "It grows slightly larger because interest is being calculated and added to the pile more frequently.", correct: true}, {text: "It gets smaller because the bank charges more fees.", correct: false}, {text: "It stays exactly the same.", correct: false} ]
+                    q: `<p>If you switch an investment from compounding \"Annually\" to \"Monthly\", what happens to your final total?</p>`,
+                    opts: [ {text: "It grows slightly larger because interest is calculated and added to your pile more often.", correct: true}, {text: "It gets smaller because the bank charges 12 times.", correct: false}, {text: "It stays exactly the same.", correct: false} ]
+                },
+                {
+                    q: `<p>If an investment guarantees ${rate}% return for ${nYears} years, what happens if you withdraw the money early?</p>`,
+                    opts: [ {text: "You interrupt the compound curve, destroying the massive growth that happens in the final years.", correct: true}, {text: "Nothing, the money grows in a straight line anyway.", correct: false}, {text: "You actually make more money by taking it out early.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
             qArea.innerHTML = selected.q;
             setupMC(selected.opts);
         } else if (kica === "C") {
-            const pool = [
+            let age = randInt(18, 25);
+            let waitAge = age + randInt(10, 15);
+            let debt = randInt(2, 8) * 500;
+            let cardRate = randInt(18, 25);
+            let pool = [
                 {
-                    q: `<p>A 20-year-old client thinks they don't have enough money to start investing, so they want to wait until they are 40.</p><p>What is your financial advice?</p>`,
-                    opts: [ {text: "Start now with whatever you have. The longer the money stays invested, the harder compound interest works for you.", correct: true}, {text: "Wait until 40. You need at least $10,000 to start compounding.", correct: false}, {text: "Put it all in a checking account to avoid exponential decay.", correct: false} ]
+                    q: `<p>A ${age}-year-old client thinks they don't have enough money to start investing, so they want to wait until they are ${waitAge}.</p><p>What is your financial advice?</p>`,
+                    opts: [ {text: "Start now with whatever you have. The longer the money stays invested, the harder compound interest works for you.", correct: true}, {text: `Wait until ${waitAge}. You need a large sum to start compounding.`, correct: false}, {text: "Put it all in a checking account to avoid losing it.", correct: false} ]
                 },
                 {
-                    q: `<p>How does compound interest make credit card debt so dangerous?</p>`,
-                    opts: [ {text: "Because you are charged interest on top of your previous interest, making the debt grow exponentially if ignored.", correct: true}, {text: "Because the bank legally changes the interest rate every day.", correct: false}, {text: "Because credit cards use linear equations instead of exponential ones.", correct: false} ]
+                    q: `<p>How does compound interest make a $${debt} credit card debt at ${cardRate}% so dangerous?</p>`,
+                    opts: [ {text: `You are charged ${cardRate}% interest on top of your previous interest, making the debt grow exponentially in a J-curve.`, correct: true}, {text: `Because the bank legally changes the interest rate to ${cardRate+10}% if you don't pay.`, correct: false}, {text: "Because credit cards use linear equations.", correct: false} ]
+                },
+                {
+                    q: `<p>When financial advisors talk about the "Cost of Waiting", what mathematical concept are they referring to?</p>`,
+                    opts: [ {text: "By waiting, you decrease the exponent 'n' in the formula, which drastically cuts the final exponential growth.", correct: true}, {text: "By waiting, the 'P' (Principal) decreases due to bank fees.", correct: false}, {text: "By waiting, the interest rate 'i' drops naturally.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -909,28 +960,40 @@
             qArea.innerHTML = `<p>You buy a new car for <strong>$${P}</strong>.</p><p>It depreciates at 15% per year (b = 0.85).</p><p>Calculate its value after <strong>${years} years</strong>.</p><p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
         } else if (kica === "I") {
-            const pool = [
+            let drop = randInt(15, 30);
+            let bVal = (1 - (drop/100)).toFixed(2);
+            let pool = [
                 {
-                    q: `<p>In exponential decay (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets extremely large?</p>`,
-                    opts: [ {text: "It gets closer and closer to zero, but mathematically never actually touches it (an asymptote).", correct: true}, {text: "It goes into negative numbers.", correct: false}, {text: "It turns around and starts going back up.", correct: false} ]
+                    q: `<p>In exponential decay (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets huge?</p>`,
+                    opts: [ {text: "It approaches zero endlessly, but mathematically never actually touches it (an asymptote).", correct: true}, {text: "It eventually hits exactly zero and stops.", correct: false}, {text: "It goes into negative numbers.", correct: false} ]
                 },
                 {
-                    q: `<p>Why does a car lose more actual dollar value in its 1st year than in its 10th year?</p>`,
-                    opts: [ {text: "Because the 15% depreciation is calculated on a much larger starting price in year 1.", correct: true}, {text: "Because dealerships artificially change the percentage every year.", correct: false}, {text: "Because cars get stronger and better as they age.", correct: false} ]
+                    q: `<p>Why does a car lose more actual dollar value in its 1st year than in its 10th year if it decays at ${drop}% per year?</p>`,
+                    opts: [ {text: `Because ${drop}% is calculated on a much larger starting price in year 1.`, correct: true}, {text: `Because the percentage actually increases as the car gets older.`, correct: false}, {text: `Because cars decay in a linear line.`, correct: false} ]
+                },
+                {
+                    q: `<p>A chemical's mass decreases by ${drop}% every hour. What 'b' value must you use in the equation <span class="math-text">y = a(b)<sup>x</sup></span>?</p>`,
+                    opts: [ {text: `b = ${bVal}, because you retain ${100-drop}% of the chemical each hour.`, correct: true}, {text: `b = ${drop}, because that is the decay rate.`, correct: false}, {text: `b = ${(drop/100).toFixed(2)}, because you just convert it to a decimal.`, correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
             qArea.innerHTML = selected.q;
             setupMC(selected.opts);
         } else if (kica === "C") {
-            const pool = [
+            let price = randInt(25, 60) * 1000;
+            let decRate = randInt(12, 20);
+            let pool = [
                 {
-                    q: `<p>How would you explain the "New Car Trap" to someone using the concept of Exponential Decay?</p>`,
-                    opts: [ {text: "New cars lose the largest chunk of their value in the first few years. You are paying heavily for the steepest part of the decay curve.", correct: true}, {text: "New cars gain value quickly because of compound interest.", correct: false}, {text: "New cars lose value in a straight, linear line, so it doesn't matter when you buy them.", correct: false} ]
+                    q: `<p>How would you explain the "New Car Trap" to someone buying a $${price} car?</p>`,
+                    opts: [ {text: `New cars lose the largest chunk of their value in the first few years. You are paying heavily for the steepest part of the decay curve.`, correct: true}, {text: `New cars gain value quickly because of compound interest.`, correct: false}, {text: `New cars lose value in a straight, linear line, so it doesn't matter when you buy.`, correct: false} ]
                 },
                 {
                     q: `<p>How would you mathematically explain "Inflation" as a form of Exponential Decay?</p>`,
-                    opts: [ {text: "Your money's buying power drops by a percentage every year, so $100 buys less and less over time.", correct: true}, {text: "Your bank account balance actually decreases every year.", correct: false}, {text: "Inflation means prices go down exponentially.", correct: false} ]
+                    opts: [ {text: "Your money's buying power drops by a percentage every year, so $100 buys exponentially less over time.", correct: true}, {text: "Your bank account balance actually decreases every year.", correct: false}, {text: "Inflation means the prices of goods go down exponentially.", correct: false} ]
+                },
+                {
+                    q: `<p>If a phone depreciates by ${decRate}% a year, why shouldn't you just subtract $1000 every year to find its value?</p>`,
+                    opts: [ {text: `Because depreciation is exponential, not linear. It loses ${decRate}% of its CURRENT value, not a fixed dollar amount.`, correct: true}, {text: `Because $1000 is too small of an amount.`, correct: false}, {text: `Because depreciation is added, not subtracted.`, correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -955,7 +1018,7 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerText = opt.text;
+            btn.innerHTML = opt.text; // Ensure HTML tags (like superscripts) render in buttons if present
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
