@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBF3C - Unit 3: Exponential Relations</title>
+    <title>MBF3C - Unit 2: Quadratic Relations</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -163,15 +163,16 @@
         }
 
         /* Math Formatting */
-        .math-text {
-            font-family: 'Times New Roman', serif;
-            font-size: 1.15rem;
-            font-style: italic;
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 4px;
+            font-size: 1.1em;
+            font-family: 'Times New Roman', Times, serif;
         }
-        sup {
-            font-size: 0.8em;
-            vertical-align: super;
-        }
+        .top { border-bottom: 1px solid #000; display: block; padding: 0 2px; }
+        .bottom { display: block; padding: 0 2px; }
 
         /* Practice Section */
         .practice-controls {
@@ -229,7 +230,7 @@
             font-weight: 500;
         }
 
-        /* Option Buttons for KICA */
+        /* Option Buttons */
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -266,19 +267,6 @@
 
         /* Print Button */
         .print-btn { background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; float: right; }
-        
-        /* Assignment Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th { background-color: var(--primary-color); color: white; }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
@@ -288,12 +276,17 @@
         }
         
         .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
+        
+        /* Rubric Table styling for the new assignment tab */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background-color: #ecf0f1; color: var(--primary-color); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>MBF3C Unit 3: Exponential Relations</h1>
+    <h1>MBF3C Unit 2: Quadratic Relations</h1>
     <p>Ontario Curriculum | College Preparation</p>
 </header>
 
@@ -307,175 +300,184 @@
 
 <main>
     <div id="tab-calculator" class="tab-content active">
-        <h2>Compound Interest Calculator</h2>
-        <p>Use this calculator to see how money grows over time (The 8th Wonder of the World).</p>
-        <button class="btn-primary" onclick="window.open('https://www.calculator.net/interest-calculator.html', '_blank')">Open Calculator in New Tab</button>
-        <br><br>
-        <iframe src="https://www.calculator.net/interest-calculator.html?cstartingprinciple=1000&cannualaddition=100&cmonthlyaddition=0&cadditionat1=beginning&cinterestrate=7&ccompound=annually&cyears=10&ctaxtrate=0&cinflationrate=0&printit=0&x=115&y=22" width="100%" height="800" frameborder="0"></iframe>
+        <h2>Vertex Form Calculator</h2>
+        <p>Enter the values to find the Vertex (h, k) without graphs.</p>
+        
+        <script async src="https://cdn.omnicalculator.com/sdk.js"></script>
+        <div class="omni-calculator" 
+             data-calculator="math/vertex-form" 
+             data-width="100%" 
+             data-config='{}' 
+             data-currency="USD" 
+             data-show-row-controls="false" 
+             data-version="1" 
+             data-t="1">
+            <div class="omni-calculator-header">Vertex Form Calculator</div>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <p style="font-size:0.9rem; color:#7f8c8d;">
+                * If the calculator does not load, click the button below.
+            </p>
+            <a href="https://www.omnicalculator.com/math/vertex-form" target="_blank">
+                <button class="btn-primary" style="background-color:#27ae60;">Open Calculator in New Tab</button>
+            </a>
+        </div>
     </div>
 
     <div id="tab-lessons" class="tab-content">
-        <h2>Unit 3 Lessons</h2>
-        <p>Understand how viruses spread, populations grow, and most importantly, how <strong>Money</strong> multiplies.</p>
+        <h2>Unit 2 Lessons</h2>
+        <p>Learn how curves (parabolas) model real-world trends like profit, gravity, and market cycles.</p>
 
-        <button class="accordion">3.1 Exponent Laws (The Basics)</button>
+        <button class="accordion">2.1 The "Parabolic" Trend (Linear vs Quadratic)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>Exponents represent repeated multiplication. In <span class="math-text">b<sup>x</sup></span>, <strong>b</strong> is the base and <strong>x</strong> is the exponent.</p>
-            
-            <h3>5 Examples</h3>
-            <div class="example-box">
-                <span class="example-title">Ex 1: Product Rule (Multiply)</span>
-                Rule: <span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span><br>
-                Example: <span class="math-text">2<sup>3</sup> &times; 2<sup>4</sup> = 2<sup>7</sup></span> (Add exponents)
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 2: Quotient Rule (Divide)</span>
-                Rule: <span class="math-text">x<sup>a</sup> &div; x<sup>b</sup> = x<sup>a-b</sup></span><br>
-                Example: <span class="math-text">5<sup>6</sup> &div; 5<sup>2</sup> = 5<sup>4</sup></span> (Subtract exponents)
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 3: Power of a Power</span>
-                Rule: <span class="math-text">(x<sup>a</sup>)<sup>b</sup> = x<sup>a &times; b</sup></span><br>
-                Example: <span class="math-text">(3<sup>2</sup>)<sup>4</sup> = 3<sup>8</sup></span> (Multiply exponents)
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 4: Zero Exponent</span>
-                Rule: <span class="math-text">x<sup>0</sup> = 1</span> (Always!)<br>
-                Example: <span class="math-text">1,000,000<sup>0</sup> = 1</span>
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 5: Negative Exponents</span>
-                Rule: <span class="math-text">x<sup>-a</sup> = 1 / x<sup>a</sup></span> (A negative exponent creates a fraction, NOT a negative number!)<br>
-                Example: <span class="math-text">2<sup>-3</sup> = 1 / 2<sup>3</sup> = 1 / 8</span>
-            </div>
-
-            <div class="money-box">
-                <div class="money-header">💸 Money Connection: The Penny Problem</div>
-                <p>Would you rather have $1 Million dollars today, or a penny that doubles every day for 30 days?</p>
-                <p>Day 1: $0.01<br>Day 2: $0.02<br>...<br>Day 30: <span class="math-text">0.01 &times; 2<sup>29</sup></span> &approx; <strong>$5.3 Million!</strong></p>
-            </div>
-        </div>
-
-        <button class="accordion">3.2 Exponential Growth (The J-Curve)</button>
-        <div class="panel">
-            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
-            <h3>Concept Overview</h3>
-            <p>Growth where the rate of increase speeds up. It creates a "J" shaped curve. <br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where b > 1)</p>
+            <p><strong>Linear:</strong> A straight line trend. (Steady growth). <code>y = mx + b</code><br>
+            <strong>Quadratic:</strong> A curve (U-shape) called a <strong>Parabola</strong>. It goes up and comes down (or down then up). <code>y = ax² + bx + c</code></p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
-                <span class="example-title">Ex 1: Bacteria Growth</span>
-                Starts with 100, doubles every hour (b=2).<br>
-                Eq: <span class="math-text">y = 100(2)<sup>x</sup></span>
+                <span class="example-title">Example 1: Hourly Wage (Linear)</span>
+                You earn $15 per hour. If you work more hours, your money goes up in a straight line.<br>
+                <em>This is NOT Quadratic.</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 2: Inflation (Price Hike)</span>
-                A burger costs $5. Inflation is 10% (0.10) per year.<br>
-                Growth factor b = 1 + 0.10 = 1.10.<br>
-                Eq: <span class="math-text">y = 5(1.10)<sup>x</sup></span>
+                <span class="example-title">Example 2: Throwing a Ball (Quadratic)</span>
+                You throw a ball in the air. It goes up, slows down, reaches a peak, and falls back down.<br>
+                <em>The path is a Parabola.</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 3: Real Estate</span>
-                A condo worth $500k goes up 5% per year.<br>
-                b = 1.05.<br>
-                Eq: <span class="math-text">y = 500,000(1.05)<sup>x</sup></span>
+                <span class="example-title">Example 3: Finite Differences</span>
+                Look at the y-values: 1, 4, 9, 16, 25.<br>
+                1st Diff: 3, 5, 7, 9 (Not constant).<br>
+                2nd Diff: 2, 2, 2 (Constant).<br>
+                <em>If the Second Difference is constant, it's Quadratic.</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 4: Viral Video</span>
-                Views start at 1,000 and triple (b=3) every hour.<br>
-                Eq: <span class="math-text">y = 1,000(3)<sup>x</sup></span>
+                <span class="example-title">Example 4: The Equation</span>
+                Which is quadratic?<br>
+                A) y = 2x + 5 (Linear)<br>
+                B) y = x² - 4 (Quadratic because of the exponent ²)
             </div>
 
             <div class="money-box">
-                <div class="money-header">💸 Money Connection: Rule of 72</div>
-                <p>How long to double your money? Divide 72 by the interest rate.</p>
-                <ul>
-                    <li>Bank (2%): 72 &div; 2 = 36 years to double.</li>
-                    <li>Stock Market (10%): 72 &div; 10 = 7.2 years to double.</li>
-                </ul>
+                <div class="money-header">💸 Money Connection: The Hype Cycle & Impulse Buying</div>
+                <p>Fashion trends, memes, and viral products often follow a parabolic curve. They shoot up in popularity quickly to a peak (Vertex), and then crash just as fast.</p>
+                <p><strong>Financial Lesson:</strong> Don't buy into the hype on the steep right side of the curve (FOMO). If you buy at the peak (Vertex), the value will only go down. Smart consumers wait for the trend to stabilize or buy before the curve goes vertical.</p>
             </div>
         </div>
 
-        <button class="accordion">3.3 Compound Interest (Making Money)</button>
+        <button class="accordion">2.2 The Vertex (Highs & Lows)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>Formula: <span class="math-text">A = P(1 + i)<sup>n</sup></span></p>
-            <ul>
-                <li><strong>A:</strong> Final Amount</li>
-                <li><strong>P:</strong> Principal (Starting Money)</li>
-                <li><strong>i:</strong> Interest rate (decimal)</li>
-                <li><strong>n:</strong> Number of years/periods</li>
-            </ul>
-            
-            <h3>5 Examples</h3>
-            <div class="example-box">
-                <span class="example-title">Ex 1: Savings Account</span>
-                $1,000 at 5% for 3 years.<br>
-                <span class="math-text">A = 1000(1.05)<sup>3</sup> = $1,157.63</span>
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 2: GIC Investment</span>
-                $5,000 locked for 10 years at 4%.<br>
-                <span class="math-text">A = 5000(1.04)<sup>10</sup> = $7,401.22</span>
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 3: Credit Card Debt (Danger)</span>
-                $500 debt at 20% interest, ignored for 4 years.<br>
-                <span class="math-text">A = 500(1.20)<sup>4</sup> = $1,036.80</span> (Debt doubled!)
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 4: High Growth</span>
-                $2,000 in Tech ETF at 12% for 5 years.<br>
-                <span class="math-text">A = 2000(1.12)<sup>5</sup> = $3,524.68</span>
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 5: Compounding Frequency</span>
-                Interest can be calculated Annually (1 time a year), Monthly (12 times a year), or Daily. The more frequently interest is calculated, the larger your final amount will be, because you start earning "interest on your interest" much sooner.
-            </div>
-
-            <div class="money-box">
-                <div class="money-header">💸 Money Connection: Start Early</div>
-                <p><strong>Compound Interest loves Time.</strong> Investing $100/month starting at age 20 creates way more wealth than starting at age 40, even if the 40-year-old invests more money later. The exponent <strong>n</strong> is the most powerful variable.</p>
-            </div>
-        </div>
-
-        <button class="accordion">3.4 Exponential Decay (Losing Value)</button>
-        <div class="panel">
-            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
-            <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p><strong>Vertex:</strong> The turning point of the parabola. It is either the <strong>Maximum</strong> (Peak) or <strong>Minimum</strong> (Valley).</p>
+            <p><strong>Vertex Form:</strong> <code>y = a(x - h)² + k</code><br>
+            The Vertex is at <strong>(h, k)</strong>.</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
-                <span class="example-title">Ex 1: Car Depreciation</span>
-                A $30,000 car loses 20% per year.<br>
-                You keep 80%, so b = 0.80.<br>
-                Eq: <span class="math-text">y = 30000(0.80)<sup>x</sup></span>
+                <span class="example-title">Example 1: Finding the Vertex</span>
+                Equation: y = 2(x - 3)² + 5<br>
+                <strong>Solution:</strong> Vertex is (3, 5). This is the lowest point (Minimum) because 'a' is positive.
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 2: Caffeine in Body</span>
-                100mg coffee. Body removes 15% per hour (keeps 85%).<br>
-                Eq: <span class="math-text">y = 100(0.85)<sup>x</sup></span>
+                <span class="example-title">Example 2: A Negative Curve</span>
+                Equation: y = -1(x + 2)² + 10<br>
+                <strong>Solution:</strong> h is -2 (sign switch!), k is 10.<br>
+                Vertex is (-2, 10). This is the highest point (Maximum) because 'a' is negative (-1).
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 3: Tournament Bracket</span>
-                64 Teams. Half (50%) eliminated each round.<br>
-                b = 0.5.<br>
-                Eq: <span class="math-text">y = 64(0.5)<sup>x</sup></span>
+                <span class="example-title">Example 3: Interpretation</span>
+                A rocket's height is y = -5(t - 4)² + 100.<br>
+                <strong>Solution:</strong> Vertex is (4, 100). This means at 4 seconds, the rocket reaches its max height of 100 meters.
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 4: Buying Power (Inflation)</span>
-                If inflation is 3%, your $100 bill loses value.<br>
-                It is worth 97% of last year. b = 0.97.<br>
-                Eq: <span class="math-text">y = 100(0.97)<sup>x</sup></span>
+                <span class="example-title">Example 4: Profit Model</span>
+                Profit P = -20(x - 50)² + 5000.<br>
+                <strong>Solution:</strong> The Vertex is (50, 5000). Max profit is $5000 when the price x is $50.
             </div>
 
             <div class="money-box">
-                <div class="money-header">💸 Money Connection: The "New Car" Trap</div>
-                <p>Cars are depreciating assets. A new car loses ~15% value the moment you drive it off the lot. Smart financial planning involves buying used cars to let someone else pay for that steep initial decay.</p>
+                <div class="money-header">💸 Money Connection: Speeding vs. Gas Money</div>
+                <p>Did you know air resistance increases with the square of your speed ($v^2$)? Driving at 120km/h uses significantly more gas than 100km/h for a small time gain.</p>
+                <p><strong>Financial Lesson:</strong> Every car has an "Optimal Speed" (Vertex) for fuel efficiency, usually around 90-100km/h. Driving faster than this vertex literally burns money out of your tailpipe. Finding the vertex saves your wallet.</p>
+            </div>
+        </div>
+
+        <button class="accordion">2.3 Expanding & Intercepts</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Standard Form:</strong> <code>y = ax² + bx + c</code>.<br>
+            <strong>y-intercept:</strong> The point where the graph crosses the y-axis (where x=0). In standard form, the y-intercept is <strong>c</strong>.</p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Example 1: Expanding (FOIL)</span>
+                Convert y = (x + 2)(x + 3) to standard form.<br>
+                <strong>Solution:</strong> x² + 3x + 2x + 6 = <strong>x² + 5x + 6</strong>.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 2: Finding y-intercept</span>
+                Equation: y = 2x² - 5x + 12.<br>
+                <strong>Solution:</strong> Let x = 0. y = 12. The y-intercept is 12.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 3: Business Start</span>
+                A business profit model is y = -x² + 10x - 50.<br>
+                <strong>Solution:</strong> The y-intercept is -50. This means at day 0 (start), the business has a loss of $50 (Setup cost).
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 4: Direction</span>
+                y = -3x² + 4x + 1.<br>
+                <strong>Solution:</strong> Since 'a' is negative (-3), the parabola opens DOWN (frown).
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Side Hustle Startup Costs</div>
+                <p>In a business quadratic model ($y = ax^2 + bx + c$), the constant <strong>'c'</strong> represents your <strong>Startup Cost</strong> (Initial Investment). It is usually a negative number in your bank account.</p>
+                <p><strong>Financial Lesson:</strong> Whether it's buying a lawnmower or art supplies, you start in debt ($c$). You must work hard to cross the "Break-even point" (x-intercept) before you actually start making profit. Watch your 'c' value!</p>
+            </div>
+        </div>
+
+        <button class="accordion">2.4 Maximizing Profit (The Sweet Spot)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p>In business, you can't just raise prices forever. If price is too high, no one buys. If too low, you make no money.</p>
+            <p>The relationship between Price and Profit is often <strong>Quadratic</strong>. The <strong>Vertex</strong> is the "Sweet Spot".</p>
+            
+            <h3>4 Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Example 1: The Concept</span>
+                Low Price = High Sales but Low Margin.<br>
+                High Price = High Margin but Low Sales.<br>
+                Middle Price = <strong>Maximum Profit (Vertex)</strong>.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 2: Break-Even Points (x-intercepts)</span>
+                The x-intercepts (where Profit = $0) are the break-even points. You must price your product <em>between</em> these two points to make any money.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 3: Substitution (The Greed Scenario)</span>
+                Profit P = -5(x - 20)² + 1000. (Max profit is $1000 at $20).<br>
+                What if you get greedy and charge $30?<br>
+                <strong>Solution:</strong> Substitute x = 30.<br>
+                P = -5(30 - 20)² + 1000 &rarr; -5(100) + 1000 = $500.<br>
+                <em>Result: You raised the price, but total profit dropped!</em>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Example 4: Market Risk (The 'a' value)</span>
+                If a competitor enters, consumers become price-sensitive. Your 'a' value changes from -2 to -10.<br>
+                <strong>Meaning:</strong> The parabola becomes extremely narrow. The break-even points get much closer together. If your price misses the sweet spot by just a little, profits crash.
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The Vertex of Happiness</div>
+                <p>Economists call this "Diminishing Returns." The joy you get from spending money follows a downward parabola. The first coffee gives you energy and joy. The 5th coffee just gives you a stomach ache.</p>
+                <p><strong>Financial Lesson:</strong> Spending more doesn't always equal more happiness. There is a "Vertex" of satisfaction. The key to wealth is knowing when you've reached that peak and stopping there.</p>
             </div>
         </div>
     </div>
@@ -489,32 +491,32 @@
             <select id="practice-selector" onchange="resetPracticeUI()">
                 <option value="" disabled selected>-- Choose a Training Module --</option>
                 
-                <optgroup label="3.1 Exponent Laws">
-                    <option value="3.1-K">Knowledge: Simplify Expressions</option>
-                    <option value="3.1-A">Application: Evaluate to a Number</option>
-                    <option value="3.1-I">Inquiry: Exponent Rules & Patterns</option>
-                    <option value="3.1-C">Comm: Exponential Logic</option>
+                <optgroup label="2.1 Linear vs Quadratic (Trends)">
+                    <option value="2.1-K">Knowledge: Identify the Equation</option>
+                    <option value="2.1-A">Application: Identify the Scenario</option>
+                    <option value="2.1-I">Inquiry: Data Patterns</option>
+                    <option value="2.1-C">Comm: Explain the Hype Cycle</option>
                 </optgroup>
 
-                <optgroup label="3.2 Exponential Growth">
-                    <option value="3.2-K">Knowledge: Identify 'a' and 'b'</option>
-                    <option value="3.2-A">Application: Calculate Future Value</option>
-                    <option value="3.2-I">Inquiry: Linear vs Exponential</option>
-                    <option value="3.2-C">Comm: Growth Concepts</option>
+                <optgroup label="2.2 The Vertex (The Sweet Spot)">
+                    <option value="2.2-K">Knowledge: Find (h, k) from Equation</option>
+                    <option value="2.2-A">Application: Calculate Max Profit / Ideal Price</option>
+                    <option value="2.2-I">Inquiry: Distance from the Vertex</option>
+                    <option value="2.2-C">Comm: Explain the Vertex to CEO</option>
                 </optgroup>
 
-                <optgroup label="3.3 Compound Interest">
-                    <option value="3.3-K">Knowledge: Calculate A = P(1+i)^n</option>
-                    <option value="3.3-A">Application: Cost of Waiting (Compare)</option>
-                    <option value="3.3-I">Inquiry: The Power of Time</option>
-                    <option value="3.3-C">Comm: Financial Advice</option>
+                <optgroup label="2.3 Intercepts (Startup Costs)">
+                    <option value="2.3-K">Knowledge: Expand to Standard Form (Find 'c')</option>
+                    <option value="2.3-A">Application: Calculate Startup Cost</option>
+                    <option value="2.3-I">Inquiry: The Break-Even Meaning</option>
+                    <option value="2.3-C">Comm: Explain Negative Profit</option>
                 </optgroup>
 
-                <optgroup label="3.4 Exponential Decay">
-                    <option value="3.4-K">Knowledge: Find the Decay Factor ('b')</option>
-                    <option value="3.4-A">Application: Calculate Depreciation</option>
-                    <option value="3.4-I">Inquiry: Asymptotes & Decay</option>
-                    <option value="3.4-C">Comm: Real-World Decay Traps</option>
+                <optgroup label="2.4 Maximizing Profit (Greed & Risk)">
+                    <option value="2.4-K">Knowledge: Substitute and Calculate P</option>
+                    <option value="2.4-A">Application: The "Greed" Calculation</option>
+                    <option value="2.4-I">Inquiry: Market Shift (Changing 'a' value)</option>
+                    <option value="2.4-C">Comm: Explain the Greed Loss</option>
                 </optgroup>
             </select>
 
@@ -530,7 +532,7 @@
         </div>
 
         <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
-            <input type="text" id="user-answer" placeholder="Enter answer (numbers only)">
+            <input type="text" id="user-answer" placeholder="Enter answer (e.g., 500 or (30,500))">
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
         
@@ -539,45 +541,53 @@
         <div id="feedback-area"></div>
     </div>
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 3 Assignment: The Wealth Formula</h2>
-        <p><strong>Scenario:</strong> Instead of solving a generic textbook problem, you will apply the math to <strong>Your Own Life</strong>. You will research a real-world depreciating asset (a car) and compare it against the power of compounding investments.</p>
+        <h2>Unit 2 Assignment: E-Commerce Brand Launch</h2>
+        <p><strong>Scenario:</strong> You are launching a new e-commerce brand. Choose an item to sell (e.g., custom t-shirts, phone cases, sneakers). Your goal is not just to sell a lot of items, but to find the <strong>"Sweet Spot" (perfect price)</strong> to generate the <strong>Maximum Profit</strong>.</p>
         
         <div class="money-box">
-            <div class="money-header">💼 Your Mission Setup</div>
-            <p>1. Go to <strong>AutoTrader.ca</strong> and find a "Dream Car" you want to buy. Record its price ($P_{car}$): $________</p>
-            <p>2. Determine a realistic amount of money you could invest today ($P_{invest}$): $________</p>
+            <div class="money-header">💼 Your Business Setup (Fill in the blanks)</div>
+            <p>1. The item I am selling: ____________________</p>
+            <p>2. My ideal <strong>Selling Price</strong> for this item (h): $________</p>
+            <p>3. The <strong>Maximum Profit</strong> I expect at that price (k): $________</p>
+            <p><em>*Note: For these calculations, we will lock the 'a' value (the steepness of the curve) at <strong>-2</strong>.</em></p>
         </div>
 
-        <h3>Question 1: The Depreciating Asset (3.4 Decay - Application & Knowledge)</h3>
-        <p>Assume your dream car depreciates at a rate of <strong>15% per year</strong> (meaning you keep 85% of its value).</p>
+        <h3>Question 1: The Model & The Peak (Vertex Form)</h3>
+        <p>In business mathematics, the <strong>Vertex</strong> represents your "Peak Profit". Substitute your chosen <strong>h</strong> and <strong>k</strong> values into the equation below to create your personal profit model.</p>
+        <p style="font-size: 1.2rem; text-align: center; font-weight: bold; padding: 10px; background: #eee;">
+            <strong>P = -2(x - ____ )² + ____</strong>
+        </p>
         <ul>
-            <li><strong>Calculate:</strong> Write your decay equation <span class="math-text">y = P(0.85)<sup>x</sup></span>. Calculate what this car will be worth in exactly <strong>5 years</strong>.</li>
-            <li><strong>Evaluate:</strong> Subtract the future value from the original price. Exactly how much money "evaporated" (was lost to depreciation) over those 5 years?</li>
+            <li><strong>Explain:</strong> What are the coordinates of your Vertex (h, k)? What does this specific point mean for your business in the real world?</li>
+            <li><em>Hint: Use business terms. Explain that selling your item for $___ will result in making the most money possible: $___.</em></li>
         </ul>
 
-        <h3>Question 2: The Rule of 72 Reality Check (3.2 Growth - Inquiry)</h3>
-        <p>Imagine you took that "evaporated" money from Question 1 and invested it in an index fund returning an average of <strong>8% per year</strong>.</p>
+        <h3>Question 2: Startup Costs (Standard Form & y-intercept)</h3>
+        <p>Before you even sell a single item, you have to spend money (website hosting, manufacturing, marketing). Let's find out your initial costs by expanding your <strong>Vertex Form</strong> equation from Question 1 into <strong>Standard Form (P = ax² + bx + c)</strong>.</p>
         <ul>
-            <li><strong>Calculate & Explain:</strong> Using the <strong>Rule of 72</strong>, how many years would it take for that lost money to double in the stock market? Show your calculation and explain what this means for your buying power.</li>
+            <li><strong>Calculate:</strong> Expand your equation. (Remember: FOIL the $(x - h)(x - h)$ first, then multiply everything by -2, and finally add your $k$ value).</li>
+            <li><strong>Explain:</strong> What is your <strong>y-intercept ('c' value)</strong>? Explain why your profit (P) is a negative number when the product price (x) is $0, connecting it to the concept of "Startup Costs".</li>
         </ul>
 
-        <h3>Question 3: The Cost of Waiting (3.3 Compound Interest - Application)</h3>
-        <p>Let's look at your starting investment ($P_{invest}$). Assume the market returns <strong>10% per year</strong> (<span class="math-text">i = 0.10</span>).</p>
+        <h3>Question 3: Breaking Even (x-intercepts)</h3>
+        <p>A profit parabola typically has two <strong>x-intercepts</strong> (points where your profit is exactly $0 or your "break-even" points). One happens when your price is too low, and the other happens when your price is too high.</p>
         <ul>
-            <li><strong>Scenario A (Start Now):</strong> Assume you are 17. Calculate the value when you turn <strong>60 years old</strong> (n = 43 years) using <span class="math-text">A = P(1 + i)<sup>n</sup></span>.</li>
-            <li><strong>Scenario B (Procrastinate):</strong> Assume you wait until you are <strong>30 years old</strong> to invest that same amount. Calculate the value at age 60 (n = 30 years).</li>
-            <li><strong>Evaluate:</strong> Subtract Scenario B from Scenario A to find your "Price of Procrastination."</li>
+            <li><strong>Explain:</strong> Using logic and consumer psychology, explain why pricing your item <em>too high</em> would cause your total profit to drop to $0 (or go negative).</li>
+            <li><em>Hint: Even if your profit margin per item is huge, what happens to customer demand (the number of people buying) if the price is outrageous?</em></li>
         </ul>
 
-        <h3>Question 4: The Power of 'n' (3.1 Exponent Laws - Communication)</h3>
-        <p>Look at your massive difference in Question 3. You only gave Scenario A an extra 13 years, but the final amount didn't just add a little bit—it exploded.</p>
+        <h3>Question 4: The "Greed" Scenario (Application)</h3>
+        <p>Imagine you get greedy and decide to sell your product for <strong>$30 more</strong> than your ideal price (h).</p>
         <ul>
-            <li><strong>Explain:</strong> Using the <strong>rules of exponents</strong> (how multiplying bases adds the exponents, e.g., <span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span>), explain to a friend why the variable 'n' causes money to grow in a "J-Curve" rather than a straight line.</li>
+            <li><strong>Calculate:</strong> Substitute this new, expensive price into the <strong>x</strong> variable of your equation from Question 1 and calculate your new Profit (P).</li>
+            <li><strong>Explain:</strong> Write a short email to your investors. Show them the math result, and explain why increasing the price per item actually caused the company to lose money overall.</li>
         </ul>
 
-        <h3>Question 5: The Ultimate Financial Advice (Synthesis)</h3>
+        <h3>Question 5: Market Shifts & Risk (Inquiry)</h3>
+        <p>A massive competitor enters the market, making consumers hyper-aware of prices. Mathematically, this changes your 'a' value from -2 to <strong>-10</strong>.</p>
         <ul>
-            <li><strong>Explain:</strong> Write a short email to your 10-year-older self. Using your mathematical calculations from Q1 (the danger of decay) and Q3 (the magic of compound growth), advise yourself on how to balance buying depreciating assets (like cars) vs. investing early.</li>
+            <li><strong>Explain:</strong> Changing 'a' to -10 makes the parabola much narrower and steeper. Without doing any math, deduce what this visual change means for your pricing strategy's <strong>Risk</strong>.</li>
+            <li><em>Hint: If the curve is extremely narrow, what happens to your profit if your price misses the "Sweet Spot" (Vertex) by just a few dollars?</em></li>
         </ul>
 
         <hr>
@@ -595,49 +605,56 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Knowledge (Q1, Q3)</strong></td>
-                    <td>Flawlessly sets up both the exponential decay and compound interest equations using personal data.</td>
-                    <td>Sets up equations correctly but makes a minor mathematical or rounding error.</td>
-                    <td>Equations are partially set up but struggles with the correct formulas.</td>
-                    <td>Cannot set up the decay or compound interest equations.</td>
+                    <td><strong>Knowledge (Q1, Q2)</strong></td>
+                    <td>Accurately creates the Vertex equation and flawlessly expands it into Standard Form.</td>
+                    <td>Creates the equation correctly, but makes minor sign/addition errors during expansion.</td>
+                    <td>Understands the equation structure, but struggles significantly with the expansion (FOIL).</td>
+                    <td>Unable to set up the equation or expand it correctly.</td>
                 </tr>
                 <tr>
-                    <td><strong>Inquiry (Q2, Q5)</strong></td>
-                    <td>Insightfully applies the Rule of 72 and connects mathematical results to deep, realistic financial planning.</td>
-                    <td>Applies Rule of 72 correctly and makes logical connections to financial planning.</td>
-                    <td>Calculates Rule of 72 but struggles to explain the deeper meaning or synthesis.</td>
-                    <td>Fails to apply the Rule of 72 or synthesize the information.</td>
+                    <td><strong>Inquiry (Q3, Q5)</strong></td>
+                    <td>Insightfully connects the shape of the parabola and its intercepts to real market risks and consumer behavior.</td>
+                    <td>Draws a logical connection between the graph's shape and business impact.</td>
+                    <td>Understands the graph changes, but the real-world connection is weak.</td>
+                    <td>Cannot connect the mathematical changes to the real world.</td>
                 </tr>
                 <tr>
-                    <td><strong>Communication (Q4, Q5)</strong></td>
-                    <td>The explanation of exponent laws and the email to the future self are exceptionally clear, persuasive, and use precise mathematical vocabulary.</td>
-                    <td>Explanations and email are clear and use appropriate math terms.</td>
-                    <td>Explanations are somewhat vague or rely too heavily on everyday language instead of math concepts.</td>
-                    <td>Explanations are confusing, lack logical flow, or are missing.</td>
+                    <td><strong>Communication (Overall & Q4)</strong></td>
+                    <td>The investor email and explanations are professional, persuasive, and use math terms (Vertex, Intercepts) perfectly in context.</td>
+                    <td>Explanations are clear and mathematical terms are used correctly.</td>
+                    <td>Explanations are somewhat vague; relies on everyday language instead of math terminology.</td>
+                    <td>Explanations are confusing and lack logical flow.</td>
                 </tr>
                 <tr>
-                    <td><strong>Application (Q1, Q3)</strong></td>
-                    <td>Calculates depreciation loss and the "Price of Procrastination" with perfect accuracy and applies it directly to the real-world scenario.</td>
-                    <td>Successfully calculates the real-world applications with minor errors.</td>
-                    <td>Performs calculations but fails to interpret what the final numbers mean in reality.</td>
-                    <td>Unable to apply mathematical results to the real-world car/investment scenario.</td>
+                    <td><strong>Application (Q2, Q4)</strong></td>
+                    <td>Perfectly applies the concept of y-intercept to startup costs, and accurately calculates the greed scenario to prove a business point.</td>
+                    <td>Successfully applies the math results to the business scenarios.</td>
+                    <td>Calculates the math correctly, but struggles to fully apply the meaning to the scenarios.</td>
+                    <td>Unable to apply mathematical results to the business context.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
 
-<div class="version-tag">v3.6 (Ultra Dynamic 5-Style Pools)</div>
+<div class="version-tag">v2.8 (Ultra Dynamic Ranges & 5-Style Pools)</div>
 
 <script>
     /* --- UTILS --- */
     const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // --- State Management ---
-    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
-    let isQuestionSolved = false; // Anti-Spam flag
+    // Expanded item list for immense variety
+    const items = [
+        "Custom Hoodies", "Smartphone Cases", "Sneakers", "Energy Drinks", 
+        "Graphic Tees", "Wireless Earbuds", "Handmade Candles", "Vintage Watches", 
+        "Mechanical Keyboards", "Protein Powder", "Designer Sunglasses", "Smart Home Hubs"
+    ];
     
+    // --- State Management ---
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit2_data')) || {};
+    let isQuestionSolved = false; // Anti-Spam flag
+
     // --- Navigation ---
     function openTab(tabId) {
         const contents = document.getElementsByClassName('tab-content');
@@ -686,14 +703,14 @@
         practiceData[type].total++;
         if(isCorrect) practiceData[type].correct++;
         
-        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit2_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
     function resetPracticeScore() {
         let type = document.getElementById('practice-selector').value || 'default';
         practiceData[type] = { correct: 0, total: 0 };
-        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit2_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
@@ -738,85 +755,79 @@
         let section = parts[0];
         let kica = parts[1];
 
-        if (section === "3.1") gen3_1(kica, qArea);
-        else if (section === "3.2") gen3_2(kica, qArea);
-        else if (section === "3.3") gen3_3(kica, qArea);
-        else if (section === "3.4") gen3_4(kica, qArea);
+        if (section === "2.1") gen2_1(kica, qArea);
+        else if (section === "2.2") gen2_2(kica, qArea);
+        else if (section === "2.3") gen2_3(kica, qArea);
+        else if (section === "2.4") gen2_4(kica, qArea);
     }
 
-    // --- Section 3.1: Exponent Laws ---
-    function gen3_1(kica, qArea) {
-        let style = randInt(1, 4);
+    // --- Section 2.1 Generators ---
+    function gen2_1(kica, qArea) {
+        let style = randInt(1, 5);
+        let isQuad = Math.random() > 0.5;
+
         if (kica === "K") {
-            let ans = 0;
-            let qText = "";
-            let a = randInt(3, 12); 
-            let b = randInt(2, 6);
+            let eq = "";
+            let a = randInt(2, 25) * (Math.random()>0.5?1:-1);
+            let b = randInt(10, 150);
+            let c = randInt(100, 5000);
             
-            if (style === 1) { // Product
-                qText = `Simplify: <span class="math-text">y<sup>${a}</sup> &times; y<sup>${b}</sup></span> = y<sup>?</sup>`;
-                ans = a + b;
-            } else if (style === 2) { // Quotient
-                qText = `Simplify: <span class="math-text">m<sup>${a}</sup> &div; m<sup>${b}</sup></span> = m<sup>?</sup>`;
-                ans = a - b;
-            } else if (style === 3) { // Power
-                qText = `Simplify: <span class="math-text">(n<sup>${b}</sup>)<sup>${a}</sup></span> = n<sup>?</sup>`;
-                ans = a * b;
-            } else { // Multi-step
-                qText = `Simplify: <span class="math-text">(x<sup>${a}</sup> &times; x<sup>${b}</sup>) &div; x<sup>2</sup></span> = x<sup>?</sup>`;
-                ans = (a + b) - 2;
-            }
-            qArea.innerHTML = `<p>${qText}</p><p>What is the final exponent?</p>`;
-            setupInput(ans);
+            if (style === 1) eq = isQuad ? `y = ${a}x² + ${b}x - ${c}` : `y = ${a}x + ${b}`;
+            else if (style === 2) eq = isQuad ? `P = ${a}(x - ${b})² + ${c}` : `C = ${b}n + ${c}`;
+            else if (style === 3) eq = isQuad ? `h = ${a}t² + ${b}` : `d = ${b}t`;
+            else if (style === 4) eq = isQuad ? `y = x(${a}x + ${b})` : `y = ${a}(x + ${b})`; // Factored look
+            else eq = isQuad ? `Revenue = -${b}p² + ${c}p` : `Cost = ${b}x - ${a}`;
+            
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Is this relationship Linear or Quadratic?</p>`;
+            setupInput(isQuad ? "Quadratic" : "Linear");
             
         } else if (kica === "A") {
-            let base = randInt(2, 5);
-            let p1 = randInt(2, 4); 
-            let p2 = randInt(1, 3);
-            let ans = 0;
-            let qText = "";
+            let item = randChoice(items);
+            let price = randInt(10, 200);
             
-            if (style === 1) {
-                ans = Math.pow(base, p1 + p2);
-                qText = `<span class="math-text">${base}<sup>${p1}</sup> &times; ${base}<sup>${p2}</sup></span>`;
-            } else if (style === 2) {
-                ans = Math.pow(base, p1 * p2);
-                qText = `<span class="math-text">(${base}<sup>${p1}</sup>)<sup>${p2}</sup></span>`;
-            } else if (style === 3) {
-                let top = p1 + p2;
-                ans = Math.pow(base, top - p1);
-                qText = `<span class="math-text">${base}<sup>${top}</sup> &div; ${base}<sup>${p1}</sup></span>`;
-            } else {
-                ans = 1; // Zero exponent trick
-                qText = `<span class="math-text">(${base}<sup>${p1}</sup> &times; ${base}<sup>${p2}</sup>)<sup>0</sup></span>`;
-            }
+            let quadScenarios = [
+                `The total profit of selling ${item} goes up as price increases, hits a maximum, then falls off as fewer people buy.`,
+                `A baseball is thrown off a bridge into the water below.`,
+                `The area of a square garden as you increase its side length.`,
+                `The fuel efficiency of a car peaking at 90 km/h and dropping at higher speeds.`,
+                `A satellite dish's cross-sectional shape.`
+            ];
             
-            qArea.innerHTML = `<p>Evaluate to a final number:</p><p>${qText}</p>`;
-            setupInput(ans);
+            let linScenarios = [
+                `You earn $${price} per hour working at a warehouse.`,
+                `A car drives on the highway at a constant speed of 100 km/h.`,
+                `A gym charges a $50 sign-up fee plus $${price} every single month.`,
+                `Your phone battery drains at a steady rate of 2% every hour.`,
+                `Water is leaking from a tank at exactly 5 liters per minute.`
+            ];
+            
+            let scenario = isQuad ? randChoice(quadScenarios) : randChoice(linScenarios);
+            qArea.innerHTML = `<p>Scenario: <strong>${scenario}</strong></p><p>Which mathematical model best represents this?</p>`;
+            setupInput(isQuad ? "Quadratic" : "Linear");
             
         } else if (kica === "I") {
-            let a = randInt(3, 8), b = randInt(2, 6);
-            let zBase = randInt(25, 999) * 100;
-            let pool = [
+            let n1 = randInt(2, 15);
+            let n2 = randInt(20, 80);
+            const pool = [
                 {
-                    q: `<p>A student simplified <span class="math-text">(x<sup>${a}</sup>)<sup>${b}</sup></span> as <span class="math-text">x<sup>${a+b}</sup></span>. What mistake did they make?</p>`,
-                    opts: [ {text: `They added the exponents. They must multiply them to get x^${a*b}.`, correct: true}, {text: "No mistake, it is correct.", correct: false}, {text: `They should have divided them.`, correct: false} ]
+                    q: `<p>Your sales data shows that the <strong>Second Differences</strong> equal exactly ${n1} every time.</p><p>What shape will the graph make?</p>`,
+                    opts: [ {text: "A U-shaped curve (Parabola)", correct: true}, {text: "A straight line", correct: false}, {text: "A random scatter plot", correct: false} ]
                 },
                 {
-                    q: `<p>You plug <span class="math-text">${zBase}<sup>0</sup></span> into your calculator. The screen shows 1. Why?</p>`,
-                    opts: [ {text: "Any non-zero base to the power of zero is mathematically defined as exactly 1.", correct: true}, {text: "The calculator rounded down.", correct: false}, {text: "It is an error. The answer should be 0.", correct: false} ]
+                    q: `<p>Your data shows the <strong>First Differences</strong> are constantly increasing by ${n2} each time.</p><p>What kind of relationship is this?</p>`,
+                    opts: [ {text: "Quadratic (because the first differences are changing steadily).", correct: true}, {text: "Linear (because it goes up).", correct: false}, {text: "Neither.", correct: false} ]
                 },
                 {
-                    q: `<p>Why do we ADD exponents for <span class="math-text">x<sup>${a}</sup> &times; x<sup>${b}</sup></span>?</p>`,
-                    opts: [ {text: `Because we are literally counting the total number of 'x's being multiplied in a row (${a} + ${b}).`, correct: true}, {text: "Because the multiplication sign changes into a plus sign in algebra.", correct: false}, {text: "We don't add them, we multiply them.", correct: false} ]
+                    q: `<p>You track daily revenue. It goes up for 10 days, reaches a sharp peak, and then starts dropping.</p><p>What mathematical trend is this?</p>`,
+                    opts: [ {text: "Quadratic (Parabolic)", correct: true}, {text: "Linear", correct: false}, {text: "Exponential", correct: false} ]
                 },
                 {
-                    q: `<p>A student wrote <span class="math-text">x<sup>${a}</sup> &div; x<sup>${b}</sup> = x<sup>${a/b}</sup></span>. Why is this wrong?</p>`,
-                    opts: [ {text: "When dividing identical bases, you must subtract the bottom exponent from the top, not divide them.", correct: true}, {text: "You must add them.", correct: false}, {text: "You must multiply them.", correct: false} ]
+                    q: `<p>A chart shows a <strong>constant First Difference</strong> of -${n1}. What does the graph look like?</p>`,
+                    opts: [ {text: "A straight line going downwards.", correct: true}, {text: "A parabola opening downwards.", correct: false}, {text: "A flat horizontal line.", correct: false} ]
                 },
                 {
-                    q: `<p>What happens if you have a negative exponent like <span class="math-text">5<sup>-2</sup></span>?</p>`,
-                    opts: [ {text: "It turns into a fraction (1 / 5^2). It does NOT make the number negative.", correct: true}, {text: "It equals -25.", correct: false}, {text: "It equals -10.", correct: false} ]
+                    q: `<p>In the formula <span class="math-text">y = ${n1}x² + ${n2}</span>, what specifically makes it quadratic?</p>`,
+                    opts: [ {text: "The exponent '2' attached to the variable.", correct: true}, {text: `The numbers ${n1} and ${n2}.`, correct: false}, {text: "The fact that it has an 'x' and a 'y'.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -824,28 +835,28 @@
             setupMC(selected.opts);
             
         } else if (kica === "C") {
-            let item = randChoice(["penny", "magic bean", "dollar"]);
-            let days = randInt(25, 40);
-            let pool = [
+            let item = randChoice(items);
+            let wage = randInt(20, 45);
+            const pool = [
                 {
-                    q: `<p>A ${item} doubles every day for ${days} days. How do you explain the massive final amount using exponent laws?</p>`,
-                    opts: [ {text: `Repeated multiplication means the exponent 'n' grows. Since 'n' is the power, the total explodes upwards in a J-Curve, far outpacing linear addition.`, correct: true}, {text: `Because the starting value was multiplied by ${days}.`, correct: false}, {text: `Because the base gets bigger every day.`, correct: false} ]
+                    q: `<p>Explain the "Hype Cycle" of a viral product like ${item} to a business partner using math terms.</p>`,
+                    opts: [ {text: "It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies.", correct: true}, {text: "It's linear. Popularity just keeps going up forever at the same speed.", correct: false}, {text: "It's standard form because the y-intercept is always zero.", correct: false} ]
                 },
                 {
-                    q: `<p>A classmate thinks <span class="math-text">3x</span> and <span class="math-text">3<sup>x</sup></span> mean the same thing. How do you correct them?</p>`,
-                    opts: [ {text: "3x is linear (adding 3 repeatedly), while 3^x is exponential (multiplying by 3 repeatedly).", correct: true}, {text: "They are the same, just written differently.", correct: false}, {text: "3^x means x is multiplied by 3.", correct: false} ]
+                    q: `<p>You hire an employee at $${wage} per hour. Explain this cost using math terminology.</p>`,
+                    opts: [ {text: `It is a linear cost. For every hour worked, the cost goes up by a constant $${wage} in a straight line.`, correct: true}, {text: "It is a quadratic cost because it forms a parabola.", correct: false}, {text: "It has a constant second difference.", correct: false} ]
                 },
                 {
-                    q: `<p>Explain to a friend why a Negative Exponent (e.g., <span class="math-text">x<sup>-3</sup></span>) doesn't result in a negative bank balance.</p>`,
-                    opts: [ {text: "A negative exponent means division or fractions (1/x^3). It just makes the positive number very small, but never drops below zero.", correct: true}, {text: "It actually does make the balance negative.", correct: false}, {text: "Because you ignore the negative sign.", correct: false} ]
+                    q: `<p>A student says that Quadratic and Linear relationships both just "go up". How do you correct them?</p>`,
+                    opts: [ {text: "Linear relationships go up by the exact same amount every time, but Quadratic relationships accelerate, creating a curve.", correct: true}, {text: "They are exactly the same, just different formulas.", correct: false}, {text: "Linear goes up, but Quadratic only goes down.", correct: false} ]
                 },
                 {
-                    q: `<p>How would you use a real-world example to explain the Zero Exponent rule (<span class="math-text">b<sup>0</sup> = 1</span>)?</p>`,
-                    opts: [ {text: "Think of time = 0. At the very start (0 days), you have 1 whole original item before it starts multiplying.", correct: true}, {text: "If you have 0 items, you magically get 1.", correct: false}, {text: "You can't use a real-world example for it.", correct: false} ]
+                    q: `<p>Why can't a company's profit graph based on price be a linear line going up forever?</p>`,
+                    opts: [ {text: "Because if the price gets too high, demand drops to zero. A parabola perfectly shows this peak and subsequent fall.", correct: true}, {text: "Because math formulas don't allow lines to go up forever.", correct: false}, {text: "Actually, it can be linear if the product is really good.", correct: false} ]
                 },
                 {
-                    q: `<p>Explain why <span class="math-text">2<sup>3</sup> &times; 5<sup>2</sup></span> cannot be simplified into a single base using exponent laws.</p>`,
-                    opts: [ {text: "Exponent laws for combining (like adding exponents) only work if the base numbers are exactly the same. 2 and 5 are different.", correct: true}, {text: "Because one exponent is odd and the other is even.", correct: false}, {text: "It can be simplified to 10^5.", correct: false} ]
+                    q: `<p>How would you describe the path of a thrown object to someone who doesn't know math?</p>`,
+                    opts: [ {text: "It follows a quadratic parabola. It shoots up, slows down, hits a vertex, and falls back down.", correct: true}, {text: "It's a linear line that just changes direction randomly.", correct: false}, {text: "It has a constant first difference.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -854,170 +865,272 @@
         }
     }
 
-    // --- Section 3.2: Exponential Growth ---
-    function gen3_2(kica, qArea) {
-        let style = randInt(1, 4);
+    // --- Section 2.2 Generators ---
+    function gen2_2(kica, qArea) {
+        let style = randInt(1, 5);
+        let h = randInt(15, 250);
+        let k = randInt(1000, 95000);
+        let a = randInt(-15, -1);
+        let item = randChoice(items);
         
+        let eq = "";
+        if (style === 1) eq = `P = ${a}(x - ${h})² + ${k}`;
+        else if (style === 2) eq = `h = ${a}(t - ${h})² + ${k}`;
+        else if (style === 3) eq = `C = ${Math.abs(a)}(n - ${h})² + ${k}`; // positive a = minimum
+        else if (style === 4) eq = `R = ${a}(p - ${h})² + ${k}`;
+        else eq = `y = ${a}(x - ${h})² + ${k}`;
+
         if (kica === "K") {
-            const a = randInt(2, 9) * 100;
-            const r = randInt(5, 25);
-            const b = (1 + (r / 100)).toFixed(2);
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Identify the Vertex coordinates. (Format: (x,y))</p>`;
+            setupInput(`(${h},${k})`);
+            
+        } else if (kica === "A") {
             let asks = [
-                {q: `Equation: <strong>y = ${a}(${b})<sup>x</sup></strong><br>What is the <strong>Initial Value (a)</strong>?`, ans: a},
-                {q: `Equation: <strong>P = ${a}(${b})<sup>t</sup></strong><br>What is the <strong>Growth Factor (b)</strong>?`, ans: b},
-                {q: `If an investment grows by <strong>${r}%</strong> per year, what is the decimal Growth Factor (b) you put inside the brackets?`, ans: b},
-                {q: `A population starts at <strong>${a}</strong> and doubles every year. What is the 'b' value?`, ans: 2}
+                {q: `Your ${item} profit model is: <strong>P = ${a}(x - ${h})² + ${k}</strong>. What is your <strong>Maximum Profit</strong>?`, ans: k},
+                {q: `Your ${item} profit model is: <strong>P = ${a}(x - ${h})² + ${k}</strong>. What is the <strong>Ideal Selling Price</strong>?`, ans: h},
+                {q: `A rocket's flight path is <strong>h = ${a}(t - ${h})² + ${k}</strong>. What is its <strong>Maximum Height</strong>?`, ans: k},
+                {q: `A rocket's flight path is <strong>h = ${a}(t - ${h})² + ${k}</strong>. At what <strong>Time (t)</strong> does it reach the peak?`, ans: h},
+                {q: `Your factory's cost equation is <strong>C = ${Math.abs(a)}(n - ${h})² + ${k}</strong>. What is the <strong>Lowest Possible Cost</strong> (Minimum)?`, ans: k}
             ];
             let selected = randChoice(asks);
             qArea.innerHTML = `<p>${selected.q}</p>`;
             setupInput(selected.ans.toString());
             
-        } else if (kica === "A") {
-            let start = randInt(2, 8) * 100;
-            let time = randInt(3, 6);
-            let rate = randInt(4, 12);
-            let ans = 0;
-            let asks = [];
+        } else if (kica === "I") {
+            let badP = h + randInt(20, 100);
+            let badPLow = h - randInt(10, h-1);
+            let kUp = randInt(5000, 20000);
+            let hUp = randInt(5, 50);
+            const pool = [
+                {
+                    q: `<p>Your profit model is <strong>P = ${a}(x - ${h})² + ${k}</strong>. The perfect price is $${h}.</p><p>What happens to your profit if you set the price to $${badP}?</p>`,
+                    opts: [ {text: `It will drop significantly below $${k} because you moved right on the parabola, away from the Vertex.`, correct: true}, {text: `It stays at $${k} because higher prices equal higher profits.`, correct: false}, {text: `Profit will increase infinitely.`, correct: false} ]
+                },
+                {
+                    q: `<p>Your profit model is <strong>P = ${a}(x - ${h})² + ${k}</strong>. You drastically lower the price to $${badPLow} to \"sell more\".</p><p>What happens to the profit (P)?</p>`,
+                    opts: [ {text: `Total profit drops because you moved left on the graph, falling away from the peak.`, correct: true}, {text: `Total profit goes up because volume fixes everything.`, correct: false}, {text: `It stays at $${k}.`, correct: false} ]
+                },
+                {
+                    q: `<p>You find a cheaper manufacturer for ${item}. This increases your maximum profit by $${kUp}.</p><p>What happens to the Vertex of your graph?</p>`,
+                    opts: [ {text: `The Vertex shifts upwards vertically (the 'k' value becomes ${k + kUp}).`, correct: true}, {text: "The Vertex shifts horizontally.", correct: false}, {text: "The Vertex flips upside down.", correct: false} ]
+                },
+                {
+                    q: `<p>Due to inflation, consumers are willing to pay $${hUp} more for your product before demand drops.</p><p>What happens to your Vertex?</p>`,
+                    opts: [ {text: `It shifts horizontally to the right (the 'h' value becomes ${h + hUp}).`, correct: true}, {text: "It shifts vertically up.", correct: false}, {text: "It does not move.", correct: false} ]
+                },
+                {
+                    q: `<p>If an equation has a POSITIVE 'a' value, like <strong>C = 5(x - ${h})² + ${k}</strong>, what does the Vertex represent?</p>`,
+                    opts: [ {text: "A Minimum (a Valley) – usually representing the lowest possible cost or lowest point.", correct: true}, {text: "A Maximum (a Peak) – representing highest profit.", correct: false}, {text: "It means the graph has no vertex.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
             
-            if (style === 1) { // Doubling
-                ans = start * Math.pow(2, time);
-                asks.push(`A virus starts with <strong>${start}</strong> cells and <strong>doubles</strong> every hour. Calculate the cells after <strong>${time} hours</strong>.`);
-            } else if (style === 2) { // Tripling
-                ans = start * Math.pow(3, time);
-                asks.push(`A social media post has <strong>${start}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${time} days</strong>?`);
-            } else { // Percentage
-                let b = 1 + (rate/100);
-                ans = start * Math.pow(b, time);
-                asks.push(`A vintage comic book is worth <strong>$${start}</strong>. It grows in value by <strong>${rate}%</strong> per year. Value after <strong>${time} years</strong>? (Round to 2 decimals)`);
+        } else if (kica === "C") {
+            const pool = [
+                {
+                    q: `<p>Your business vertex is <strong>(${h}, ${k})</strong>.</p><p>Which sentence best explains this to your investors?</p>`,
+                    opts: [ {text: `"If we price the item exactly at $${h}, we will hit our maximum possible profit of $${k}."`, correct: true}, {text: `"We have to spend $${k} to make $${h}."`, correct: false}, {text: `"If we sell ${h} items, we break even at $${k}."`, correct: false} ]
+                },
+                {
+                    q: `<p>A customer asks why you don't just sell the ${item} for $${h + 200}. How do you explain the math to them?</p>`,
+                    opts: [ {text: `"Our profit follows a parabola. If we raise the price too far past the peak (vertex), the massive loss in sales volume ruins our total profit."`, correct: true}, {text: `"Because the equation has a negative y-intercept."`, correct: false}, {text: `"We actually would make more money, but we want to be nice."`, correct: false} ]
+                },
+                {
+                    q: `<p>A new partner asks why the profit equation has a negative number (<strong>${a}</strong>) at the front.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: "Because a negative 'a' value makes the parabola open DOWN, creating a 'Peak' (Max profit). If it opened up, it would imply infinite profit, which is impossible.", correct: true}, {text: "Because we are operating at a loss right now.", correct: false}, {text: "It is a typo in the formula.", correct: false} ]
+                },
+                {
+                    q: `<p>Your factory cost equation is <strong>C = 12(x - 50)² + 3000</strong>.</p><p>Explain to the manager what this means for production speed (x).</p>`,
+                    opts: [ {text: `"We must run the machines at speed 50. Anything faster or slower will cause costs to rise above our absolute minimum of $3000."`, correct: true}, {text: `"It means we will make $3000 in profit."`, correct: false}, {text: `"The cost goes down constantly forever."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why is Vertex Form considered the most "business-friendly" way to write a quadratic equation?</p>`,
+                    opts: [ {text: "Because you can just look at the numbers inside the brackets and immediately know your optimal strategy (h) and best outcome (k).", correct: true}, {text: "Because it is the only form calculators accept.", correct: false}, {text: "Because it perfectly shows the startup costs (y-intercept).", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
+        }
+    }
+
+    // --- Section 2.3 Generators ---
+    function gen2_3(kica, qArea) {
+        let style = randInt(1, 5);
+        let h = randInt(10, 50);
+        let k = randInt(2000, 25000);
+        let a = randInt(-8, -1); 
+        let b = -2 * a * h; 
+        let c = (a * h * h) + k; // This is the y-intercept
+        let item = randChoice(items);
+
+        let standardEq = `P = ${a}x² + ${b}x ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}`;
+
+        if (kica === "K") {
+            let asks = [
+                {q: `Expand to Standard Form: <strong>P = ${a}(x - ${h})² + ${k}</strong>. What is the 'c' value (y-intercept)?`},
+                {q: `Look at the equation: <strong>y = ${a}(x - ${h})(x + ${randInt(5,20)}) - ${Math.abs(c)}</strong>. Let x = 0 to find the y-intercept.`},
+                {q: `In the equation <strong>${standardEq}</strong>, identify the y-intercept.`},
+                {q: `Calculate the starting value (t=0) for <strong>h = ${a}t² + ${b}t + ${c}</strong>.`},
+                {q: `Find the y-intercept by expanding: <strong>C = ${Math.abs(a)}(n - ${h})² ${c>=0?'+':'-'} ${Math.abs(k)}</strong>. (Note: result is 'c' value)`}
+            ];
+            // To ensure the answer is strictly 'c' for K, we just ask for c.
+            qArea.innerHTML = `<p>Equation: <strong>P = ${a}(x - ${h})² + ${k}</strong></p><p>Expand this and identify the <strong>'c' value (y-intercept)</strong>.</p>`;
+            setupInput(c.toString());
+            
+        } else if (kica === "A") {
+            let asks = [
+                `Your ${item} profit model is expanded to: <strong>${standardEq}</strong>. What is your <strong>Startup Cost</strong> (Profit when price x = 0)?`,
+                `A ball is thrown. Its path is <strong>h = -5t² + 20t + ${Math.abs(c)}</strong>. What is the <strong>Initial Height</strong> of the ball?`,
+                `A business debt model is <strong>D = ${a}x² + ${b}x + ${c}</strong>. What is the debt on Day 0?`,
+                `Your app's revenue is <strong>R = ${a}x² + ${b}x ${c>=0?'+':'-'} ${Math.abs(c)}</strong>. What is the revenue before launch?`,
+                `A drone's trajectory is <strong>y = ${a}x² + ${b}x + ${c}</strong>. At distance x=0, what is its height?`
+            ];
+            let selected = randChoice(asks);
+            qArea.innerHTML = `<p>${selected}</p>`;
+            setupInput(c.toString()); // all scenarios look for 'c'
+            
+        } else if (kica === "I") {
+            let x1 = randInt(5, 25);
+            let x2 = randInt(40, 150);
+            let costHit = randInt(1000, 5000);
+            const pool = [
+                {
+                    q: `<p>Your profit parabola crosses the x-axis at $${x1} and $${x2}.</p><p>What do these x-intercepts represent in your business?</p>`,
+                    opts: [ {text: `The Break-Even points. Pricing below $${x1} or above $${x2} results in a total loss.`, correct: true}, {text: `The points where we make the maximum possible profit.`, correct: false}, {text: `The startup costs for the business.`, correct: false} ]
+                },
+                {
+                    q: `<p>Your business equation is factored to <span class="math-text">P = ${a}(x - ${x1})(x - ${x2})</span>.</p><p>What exactly happens if you set the price at $${x1}?</p>`,
+                    opts: [ {text: `Your profit will be exactly $0 (You break even).`, correct: true}, {text: `You will reach your peak profit.`, correct: false}, {text: `You will owe the bank money.`, correct: false} ]
+                },
+                {
+                    q: `<p>Your y-intercept is currently ${c}. Suddenly, property taxes for your warehouse increase by $${costHit}.</p><p>What happens to the y-intercept?</p>`,
+                    opts: [ {text: `It moves further down into the negative numbers (becomes ${c - costHit}).`, correct: true}, {text: `It moves up and becomes positive.`, correct: false}, {text: `The y-intercept stays the same, but the curve gets wider.`, correct: false} ]
+                },
+                {
+                    q: `<p>What happens to the graph if a business has NO x-intercepts and the 'a' value is negative?</p>`,
+                    opts: [ {text: "The entire parabola is below the x-axis. The business will never break even, no matter what price is chosen.", correct: true}, {text: "It means the business has infinite profit.", correct: false}, {text: "It means there are no startup costs.", correct: false} ]
+                },
+                {
+                    q: `<p>The distance between your two x-intercepts is $${x2 - x1}. What does this width represent?</p>`,
+                    opts: [ {text: "The 'Safe Window'. It is the entire range of prices you can choose from and still make a positive profit.", correct: true}, {text: "The amount of items you need to sell.", correct: false}, {text: "Your maximum profit margin.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
+            
+        } else if (kica === "C") {
+            let negC = randInt(-5000, -500);
+            const pool = [
+                {
+                    q: `<p>Your y-intercept is calculated as <strong>${negC}</strong>.</p><p>Why is this number negative in a real business scenario?</p>`,
+                    opts: [ {text: "It represents the fixed money spent on equipment and inventory before selling a single item (Startup Costs).", correct: true}, {text: "Because no one wants to buy the product.", correct: false}, {text: "Because the formula demands a negative 'c' value.", correct: false} ]
+                },
+                {
+                    q: `<p>A new employee looks at the graph and asks why it starts below zero when the price (x) is 0.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: `"At price 0, we make no revenue, so we are deep in the hole for our initial setup expenses."`, correct: true}, {text: `"It's a mathematical glitch. Profit always starts at 0."`, correct: false}, {text: `"It means our product is priced way too high."`, correct: false} ]
+                },
+                {
+                    q: `<p>A partner says, "We should only use the Vertex Form."</p><p>Why is the <strong>Standard Form</strong> (P = ax² + bx + c) also useful to communicate?</p>`,
+                    opts: [ {text: "Because the 'c' value instantly reveals our exact initial investment/startup cost without needing any math.", correct: true}, {text: "Because standard form tells us the maximum profit directly.", correct: false}, {text: "It isn't useful, Vertex form is always better.", correct: false} ]
+                },
+                {
+                    q: `<p>Explain to an investor what it means to "Break Even" using the shape of a parabola.</p>`,
+                    opts: [ {text: `"It's the exact moments the curved line crosses the zero-axis, meaning our revenue has finally perfectly covered our startup costs."`, correct: true}, {text: `"It's the peak of the curve where we make the most money."`, correct: false}, {text: `"It's where the curve starts on the y-axis."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why is it dangerous to ignore the y-intercept when planning a new business?</p>`,
+                    opts: [ {text: "If the y-intercept (startup cost) is too deeply negative, you might run out of cash before you ever reach the break-even point.", correct: true}, {text: "Because the y-intercept determines the maximum profit.", correct: false}, {text: "It is not dangerous. Startup costs don't matter in the long run.", correct: false} ]
+                }
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = selected.q;
+            setupMC(selected.opts);
+        }
+    }
+
+    // --- Section 2.4 Generators ---
+    function gen2_4(kica, qArea) {
+        let h = randInt(25, 150);
+        let k = randInt(5000, 80000);
+        let a = randInt(-10, -2);
+        let item = randChoice(items);
+        let eq = `P = ${a}(x - ${h})² + ${k}`;
+
+        if (kica === "K") {
+            let testX = h + randInt(5, 40);
+            let result = a * Math.pow((testX - h), 2) + k;
+            
+            let asks = [
+                `<p>Equation: <strong>${eq}</strong></p><p>Substitute x = <strong>${testX}</strong> into the equation and calculate P.</p>`,
+                `<p>Given <strong>y = ${a}(x - ${h})² + ${k}</strong></p><p>Find y when x is <strong>${testX}</strong>.</p>`,
+                `<p>Using the model <strong>R = ${a}(p - ${h})² + ${k}</strong></p><p>Calculate R if p = <strong>${testX}</strong>.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks);
+            setupInput(result.toString());
+            
+        } else if (kica === "A") {
+            let greedAmt = randInt(15, 60);
+            let greedPrice = h + greedAmt;
+            let greedResult = a * Math.pow((greedPrice - h), 2) + k;
+            
+            let panicAmt = randInt(10, h-5);
+            let panicPrice = h - panicAmt;
+            let panicResult = a * Math.pow((panicPrice - h), 2) + k;
+            
+            let asks = [
+                {q: `The ideal price for ${item} is $${h} making $${k} (<strong>${eq}</strong>).<br>You get greedy and charge <strong>$${greedPrice}</strong>. Calculate the new Profit.`, ans: greedResult},
+                {q: `The sweet spot is $${h} (<strong>${eq}</strong>).<br>You panic and drop the price to <strong>$${panicPrice}</strong> to sell more. Calculate the new Profit.`, ans: panicResult},
+                {q: `A concert's max revenue is at ticket price $${h} (<strong>${eq}</strong>).<br>If they charge <strong>$${greedPrice}</strong>, what is the revenue?`, ans: greedResult}
+            ];
+            let selected = randChoice(asks);
+            qArea.innerHTML = `<p>${selected.q}</p>`;
+            setupInput(selected.ans.toString());
+            
+        } else if (kica === "I") {
+            let isNarrowing = Math.random() > 0.5;
+            let a1, a2, correctText, wrongText;
+            
+            if (isNarrowing) {
+                a1 = randInt(-4, -1);
+                a2 = randInt(-25, -10); 
+                correctText = `The curve gets steeper/narrower. The break-even points get closer together, creating a much smaller 'safe' pricing window (High Risk).`;
+                wrongText = `The curve gets wider. The break-even points spread apart, giving you a wider 'safe' window (Low Risk).`;
+            } else {
+                a1 = randInt(-25, -10);
+                a2 = randInt(-4, -1); 
+                correctText = `The curve gets wider. The break-even points spread apart, giving you a wider 'safe' window (Low Risk).`;
+                wrongText = `The curve gets steeper/narrower. The break-even points get closer together, creating a much smaller 'safe' pricing window (High Risk).`;
             }
-            
-            qArea.innerHTML = `<p>${randChoice(asks)}</p>`;
-            setupInput(ans.toFixed(style === 3 ? 2 : 0)); // Round money, whole for others
-            
-        } else if (kica === "I") {
-            let rate = randInt(5, 18);
-            let dec = rate / 100;
-            let bVal = (1 + dec).toFixed(2);
-            let bValDecay = (1 - dec).toFixed(2);
-            let wage = randInt(200, 800);
-            
-            let pool = [
-                {
-                    q: `<p>A formula is <span class="math-text">V = 800(${bVal})<sup>t</sup></span>. What does the ${bVal} prove?</p>`,
-                    opts: [ {text: `That the value is growing by ${rate}% every time period.`, correct: true}, {text: `That it started at ${bVal}.`, correct: false}, {text: `That it decays by ${rate}%.`, correct: false} ]
-                },
-                {
-                    q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for a full month, which is better and why?</p>`,
-                    opts: [ {text: "Job B. Exponential growth starts incredibly slow, but the multiplication effect eventually explodes and overtakes linear growth.", correct: true}, {text: `Job A, because $${wage} is much bigger than $1.`, correct: false}, {text: "They end up paying about the same.", correct: false} ]
-                },
-                {
-                    q: `<p>A student writes a growth factor as ${bValDecay} for a city growing by ${rate}%. Are they correct?</p>`,
-                    opts: [ {text: `No. That is a decay factor. Growth means adding to 100% (1 + ${dec}), so it must be ${bVal}.`, correct: true}, {text: `Yes, ${bValDecay} represents ${rate}%.`, correct: false}, {text: `No, it should just be ${dec}.`, correct: false} ]
-                },
-                {
-                    q: `<p>If an equation is <span class="math-text">y = 500(2)<sup>x</sup></span>, how does the graph look?</p>`,
-                    opts: [ {text: "It curves upwards, getting steeper and steeper as x increases.", correct: true}, {text: "It is a straight line going up.", correct: false}, {text: "It curves downwards.", correct: false} ]
-                },
-                {
-                    q: `<p>Why do we use (1 + rate) inside the brackets instead of just the rate?</p>`,
-                    opts: [ {text: "The '1' represents keeping 100% of your original amount. The '+ rate' adds the new growth on top of it.", correct: true}, {text: "Because math formulas cannot have decimals starting with 0.", correct: false}, {text: "It's just a random rule.", correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
-            
-        } else if (kica === "C") {
-            let r1 = randInt(4, 8);
-            let r2 = randInt(10, 16);
-            let r72_1 = (72/r1).toFixed(1);
-            let r72_2 = (72/r2).toFixed(1);
-            let pool = [
-                {
-                    q: `<p>How would you explain the "Rule of 72" to a client looking at a ${r1}% return?</p>`,
-                    opts: [ {text: `"If you divide the number 72 by your rate of ${r1}, it tells you it will take roughly ${r72_1} years for your total money to double."`, correct: true}, {text: `"It means you will make a 72% profit in ${r1} years."`, correct: false}, {text: `"You are required to hold the investment until age 72."`, correct: false} ]
-                },
-                {
-                    q: `<p>How do you visually describe the difference between Linear and Exponential Growth?</p>`,
-                    opts: [ {text: "Linear is a perfectly straight ramp. Exponential is a J-Curve that starts flat and suddenly shoots vertically.", correct: true}, {text: "Linear goes up, but Exponential goes down in a U-shape.", correct: false}, {text: "They both look like straight lines, but Exponential is steeper.", correct: false} ]
-                },
-                {
-                    q: `<p>A client asks why a ${r2}% return is so much better than ${r1}% if they leave it for 30 years.</p>`,
-                    opts: [ {text: `"The higher the rate, the steeper the J-Curve. Because the growth stacks on itself, a small percentage difference creates a massive wealth gap over decades."`, correct: true}, {text: `"Because ${r2} is a bigger number, so you add more dollars every year."`, correct: false}, {text: `"It actually doesn't matter much if the timeline is long."`, correct: false} ]
-                },
-                {
-                    q: `<p>Explain the concept of "Doubling Time" in a viral marketing campaign.</p>`,
-                    opts: [ {text: `"It's the fixed amount of time it takes for your audience size to multiply by 2. If doubling time is short, the video goes viral instantly."`, correct: true}, {text: `"It means the video gets twice as many views as a linear video."`, correct: false}, {text: `"It means you have to watch the video twice."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is it impossible to sustain true Exponential Growth forever in the real world?</p>`,
-                    opts: [ {text: `"Because resources (like money, people, or space) are limited. Eventually, the curve runs out of things to multiply and levels off."`, correct: true}, {text: `"Because the exponent formula eventually breaks."`, correct: false}, {text: `"It isn't impossible. Things can grow forever."`, correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
-        }
-    }
 
-    // --- Section 3.3: Compound Interest ---
-    function gen3_3(kica, qArea) {
-        let style = randInt(1, 4);
-        
-        if (kica === "K") {
-            const P = randInt(2, 15) * 1000;
-            const rate = randInt(4, 11);
-            const n = randInt(3, 10);
-            const i = rate / 100;
-            const ans = P * Math.pow(1 + i, n);
+            let bp1 = randInt(10, 40);
+            let bp2 = randInt(60, 200);
+            let badPHigh = bp2 + randInt(10, 50);
+            let shiftUp = randInt(5000, 15000);
             
-            let asks = [
-                `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i} (${rate}%), and n = ${n}, calculate the final Amount <strong>A</strong>.</p>`,
-                `<p>You deposit $${P} into an account paying ${rate}% annually.</p><p>Using <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the balance after ${n} years.</p>`
-            ];
-            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
-            setupInput(ans.toFixed(2));
-            
-        } else if (kica === "A") {
-            const P = randInt(2, 8) * 1000;
-            const rate = randInt(6, 14);
-            const i = rate / 100;
-            const yearsA = randInt(25, 40);
-            const yearsB = randInt(10, 20);
-            const ansA = P * Math.pow(1 + i, yearsA);
-            const ansB = P * Math.pow(1 + i, yearsB);
-            const diff = ansA - ansB;
-            
-            let asks = [
-                `<p>You invest <strong>$${P}</strong> at <strong>${rate}%</strong> interest.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p>`,
-                `<p>The "Cost of Waiting": Investing $${P} at ${rate}%.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth.</p>`
-            ];
-            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
-            setupInput(diff.toFixed(2));
-            
-        } else if (kica === "I") {
-            let rate = randInt(6, 12);
-            let nYears = randInt(20, 35);
-            let pool = [
+            const pool = [
                 {
-                    q: `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the absolute most powerful variable?</p>`,
-                    opts: [ {text: "Because it acts as an exponent. The money compounds on itself, multiplying the pile drastically in the later years.", correct: true}, {text: "Because it gets multiplied by the interest rate directly.", correct: false}, {text: "Because more time stops the bank from taking fees.", correct: false} ]
+                    q: `<p>Due to market changes, your 'a' value drops from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this physically mean for your Break-Even points?</p>`,
+                    opts: [ {text: correctText, correct: true}, {text: wrongText, correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false} ]
                 },
                 {
-                    q: `<p>If you switch an investment from compounding "Annually" to "Monthly", what happens to your final total?</p>`,
-                    opts: [ {text: "It grows larger because the bank calculates and adds 'interest on your interest' 12 times a year instead of just once.", correct: true}, {text: "It gets smaller because they charge 12 times.", correct: false}, {text: "It stays exactly the same.", correct: false} ]
+                    q: `<p>Your profit graph has x-intercepts (Break-Even points) at $${bp1} and $${bp2}.</p><p>If you price your product at $${badPHigh}, what happens?</p>`,
+                    opts: [ {text: "You operate at a loss (negative profit) because you are pricing completely outside the break-even window.", correct: true}, {text: "You make a massive profit because the price is so high.", correct: false}, {text: "You perfectly break even.", correct: false} ]
                 },
                 {
-                    q: `<p>If an investment guarantees ${rate}% return for ${nYears} years, what happens if you panic and withdraw the money early?</p>`,
-                    opts: [ {text: "You interrupt the compound curve, entirely destroying the massive exponential growth that happens in the final years.", correct: true}, {text: "Nothing, the money grows in a straight linear line anyway.", correct: false}, {text: "You actually make more money by taking it out early.", correct: false} ]
+                    q: `<p>A celebrity wears your ${item}, increasing global demand. Your entire profit parabola shifts UP vertically by $${shiftUp}.</p><p>What happens to your Break-Even window?</p>`,
+                    opts: [ {text: "It spreads further apart, giving you a much wider and safer range of prices to choose from.", correct: true}, {text: "It gets narrower and riskier.", correct: false}, {text: "It remains exactly the same size.", correct: false} ]
                 },
                 {
-                    q: `<p>You have two choices: Double your Principal (P) OR Double the Time (n). Which yields more money?</p>`,
-                    opts: [ {text: "Doubling the Time (n). Because 'n' is an exponent, it creates explosive growth far greater than just doubling the starting cash.", correct: true}, {text: "Doubling the Principal (P).", correct: false}, {text: "They result in the exact same amount.", correct: false} ]
+                    q: `<p>If an equation's 'a' value is <strong>-100</strong>, what can you infer about the business compared to an 'a' value of <strong>-2</strong>?</p>`,
+                    opts: [ {text: "It is highly volatile. Consumers are extremely price-sensitive, and missing the perfect price by even a dollar will destroy profits.", correct: true}, {text: "It is very safe. You can charge almost anything and make money.", correct: false}, {text: "It has a much higher maximum profit.", correct: false} ]
                 },
                 {
-                    q: `<p>Why is a $1000 credit card debt at 20% mathematically identical to an amazing stock market investment?</p>`,
-                    opts: [ {text: "Because both use the exact same compound interest formula. The debt grows exponentially against you instead of for you.", correct: true}, {text: "Because credit cards are good investments.", correct: false}, {text: "It isn't. Debt is linear, investments are exponential.", correct: false} ]
+                    q: `<p>You set your price exactly halfway between your two Break-Even points. Where are you on the graph?</p>`,
+                    opts: [ {text: "Exactly at the Vertex (The Sweet Spot). You are making maximum profit.", correct: true}, {text: "You are at $0 profit.", correct: false}, {text: "You are at the y-intercept.", correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -1025,121 +1138,29 @@
             setupMC(selected.opts);
             
         } else if (kica === "C") {
-            let age = randInt(18, 24);
-            let waitAge = age + randInt(10, 15);
-            let debt = randInt(3, 9) * 500;
-            let cardRate = randInt(18, 25);
-            let pool = [
+            let inc = randInt(15, 45);
+            let dec = randInt(10, h-10);
+            let highM = randInt(80, 150);
+            const pool = [
                 {
-                    q: `<p>A ${age}-year-old client says they don't have $10,000, so they will wait until they are ${waitAge} to start investing.</p><p>What is your financial advice?</p>`,
-                    opts: [ {text: `"Start now with whatever you have! Time ('n') is the most important factor. The longer the money sits, the harder compound interest works."`, correct: true}, {text: `"You are right. Wait until ${waitAge}. You need a huge Principal to start compounding."`, correct: false}, {text: `"Put it all in a checking account so it doesn't decay."`, correct: false} ]
+                    q: `<p>You raised the price of ${item} from the optimal $${h} to $${h + inc}, but total profit dropped.</p><p>Which email correctly explains this to the CEO?</p>`,
+                    opts: [ {text: `"We are making more margin per item, but the high price caused customer demand to crash so heavily that overall total profit fell."`, correct: true}, {text: `"The math formula is broken. Higher price should always equal higher total profit."`, correct: false}, {text: `"Our startup costs increased suddenly, which ruined the margins."`, correct: false} ]
                 },
                 {
-                    q: `<p>How does compound interest make a $${debt} credit card balance at ${cardRate}% so incredibly dangerous?</p>`,
-                    opts: [ {text: `Because you are charged ${cardRate}% interest on top of your old interest. If ignored, the debt rockets upward in a J-curve.`, correct: true}, {text: `Because the bank legally changes the rate to ${cardRate+10}% if you miss a payment.`, correct: false}, {text: `"Because credit cards use linear equations."`, correct: false} ]
+                    q: `<p>You lowered the price of ${item} to $${h - dec}. You sold record numbers of items, but still made less total profit than the sweet spot.</p><p>How do you explain this?</p>`,
+                    opts: [ {text: `"Even though we sold massive volume, the profit margin per item became too thin to generate our maximum potential profit."`, correct: true}, {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean fewer people want to buy the product."`, correct: false} ]
                 },
                 {
-                    q: `<p>When a financial advisor talks about the "Cost of Waiting", what math concept are they explaining?</p>`,
-                    opts: [ {text: "By waiting, you severely decrease the exponent 'n' in the formula, cutting off the most lucrative years of exponential growth.", correct: true}, {text: "By waiting, the 'P' (Principal) gets eaten by bank fees.", correct: false}, {text: "By waiting, the interest rate 'i' naturally drops.", correct: false} ]
+                    q: `<p>An investor asks: "Why don't we just aim for the highest possible profit margin ($${highM} per item)?"</p><p>How do you explain the flaw in this logic using parabolas?</p>`,
+                    opts: [ {text: "Because the profit curve is a parabola. Maximizing margin usually destroys sales volume. The peak is found by balancing margin AND volume.", correct: true}, {text: "Because a high margin changes our 'a' value to positive.", correct: false}, {text: "Actually, they are right. The highest margin always creates the maximum total profit.", correct: false} ]
                 },
                 {
-                    q: `<p>Explain what "Interest on Interest" means to someone who doesn't know math.</p>`,
-                    opts: [ {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every single year without you doing any extra work."`, correct: true}, {text: `"It means the bank pays you twice a year."`, correct: false}, {text: `"It means your interest rate is doubled."`, correct: false} ]
+                    q: `<p>Your marketing team says, "We want a wide parabola, not a steep one."</p><p>Translate this visual request into business strategy.</p>`,
+                    opts: [ {text: `"They want a forgiving market where we can test a wide range of prices without the risk of profits suddenly dropping to zero."`, correct: true}, {text: `"They want higher startup costs so the graph starts lower."`, correct: false}, {text: `"They want the maximum profit to be smaller."`, correct: false} ]
                 },
                 {
-                    q: `<p>Why is a 2% management fee on an investment portfolio actually a huge deal over 30 years?</p>`,
-                    opts: [ {text: `"Because it acts as exponential decay on your profits. You aren't just losing 2% once, you are losing the compounded growth of that 2% over 30 years."`, correct: true}, {text: `"It isn't a big deal. 2% is a very small number."`, correct: false}, {text: `"Because the 2% is added to your starting principal."`, correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
-        }
-    }
-
-    // --- Section 3.4: Exponential Decay ---
-    function gen3_4(kica, qArea) {
-        let style = randInt(1, 4);
-        
-        if (kica === "K") {
-            const drop = randInt(8, 35);
-            const b = (100 - drop) / 100;
-            
-            let asks = [
-                `<p>A car's value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) used in the equation <span class="math-text">y = a(b)<sup>x</sup></span>?</p>`,
-                `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value goes inside the brackets for 'b'?</p>`,
-                `<p>Inflation reduces buying power by <strong>${drop}%</strong>. Calculate the multiplier (b).</p>`
-            ];
-            qArea.innerHTML = randChoice(asks) + `<p><small>(Enter as a decimal)</small></p>`;
-            setupInput(b);
-            
-        } else if (kica === "A") {
-            const P = randInt(15, 60) * 1000;
-            const years = randInt(2, 8);
-            const decRate = randInt(12, 25);
-            const bFact = 1 - (decRate/100);
-            const ans = P * Math.pow(bFact, years);
-            
-            let asks = [
-                `<p>You buy a new car for <strong>$${P}</strong>. It depreciates at ${decRate}% per year (b = ${bFact}).</p><p>Calculate its value after <strong>${years} years</strong>.</p>`,
-                `<p>A boat costs <strong>$${P}</strong> and loses ${decRate}% of its value annually.</p><p>Use <span class="math-text">y = a(b)<sup>x</sup></span> to find its worth in <strong>${years} years</strong>.</p>`,
-                `<p>A factory machine worth <strong>$${P}</strong> depreciates ${decRate}% a year.</p><p>What is its book value after <strong>${years} years</strong>?</p>`
-            ];
-            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
-            setupInput(ans.toFixed(2));
-            
-        } else if (kica === "I") {
-            let drop = randInt(12, 28);
-            let bVal = (1 - (drop/100)).toFixed(2);
-            let pool = [
-                {
-                    q: `<p>In exponential decay (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets incredibly large?</p>`,
-                    opts: [ {text: "It approaches zero endlessly, but mathematically never actually touches it (an Asymptote).", correct: true}, {text: "It eventually hits exactly zero and stops.", correct: false}, {text: "It crosses the axis into negative numbers.", correct: false} ]
-                },
-                {
-                    q: `<p>Why does a car lose vastly more actual dollar value in its 1st year than in its 10th year if it decays at ${drop}% per year?</p>`,
-                    opts: [ {text: `Because ${drop}% is calculated on a much larger starting price in year 1. As the car gets cheaper, ${drop}% becomes a smaller dollar amount.`, correct: true}, {text: `Because the percentage rate actually increases as the car gets older.`, correct: false}, {text: `Because cars decay in a linear line.`, correct: false} ]
-                },
-                {
-                    q: `<p>A chemical's mass decreases by ${drop}% every hour. What 'b' value must you use in the equation?</p>`,
-                    opts: [ {text: `b = ${bVal}, because you retain ${100-drop}% of the chemical each hour.`, correct: true}, {text: `b = ${drop}, because that is the decay rate.`, correct: false}, {text: `b = ${(drop/100).toFixed(2)}, because you just convert it to a decimal.`, correct: false} ]
-                },
-                {
-                    q: `<p>In a tournament bracket, half the teams are eliminated every round. What is the 'b' value?</p>`,
-                    opts: [ {text: "b = 0.5 (because 50% remain)", correct: true}, {text: "b = 2 (because they play in pairs)", correct: false}, {text: "b = 0 (because teams are eliminated)", correct: false} ]
-                },
-                {
-                    q: `<p>If an equation is <span class="math-text">y = 500(0.9)<sup>x</sup></span>, how does the graph look?</p>`,
-                    opts: [ {text: "It starts high, drops very fast initially, and then flattens out as it gets close to the x-axis.", correct: true}, {text: "It is a straight line going downwards.", correct: false}, {text: "It drops at a constant speed until it hits zero.", correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
-            
-        } else if (kica === "C") {
-            let price = randInt(35, 80) * 1000;
-            let decRate = randInt(15, 22);
-            let pool = [
-                {
-                    q: `<p>How would you explain the "New Car Trap" to someone buying a $${price} vehicle?</p>`,
-                    opts: [ {text: `New cars lose the largest chunk of their value in the first few years. You are paying heavily for the steepest part of the decay curve.`, correct: true}, {text: `New cars gain value quickly because of compound interest.`, correct: false}, {text: `New cars lose value in a straight, linear line, so it doesn't matter when you buy.`, correct: false} ]
-                },
-                {
-                    q: `<p>How would you mathematically explain "Inflation" as a form of Exponential Decay?</p>`,
-                    opts: [ {text: "Your money's buying power drops by a percentage every year, so $100 buys exponentially less goods over time.", correct: true}, {text: "Your actual bank account balance decreases every year.", correct: false}, {text: "Inflation means the prices of goods go down.", correct: false} ]
-                },
-                {
-                    q: `<p>If a computer depreciates by ${decRate}% a year, why shouldn't you just subtract $500 every year to find its value?</p>`,
-                    opts: [ {text: `Because depreciation is exponential, not linear. It loses ${decRate}% of its CURRENT value, not a fixed flat dollar amount.`, correct: true}, {text: `Because $500 is too small of an amount.`, correct: false}, {text: `Because depreciation is added, not subtracted.`, correct: false} ]
-                },
-                {
-                    q: `<p>Explain what an "Asymptote" is using the example of caffeine leaving your bloodstream.</p>`,
-                    opts: [ {text: `"Your body removes a percentage of the caffeine left. As the amount gets tiny, the percentage removed gets tinier, meaning it mathematically never hits absolute zero."`, correct: true}, {text: `"It means the caffeine leaves your body in a straight line."`, correct: false}, {text: `"It is the maximum amount of caffeine you can drink."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is buying a 3-year-old used car usually considered a smart financial move based on exponential decay?</p>`,
-                    opts: [ {text: `"Because the original owner already absorbed the steepest, most expensive part of the depreciation curve."`, correct: true}, {text: `"Because used cars have higher interest rates."`, correct: false}, {text: `"Because the 3-year-old car will start gaining value exponentially."`, correct: false} ]
+                    q: `<p>How do you justify to a board of directors that the "Sweet Spot" is a mathematical absolute, not just a guess?</p>`,
+                    opts: [ {text: `"The Vertex is the exact mathematical apex where the multiplying factors of Price and Demand peak before overriding each other."`, correct: true}, {text: `"Because the formula has an x and a y."`, correct: false}, {text: `"It is just a guess, but it usually works."`, correct: false} ]
                 }
             ];
             let selected = randChoice(pool);
@@ -1173,28 +1194,19 @@
     function checkAnswer() {
         if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
-        // Strip out $ and commas
-        let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
+        let userRaw = document.getElementById('user-answer').value.trim();
         let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
-        
-        // Try parsing for math tolerance
+        let isCorrect = (cleanUser === currentQuestion.answer);
+
+        // Allow numerical tolerance for pure numbers
         let userNum = parseFloat(cleanUser);
         let ansNum = parseFloat(currentQuestion.answer);
-        
-        let isCorrect = false;
-
-        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1;
+        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf(',') === -1 && currentQuestion.answer.toString().indexOf('^') === -1;
 
         if (isPureNumber && !isNaN(userNum)) {
-             // Financial Math Tolerance (0.01)
-             if (Math.abs(userNum - ansNum) <= 0.011) {
+             if (Math.abs(userNum - ansNum) <= 0.01) {
                  isCorrect = true;
              }
-        } else {
-            // String fallback
-            if (cleanUser === currentQuestion.answer) {
-                isCorrect = true;
-            }
         }
 
         displayFeedback(isCorrect);
@@ -1213,7 +1225,7 @@
     function displayFeedback(isCorrect) {
         let feedback = document.getElementById('feedback-area');
         if (isCorrect) {
-            feedback.innerHTML = "✅ Correct! Great job applying exponential relations.";
+            feedback.innerHTML = "✅ Correct! Great job connecting the math to the real world.";
             feedback.className = "correct";
             isQuestionSolved = true; 
             saveScore(true);
