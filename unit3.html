@@ -544,15 +544,15 @@
         
         <div class="money-box">
             <div class="money-header">💼 Your Mission Setup (Personal Data)</div>
-            <p>1. <strong>The Car:</strong> Go to AutoTrader.ca and find a "Dream Car" you want to buy. Record its price ($P_{car}$): $________</p>
+            <p>1. <strong>The Car:</strong> Go to AutoTrader.ca and find a "Dream Car" you want to buy. Record its price (P<sub>car</sub>): $________</p>
             <p>2. <strong>The Decay:</strong> Research or estimate a realistic annual depreciation rate for that specific car brand (usually between 10% and 25%): ________%</p>
-            <p>3. <strong>The Investment:</strong> Determine a realistic amount of money you could invest today ($P_{invest}$): $________</p>
+            <p>3. <strong>The Investment:</strong> Determine a realistic amount of money you could invest today (P<sub>invest</sub>): $________</p>
             <p>4. <strong>The Fund:</strong> Choose a specific Index Fund or ETF (e.g., S&P 500, QQQ, XQQ) and research its 10-year average annual return. Growth Rate (i): ________%</p>
             <p>5. <strong>The Timeline:</strong> Write down your current age: _______. Write down your target retirement age: _______.</p>
         </div>
 
         <h3>Question 1: The Depreciating Asset (3.4 Decay - Application & Knowledge)</h3>
-        <p>Using the car data you collected in your Mission Setup:</p>
+        <p>Assume your dream car depreciates at the rate you researched in Step 2.</p>
         <ul>
             <li><strong>Calculate:</strong> Determine your specific decay factor (b). Write your official exponential decay equation <span class="math-text">y = a(b)<sup>x</sup></span> using your car's starting price. Calculate exactly what this car will be worth in <strong>5 years</strong>.</li>
             <li><strong>Evaluate:</strong> Subtract the future value from the original price. Exactly how much money "evaporated" (was lost to depreciation) over those 5 years?</li>
@@ -565,7 +565,7 @@
         </ul>
 
         <h3>Question 3: The Cost of Waiting (3.3 Compound Interest - Application)</h3>
-        <p>Let's look at your starting investment ($P_{invest}$) and your chosen ETF's Growth Rate.</p>
+        <p>Let's look at your starting investment (P<sub>invest</sub>) and your chosen ETF's Growth Rate.</p>
         <ul>
             <li><strong>Scenario A (Start Now):</strong> Calculate the final value of your investment when you reach your chosen retirement age using <span class="math-text">A = P(1 + i)<sup>n</sup></span>. (Note: 'n' is the difference between your retirement age and your current age).</li>
             <li><strong>Scenario B (Procrastinate):</strong> Assume you wait until you are <strong>30 years old</strong> to invest that exact same starting amount. Calculate the final value at your retirement age.</li>
@@ -630,7 +630,7 @@
     </div>
     </main>
 
-<div class="version-tag">v3.9 (Fully Unlocked Open Response Assignment)</div>
+<div class="version-tag">v3.9 (Cleaned UI & No-Hint Assignment)</div>
 
 <script>
     /* --- UTILS --- */
@@ -806,7 +806,7 @@
                 let wrongExp = mistakeType === 'multiply' ? a*b : (mistakeType === 'divide' ? (a/b).toFixed(1) : a-b);
                 qArea.innerHTML = `<p>A student simplified <span class="math-text">x<sup>${a}</sup> &times; x<sup>${b}</sup></span> as <span class="math-text">x<sup>${wrongExp}</sup></span>. What specific mistake did they make?</p>`;
                 setupMC([
-                    {text: `They ${mistakeType}ed the exponents instead of adding them.`, correct: true},
+                    {text: `They ${mistakeType}ed the exponents instead of adding them. They must add them to get x<sup>${a+b}</sup>.`, correct: true},
                     {text: `They added the base 'x' incorrectly.`, correct: false},
                     {text: `There is no mistake, ${wrongExp} is correct.`, correct: false}
                 ]);
@@ -841,7 +841,7 @@
                 let neg = randInt(2, 5);
                 qArea.innerHTML = `<p>What physically happens to a number when you apply a negative exponent like <span class="math-text">10<sup>-${neg}</sup></span>?</p>`;
                 setupMC([
-                    {text: "It turns into a fraction (1 / 10^" + neg + "). It creates a very small positive decimal, NOT a negative number.", correct: true},
+                    {text: `It turns into a fraction (1 / 10<sup>${neg}</sup>). It creates a very small positive decimal, NOT a negative number.`, correct: true},
                     {text: `It becomes a negative number (-10 * ${neg}).`, correct: false},
                     {text: "The base flips, so it becomes -10.", correct: false}
                 ]);
@@ -878,7 +878,7 @@
             } else if (type === 3) {
                 qArea.innerHTML = `<p>Explain to a friend why a Negative Exponent (e.g., <span class="math-text">x<sup>-3</sup></span>) doesn't result in a negative bank balance.</p>`;
                 setupMC([
-                    {text: "A negative exponent means division or fractions (1/x^3). It just makes the positive number very small, but never drops below zero.", correct: true},
+                    {text: "A negative exponent means division or fractions (1 / x<sup>3</sup>). It just makes the positive number very small, but never drops below zero.", correct: true},
                     {text: "It actually does make the balance negative if 'x' is big enough.", correct: false},
                     {text: "Because you always ignore the negative sign in finance.", correct: false}
                 ]);
