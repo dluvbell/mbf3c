@@ -627,7 +627,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.6 (Ultra Dynamic 5-Style Pools)</div>
+<div class="version-tag">v3.7 (Ultra Dynamic Randomization & Core Curriculm Aligned)</div>
 
 <script>
     /* --- UTILS --- */
@@ -744,10 +744,10 @@
         else if (section === "3.4") gen3_4(kica, qArea);
     }
 
-    // --- Section 3.1: Exponent Laws ---
+    // --- Section 3.1: Exponent Laws (DEEP RANDOMIZATION) ---
     function gen3_1(kica, qArea) {
-        let style = randInt(1, 4);
         if (kica === "K") {
+            let style = randInt(1, 4);
             let ans = 0;
             let qText = "";
             let a = randInt(3, 12); 
@@ -762,17 +762,18 @@
             } else if (style === 3) { // Power
                 qText = `Simplify: <span class="math-text">(n<sup>${b}</sup>)<sup>${a}</sup></span> = n<sup>?</sup>`;
                 ans = a * b;
-            } else { // Multi-step
-                qText = `Simplify: <span class="math-text">(x<sup>${a}</sup> &times; x<sup>${b}</sup>) &div; x<sup>2</sup></span> = x<sup>?</sup>`;
-                ans = (a + b) - 2;
+            } else { // Negative Exponent
+                qText = `Evaluate: <span class="math-text">10<sup>-3</sup></span><br><small>(Enter decimal answer e.g. 0.01)</small>`;
+                ans = 0.001;
             }
-            qArea.innerHTML = `<p>${qText}</p><p>What is the final exponent?</p>`;
+            qArea.innerHTML = `<p>${qText}</p>`;
             setupInput(ans);
             
         } else if (kica === "A") {
             let base = randInt(2, 5);
             let p1 = randInt(2, 4); 
             let p2 = randInt(1, 3);
+            let style = randInt(1, 4);
             let ans = 0;
             let qText = "";
             
@@ -787,7 +788,7 @@
                 ans = Math.pow(base, top - p1);
                 qText = `<span class="math-text">${base}<sup>${top}</sup> &div; ${base}<sup>${p1}</sup></span>`;
             } else {
-                ans = 1; // Zero exponent trick
+                ans = 1; // Zero exponent
                 qText = `<span class="math-text">(${base}<sup>${p1}</sup> &times; ${base}<sup>${p2}</sup>)<sup>0</sup></span>`;
             }
             
@@ -795,69 +796,104 @@
             setupInput(ans);
             
         } else if (kica === "I") {
-            let a = randInt(3, 8), b = randInt(2, 6);
-            let zBase = randInt(25, 999) * 100;
-            let pool = [
-                {
-                    q: `<p>A student simplified <span class="math-text">(x<sup>${a}</sup>)<sup>${b}</sup></span> as <span class="math-text">x<sup>${a+b}</sup></span>. What mistake did they make?</p>`,
-                    opts: [ {text: `They added the exponents. They must multiply them to get x^${a*b}.`, correct: true}, {text: "No mistake, it is correct.", correct: false}, {text: `They should have divided them.`, correct: false} ]
-                },
-                {
-                    q: `<p>You plug <span class="math-text">${zBase}<sup>0</sup></span> into your calculator. The screen shows 1. Why?</p>`,
-                    opts: [ {text: "Any non-zero base to the power of zero is mathematically defined as exactly 1.", correct: true}, {text: "The calculator rounded down.", correct: false}, {text: "It is an error. The answer should be 0.", correct: false} ]
-                },
-                {
-                    q: `<p>Why do we ADD exponents for <span class="math-text">x<sup>${a}</sup> &times; x<sup>${b}</sup></span>?</p>`,
-                    opts: [ {text: `Because we are literally counting the total number of 'x's being multiplied in a row (${a} + ${b}).`, correct: true}, {text: "Because the multiplication sign changes into a plus sign in algebra.", correct: false}, {text: "We don't add them, we multiply them.", correct: false} ]
-                },
-                {
-                    q: `<p>A student wrote <span class="math-text">x<sup>${a}</sup> &div; x<sup>${b}</sup> = x<sup>${a/b}</sup></span>. Why is this wrong?</p>`,
-                    opts: [ {text: "When dividing identical bases, you must subtract the bottom exponent from the top, not divide them.", correct: true}, {text: "You must add them.", correct: false}, {text: "You must multiply them.", correct: false} ]
-                },
-                {
-                    q: `<p>What happens if you have a negative exponent like <span class="math-text">5<sup>-2</sup></span>?</p>`,
-                    opts: [ {text: "It turns into a fraction (1 / 5^2). It does NOT make the number negative.", correct: true}, {text: "It equals -25.", correct: false}, {text: "It equals -10.", correct: false} ]
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let a = randInt(3,7), b = randInt(2,5);
+                let mistakeType = randChoice(['multiply', 'divide', 'subtract']);
+                let wrongExp = mistakeType === 'multiply' ? a*b : (mistakeType === 'divide' ? (a/b).toFixed(1) : a-b);
+                qArea.innerHTML = `<p>A student simplified <span class="math-text">x<sup>${a}</sup> &times; x<sup>${b}</sup></span> as <span class="math-text">x<sup>${wrongExp}</sup></span>. What specific mistake did they make?</p>`;
+                setupMC([
+                    {text: `They ${mistakeType}ed the exponents instead of adding them.`, correct: true},
+                    {text: `They added the base 'x' incorrectly.`, correct: false},
+                    {text: `There is no mistake, ${wrongExp} is correct.`, correct: false}
+                ]);
+            } else if (type === 2) {
+                let zBase = randInt(25, 999) * 100;
+                let power = randChoice([0, 1]);
+                qArea.innerHTML = `<p>You plug <span class="math-text">${zBase}<sup>${power}</sup></span> into your calculator.</p><p>What mathematical result will it show?</p>`;
+                if (power === 0) {
+                    setupMC([
+                        {text: "1, because any non-zero base to the power of zero is mathematically defined as exactly 1.", correct: true},
+                        {text: "0, because the exponent is zero.", correct: false},
+                        {text: `It will equal ${zBase}.`, correct: false}
+                    ]);
+                } else {
+                    setupMC([
+                        {text: `${zBase}, because anything to the power of 1 is just itself.`, correct: true},
+                        {text: "1, because all single exponents equal 1.", correct: false},
+                        {text: "0, because 1 means nothing is added.", correct: false}
+                    ]);
                 }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            } else if (type === 3) {
+                let a = randInt(4, 9), b = randInt(2, 3);
+                let mistakeType = randChoice(['add', 'multiply']);
+                let wrongExp = mistakeType === 'add' ? a+b : a*b;
+                qArea.innerHTML = `<p>A student simplified <span class="math-text">x<sup>${a}</sup> &div; x<sup>${b}</sup></span> as <span class="math-text">x<sup>${wrongExp}</sup></span>. Why is this wrong?</p>`;
+                setupMC([
+                    {text: `When dividing identical bases, you must SUBTRACT the exponents. They ${mistakeType}ed them instead.`, correct: true},
+                    {text: `They were supposed to divide the exponents (${a} / ${b}).`, correct: false},
+                    {text: `You actually can't simplify division of exponents.`, correct: false}
+                ]);
+            } else {
+                let neg = randInt(2, 5);
+                qArea.innerHTML = `<p>What physically happens to a number when you apply a negative exponent like <span class="math-text">10<sup>-${neg}</sup></span>?</p>`;
+                setupMC([
+                    {text: "It turns into a fraction (1 / 10^" + neg + "). It creates a very small positive decimal, NOT a negative number.", correct: true},
+                    {text: `It becomes a negative number (-10 * ${neg}).`, correct: false},
+                    {text: "The base flips, so it becomes -10.", correct: false}
+                ]);
+            }
             
         } else if (kica === "C") {
-            let item = randChoice(["penny", "magic bean", "dollar"]);
-            let days = randInt(25, 40);
-            let pool = [
-                {
-                    q: `<p>A ${item} doubles every day for ${days} days. How do you explain the massive final amount using exponent laws?</p>`,
-                    opts: [ {text: `Repeated multiplication means the exponent 'n' grows. Since 'n' is the power, the total explodes upwards in a J-Curve, far outpacing linear addition.`, correct: true}, {text: `Because the starting value was multiplied by ${days}.`, correct: false}, {text: `Because the base gets bigger every day.`, correct: false} ]
-                },
-                {
-                    q: `<p>A classmate thinks <span class="math-text">3x</span> and <span class="math-text">3<sup>x</sup></span> mean the same thing. How do you correct them?</p>`,
-                    opts: [ {text: "3x is linear (adding 3 repeatedly), while 3^x is exponential (multiplying by 3 repeatedly).", correct: true}, {text: "They are the same, just written differently.", correct: false}, {text: "3^x means x is multiplied by 3.", correct: false} ]
-                },
-                {
-                    q: `<p>Explain to a friend why a Negative Exponent (e.g., <span class="math-text">x<sup>-3</sup></span>) doesn't result in a negative bank balance.</p>`,
-                    opts: [ {text: "A negative exponent means division or fractions (1/x^3). It just makes the positive number very small, but never drops below zero.", correct: true}, {text: "It actually does make the balance negative.", correct: false}, {text: "Because you ignore the negative sign.", correct: false} ]
-                },
-                {
-                    q: `<p>How would you use a real-world example to explain the Zero Exponent rule (<span class="math-text">b<sup>0</sup> = 1</span>)?</p>`,
-                    opts: [ {text: "Think of time = 0. At the very start (0 days), you have 1 whole original item before it starts multiplying.", correct: true}, {text: "If you have 0 items, you magically get 1.", correct: false}, {text: "You can't use a real-world example for it.", correct: false} ]
-                },
-                {
-                    q: `<p>Explain why <span class="math-text">2<sup>3</sup> &times; 5<sup>2</sup></span> cannot be simplified into a single base using exponent laws.</p>`,
-                    opts: [ {text: "Exponent laws for combining (like adding exponents) only work if the base numbers are exactly the same. 2 and 5 are different.", correct: true}, {text: "Because one exponent is odd and the other is even.", correct: false}, {text: "It can be simplified to 10^5.", correct: false} ]
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let days = randChoice([5, 30]);
+                let action = randChoice(["doubles", "triples"]);
+                qArea.innerHTML = `<p>A penny ${action} every day for <strong>${days} days</strong>. Explain the outcome mathematically.</p>`;
+                if (days === 30) {
+                    setupMC([
+                        {text: `Because 'n' is 30, the repeated multiplication accelerates the value upward rapidly in a J-Curve, resulting in millions.`, correct: true},
+                        {text: `It just equals $0.30 because you add a penny 30 times.`, correct: false},
+                        {text: `The base gets bigger every day linearly.`, correct: false}
+                    ]);
+                } else {
+                    setupMC([
+                        {text: `Because 'n' is only ${days}, the exponential curve hasn't hit its steep vertical climb yet, so the total amount is still very small.`, correct: true},
+                        {text: `It results in millions of dollars because exponential growth is instantly huge on day 1.`, correct: false},
+                        {text: `It equals $0.${days} because you add a penny ${days} times.`, correct: false}
+                    ]);
                 }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            } else if (type === 2) {
+                let val1 = randChoice(["3x", "4x", "5x"]);
+                let val2 = val1.charAt(0) + "<sup>x</sup>";
+                qArea.innerHTML = `<p>A classmate thinks <span class="math-text">${val1}</span> and <span class="math-text">${val2}</span> mean the exact same thing. How do you correct them?</p>`;
+                setupMC([
+                    {text: `${val1} is linear (adding repeatedly), while ${val2} is exponential (multiplying repeatedly, causing massive curves).`, correct: true},
+                    {text: "They are the exact same, just formatted differently for algebra.", correct: false},
+                    {text: `${val2} means x is multiplied by the base.`, correct: false}
+                ]);
+            } else if (type === 3) {
+                qArea.innerHTML = `<p>Explain to a friend why a Negative Exponent (e.g., <span class="math-text">x<sup>-3</sup></span>) doesn't result in a negative bank balance.</p>`;
+                setupMC([
+                    {text: "A negative exponent means division or fractions (1/x^3). It just makes the positive number very small, but never drops below zero.", correct: true},
+                    {text: "It actually does make the balance negative if 'x' is big enough.", correct: false},
+                    {text: "Because you always ignore the negative sign in finance.", correct: false}
+                ]);
+            } else {
+                let num1 = randInt(2, 4);
+                let num2 = randInt(5, 9);
+                qArea.innerHTML = `<p>Explain why <span class="math-text">${num1}<sup>3</sup> &times; ${num2}<sup>4</sup></span> CANNOT be simplified into a single exponent using exponent laws.</p>`;
+                setupMC([
+                    {text: `Exponent laws for adding/subtracting powers only work if the base numbers are exactly the same. ${num1} and ${num2} are different bases.`, correct: true},
+                    {text: "Because one exponent is odd and the other is even.", correct: false},
+                    {text: "It actually can be simplified by multiplying the bases.", correct: false}
+                ]);
+            }
         }
     }
 
-    // --- Section 3.2: Exponential Growth ---
+    // --- Section 3.2: Exponential Growth (DEEP RANDOMIZATION) ---
     function gen3_2(kica, qArea) {
-        let style = randInt(1, 4);
-        
         if (kica === "K") {
             const a = randInt(2, 9) * 100;
             const r = randInt(5, 25);
@@ -865,107 +901,147 @@
             let asks = [
                 {q: `Equation: <strong>y = ${a}(${b})<sup>x</sup></strong><br>What is the <strong>Initial Value (a)</strong>?`, ans: a},
                 {q: `Equation: <strong>P = ${a}(${b})<sup>t</sup></strong><br>What is the <strong>Growth Factor (b)</strong>?`, ans: b},
-                {q: `If an investment grows by <strong>${r}%</strong> per year, what is the decimal Growth Factor (b) you put inside the brackets?`, ans: b},
-                {q: `A population starts at <strong>${a}</strong> and doubles every year. What is the 'b' value?`, ans: 2}
+                {q: `If an investment grows by <strong>${r}%</strong> per year, what is the decimal Growth Factor (b) you put inside the brackets?`, ans: b}
             ];
             let selected = randChoice(asks);
             qArea.innerHTML = `<p>${selected.q}</p>`;
             setupInput(selected.ans.toString());
             
         } else if (kica === "A") {
+            let style = randInt(1, 3);
             let start = randInt(2, 8) * 100;
             let time = randInt(3, 6);
             let rate = randInt(4, 12);
             let ans = 0;
-            let asks = [];
+            let qText = "";
             
             if (style === 1) { // Doubling
                 ans = start * Math.pow(2, time);
-                asks.push(`A virus starts with <strong>${start}</strong> cells and <strong>doubles</strong> every hour. Calculate the cells after <strong>${time} hours</strong>.`);
+                qText = `A virus starts with <strong>${start}</strong> cells and <strong>doubles</strong> every hour. Calculate the cells after <strong>${time} hours</strong>.`;
+                setupInput(ans.toFixed(0));
             } else if (style === 2) { // Tripling
                 ans = start * Math.pow(3, time);
-                asks.push(`A social media post has <strong>${start}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${time} days</strong>?`);
+                qText = `A social media post has <strong>${start}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${time} days</strong>?`;
+                setupInput(ans.toFixed(0));
             } else { // Percentage
                 let b = 1 + (rate/100);
                 ans = start * Math.pow(b, time);
-                asks.push(`A vintage comic book is worth <strong>$${start}</strong>. It grows in value by <strong>${rate}%</strong> per year. Value after <strong>${time} years</strong>? (Round to 2 decimals)`);
+                qText = `A vintage watch is worth <strong>$${start}</strong>. It grows in value by <strong>${rate}%</strong> per year. Value after <strong>${time} years</strong>? (Round to 2 decimals)`;
+                setupInput(ans.toFixed(2));
             }
-            
-            qArea.innerHTML = `<p>${randChoice(asks)}</p>`;
-            setupInput(ans.toFixed(style === 3 ? 2 : 0)); // Round money, whole for others
+            qArea.innerHTML = `<p>${qText}</p>`;
             
         } else if (kica === "I") {
-            let rate = randInt(5, 18);
-            let dec = rate / 100;
-            let bVal = (1 + dec).toFixed(2);
-            let bValDecay = (1 - dec).toFixed(2);
-            let wage = randInt(200, 800);
-            
-            let pool = [
-                {
-                    q: `<p>A formula is <span class="math-text">V = 800(${bVal})<sup>t</sup></span>. What does the ${bVal} prove?</p>`,
-                    opts: [ {text: `That the value is growing by ${rate}% every time period.`, correct: true}, {text: `That it started at ${bVal}.`, correct: false}, {text: `That it decays by ${rate}%.`, correct: false} ]
-                },
-                {
-                    q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for a full month, which is better and why?</p>`,
-                    opts: [ {text: "Job B. Exponential growth starts incredibly slow, but the multiplication effect eventually explodes and overtakes linear growth.", correct: true}, {text: `Job A, because $${wage} is much bigger than $1.`, correct: false}, {text: "They end up paying about the same.", correct: false} ]
-                },
-                {
-                    q: `<p>A student writes a growth factor as ${bValDecay} for a city growing by ${rate}%. Are they correct?</p>`,
-                    opts: [ {text: `No. That is a decay factor. Growth means adding to 100% (1 + ${dec}), so it must be ${bVal}.`, correct: true}, {text: `Yes, ${bValDecay} represents ${rate}%.`, correct: false}, {text: `No, it should just be ${dec}.`, correct: false} ]
-                },
-                {
-                    q: `<p>If an equation is <span class="math-text">y = 500(2)<sup>x</sup></span>, how does the graph look?</p>`,
-                    opts: [ {text: "It curves upwards, getting steeper and steeper as x increases.", correct: true}, {text: "It is a straight line going up.", correct: false}, {text: "It curves downwards.", correct: false} ]
-                },
-                {
-                    q: `<p>Why do we use (1 + rate) inside the brackets instead of just the rate?</p>`,
-                    opts: [ {text: "The '1' represents keeping 100% of your original amount. The '+ rate' adds the new growth on top of it.", correct: true}, {text: "Because math formulas cannot have decimals starting with 0.", correct: false}, {text: "It's just a random rule.", correct: false} ]
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let isShort = Math.random() > 0.5;
+                let days = isShort ? randInt(3, 7) : randInt(25, 35);
+                let wage = randInt(500, 1000);
+                qArea.innerHTML = `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for <strong>${days} days</strong>, which is better and why?</p>`;
+                if (isShort) {
+                    setupMC([
+                        {text: `Job A. Over a short period like ${days} days, exponential growth hasn't hit its vertical spike, so the high flat rate wins easily.`, correct: true},
+                        {text: `Job B. Exponential growth always wins from day 1.`, correct: false},
+                        {text: `They pay exactly the same.`, correct: false}
+                    ]);
+                } else {
+                    setupMC([
+                        {text: `Job B. Over a long period like ${days} days, the doubling effect explodes in a J-Curve, easily overtaking the linear flat rate.`, correct: true},
+                        {text: `Job A, because $${wage} is much bigger than $1.`, correct: false},
+                        {text: `They pay exactly the same.`, correct: false}
+                    ]);
                 }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            } else if (type === 2) {
+                let rate = randInt(5, 18);
+                let dec = rate / 100;
+                let bVal = (1 + dec).toFixed(2);
+                let bValDecay = (1 - dec).toFixed(2);
+                let isGrowing = Math.random() > 0.5;
+                
+                qArea.innerHTML = `<p>A town's population is <strong>${isGrowing ? "GROWING" : "SHRINKING"}</strong> by ${rate}% a year.</p><p>A student writes the growth factor (b) as ${bVal}. Are they correct?</p>`;
+                if (isGrowing) {
+                    setupMC([
+                        {text: `Yes. Growth means keeping 100% and adding ${rate}% (1 + ${dec} = ${bVal}).`, correct: true},
+                        {text: `No, it should be ${bValDecay}.`, correct: false},
+                        {text: `No, it should just be ${dec}.`, correct: false}
+                    ]);
+                } else {
+                    setupMC([
+                        {text: `No. Since it's shrinking, they must subtract from 100% (1 - ${dec}), making it ${bValDecay}.`, correct: true},
+                        {text: `Yes, ${bVal} represents ${rate}%.`, correct: false},
+                        {text: `No, it should just be ${dec}.`, correct: false}
+                    ]);
+                }
+            } else if (type === 3) {
+                let r = randInt(4, 9);
+                let dec = (r/100).toFixed(2);
+                qArea.innerHTML = `<p>Why do we use (1 + ${dec}) inside the brackets for a ${r}% growth, instead of just using ${dec}?</p>`;
+                setupMC([
+                    {text: `The '1' guarantees you keep 100% of your original money. The '+ ${dec}' adds the new ${r}% profit on top of it.`, correct: true},
+                    {text: `Because math formulas cannot handle numbers starting with 0.`, correct: false},
+                    {text: `It's just a random rule you have to memorize.`, correct: false}
+                ]);
+            } else {
+                let start = randInt(3, 8) * 100;
+                qArea.innerHTML = `<p>If an equation is <span class="math-text">y = ${start}(2)<sup>x</sup></span>, how does the shape of the graph behave as x increases?</p>`;
+                setupMC([
+                    {text: "It curves upwards, getting steeper and steeper with every step (J-Curve).", correct: true},
+                    {text: "It is a straight line going up constantly.", correct: false},
+                    {text: "It curves downwards.", correct: false}
+                ]);
+            }
             
         } else if (kica === "C") {
-            let r1 = randInt(4, 8);
-            let r2 = randInt(10, 16);
-            let r72_1 = (72/r1).toFixed(1);
-            let r72_2 = (72/r2).toFixed(1);
-            let pool = [
-                {
-                    q: `<p>How would you explain the "Rule of 72" to a client looking at a ${r1}% return?</p>`,
-                    opts: [ {text: `"If you divide the number 72 by your rate of ${r1}, it tells you it will take roughly ${r72_1} years for your total money to double."`, correct: true}, {text: `"It means you will make a 72% profit in ${r1} years."`, correct: false}, {text: `"You are required to hold the investment until age 72."`, correct: false} ]
-                },
-                {
-                    q: `<p>How do you visually describe the difference between Linear and Exponential Growth?</p>`,
-                    opts: [ {text: "Linear is a perfectly straight ramp. Exponential is a J-Curve that starts flat and suddenly shoots vertically.", correct: true}, {text: "Linear goes up, but Exponential goes down in a U-shape.", correct: false}, {text: "They both look like straight lines, but Exponential is steeper.", correct: false} ]
-                },
-                {
-                    q: `<p>A client asks why a ${r2}% return is so much better than ${r1}% if they leave it for 30 years.</p>`,
-                    opts: [ {text: `"The higher the rate, the steeper the J-Curve. Because the growth stacks on itself, a small percentage difference creates a massive wealth gap over decades."`, correct: true}, {text: `"Because ${r2} is a bigger number, so you add more dollars every year."`, correct: false}, {text: `"It actually doesn't matter much if the timeline is long."`, correct: false} ]
-                },
-                {
-                    q: `<p>Explain the concept of "Doubling Time" in a viral marketing campaign.</p>`,
-                    opts: [ {text: `"It's the fixed amount of time it takes for your audience size to multiply by 2. If doubling time is short, the video goes viral instantly."`, correct: true}, {text: `"It means the video gets twice as many views as a linear video."`, correct: false}, {text: `"It means you have to watch the video twice."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is it impossible to sustain true Exponential Growth forever in the real world?</p>`,
-                    opts: [ {text: `"Because resources (like money, people, or space) are limited. Eventually, the curve runs out of things to multiply and levels off."`, correct: true}, {text: `"Because the exponent formula eventually breaks."`, correct: false}, {text: `"It isn't impossible. Things can grow forever."`, correct: false} ]
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let isFindTime = Math.random() > 0.5;
+                if (isFindTime) {
+                    let rate = randInt(6, 12);
+                    qArea.innerHTML = `<p>A client wants to invest at <strong>${rate}%</strong>. How do you use the Rule of 72 to advise them?</p>`;
+                    setupMC([
+                        {text: `"Divide 72 by ${rate}. It will take roughly ${(72/rate).toFixed(1)} years for your money to double."`, correct: true},
+                        {text: `"Multiply 72 by ${rate} to find your exact profit."`, correct: false},
+                        {text: `"It means you will make ${rate}% profit in exactly 72 years."`, correct: false}
+                    ]);
+                } else {
+                    let time = randInt(5, 12);
+                    qArea.innerHTML = `<p>A client wants their money to double in exactly <strong>${time} years</strong>. How do you use the Rule of 72 to advise them?</p>`;
+                    setupMC([
+                        {text: `"Divide 72 by ${time}. You need to find an investment that guarantees roughly ${(72/time).toFixed(1)}% return."`, correct: true},
+                        {text: `"Multiply 72 by ${time} to find the required interest rate."`, correct: false},
+                        {text: `"It is completely impossible to guarantee doubling in ${time} years."`, correct: false}
+                    ]);
                 }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            } else if (type === 2) {
+                qArea.innerHTML = `<p>How do you visually describe the difference between Linear Growth and Exponential Growth to a client?</p>`;
+                setupMC([
+                    {text: "Linear is a perfectly straight, steady ramp. Exponential is a curve that starts flat and suddenly shoots vertically like a J.", correct: true},
+                    {text: "Linear goes up, but Exponential goes down in a U-shape.", correct: false},
+                    {text: "They both look like straight lines, but Exponential is just much steeper.", correct: false}
+                ]);
+            } else if (type === 3) {
+                let r1 = randInt(4, 7), r2 = randInt(12, 18);
+                qArea.innerHTML = `<p>A client asks why a ${r2}% return is so drastically better than ${r1}% if they leave it for 30 years.</p>`;
+                setupMC([
+                    {text: `"The higher the rate, the steeper the J-Curve. Because the growth multiplies on itself, a small percentage difference creates a massive wealth gap over decades."`, correct: true},
+                    {text: `"Because ${r2} is a bigger number, so you add exactly $${r2} more every year."`, correct: false},
+                    {text: `"It actually doesn't matter much if the timeline is very long."`, correct: false}
+                ]);
+            } else {
+                qArea.innerHTML = `<p>Why is it generally impossible to sustain true Exponential Growth forever in the real world (e.g., viruses, populations)?</p>`;
+                setupMC([
+                    {text: `"Because resources (like money, food, or space) are limited. Eventually, the curve runs out of things to multiply and must level off."`, correct: true},
+                    {text: `"Because the exponent formula eventually breaks in calculators."`, correct: false},
+                    {text: `"It isn't impossible. Things can and do grow exponentially forever."`, correct: false}
+                ]);
+            }
         }
     }
 
-    // --- Section 3.3: Compound Interest ---
+    // --- Section 3.3: Compound Interest (DEEP RANDOMIZATION) ---
     function gen3_3(kica, qArea) {
-        let style = randInt(1, 4);
-        
         if (kica === "K") {
-            const P = randInt(2, 15) * 1000;
+            const P = randInt(5, 15) * 1000;
             const rate = randInt(4, 11);
             const n = randInt(3, 10);
             const i = rate / 100;
@@ -996,75 +1072,98 @@
             setupInput(diff.toFixed(2));
             
         } else if (kica === "I") {
-            let rate = randInt(6, 12);
-            let nYears = randInt(20, 35);
-            let pool = [
-                {
-                    q: `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the absolute most powerful variable?</p>`,
-                    opts: [ {text: "Because it acts as an exponent. The money compounds on itself, multiplying the pile drastically in the later years.", correct: true}, {text: "Because it gets multiplied by the interest rate directly.", correct: false}, {text: "Because more time stops the bank from taking fees.", correct: false} ]
-                },
-                {
-                    q: `<p>If you switch an investment from compounding "Annually" to "Monthly", what happens to your final total?</p>`,
-                    opts: [ {text: "It grows larger because the bank calculates and adds 'interest on your interest' 12 times a year instead of just once.", correct: true}, {text: "It gets smaller because they charge 12 times.", correct: false}, {text: "It stays exactly the same.", correct: false} ]
-                },
-                {
-                    q: `<p>If an investment guarantees ${rate}% return for ${nYears} years, what happens if you panic and withdraw the money early?</p>`,
-                    opts: [ {text: "You interrupt the compound curve, entirely destroying the massive exponential growth that happens in the final years.", correct: true}, {text: "Nothing, the money grows in a straight linear line anyway.", correct: false}, {text: "You actually make more money by taking it out early.", correct: false} ]
-                },
-                {
-                    q: `<p>You have two choices: Double your Principal (P) OR Double the Time (n). Which yields more money?</p>`,
-                    opts: [ {text: "Doubling the Time (n). Because 'n' is an exponent, it creates explosive growth far greater than just doubling the starting cash.", correct: true}, {text: "Doubling the Principal (P).", correct: false}, {text: "They result in the exact same amount.", correct: false} ]
-                },
-                {
-                    q: `<p>Why is a $1000 credit card debt at 20% mathematically identical to an amazing stock market investment?</p>`,
-                    opts: [ {text: "Because both use the exact same compound interest formula. The debt grows exponentially against you instead of for you.", correct: true}, {text: "Because credit cards are good investments.", correct: false}, {text: "It isn't. Debt is linear, investments are exponential.", correct: false} ]
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let freqs = ["Annually", "Monthly", "Daily"];
+                let f1 = randInt(0, 1);
+                let f2 = randInt(f1 + 1, 2);
+                let isUp = Math.random() > 0.5; // isUp means going to a MORE frequent compounding
+                let fromF = isUp ? freqs[f1] : freqs[f2];
+                let toF = isUp ? freqs[f2] : freqs[f1];
+                
+                qArea.innerHTML = `<p>If you switch an investment from compounding <strong>"${fromF}"</strong> to <strong>"${toF}"</strong>, what happens to your final total?</p>`;
+                if (isUp) {
+                    setupMC([
+                        {text: `It grows larger because interest is calculated and added to your pile more often, giving you faster "interest on interest".`, correct: true},
+                        {text: `It gets smaller because the bank charges more compounding fees.`, correct: false},
+                        {text: `It stays exactly the same.`, correct: false}
+                    ]);
+                } else {
+                    setupMC([
+                        {text: `It gets smaller because interest is calculated less often, delaying the "interest on interest" effect.`, correct: true},
+                        {text: `It grows larger because the annual rate goes up.`, correct: false},
+                        {text: `It stays exactly the same.`, correct: false}
+                    ]);
                 }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            } else if (type === 2) {
+                qArea.innerHTML = `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the absolute most powerful variable?</p>`;
+                setupMC([
+                    {text: "Because it acts as an exponent. The money compounds on itself, multiplying the pile drastically and curving upward in the later years.", correct: true},
+                    {text: "Because it gets multiplied by the interest rate directly.", correct: false},
+                    {text: "Because more time stops the bank from taking maintenance fees.", correct: false}
+                ]);
+            } else if (type === 3) {
+                let rate = randInt(6, 12);
+                let nYears = randInt(20, 35);
+                qArea.innerHTML = `<p>An investment guarantees ${rate}% return for ${nYears} years. What happens if you panic and withdraw the money halfway through?</p>`;
+                setupMC([
+                    {text: "You interrupt the compound curve, entirely destroying the massive exponential explosion that happens in the final years.", correct: true},
+                    {text: "Nothing, the money grows in a straight linear line anyway so you get half.", correct: false},
+                    {text: "You actually make more money by taking it out early.", correct: false}
+                ]);
+            } else {
+                qArea.innerHTML = `<p>You have two choices: Double your starting Principal (P) OR Double the Time (n). Which yields more money in the long run?</p>`;
+                setupMC([
+                    {text: "Doubling the Time (n). Because 'n' is an exponent, it creates explosive growth far greater than just doubling the starting cash.", correct: true},
+                    {text: "Doubling the Principal (P).", correct: false},
+                    {text: "They result in the exact same amount.", correct: false}
+                ]);
+            }
             
         } else if (kica === "C") {
-            let age = randInt(18, 24);
-            let waitAge = age + randInt(10, 15);
-            let debt = randInt(3, 9) * 500;
-            let cardRate = randInt(18, 25);
-            let pool = [
-                {
-                    q: `<p>A ${age}-year-old client says they don't have $10,000, so they will wait until they are ${waitAge} to start investing.</p><p>What is your financial advice?</p>`,
-                    opts: [ {text: `"Start now with whatever you have! Time ('n') is the most important factor. The longer the money sits, the harder compound interest works."`, correct: true}, {text: `"You are right. Wait until ${waitAge}. You need a huge Principal to start compounding."`, correct: false}, {text: `"Put it all in a checking account so it doesn't decay."`, correct: false} ]
-                },
-                {
-                    q: `<p>How does compound interest make a $${debt} credit card balance at ${cardRate}% so incredibly dangerous?</p>`,
-                    opts: [ {text: `Because you are charged ${cardRate}% interest on top of your old interest. If ignored, the debt rockets upward in a J-curve.`, correct: true}, {text: `Because the bank legally changes the rate to ${cardRate+10}% if you miss a payment.`, correct: false}, {text: `"Because credit cards use linear equations."`, correct: false} ]
-                },
-                {
-                    q: `<p>When a financial advisor talks about the "Cost of Waiting", what math concept are they explaining?</p>`,
-                    opts: [ {text: "By waiting, you severely decrease the exponent 'n' in the formula, cutting off the most lucrative years of exponential growth.", correct: true}, {text: "By waiting, the 'P' (Principal) gets eaten by bank fees.", correct: false}, {text: "By waiting, the interest rate 'i' naturally drops.", correct: false} ]
-                },
-                {
-                    q: `<p>Explain what "Interest on Interest" means to someone who doesn't know math.</p>`,
-                    opts: [ {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every single year without you doing any extra work."`, correct: true}, {text: `"It means the bank pays you twice a year."`, correct: false}, {text: `"It means your interest rate is doubled."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is a 2% management fee on an investment portfolio actually a huge deal over 30 years?</p>`,
-                    opts: [ {text: `"Because it acts as exponential decay on your profits. You aren't just losing 2% once, you are losing the compounded growth of that 2% over 30 years."`, correct: true}, {text: `"It isn't a big deal. 2% is a very small number."`, correct: false}, {text: `"Because the 2% is added to your starting principal."`, correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let age = randInt(18, 24);
+                let waitAge = age + randInt(10, 15);
+                qArea.innerHTML = `<p>A ${age}-year-old client says they only have $500, so they will wait until they are ${waitAge} to start investing.</p><p>What is your financial advice?</p>`;
+                setupMC([
+                    {text: `"Start now with the $500! Time ('n') is the most important factor. The longer the money sits, the harder compound interest works for you."`, correct: true},
+                    {text: `"You are right. Wait until ${waitAge}. You need a huge Principal to trigger compound interest."`, correct: false},
+                    {text: `"Put it all in a checking account so it doesn't decay."`, correct: false}
+                ]);
+            } else if (type === 2) {
+                let debt = randInt(3, 9) * 500;
+                let cardRate = randInt(18, 25);
+                qArea.innerHTML = `<p>How does compound interest make a $${debt} credit card balance at ${cardRate}% so incredibly dangerous?</p>`;
+                setupMC([
+                    {text: `Because you are charged ${cardRate}% interest on top of your old interest. If ignored, the debt rockets upward in a J-curve against you.`, correct: true},
+                    {text: `Because the bank legally changes the rate to ${cardRate+10}% if you miss a payment.`, correct: false},
+                    {text: `"Because credit cards use linear equations."`, correct: false}
+                ]);
+            } else if (type === 3) {
+                qArea.innerHTML = `<p>Explain what "Interest on Interest" means to someone who doesn't know math.</p>`;
+                setupMC([
+                    {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every single year without you doing any extra work."`, correct: true},
+                    {text: `"It means the bank pays you twice a year."`, correct: false},
+                    {text: `"It means your interest rate is automatically doubled."`, correct: false}
+                ]);
+            } else {
+                let fee = randChoice([2, 3]);
+                qArea.innerHTML = `<p>Why is a ${fee}% management fee on an investment portfolio actually a huge deal over 30 years?</p>`;
+                setupMC([
+                    {text: `"Because it acts as exponential decay. You aren't just losing ${fee}% once, you are losing the compounded growth of that ${fee}% over 30 years."`, correct: true},
+                    {text: `"It isn't a big deal. ${fee}% is a very small number."`, correct: false},
+                    {text: `"Because the ${fee}% is added directly to your starting principal."`, correct: false}
+                ]);
+            }
         }
     }
 
-    // --- Section 3.4: Exponential Decay ---
+    // --- Section 3.4: Exponential Decay (DEEP RANDOMIZATION) ---
     function gen3_4(kica, qArea) {
-        let style = randInt(1, 4);
-        
         if (kica === "K") {
             const drop = randInt(8, 35);
             const b = (100 - drop) / 100;
-            
             let asks = [
                 `<p>A car's value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) used in the equation <span class="math-text">y = a(b)<sup>x</sup></span>?</p>`,
                 `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value goes inside the brackets for 'b'?</p>`,
@@ -1089,62 +1188,82 @@
             setupInput(ans.toFixed(2));
             
         } else if (kica === "I") {
-            let drop = randInt(12, 28);
-            let bVal = (1 - (drop/100)).toFixed(2);
-            let pool = [
-                {
-                    q: `<p>In exponential decay (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets incredibly large?</p>`,
-                    opts: [ {text: "It approaches zero endlessly, but mathematically never actually touches it (an Asymptote).", correct: true}, {text: "It eventually hits exactly zero and stops.", correct: false}, {text: "It crosses the axis into negative numbers.", correct: false} ]
-                },
-                {
-                    q: `<p>Why does a car lose vastly more actual dollar value in its 1st year than in its 10th year if it decays at ${drop}% per year?</p>`,
-                    opts: [ {text: `Because ${drop}% is calculated on a much larger starting price in year 1. As the car gets cheaper, ${drop}% becomes a smaller dollar amount.`, correct: true}, {text: `Because the percentage rate actually increases as the car gets older.`, correct: false}, {text: `Because cars decay in a linear line.`, correct: false} ]
-                },
-                {
-                    q: `<p>A chemical's mass decreases by ${drop}% every hour. What 'b' value must you use in the equation?</p>`,
-                    opts: [ {text: `b = ${bVal}, because you retain ${100-drop}% of the chemical each hour.`, correct: true}, {text: `b = ${drop}, because that is the decay rate.`, correct: false}, {text: `b = ${(drop/100).toFixed(2)}, because you just convert it to a decimal.`, correct: false} ]
-                },
-                {
-                    q: `<p>In a tournament bracket, half the teams are eliminated every round. What is the 'b' value?</p>`,
-                    opts: [ {text: "b = 0.5 (because 50% remain)", correct: true}, {text: "b = 2 (because they play in pairs)", correct: false}, {text: "b = 0 (because teams are eliminated)", correct: false} ]
-                },
-                {
-                    q: `<p>If an equation is <span class="math-text">y = 500(0.9)<sup>x</sup></span>, how does the graph look?</p>`,
-                    opts: [ {text: "It starts high, drops very fast initially, and then flattens out as it gets close to the x-axis.", correct: true}, {text: "It is a straight line going downwards.", correct: false}, {text: "It drops at a constant speed until it hits zero.", correct: false} ]
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let drop = randInt(12, 28);
+                let askYear1 = Math.random() > 0.5; // Ask about year 1 or year 10
+                qArea.innerHTML = `<p>A car decays at ${drop}% per year.</p><p>In which year does it lose the <strong>${askYear1 ? "MOST" : "LEAST"}</strong> actual dollar value?</p>`;
+                if (askYear1) {
+                    setupMC([
+                        {text: `Year 1. The ${drop}% is calculated on the highest starting price, meaning the biggest dollar drop.`, correct: true},
+                        {text: `Year 10. The car is older so it loses more.`, correct: false},
+                        {text: `It loses the exact same dollar amount every year.`, correct: false}
+                    ]);
+                } else {
+                    setupMC([
+                        {text: `The later years (e.g., Year 10). The ${drop}% is calculated on a much smaller, already depreciated base price.`, correct: true},
+                        {text: `Year 1. The car is newest so it loses the least.`, correct: false},
+                        {text: `It loses the exact same dollar amount every year.`, correct: false}
+                    ]);
                 }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            } else if (type === 2) {
+                qArea.innerHTML = `<p>In an exponential decay graph (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets incredibly large?</p>`;
+                setupMC([
+                    {text: "It approaches zero endlessly, but mathematically never actually touches it (forming an Asymptote).", correct: true},
+                    {text: "It eventually hits exactly zero and stops.", correct: false},
+                    {text: "It crosses the axis into negative numbers.", correct: false}
+                ]);
+            } else if (type === 3) {
+                let drop = randInt(15, 30);
+                let bVal = (1 - (drop/100)).toFixed(2);
+                qArea.innerHTML = `<p>A chemical's mass decreases by ${drop}% every hour. What 'b' value must you use in the equation?</p>`;
+                setupMC([
+                    {text: `b = ${bVal}, because you retain ${100-drop}% of the chemical each hour.`, correct: true},
+                    {text: `b = ${drop}, because that is the decay rate.`, correct: false},
+                    {text: `b = ${(drop/100).toFixed(2)}, because you just convert it to a decimal.`, correct: false}
+                ]);
+            } else {
+                qArea.innerHTML = `<p>In a tournament bracket, half the teams are eliminated every round. What is the 'b' value?</p>`;
+                setupMC([
+                    {text: "b = 0.5 (because 50% remain)", correct: true},
+                    {text: "b = 2 (because they play in pairs)", correct: false},
+                    {text: "b = 0 (because teams are eliminated)", correct: false}
+                ]);
+            }
             
         } else if (kica === "C") {
-            let price = randInt(35, 80) * 1000;
-            let decRate = randInt(15, 22);
-            let pool = [
-                {
-                    q: `<p>How would you explain the "New Car Trap" to someone buying a $${price} vehicle?</p>`,
-                    opts: [ {text: `New cars lose the largest chunk of their value in the first few years. You are paying heavily for the steepest part of the decay curve.`, correct: true}, {text: `New cars gain value quickly because of compound interest.`, correct: false}, {text: `New cars lose value in a straight, linear line, so it doesn't matter when you buy.`, correct: false} ]
-                },
-                {
-                    q: `<p>How would you mathematically explain "Inflation" as a form of Exponential Decay?</p>`,
-                    opts: [ {text: "Your money's buying power drops by a percentage every year, so $100 buys exponentially less goods over time.", correct: true}, {text: "Your actual bank account balance decreases every year.", correct: false}, {text: "Inflation means the prices of goods go down.", correct: false} ]
-                },
-                {
-                    q: `<p>If a computer depreciates by ${decRate}% a year, why shouldn't you just subtract $500 every year to find its value?</p>`,
-                    opts: [ {text: `Because depreciation is exponential, not linear. It loses ${decRate}% of its CURRENT value, not a fixed flat dollar amount.`, correct: true}, {text: `Because $500 is too small of an amount.`, correct: false}, {text: `Because depreciation is added, not subtracted.`, correct: false} ]
-                },
-                {
-                    q: `<p>Explain what an "Asymptote" is using the example of caffeine leaving your bloodstream.</p>`,
-                    opts: [ {text: `"Your body removes a percentage of the caffeine left. As the amount gets tiny, the percentage removed gets tinier, meaning it mathematically never hits absolute zero."`, correct: true}, {text: `"It means the caffeine leaves your body in a straight line."`, correct: false}, {text: `"It is the maximum amount of caffeine you can drink."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is buying a 3-year-old used car usually considered a smart financial move based on exponential decay?</p>`,
-                    opts: [ {text: `"Because the original owner already absorbed the steepest, most expensive part of the depreciation curve."`, correct: true}, {text: `"Because used cars have higher interest rates."`, correct: false}, {text: `"Because the 3-year-old car will start gaining value exponentially."`, correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            let type = randInt(1, 4);
+            if (type === 1) {
+                let price = randInt(35, 80) * 1000;
+                qArea.innerHTML = `<p>How would you explain the "New Car Trap" to someone buying a $${price} vehicle?</p>`;
+                setupMC([
+                    {text: `New cars lose the largest chunk of their value in the first few years. You are paying heavily for the steepest part of the decay curve.`, correct: true},
+                    {text: `New cars gain value quickly because of compound interest.`, correct: false},
+                    {text: `New cars lose value in a straight, linear line, so it doesn't matter when you buy.`, correct: false}
+                ]);
+            } else if (type === 2) {
+                qArea.innerHTML = `<p>How would you mathematically explain "Inflation" as a form of Exponential Decay?</p>`;
+                setupMC([
+                    {text: "Your money's buying power drops by a percentage every year, so $100 buys exponentially less goods over time.", correct: true},
+                    {text: "Your actual bank account balance decreases every year.", correct: false},
+                    {text: "Inflation means the prices of goods go down.", correct: false}
+                ]);
+            } else if (type === 3) {
+                let decRate = randInt(12, 20);
+                qArea.innerHTML = `<p>If a computer depreciates by ${decRate}% a year, why shouldn't you just subtract $500 every year to find its value?</p>`;
+                setupMC([
+                    {text: `Because depreciation is exponential, not linear. It loses ${decRate}% of its CURRENT value each year, not a fixed flat dollar amount.`, correct: true},
+                    {text: `Because $500 is too small of an amount.`, correct: false},
+                    {text: `Because depreciation is added, not subtracted.`, correct: false}
+                ]);
+            } else {
+                qArea.innerHTML = `<p>Explain what an "Asymptote" is using the example of caffeine leaving your bloodstream.</p>`;
+                setupMC([
+                    {text: `"Your body removes a percentage of the caffeine left. As the amount gets tiny, the percentage removed gets tinier, meaning it mathematically never hits absolute zero."`, correct: true},
+                    {text: `"It means the caffeine leaves your body in a straight line."`, correct: false},
+                    {text: `"It is the maximum amount of caffeine you can drink."`, correct: false}
+                ]);
+            }
         }
     }
 
