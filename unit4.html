@@ -498,21 +498,22 @@
 
         <div id="feedback-area"></div>
     </div>
+
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 4 Assignment: "The Reality Check" Project</h2>
-        <p><strong>Objective:</strong> You will apply the financial concepts from this unit to make a realistic plan for purchasing and maintaining a vehicle based on a future career scenario.</p>
+        <p><strong>Objective:</strong> You will apply the financial concepts from this unit to make a realistic plan for purchasing and maintaining a vehicle based on a future career scenario, and demonstrate an understanding of credit card mechanics.</p>
         <p><strong>Instructions:</strong> Complete the following sections in a separate document. You may use the Calculator Tab to help you. Submit your final report to your teacher.</p>
 
         <div class="money-box">
             <div class="money-header">💼 Scenario</div>
-            <p>You have just graduated from college and landed your first full-time job. You need a car to get to work. Your goal is to find a reliable vehicle that fits within your budget (<strong>The 15% Rule</strong>).</p>
+            <p>You have just graduated from college and landed your first full-time job. You need a car to get to work, but you must also prepare for unexpected life expenses using your knowledge of compound interest.</p>
         </div>
 
         <div class="task-box">
             <span class="task-step">Part A: The Income (Inquiry)</span>
             <p>1. Choose a career you are interested in (e.g., Electrician, Nurse, Graphic Designer).</p>
             <p>2. Find the average <strong>entry-level annual salary</strong> for this job in Ontario. (Cite your source).</p>
-            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). Assume that taxes and deductions take exactly <strong>25%</strong> of your gross salary.</p>
+            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). Calculate and deduct a realistic tax rate from your gross salary.</p>
         </div>
 
         <div class="task-box">
@@ -549,6 +550,13 @@
             </ul>
         </div>
 
+        <div class="task-box" style="border-left-color: #c0392b;">
+            <span class="task-step" style="color: #c0392b;">Part E: The Credit Card Trap (Application & Communication)</span>
+            <p>A few months after buying your car, it requires an unexpected <strong>$1,500 repair</strong>. You do not have emergency savings, so you pay for the repair using a standard credit card with a <strong>19.99% annual interest rate</strong>.</p>
+            <p>1. <strong>Calculate:</strong> Find the exact amount of interest the credit card company will charge you for the very first month.</p>
+            <p>2. <strong>Explain:</strong> Write a short paragraph explaining the mathematical danger of only paying the "Minimum Payment" every month. In your answer, clearly explain how <strong>Compound Interest</strong> works against you in this scenario, contrasting it with how Simple Interest would behave.</p>
+        </div>
+
         <h3>Assessment Rubric (Growing Success)</h3>
         <table style="font-size: 0.9rem;">
             <thead>
@@ -563,9 +571,9 @@
             <tbody>
                 <tr>
                     <td><strong>Knowledge & Understanding</strong></td>
-                    <td>Calculations of Net Income and Loan Payments contain multiple errors.</td>
+                    <td>Calculations of Net Income, Loan Payments, and Credit Card Interest contain multiple errors.</td>
                     <td>Calculations are mostly correct but contain some errors.</td>
-                    <td>Calculations of Net Income and Loan Payments are correct.</td>
+                    <td>Calculations of Net Income, Loan Payments, and Credit Card Interest are correct.</td>
                     <td>Calculations are thorough, accurate, and precise.</td>
                 </tr>
                 <tr>
@@ -577,35 +585,41 @@
                 </tr>
                 <tr>
                     <td><strong>Application</strong></td>
-                    <td>Difficulty applying the 15% rule to the budget.</td>
-                    <td>Applies the 15% rule to the budget with some assistance.</td>
-                    <td>Correctly applies the 15% rule to determine affordability.</td>
-                    <td>Insightfully applies financial constraints to make a sound decision.</td>
+                    <td>Difficulty applying the 15% rule and understanding compound debt.</td>
+                    <td>Applies the 15% rule and basic debt concepts with some assistance.</td>
+                    <td>Correctly applies the 15% rule and calculates the credit card interest penalty.</td>
+                    <td>Insightfully applies financial constraints and deeply analyzes the compound interest debt cycle.</td>
                 </tr>
                 <tr>
                     <td><strong>Communication</strong></td>
-                    <td>Conclusion is missing or does not follow from the data.</td>
-                    <td>Conclusion is stated but justification is weak.</td>
-                    <td>Conclusion is clear and justified by the calculations.</td>
-                    <td>Conclusion is persuasive, deeply detailed, and shows high financial literacy.</td>
+                    <td>Conclusions are missing or do not follow from the data.</td>
+                    <td>Conclusions are stated but justification is weak.</td>
+                    <td>Conclusions are clear and justified by the calculations.</td>
+                    <td>Conclusions are persuasive, deeply detailed, and demonstrate high financial literacy.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
 
-<div class="version-tag">v4.3 (Syntax Fixes & Validated JSON options)</div>
+<div class="version-tag">v4.4 (Full Dynamic Randomization & Assignment Part E Added)</div>
 
 <script>
     /* --- UTILS --- */
     const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
+    // Dictionaries for deep randomization
+    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie"];
+    const cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Tesla Model 3", "Mazda 3", "Subaru CX-5", "Jeep Wrangler"];
+    const investTypes = ["Mutual Fund", "ETF", "GIC", "Stock Portfolio", "Index Fund", "Bonds"];
+    const debtTypes = ["Credit Card", "Payday Loan", "Personal Loan", "Overdraft"];
+
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit4_data')) || {};
     let isQuestionSolved = false; 
     
-    // --- Navigation (Fixed 'event' passing) ---
+    // --- Navigation ---
     function openTab(evt, tabId) {
         const contents = document.getElementsByClassName('tab-content');
         for (let content of contents) content.classList.remove('active');
@@ -617,6 +631,25 @@
 
     function printLesson(btn) {
         window.print();
+    }
+
+    // --- Accordion (Bug Fix preserved) ---
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-acc");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                panel.style.paddingTop = null;
+                panel.style.paddingBottom = null;
+            } else {
+                panel.style.display = "block"; 
+                panel.style.maxHeight = (panel.scrollHeight + 1000) + "px"; 
+                panel.style.paddingTop = "15px";
+                panel.style.paddingBottom = "15px";
+            }
+        });
     }
 
     // --- Scoring Logic ---
@@ -699,63 +732,80 @@
         else if (section === "4.3") gen4_3(kica, qArea);
     }
 
-    // --- Section 4.1: Simple vs Compound ---
+    // --- Section 4.1: Simple vs Compound (Deep Randomization) ---
     function gen4_1(kica, qArea) {
+        let P = randInt(10, 95) * 100;
+        let r = randInt(3, 15);
+        let t = randInt(2, 12);
+        let stName = randChoice(names);
+        let inv = randChoice(investTypes);
+
         if (kica === "K") {
             let isSimple = Math.random() > 0.5;
-            let P = randInt(10, 50) * 100;
-            let r = randInt(3, 10);
-            let t = randInt(2, 8);
-            
             if (isSimple) {
                 let ans = P * (r/100) * t;
-                qArea.innerHTML = `<p>Calculate the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p><p><small>(Round to 2 decimal places)</small></p>`;
+                let asks = [
+                    `<p>Calculate the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
+                    `<p>${stName} puts $${P} in a flat simple interest account at ${r}% per year. How much total interest is earned after ${t} years?</p>`,
+                    `<p>Find the Simple Interest generated by a $${P} loan at ${r}% over ${t} years.</p>`
+                ];
+                qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
                 setupInput(ans.toFixed(2));
             } else {
                 let ans = P * Math.pow(1 + r/100, t);
-                qArea.innerHTML = `<p>Calculate the <strong>Final Amount (A)</strong> using Compound Interest.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p><p><small>(Round to 2 decimal places)</small></p>`;
+                let asks = [
+                    `<p>Calculate the <strong>Final Amount (A)</strong> using Compound Interest (Compounded Annually).</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
+                    `<p>${stName} invests $${P} in a ${inv} that compounds annually at ${r}%. What is the balance after ${t} years?</p>`,
+                    `<p>Using the formula <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the final total for $${P} at ${r}% for ${t} years.</p>`
+                ];
+                qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
                 setupInput(ans.toFixed(2));
             }
         } else if (kica === "A") {
-            let P = randInt(20, 100) * 100;
-            let r = randInt(4, 12);
-            let t = randInt(5, 15);
             let simpleA = P + (P * (r/100) * t);
             let compA = P * Math.pow(1 + r/100, t);
             let diff = compA - simpleA;
             
-            qArea.innerHTML = `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest?</p><p><small>(Find Compound A - Simple A. Round to 2 decimal places)</small></p>`;
+            let asks = [
+                `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest?</p>`,
+                `<p>Bank A offers ${r}% Simple Interest. Bank B offers ${r}% Compounded Annually. You have $${P} to deposit for ${t} years.</p><p>Calculate the exact dollar difference between the two banks.</p>`,
+                `<p>Compare the final amounts of a $${P} investment at ${r}% over ${t} years. Subtract the Simple Interest total from the Compound Interest total.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
             
         } else if (kica === "I") {
+            let yr = randInt(20, 40);
+            let r2 = randInt(5, 12);
+            let inf = randInt(2, 4);
             let pool = [
                 {
-                    q: `<p>If you graph Simple Interest and Compound Interest over 30 years, how do the shapes compare?</p>`,
-                    opts: [ {text: "Simple is a straight linear line, Compound is an exponential J-Curve that shoots upward.", correct: true}, {text: "Both are straight lines, Compound is just steeper.", correct: false}, {text: "Simple curves up, Compound goes down.", correct: false} ]
+                    q: `<p>If you graph Simple Interest and Compound Interest over ${yr} years, how do the shapes physically compare?</p>`,
+                    opts: [ {text: "Simple is a straight linear line. Compound is an exponential J-Curve that shoots vertically upward.", correct: true}, {text: "Both are straight lines, but Compound is steeper.", correct: false}, {text: "Simple curves up, Compound goes down.", correct: false} ]
                 },
                 {
-                    q: `<p>According to the Rule of 72, if you have a 9% interest rate, how long does it take to double your money?</p>`,
-                    opts: [ {text: "Exactly 8 years (72 &div; 9).", correct: true}, {text: "Exactly 9 years.", correct: false}, {text: "It depends on how much you invest.", correct: false} ]
+                    q: `<p>According to the Rule of 72, if you invest in a ${inv} with a ${r2}% interest rate, how long does it take to double your money?</p>`,
+                    opts: [ {text: `Exactly ${(72/r2).toFixed(1)} years (72 &div; ${r2}).`, correct: true}, {text: `Exactly ${r2} years.`, correct: false}, {text: `It depends entirely on how much you invest initially.`, correct: false} ]
                 },
                 {
-                    q: `<p>What happens if you increase the compounding frequency from 'Annually' to 'Daily'?</p>`,
-                    opts: [ {text: "The final amount increases because interest is calculated and added to the pile more often.", correct: true}, {text: "The final amount decreases due to bank fees.", correct: false}, {text: "Nothing, the rate stays the same.", correct: false} ]
+                    q: `<p>What happens mathematically if you increase a bank account's compounding frequency from 'Annually' to 'Daily'?</p>`,
+                    opts: [ {text: "The final amount increases because interest is calculated and added to the pile more often, accelerating the curve.", correct: true}, {text: "The final amount decreases due to the bank charging daily fees.", correct: false}, {text: "Nothing, the overall annual rate stays exactly the same.", correct: false} ]
                 },
                 {
-                    q: `<p>Which variable is the most mathematically powerful in the compound interest formula?</p>`,
-                    opts: [ {text: "Time (n), because it acts as an exponent, causing explosive repeated multiplication.", correct: true}, {text: "Principal (P), because you need money to make money.", correct: false}, {text: "Interest rate (i), because it dictates the percentage.", correct: false} ]
+                    q: `<p>Which specific variable is the most mathematically powerful in the compound interest formula <span class="math-text">A = P(1+i)<sup>n</sup></span>?</p>`,
+                    opts: [ {text: "Time (n), because it acts as an exponent, forcing explosive repeated multiplication of the base.", correct: true}, {text: "Principal (P), because you need money to make money.", correct: false}, {text: "Interest rate (i), because percentages dictate everything.", correct: false} ]
                 },
                 {
-                    q: `<p>Why is Simple Interest rarely used in real-world investing like retirement accounts?</p>`,
-                    opts: [ {text: "Because it doesn't allow your earned interest to generate its own interest, severely limiting growth.", correct: true}, {text: "Because it is illegal for banks to use it.", correct: false}, {text: "Because it is too difficult for computers to calculate.", correct: false} ]
+                    q: `<p>Why is Simple Interest rarely used in real-world wealth building like retirement accounts?</p>`,
+                    opts: [ {text: "Because it fundamentally prevents your earned interest from generating its own interest, severely crippling long-term growth.", correct: true}, {text: "Because it is illegal for Canadian banks to use it.", correct: false}, {text: "Because it is mathematically too difficult for computers to calculate.", correct: false} ]
                 },
                 {
-                    q: `<p>If inflation is 3% and your bank account pays 1% Simple Interest, what is happening to your money?</p>`,
-                    opts: [ {text: "Your actual buying power is decaying exponentially. You are losing money in real terms.", correct: true}, {text: "You are making a 4% total return.", correct: false}, {text: "Your money is completely safe and holding its value.", correct: false} ]
+                    q: `<p>If inflation is ${inf}% and your ${inv} pays 1% Simple Interest, what is mathematically happening to your wealth?</p>`,
+                    opts: [ {text: `Your actual buying power is decaying exponentially by roughly ${inf-1}%. You are losing money in real terms.`, correct: true}, {text: `You are making a ${inf+1}% total return.`, correct: false}, {text: `Your money is completely safe and holding its value.`, correct: false} ]
                 },
                 {
-                    q: `<p>If you double your Principal (P) vs Double your Time (n) in a compound interest account, which yields more?</p>`,
-                    opts: [ {text: "Doubling Time (n) yields far more because it extends the exponential curve.", correct: true}, {text: "Doubling Principal (P) yields more.", correct: false}, {text: "They yield the exact same amount.", correct: false} ]
+                    q: `<p>If you have the choice to Double your Principal (P) OR Double your Time (n) in a compound interest account, which yields more?</p>`,
+                    opts: [ {text: "Doubling Time (n) yields drastically more because it extends the explosive exponential phase of the curve.", correct: true}, {text: "Doubling Principal (P) always yields more money.", correct: false}, {text: "They yield the exact same amount.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -763,34 +813,36 @@
             setupMC(sel.opts);
             
         } else if (kica === "C") {
+            let age1 = randInt(18, 22);
+            let age2 = randInt(35, 40);
             let pool = [
                 {
                     q: `<p>Explain the concept of "Interest on Interest" to someone without using math formulas.</p>`,
-                    opts: [ {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every year without you working."`, correct: true}, {text: `"The bank just gives you a flat bonus every year for being loyal."`, correct: false}, {text: `"Your interest rate automatically doubles every few years."`, correct: false} ]
+                    opts: [ {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every year without you working."`, correct: true}, {text: `"The bank gives you a flat linear bonus every year for being loyal."`, correct: false}, {text: `"Your interest rate automatically doubles every few years."`, correct: false} ]
                 },
                 {
-                    q: `<p>How do you explain the "Cost of Waiting" to a 20-year-old who wants to delay investing until 40?</p>`,
-                    opts: [ {text: `"By waiting, you chop off the last 20 years of the exponential curve, which is where 90% of the massive wealth explosion happens."`, correct: true}, {text: `"Waiting is smart because you will have a higher salary at 40."`, correct: false}, {text: `"It just means you have to invest exactly double the money later to catch up."`, correct: false} ]
+                    q: `<p>How do you explain the "Cost of Waiting" to a ${age1}-year-old who wants to delay investing until age ${age2}?</p>`,
+                    opts: [ {text: `"By waiting, you chop off the final ${age2-age1} years of the exponential curve, which is where 90% of the massive wealth explosion happens."`, correct: true}, {text: `"Waiting is smart because you will have a higher salary at ${age2}."`, correct: false}, {text: `"It just means you have to invest exactly double the money later to catch up."`, correct: false} ]
                 },
                 {
-                    q: `<p>A friend says "Compound interest is always a good thing." In what situation is it a terrible thing?</p>`,
-                    opts: [ {text: `"When you owe money, like on a credit card. The debt explodes upwards against you, trapping you in a cycle."`, correct: true}, {text: `"When you invest in the stock market, because stocks can crash."`, correct: false}, {text: `"It is never a bad thing, it's just math."`, correct: false} ]
+                    q: `<p>A friend says "Compound interest is always a good thing." In what specific situation is it a terrible thing?</p>`,
+                    opts: [ {text: `"When you owe money, like on a credit card. The debt explodes upwards against you, trapping you in a cycle of paying interest on interest."`, correct: true}, {text: `"When you invest in the stock market, because stocks can crash."`, correct: false}, {text: `"It is never a bad thing, it's just pure mathematics."`, correct: false} ]
                 },
                 {
                     q: `<p>Why does a $10,000 credit card debt take over 20 years to pay off if you only make the minimum payment?</p>`,
-                    opts: [ {text: `"Because almost all of your minimum payment goes just to cover the new interest generated that month, barely touching the actual principal."`, correct: true}, {text: `"Because credit card companies freeze your account if you only pay the minimum."`, correct: false}, {text: `"Because the principal increases every month automatically."`, correct: false} ]
+                    opts: [ {text: `"Because almost all of your minimum payment goes just to cover the new interest generated that month, barely touching the actual principal debt."`, correct: true}, {text: `"Because credit card companies physically freeze your account if you only pay the minimum."`, correct: false}, {text: `"Because the principal is legally required to increase every month."`, correct: false} ]
                 },
                 {
-                    q: `<p>Explain why a 2% management fee on a mutual fund is a massive deal over 30 years.</p>`,
+                    q: `<p>Explain why a 2% management fee on a ${invItems[0]} is a massive financial drain over 30 years.</p>`,
                     opts: [ {text: `"Because it acts as exponential decay. You aren't just losing 2% once, you are losing the compounded growth of that 2% over decades."`, correct: true}, {text: `"It isn't a big deal, 2% is a very small number."`, correct: false}, {text: `"Because the fee is added directly to your starting principal."`, correct: false} ]
                 },
                 {
-                    q: `<p>A client is angry that their 40-year compound interest graph looks "flat and useless" for the first 15 years.</p>`,
-                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough interest base to trigger the vertical explosion in the later years."`, correct: true}, {text: `"It means the stock market was crashing during those 15 years."`, correct: false}, {text: `"It's a glitch in the graph software."`, correct: false} ]
+                    q: `<p>A client is angry that their 40-year compound interest graph looks "flat and useless" for the first 15 years. Explain this.</p>`,
+                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough interest base to trigger the vertical explosion in the later years."`, correct: true}, {text: `"It means the stock market was crashing during those 15 years."`, correct: false}, {text: `"It's a glitch in the graph software. It should be a straight line."`, correct: false} ]
                 },
                 {
                     q: `<p>How do you persuade parents to open a college fund the week their baby is born?</p>`,
-                    opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The time exponent ('n') will do all the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you get a special interest rate for babies."`, correct: false}, {text: `"Because college tuition grows linearly."`, correct: false} ]
+                    opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The time exponent ('n=18') will do all the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you get a special interest rate for babies."`, correct: false}, {text: `"Because college tuition grows linearly."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -799,59 +851,71 @@
         }
     }
 
-    // --- Section 4.2: Buying a Car ---
+    // --- Section 4.2: Buying a Car (Deep Randomization) ---
     function gen4_2(kica, qArea) {
-        let cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Tesla Model 3"];
         let car = randChoice(cars);
+        let stName = randChoice(names);
         
         if (kica === "K") {
-            let monthly = randInt(300, 800);
+            let monthly = randInt(300, 900);
             let months = randChoice([48, 60, 72, 84]);
-            let down = randChoice([0, 1000, 2500, 5000]);
+            let down = randChoice([0, 1000, 2500, 5000, 10000]);
             let ans = (monthly * months) + down;
             
-            qArea.innerHTML = `<p>You buy a <strong>${car}</strong>.</p><p>Monthly Payment: $${monthly}<br>Term: ${months} months<br>Down Payment: $${down}</p><p>Calculate the <strong>Total Amount Paid</strong>.</p>`;
+            let asks = [
+                `<p>You buy a <strong>${car}</strong>.</p><p>Monthly Payment: $${monthly}<br>Term: ${months} months<br>Down Payment: $${down}</p><p>Calculate the <strong>Total Amount Paid</strong>.</p>`,
+                `<p>${stName} finances a ${car}. They put $${down} down and pay $${monthly}/mo for ${months} months.</p><p>What is the absolute total amount of money that leaves their bank account?</p>`
+            ];
+            qArea.innerHTML = randChoice(asks);
             setupInput(ans.toString());
             
         } else if (kica === "A") {
-            let cash = randInt(20, 45) * 1000;
-            let monthly = Math.floor(cash / 60) + randInt(80, 200); 
+            let cash = randInt(20, 55) * 1000;
+            let monthly = Math.floor(cash / 60) + randInt(80, 250); 
             let months = randChoice([72, 84]);
-            let down = randInt(1, 4) * 1000;
+            let down = randInt(1, 5) * 1000;
             let total = (monthly * months) + down;
             let cob = total - cash;
             
-            qArea.innerHTML = `<p>The cash price of a ${car} is <strong>$${cash}</strong>.</p><p>You finance it with $${down} down and $${monthly}/month for ${months} months.</p><p>What is the <strong>Cost of Borrowing</strong> (the extra money lost to interest)?</p>`;
+            let asks = [
+                `<p>The cash price of a ${car} is <strong>$${cash}</strong>.</p><p>You finance it with $${down} down and $${monthly}/month for ${months} months.</p><p>What is the <strong>Cost of Borrowing</strong> (the extra money lost to interest)?</p>`,
+                `<p>${stName} wants a ${car} listed at $${cash}. They choose an ${months}-month loan at $${monthly}/mo with a $${down} down payment.</p><p>Calculate the total penalty fee (Cost of Borrowing) they pay the bank.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks);
             setupInput(cob.toString());
             
         } else if (kica === "I") {
+            let term1 = randChoice([36, 48]);
+            let term2 = randChoice([72, 84]);
+            let diff = randInt(3000, 6000);
+            
             let pool = [
                 {
-                    q: `<p>You are offered a 48-month loan and an 84-month loan. Which one has the LOWER Monthly Payment, and which has the LOWER Total Cost of Borrowing?</p>`,
-                    opts: [ {text: "84-month has lower monthly payment. 48-month has lower total cost of borrowing.", correct: true}, {text: "48-month is lower for both.", correct: false}, {text: "84-month is lower for both.", correct: false} ]
+                    q: `<p>You are offered a ${term1}-month loan and an ${term2}-month loan. Which one has the LOWER Monthly Payment, and which has the LOWER Total Cost of Borrowing?</p>`,
+                    opts: [ {text: `${term2}-month has lower monthly payment. ${term1}-month has lower total cost of borrowing.`, correct: true}, {text: `${term1}-month is lower for both.`, correct: false}, {text: `${term2}-month is lower for both.`, correct: false} ]
                 },
                 {
-                    q: `<p>What does it mean to have "Negative Equity" (being underwater) on a car loan?</p>`,
-                    opts: [ {text: "The car depreciated faster than you paid it off, meaning you owe the bank more money than the car is actually worth.", correct: true}, {text: "It means the bank owes you money.", correct: false}, {text: "It means your interest rate is negative.", correct: false} ]
+                    q: `<p>What does it mathematically mean to have "Negative Equity" (being underwater) on a car loan?</p>`,
+                    opts: [ {text: "The car depreciated exponentially faster than your linear loan payments, meaning you owe the bank more money than the car is actually worth.", correct: true}, {text: "It means the bank owes you money.", correct: false}, {text: "It means your interest rate is negative.", correct: false} ]
                 },
                 {
-                    q: `<p>A dealership offers "0% Financing" but the car costs $35,000. The cash price is $30,000.</p><p>Is this actually 0% interest?</p>`,
-                    opts: [ {text: "No, the $5,000 difference is essentially hidden interest baked into the inflated price.", correct: true}, {text: "Yes, because the contract says 0%.", correct: false}, {text: "Yes, dealerships are legally required to lose money on these deals.", correct: false} ]
+                    q: `<p>A dealership offers "0% Financing" on a ${car}, but the price is $35,000. If you pay cash, it is $${35000-diff}.</p><p>Is this actually 0% interest?</p>`,
+                    opts: [ {text: `No, the $${diff} difference is essentially hidden interest baked directly into the inflated finance price.`, correct: true}, {text: "Yes, because the contract legally says 0%.", correct: false}, {text: "Yes, dealerships are required to lose money on these deals.", correct: false} ]
                 },
                 {
-                    q: `<p>What is the mathematical benefit of making a large Down Payment on a car?</p>`,
-                    opts: [ {text: "It directly reduces the Principal (P), which severely reduces the compound interest charged over the entire term.", correct: true}, {text: "It lowers the interest rate percentage.", correct: false}, {text: "It increases the trade-in value.", correct: false} ]
+                    q: `<p>What is the primary mathematical benefit of making a massive Down Payment on a car?</p>`,
+                    opts: [ {text: "It directly reduces the Principal (P), which severely reduces the compound interest charged against you over the entire term.", correct: true}, {text: "It lowers the actual interest rate percentage.", correct: false}, {text: "It increases the car's future trade-in value.", correct: false} ]
                 },
                 {
-                    q: `<p>If you switch from Monthly payments to Accelerated Bi-Weekly payments, what happens to the loan?</p>`,
-                    opts: [ {text: "You end up making one extra full payment a year, killing the principal faster and saving thousands in interest.", correct: true}, {text: "The total interest paid increases.", correct: false}, {text: "Nothing changes mathematically.", correct: false} ]
+                    q: `<p>If you switch your car loan from Monthly payments to Accelerated Bi-Weekly payments, what happens?</p>`,
+                    opts: [ {text: "You end up making one extra full payment a year, attacking the principal faster and saving thousands in interest over the term.", correct: true}, {text: "The total interest paid increases.", correct: false}, {text: "Nothing changes mathematically.", correct: false} ]
                 },
                 {
-                    q: `<p>Why is leasing a car generally considered the most expensive way to operate a vehicle long-term?</p>`,
-                    opts: [ {text: "Because you are purely paying for the steepest part of the depreciation curve (first 3 years) and build exactly zero equity.", correct: true}, {text: "Because leases always have 20% interest rates.", correct: false}, {text: "Because you have to buy gas for leased cars.", correct: false} ]
+                    q: `<p>Why is leasing a new ${car} generally considered the most expensive way to operate a vehicle long-term?</p>`,
+                    opts: [ {text: "Because you are purely paying for the steepest part of the depreciation curve (first 3 years) and build exactly zero equity.", correct: true}, {text: "Because leases always have 20% interest rates.", correct: false}, {text: "Because you have to buy premium gas for leased cars.", correct: false} ]
                 },
                 {
-                    q: `<p>You buy a $40,000 car on a 7-year loan. In year 3, it is totalled in an accident. Insurance pays you $20,000 (market value), but you owe the bank $28,000. What happens?</p>`,
+                    q: `<p>You buy a $40,000 ${car} on a 7-year loan. In year 3, it is totalled. Insurance pays you $20,000 (market value), but you owe the bank $28,000. What happens?</p>`,
                     opts: [ {text: "You must pay the bank the remaining $8,000 out of your own pocket for a car that no longer exists.", correct: true}, {text: "The bank forgives the remaining debt.", correct: false}, {text: "The dealership replaces the car for free.", correct: false} ]
                 }
             ];
@@ -860,30 +924,33 @@
             setupMC(sel.opts);
             
         } else if (kica === "C") {
+            let pct = randChoice([10, 15]);
+            let age = randInt(2, 4);
+            
             let pool = [
                 {
                     q: `<p>Explain why Car Salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>`,
-                    opts: [{text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
+                    opts: [{text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate mentally."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
                 },
                 {
-                    q: `<p>How do you explain the "15% Rule" to a friend buying their first car?</p>`,
-                    opts: [{text: `"Your total car costs (Loan + Gas + Insurance) should never exceed 15% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly 15% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above 15%."`, correct: false} ]
+                    q: `<p>How do you explain the "${pct}% Rule" to ${stName} who is buying their first car?</p>`,
+                    opts: [{text: `"Your total car costs (Loan + Gas + Insurance) should never exceed ${pct}% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly ${pct}% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above ${pct}%."`, correct: false} ]
                 },
                 {
-                    q: `<p>A friend says, "A car is a great investment!" How do you correct them using math?</p>`,
+                    q: `<p>${stName} says, "A car is a great investment!" How do you correct them using mathematical terms?</p>`,
                     opts: [{text: `"A car is a depreciating liability, not an investment. Exponential decay means it loses value rapidly every single year."`, correct: true}, {text: `"They are investments because you can sleep in them."`, correct: false}, {text: `"Actually, cars appreciate in value due to compound interest."`, correct: false} ]
                 },
                 {
-                    q: `<p>Why is buying a 3-year-old used car considered a financial 'hack'?</p>`,
-                    opts: [{text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because 3-year-old cars have 0% interest rates."`, correct: false} ]
+                    q: `<p>Why is buying a ${age}-year-old used car considered a financial 'hack' compared to buying new?</p>`,
+                    opts: [{text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because ${age}-year-old cars have 0% interest rates."`, correct: false} ]
                 },
                 {
                     q: `<p>Explain "Cost of Borrowing" to someone who has never taken a loan.</p>`,
-                    opts: [{text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean the car."`, correct: false}, {text: `"It is the cost of gas and insurance combined."`, correct: false} ]
+                    opts: [{text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what actually leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean and prepare the car."`, correct: false}, {text: `"It is the combined cost of gas and insurance."`, correct: false} ]
                 },
                 {
-                    q: `<p>Why do financial advisors recommend keeping car loans to 48 months (4 years) maximum?</p>`,
-                    opts: [{text: `"If a loan goes longer than 4 years, the car's value usually drops faster than you are paying off the loan, leaving you trapped in negative equity."`, correct: true}, {text: `"Because banks refuse to give loans longer than 4 years."`, correct: false}, {text: `"Because cars physically break down completely after exactly 4 years."`, correct: false} ]
+                    q: `<p>Why do financial advisors strongly recommend keeping car loans to 48 months (4 years) maximum?</p>`,
+                    opts: [{text: `"If a loan goes longer than 4 years, the car's value usually drops faster than you are paying off the principal, leaving you trapped in negative equity."`, correct: true}, {text: `"Because banks refuse to give loans longer than 4 years."`, correct: false}, {text: `"Because cars physically break down completely after exactly 4 years."`, correct: false} ]
                 },
                 {
                     q: `<p>A dealership offers to 'roll over' your old $5,000 debt into a brand new car loan. Why is this toxic?</p>`,
@@ -898,42 +965,54 @@
         }
     }
 
-    // --- Section 4.3: Credit Cards ---
+    // --- Section 4.3: Credit Cards (Deep Randomization) ---
     function gen4_3(kica, qArea) {
+        let bal = randInt(15, 65) * 100;
+        let rate = randChoice([19.99, 20.99, 22.99, 24.99]);
+        let stName = randChoice(names);
+        let debtType = randChoice(debtTypes);
+
         if (kica === "K") {
-            let bal = randInt(5, 30) * 100;
-            let rate = randChoice([19.99, 22.99, 24.99]);
             let ans = (bal * (rate/100)) / 12;
-            
-            qArea.innerHTML = `<p>Credit card balance: <strong>$${bal}</strong>.</p><p>Annual interest rate: <strong>${rate}%</strong>.</p><p>Calculate the approximate interest charge for <strong>one month</strong>.</p><p><small>(Round to 2 decimal places)</small></p>`;
+            let asks = [
+                `<p>Credit card balance: <strong>$${bal}</strong>.</p><p>Annual interest rate: <strong>${rate}%</strong>.</p><p>Calculate the approximate interest charge for <strong>one month</strong>.</p>`,
+                `<p>${stName} owes $${bal} on a card with ${rate}% annual interest.</p><p>How much interest is added to their statement this month?</p>`,
+                `<p>Find the 1-month interest penalty for carrying a $${bal} balance at ${rate}%.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
             
         } else if (kica === "A") {
-            let bal = randInt(15, 45) * 100;
-            let rate = 19.99;
-            let minPay = Math.max(10, Math.floor(bal * 0.03)); // Standard 3% min payment
+            let minPay = Math.max(10, Math.floor(bal * 0.03)); 
             let monthInt = (bal * (rate/100)) / 12;
             let principalPaid = minPay - monthInt;
             
-            qArea.innerHTML = `<p>Balance: <strong>$${bal}</strong> at ${rate}% annual interest.</p><p>You make the minimum payment of <strong>$${minPay}</strong>.</p><p>After the bank takes their monthly interest, exactly how much <strong>Principal</strong> did you actually pay off?</p><p><small>(Round to 2 decimal places)</small></p>`;
+            let asks = [
+                `<p>Balance: <strong>$${bal}</strong> at ${rate}% annual interest.</p><p>You make the minimum payment of <strong>$${minPay}</strong>.</p><p>After the bank takes their monthly interest, exactly how much <strong>Principal</strong> did you actually pay off?</p>`,
+                `<p>${stName} has a $${bal} balance (${rate}%) and pays the $${minPay} minimum.</p><p>Calculate the actual debt reduction (Principal Paid) for that month.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(principalPaid.toFixed(2));
             
         } else if (kica === "I") {
+            let adv = randInt(2, 6) * 100;
+            let limit = randInt(1, 5) * 1000;
+            
             let pool = [
                 {
-                    q: `<p>What is a Credit Card "Grace Period"?</p>`,
+                    q: `<p>What exactly is a Credit Card "Grace Period"?</p>`,
                     opts: [ {text: "The 21-day window where you are charged exactly 0% interest, IF you pay your full statement balance before the due date.", correct: true}, {text: "A period where you can miss a payment without hurting your credit score.", correct: false}, {text: "The time it takes for a refund to process.", correct: false} ]
                 },
                 {
-                    q: `<p>You use your credit card at an ATM to withdraw $500 cash (Cash Advance). What happens to the Grace Period?</p>`,
-                    opts: [ {text: "The grace period is instantly voided. You are charged high interest (often 22%+) daily from the exact second the cash leaves the machine.", correct: true}, {text: "You have 21 days to pay it back interest-free.", correct: false}, {text: "You only pay a flat $5 ATM fee.", correct: false} ]
+                    q: `<p>You use your credit card at an ATM to withdraw $${adv} cash (Cash Advance). What happens to the Grace Period?</p>`,
+                    opts: [ {text: "The grace period is instantly voided. You are charged high interest daily from the exact second the cash leaves the machine.", correct: true}, {text: "You have 21 days to pay it back interest-free.", correct: false}, {text: "You only pay a flat $5 ATM fee.", correct: false} ]
                 },
                 {
                     q: `<p>Why does making only the "Minimum Payment" trap people in debt for decades?</p>`,
                     opts: [ {text: "Because the minimum payment is mathematically designed to mostly cover that month's interest, reducing the actual principal by only a few dollars.", correct: true}, {text: "Because minimum payments trigger penalty fees.", correct: false}, {text: "Because the interest rate doubles if you only pay the minimum.", correct: false} ]
                 },
                 {
-                    q: `<p>Credit cards compound interest DAILY. What does this mean mathematically?</p>`,
+                    q: `<p>Credit cards compound interest DAILY. What does this mean mathematically for someone in debt?</p>`,
                     opts: [ {text: "Every single day, yesterday's interest is added to your principal, and today's interest is calculated on that new, slightly larger pile.", correct: true}, {text: "You have to pay your bill every single day.", correct: false}, {text: "The bank changes your interest rate percentage every day.", correct: false} ]
                 },
                 {
@@ -941,8 +1020,8 @@
                     opts: [ {text: "It is the percentage of your limit you are using. Maxing out your card (100% utilization) destroys your credit score, even if you make payments.", correct: true}, {text: "It is how many times you swipe the card per month.", correct: false}, {text: "It is the reward points you utilize.", correct: false} ]
                 },
                 {
-                    q: `<p>If you have a $1000 limit, what is the recommended maximum balance you should carry to keep a high credit score?</p>`,
-                    opts: [ {text: "$300 (Under 30% utilization).", correct: true}, {text: "$999 (As long as you don't go over).", correct: false}, {text: "$50 (Under 5%).", correct: false} ]
+                    q: `<p>If you have a $${limit} limit, what is the recommended maximum balance you should carry to keep a high credit score?</p>`,
+                    opts: [ {text: `$${limit * 0.3} (Under 30% utilization).`, correct: true}, {text: `$${limit - 1} (As long as you don't go over).`, correct: false}, {text: `$${limit * 0.05} (Under 5%).`, correct: false} ]
                 },
                 {
                     q: `<p>What happens if you miss a credit card payment by 30 days?</p>`,
@@ -954,6 +1033,10 @@
             setupMC(sel.opts);
             
         } else if (kica === "C") {
+            let fee = randInt(100, 150);
+            let spend = randInt(1, 3) * 1000;
+            let save = randInt(4, 8) * 1000;
+            
             let pool = [
                 {
                     q: `<p>What is the ONLY mathematically smart way to use a credit card?</p>`,
@@ -964,8 +1047,8 @@
                     opts: [{text: `"Debit removes your own cash directly from your bank. Credit is a high-interest short-term loan from the bank's money."`, correct: true}, {text: `"Debit cards have higher interest rates than credit cards."`, correct: false}, {text: `"There is no difference, they both buy things."`, correct: false} ]
                 },
                 {
-                    q: `<p>A friend wants a credit card with a $120 annual fee because it offers "2% cash back". They spend $2000 a year on the card. Advise them.</p>`,
-                    opts: [{text: `"It's a bad math deal. 2% of $2000 is only $40. You are paying the bank $120 to give you $40 back."`, correct: true},
+                    q: `<p>${stName} wants a card with a $${fee} annual fee because it offers "2% cash back". They spend $${spend} a year on it. Advise them.</p>`,
+                    opts: [{text: `"It's a terrible deal. 2% of $${spend} is only $${spend*0.02}. You are paying the bank $${fee} to give you $${spend*0.02} back."`, correct: true},
                     {text: `"It's a great deal, cash back is free money."`, correct: false},
                     {text: `"You should get it but use cash advances to get the rewards faster."`, correct: false} ]
                 },
@@ -974,8 +1057,8 @@
                     opts: [{text: `"Lines of Credit usually charge 7-10% simple interest, compared to a credit card's brutal 20% daily compounding rate. It stops the bleeding."`, correct: true}, {text: `"Because lines of credit don't require you to pay them back."`, correct: false}, {text: `"It isn't a good idea, they are the exact same thing."`, correct: false} ]
                 },
                 {
-                    q: `<p>A friend has $5,000 in savings earning 2%, but owes $5,000 on a credit card at 20%. They want to "keep their savings safe". Advise them.</p>`,
-                    opts: [{text: `"The math is killing you. You earn $100 a year in savings but lose $1000 a year to the card. Use the savings to instantly kill the debt."`, correct: true}, {text: `"Keep the savings. It's always better to have cash in the bank."`, correct: false}, {text: `"Invest the $5,000 in the stock market to beat the 20%."`, correct: false} ]
+                    q: `<p>${stName} has $${save} in savings earning 2%, but owes $${save} on a credit card at 20%. They want to "keep their savings safe". Advise them.</p>`,
+                    opts: [{text: `"The math is killing you. You earn tiny interest in savings but lose massive compound interest to the card. Use the savings to instantly kill the debt."`, correct: true}, {text: `"Keep the savings. It's always better to have cash in the bank."`, correct: false}, {text: `"Invest the $${save} in the stock market to beat the 20%."`, correct: false} ]
                 },
                 {
                     q: `<p>Why do credit card companies happily offer "Increase your limit!" buttons on their apps?</p>`,
