@@ -594,7 +594,7 @@
     </div>
 </main>
 
-<div class="version-tag">v4.2 (Isolated Scoring, KICA Pools & Open Assignment)</div>
+<div class="version-tag">v4.3 (Syntax Fixes & Validated JSON options)</div>
 
 <script>
     /* --- UTILS --- */
@@ -735,7 +735,7 @@
                 },
                 {
                     q: `<p>According to the Rule of 72, if you have a 9% interest rate, how long does it take to double your money?</p>`,
-                    opts: [ {text: "Exactly 8 years (72 ÷ 9).", correct: true}, {text: "Exactly 9 years.", correct: false}, {text: "It depends on how much you invest.", correct: false} ]
+                    opts: [ {text: "Exactly 8 years (72 &div; 9).", correct: true}, {text: "Exactly 9 years.", correct: false}, {text: "It depends on how much you invest.", correct: false} ]
                 },
                 {
                     q: `<p>What happens if you increase the compounding frequency from 'Annually' to 'Daily'?</p>`,
@@ -863,31 +863,31 @@
             let pool = [
                 {
                     q: `<p>Explain why Car Salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>`,
-                    opts: [ {text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
+                    opts: [{text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
                 },
                 {
                     q: `<p>How do you explain the "15% Rule" to a friend buying their first car?</p>`,
-                    opts: [ {text: `"Your total car costs (Loan + Gas + Insurance) should never exceed 15% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly 15% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above 15%."`, correct: false} ]
+                    opts: [{text: `"Your total car costs (Loan + Gas + Insurance) should never exceed 15% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly 15% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above 15%."`, correct: false} ]
                 },
                 {
                     q: `<p>A friend says, "A car is a great investment!" How do you correct them using math?</p>`,
-                    opts: [ {text: `"A car is a depreciating liability, not an investment. Exponential decay means it loses value rapidly every single year."`, correct: true}, {text: `"They are investments because you can sleep in them."`, correct: false}, {text: `"Actually, cars appreciate in value due to compound interest."`, correct: false} ]
+                    opts: [{text: `"A car is a depreciating liability, not an investment. Exponential decay means it loses value rapidly every single year."`, correct: true}, {text: `"They are investments because you can sleep in them."`, correct: false}, {text: `"Actually, cars appreciate in value due to compound interest."`, correct: false} ]
                 },
                 {
                     q: `<p>Why is buying a 3-year-old used car considered a financial 'hack'?</p>`,
-                    opts: [ {text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because 3-year-old cars have 0% interest rates."`, correct: false} ]
+                    opts: [{text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because 3-year-old cars have 0% interest rates."`, correct: false} ]
                 },
                 {
                     q: `<p>Explain "Cost of Borrowing" to someone who has never taken a loan.</p>`,
-                    opts: [ {text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean the car."`, correct: false}, {text: `"It is the cost of gas and insurance combined."`, correct: false} ]
+                    opts: [{text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean the car."`, correct: false}, {text: `"It is the cost of gas and insurance combined."`, correct: false} ]
                 },
                 {
                     q: `<p>Why do financial advisors recommend keeping car loans to 48 months (4 years) maximum?</p>`,
-                    opts: [ {text: `"If a loan goes longer than 4 years, the car's value usually drops faster than you are paying off the loan, leaving you trapped in negative equity."`, correct: true}, {text: `"Because banks refuse to give loans longer than 4 years."`, correct: false}, {text: `"Because cars physically break down completely after exactly 4 years."`, correct: false} ]
+                    opts: [{text: `"If a loan goes longer than 4 years, the car's value usually drops faster than you are paying off the loan, leaving you trapped in negative equity."`, correct: true}, {text: `"Because banks refuse to give loans longer than 4 years."`, correct: false}, {text: `"Because cars physically break down completely after exactly 4 years."`, correct: false} ]
                 },
                 {
                     q: `<p>A dealership offers to 'roll over' your old $5,000 debt into a brand new car loan. Why is this toxic?</p>`,
-                    opts: [text: `"You are now paying compound interest on a dead car while also paying for the new one. You instantly start the new loan with massive negative equity."`, correct: true},
+                    opts: [{text: `"You are now paying compound interest on a dead car while also paying for the new one. You instantly start the new loan with massive negative equity."`, correct: true},
                     {text: `"It's actually a great deal because it combines your payments into one."`, correct: false},
                     {text: `"Because the $5,000 is taxed twice."`, correct: false} ]
                 }
@@ -957,33 +957,33 @@
             let pool = [
                 {
                     q: `<p>What is the ONLY mathematically smart way to use a credit card?</p>`,
-                    opts: [ {text: `"Treat it exactly like a debit card. Only spend money you already have in your checking account, and pay the entire balance in full every month."`, correct: true}, {text: `"Max it out to build your credit score quickly."`, correct: false}, {text: `"Always pay exactly the minimum payment on time."`, correct: false} ]
+                    opts: [{text: `"Treat it exactly like a debit card. Only spend money you already have in your checking account, and pay the entire balance in full every month."`, correct: true}, {text: `"Max it out to build your credit score quickly."`, correct: false}, {text: `"Always pay exactly the minimum payment on time."`, correct: false} ]
                 },
                 {
                     q: `<p>Explain the difference between a Debit Card and a Credit Card.</p>`,
-                    opts: [ {text: `"Debit removes your own cash directly from your bank. Credit is a high-interest short-term loan from the bank's money."`, correct: true}, {text: `"Debit cards have higher interest rates than credit cards."`, correct: false}, {text: `"There is no difference, they both buy things."`, correct: false} ]
+                    opts: [{text: `"Debit removes your own cash directly from your bank. Credit is a high-interest short-term loan from the bank's money."`, correct: true}, {text: `"Debit cards have higher interest rates than credit cards."`, correct: false}, {text: `"There is no difference, they both buy things."`, correct: false} ]
                 },
                 {
                     q: `<p>A friend wants a credit card with a $120 annual fee because it offers "2% cash back". They spend $2000 a year on the card. Advise them.</p>`,
-                    opts: [text: `"It's a bad math deal. 2% of $2000 is only $40. You are paying the bank $120 to give you $40 back."`, correct: true},
+                    opts: [{text: `"It's a bad math deal. 2% of $2000 is only $40. You are paying the bank $120 to give you $40 back."`, correct: true},
                     {text: `"It's a great deal, cash back is free money."`, correct: false},
                     {text: `"You should get it but use cash advances to get the rewards faster."`, correct: false} ]
                 },
                 {
                     q: `<p>Explain why transferring a credit card balance to a 'Line of Credit' is usually a good idea.</p>`,
-                    opts: [ {text: `"Lines of Credit usually charge 7-10% simple interest, compared to a credit card's brutal 20% daily compounding rate. It stops the bleeding."`, correct: true}, {text: `"Because lines of credit don't require you to pay them back."`, correct: false}, {text: `"It isn't a good idea, they are the exact same thing."`, correct: false} ]
+                    opts: [{text: `"Lines of Credit usually charge 7-10% simple interest, compared to a credit card's brutal 20% daily compounding rate. It stops the bleeding."`, correct: true}, {text: `"Because lines of credit don't require you to pay them back."`, correct: false}, {text: `"It isn't a good idea, they are the exact same thing."`, correct: false} ]
                 },
                 {
                     q: `<p>A friend has $5,000 in savings earning 2%, but owes $5,000 on a credit card at 20%. They want to "keep their savings safe". Advise them.</p>`,
-                    opts: [ {text: `"The math is killing you. You earn $100 a year in savings but lose $1000 a year to the card. Use the savings to instantly kill the debt."`, correct: true}, {text: `"Keep the savings. It's always better to have cash in the bank."`, correct: false}, {text: `"Invest the $5,000 in the stock market to beat the 20%."`, correct: false} ]
+                    opts: [{text: `"The math is killing you. You earn $100 a year in savings but lose $1000 a year to the card. Use the savings to instantly kill the debt."`, correct: true}, {text: `"Keep the savings. It's always better to have cash in the bank."`, correct: false}, {text: `"Invest the $5,000 in the stock market to beat the 20%."`, correct: false} ]
                 },
                 {
                     q: `<p>Why do credit card companies happily offer "Increase your limit!" buttons on their apps?</p>`,
-                    opts: [ {text: `"Psychologically, people spend more when their limit is higher. The bank wants you to overspend and get trapped paying 20% interest."`, correct: true}, {text: `"Because it's a legal requirement to reward good customers."`, correct: false}, {text: `"Because they want to lower your credit score."`, correct: false} ]
+                    opts: [{text: `"Psychologically, people spend more when their limit is higher. The bank wants you to overspend and get trapped paying 20% interest."`, correct: true}, {text: `"Because it's a legal requirement to reward good customers."`, correct: false}, {text: `"Because they want to lower your credit score."`, correct: false} ]
                 },
                 {
                     q: `<p>How do you explain to a teenager why a Credit Score dictates their entire adult life?</p>`,
-                    opts: [ {text: `"It is your 'Adult GPA'. A low score means landlords won't rent to you, banks will deny your car loan, and you'll be blocked from buying a house."`, correct: true}, {text: `"It actually doesn't matter unless you want to be an investment banker."`, correct: false}, {text: `"It only matters if you plan to get a credit card."`, correct: false} ]
+                    opts: [{text: `"It is your 'Adult GPA'. A low score means landlords won't rent to you, banks will deny your car loan, and you'll be blocked from buying a house."`, correct: true}, {text: `"It actually doesn't matter unless you want to be an investment banker."`, correct: false}, {text: `"It only matters if you plan to get a credit card."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);

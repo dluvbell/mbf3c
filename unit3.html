@@ -307,11 +307,19 @@
 
 <main>
     <div id="tab-calculator" class="tab-content active">
-        <h2>Compound Interest Calculator</h2>
+        <h2>Compound Interest Calculator (Growth)</h2>
         <p>Use this calculator to see how money grows over time (The 8th Wonder of the World).</p>
         <button class="btn-primary" onclick="window.open('https://www.calculator.net/interest-calculator.html', '_blank')">Open Calculator in New Tab</button>
         <br><br>
-        <iframe src="https://www.calculator.net/interest-calculator.html?cstartingprinciple=1000&cannualaddition=100&cmonthlyaddition=0&cadditionat1=beginning&cinterestrate=7&ccompound=annually&cyears=10&ctaxtrate=0&cinflationrate=0&printit=0&x=115&y=22" width="100%" height="800" frameborder="0"></iframe>
+        <iframe src="https://www.calculator.net/interest-calculator.html?cstartingprinciple=1000&cannualaddition=100&cmonthlyaddition=0&cadditionat1=beginning&cinterestrate=7&ccompound=annually&cyears=10&ctaxtrate=0&cinflationrate=0&printit=0&x=115&y=22" width="100%" height="600" frameborder="0"></iframe>
+
+        <hr style="margin: 40px 0; border: 1px solid #bdc3c7;">
+
+        <h2>Scientific Calculator (For Exponential Decay)</h2>
+        <p>For Unit 3.4 (Decay), use this scientific calculator. To calculate <span class="math-text">y = 30000(0.85)<sup>5</sup></span>, type <code>30000 * 0.85 a<sup>b</sup> 5</code>.</p>
+        <button class="btn-primary" style="background-color: #e67e22;" onclick="window.open('https://www.desmos.com/scientific', '_blank')">Open Scientific Calculator in New Tab</button>
+        <br><br>
+        <iframe src="https://www.desmos.com/scientific" width="100%" height="400" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
     </div>
 
     <div id="tab-lessons" class="tab-content">
@@ -498,7 +506,7 @@
 
                 <optgroup label="3.2 Exponential Growth">
                     <option value="3.2-K">Knowledge: Identify 'a' and 'b'</option>
-                    <option value="3.2-A">Application: Calculate Future Value</option>
+                    <option value="3.2-A">Application: Finance Compounding Scenarios</option>
                     <option value="3.2-I">Inquiry: Linear vs Exponential</option>
                     <option value="3.2-C">Comm: Growth Concepts</option>
                 </optgroup>
@@ -630,7 +638,7 @@
     </div>
     </main>
 
-<div class="version-tag">v3.9 (Cleaned UI & No-Hint Assignment)</div>
+<div class="version-tag">v3.12 (HTML Math Tag Cleansing)</div>
 
 <script>
     /* --- UTILS --- */
@@ -1000,7 +1008,7 @@
                 let isFindTime = Math.random() > 0.5;
                 if (isFindTime) {
                     let rate = randInt(6, 12);
-                    qArea.innerHTML = `<p>A client wants to invest at <strong>${rate}%</strong>. How do you use the Rule of 72 to advise them?</p>`;
+                    qArea.innerHTML = `<p>A client wants to invest at <strong>${rate}% per year</strong>. How do you use the Rule of 72 to advise them?</p>`;
                     setupMC([
                         {text: `"Divide 72 by ${rate}. It will take roughly ${(72/rate).toFixed(1)} years for your money to double."`, correct: true},
                         {text: `"Multiply 72 by ${rate} to find your exact profit."`, correct: false},
@@ -1010,7 +1018,7 @@
                     let time = randInt(5, 12);
                     qArea.innerHTML = `<p>A client wants their money to double in exactly <strong>${time} years</strong>. How do you use the Rule of 72 to advise them?</p>`;
                     setupMC([
-                        {text: `"Divide 72 by ${time}. You need to find an investment that guarantees roughly ${(72/time).toFixed(1)}% return."`, correct: true},
+                        {text: `"Divide 72 by ${time}. You need to find an investment that guarantees roughly ${(72/time).toFixed(1)}% per year return."`, correct: true},
                         {text: `"Multiply 72 by ${time} to find the required interest rate."`, correct: false},
                         {text: `"It is completely impossible to guarantee doubling in ${time} years."`, correct: false}
                     ]);
@@ -1024,7 +1032,7 @@
                 ]);
             } else if (type === 3) {
                 let r1 = randInt(4, 7), r2 = randInt(12, 18);
-                qArea.innerHTML = `<p>A client asks why a ${r2}% return is so drastically better than ${r1}% if they leave it for 30 years.</p>`;
+                qArea.innerHTML = `<p>A client asks why a ${r2}% per year return is so drastically better than ${r1}% per year if they leave it for 30 years.</p>`;
                 setupMC([
                     {text: `"The higher the rate, the steeper the J-Curve. Because the growth multiplies on itself, a small percentage difference creates a massive wealth gap over decades."`, correct: true},
                     {text: `"Because ${r2} is a bigger number, so you add exactly $${r2} more every year."`, correct: false},
@@ -1051,8 +1059,8 @@
             const ans = P * Math.pow(1 + i, n);
             
             let asks = [
-                `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i} (${rate}%), and n = ${n}, calculate the final Amount <strong>A</strong>.</p>`,
-                `<p>You deposit $${P} into an account paying ${rate}% annually.</p><p>Using <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the balance after ${n} years.</p>`
+                `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i} (${rate}% per year), and n = ${n}, calculate the final Amount <strong>A</strong>.</p>`,
+                `<p>You deposit $${P} into an account paying ${rate}% per year annually.</p><p>Using <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the balance after ${n} years.</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
@@ -1068,19 +1076,19 @@
             const diff = ansA - ansB;
             
             let asks = [
-                `<p>You invest <strong>$${P}</strong> at <strong>${rate}%</strong> interest.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p>`,
-                `<p>The "Cost of Waiting": Investing $${P} at ${rate}%.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth.</p>`
+                `<p>You invest <strong>$${P}</strong> at <strong>${rate}% per year</strong> interest.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p>`,
+                `<p>The "Cost of Waiting": Investing $${P} at ${rate}% per year.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth.</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
             
         } else if (kica === "I") {
-            let type = randInt(1, 4);
+            let type = randInt(1, 7);
             if (type === 1) {
                 let freqs = ["Annually", "Monthly", "Daily"];
                 let f1 = randInt(0, 1);
                 let f2 = randInt(f1 + 1, 2);
-                let isUp = Math.random() > 0.5; // isUp means going to a MORE frequent compounding
+                let isUp = Math.random() > 0.5; 
                 let fromF = isUp ? freqs[f1] : freqs[f2];
                 let toF = isUp ? freqs[f2] : freqs[f1];
                 
@@ -1108,23 +1116,48 @@
             } else if (type === 3) {
                 let rate = randInt(6, 12);
                 let nYears = randInt(20, 35);
-                qArea.innerHTML = `<p>An investment guarantees ${rate}% return for ${nYears} years. What happens if you panic and withdraw the money halfway through?</p>`;
+                qArea.innerHTML = `<p>An investment guarantees ${rate}% per year return for ${nYears} years. What happens if you panic and withdraw the money halfway through?</p>`;
                 setupMC([
                     {text: "You interrupt the compound curve, entirely destroying the massive exponential explosion that happens in the final years.", correct: true},
                     {text: "Nothing, the money grows in a straight linear line anyway so you get half.", correct: false},
                     {text: "You actually make more money by taking it out early.", correct: false}
                 ]);
-            } else {
+            } else if (type === 4) {
                 qArea.innerHTML = `<p>You have two choices: Double your starting Principal (P) OR Double the Time (n). Which yields more money in the long run?</p>`;
                 setupMC([
                     {text: "Doubling the Time (n). Because 'n' is an exponent, it creates explosive growth far greater than just doubling the starting cash.", correct: true},
                     {text: "Doubling the Principal (P).", correct: false},
                     {text: "They result in the exact same amount.", correct: false}
                 ]);
+            } else if (type === 5) {
+                let pAmt = randInt(2,5) * 1000;
+                let rAmt = randInt(5, 10);
+                qArea.innerHTML = `<p>Using the Rule of 72, if you invest $${pAmt} at ${rAmt}% per year, what are you estimating?</p>`;
+                setupMC([
+                    {text: `You are estimating how many years it takes for your balance to reach $${pAmt * 2}.`, correct: true},
+                    {text: `You are estimating the exact dollar amount of interest earned.`, correct: false},
+                    {text: `You are finding the maximum legal interest rate.`, correct: false}
+                ]);
+            } else if (type === 6) {
+                qArea.innerHTML = `<p>If you start investing at age 20 vs age 30, how does the <strong>shape</strong> of your wealth graph differ at age 60?</p>`;
+                setupMC([
+                    {text: "The age 20 graph reaches the steep, vertical part of the J-Curve, while the age 30 graph is just starting to curve upward.", correct: true},
+                    {text: "The shapes are exactly the same, the age 20 one is just shifted to the left.", correct: false},
+                    {text: "The age 30 graph is steeper because you have a higher salary later in life.", correct: false}
+                ]);
+            } else {
+                let inf = randInt(2, 4);
+                let ret = randInt(7, 10);
+                qArea.innerHTML = `<p>Your investment grows at ${ret}% per year, but inflation is ${inf}% per year. What is your "Real Return" logically doing?</p>`;
+                setupMC([
+                    {text: `Your actual buying power is only growing by roughly ${ret - inf}%, because inflation acts as a decay factor offsetting your compound growth.`, correct: true},
+                    {text: `Inflation adds to your growth, making your total return ${ret + inf}%.`, correct: false},
+                    {text: `Inflation has absolutely zero effect on compound interest.`, correct: false}
+                ]);
             }
             
         } else if (kica === "C") {
-            let type = randInt(1, 4);
+            let type = randInt(1, 7);
             if (type === 1) {
                 let age = randInt(18, 24);
                 let waitAge = age + randInt(10, 15);
@@ -1137,7 +1170,7 @@
             } else if (type === 2) {
                 let debt = randInt(3, 9) * 500;
                 let cardRate = randInt(18, 25);
-                qArea.innerHTML = `<p>How does compound interest make a $${debt} credit card balance at ${cardRate}% so incredibly dangerous?</p>`;
+                qArea.innerHTML = `<p>How does compound interest make a $${debt} credit card balance at ${cardRate}% per year so incredibly dangerous?</p>`;
                 setupMC([
                     {text: `Because you are charged ${cardRate}% interest on top of your old interest. If ignored, the debt rockets upward in a J-curve against you.`, correct: true},
                     {text: `Because the bank legally changes the rate to ${cardRate+10}% if you miss a payment.`, correct: false},
@@ -1150,13 +1183,34 @@
                     {text: `"It means the bank pays you twice a year."`, correct: false},
                     {text: `"It means your interest rate is automatically doubled."`, correct: false}
                 ]);
-            } else {
+            } else if (type === 4) {
                 let fee = randChoice([2, 3]);
                 qArea.innerHTML = `<p>Why is a ${fee}% management fee on an investment portfolio actually a huge deal over 30 years?</p>`;
                 setupMC([
                     {text: `"Because it acts as exponential decay. You aren't just losing ${fee}% once, you are losing the compounded growth of that ${fee}% over 30 years."`, correct: true},
                     {text: `"It isn't a big deal. ${fee}% is a very small number."`, correct: false},
                     {text: `"Because the ${fee}% is added directly to your starting principal."`, correct: false}
+                ]);
+            } else if (type === 5) {
+                qArea.innerHTML = `<p>A client looks at a 40-year compound interest graph and complains that "nothing happens for the first 15 years". How do you respond?</p>`;
+                setupMC([
+                    {text: `"That flat beginning is the foundation. It takes time to build enough 'babies' (interest) to trigger the vertical explosion seen in the last 10 years."`, correct: true},
+                    {text: `"The stock market was just bad during those first 15 years."`, correct: false},
+                    {text: `"It's a glitch in the graph. It should be a straight line."`, correct: false}
+                ]);
+            } else if (type === 6) {
+                qArea.innerHTML = `<p>How do you persuade new parents to open a college fund (RESP) the week their baby is born, instead of waiting till high school?</p>`;
+                setupMC([
+                    {text: `"By starting at birth, you give the money 18 years to compound. The exponent 'n=18' will do most of the heavy lifting for the tuition cost."`, correct: true},
+                    {text: `"Because you will get a higher interest rate if you start early."`, correct: false},
+                    {text: `"Because colleges charge linear interest."`, correct: false}
+                ]);
+            } else {
+                qArea.innerHTML = `<p>A friend claims Simple Interest and Compound Interest are exactly the same. How do you correct them?</p>`;
+                setupMC([
+                    {text: `"They are only the same for the very first year. After that, Simple Interest pays a flat amount, while Compound Interest pays on the growing total."`, correct: true},
+                    {text: `"They are completely different formulas that never equal the same amount, even in year 1."`, correct: false},
+                    {text: `"Simple interest is actually better because it's easier to calculate."`, correct: false}
                 ]);
             }
         }
@@ -1194,7 +1248,7 @@
             let type = randInt(1, 4);
             if (type === 1) {
                 let drop = randInt(12, 28);
-                let askYear1 = Math.random() > 0.5; // Ask about year 1 or year 10
+                let askYear1 = Math.random() > 0.5; 
                 qArea.innerHTML = `<p>A car decays at ${drop}% per year.</p><p>In which year does it lose the <strong>${askYear1 ? "MOST" : "LEAST"}</strong> actual dollar value?</p>`;
                 if (askYear1) {
                     setupMC([
@@ -1286,7 +1340,7 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = opt.text; // Ensure HTML tags (like superscripts) render in buttons if present
+            btn.innerHTML = opt.text; 
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
