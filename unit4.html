@@ -206,9 +206,12 @@
         .score-board {
             font-weight: bold;
             color: var(--primary-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             float: right;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         #question-area {
@@ -224,6 +227,31 @@
             align-items: center;
             font-size: 1.3rem;
             font-weight: 500;
+        }
+
+        /* Option Buttons for KICA */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .option-btn:hover {
+            background: var(--accent-color);
+            color: white;
         }
 
         #feedback-area {
@@ -287,10 +315,10 @@
 
 <nav>
     <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button class="active" onclick="openTab('tab-calculator')">Calculator</button>
-    <button onclick="openTab('tab-lessons')">Lessons</button>
-    <button onclick="openTab('tab-practice')">Practice</button>
-    <button onclick="openTab('tab-assignment')">Assignment</button>
+    <button class="active" onclick="openTab(event, 'tab-calculator')">Calculator</button>
+    <button onclick="openTab(event, 'tab-lessons')">Lessons</button>
+    <button onclick="openTab(event, 'tab-practice')">Practice</button>
+    <button onclick="openTab(event, 'tab-assignment')">Assignment</button>
 </nav>
 
 <main>
@@ -420,30 +448,45 @@
     </div>
 
     <div id="tab-practice" class="tab-content">
-        <h2>Practice Problems</h2>
+        <h2>Practice Problems (KICA Training)</h2>
+        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills.</p>
         
         <div class="practice-controls">
-            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic:</label>
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic & KICA Skill:</label>
             <select id="practice-selector" onchange="resetPracticeUI()">
-                <option value="" disabled selected>-- Choose a Topic --</option>
-                <optgroup label="Interest Math">
-                    <option value="simple">Simple Interest (I = Prt)</option>
-                    <option value="compound">Compound Interest (A = P(1+i)^n)</option>
+                <option value="" disabled selected>-- Choose a Training Module --</option>
+                
+                <optgroup label="4.1 Simple vs Compound">
+                    <option value="4.1-K">Knowledge: Calculate I or A</option>
+                    <option value="4.1-A">Application: Compare the Difference</option>
+                    <option value="4.1-I">Inquiry: Interest Mechanics</option>
+                    <option value="4.1-C">Comm: Explain the Growth</option>
                 </optgroup>
-                <optgroup label="Real World Scenarios">
-                    <option value="car_loan">Car Loans (Total Cost)</option>
-                    <option value="credit_card">Credit Card Interest</option>
-                    <option value="buy_vs_lease">Analysis: Which is cheaper?</option>
+
+                <optgroup label="4.2 Buying a Car">
+                    <option value="4.2-K">Knowledge: Total Amount Paid</option>
+                    <option value="4.2-A">Application: Cost of Borrowing</option>
+                    <option value="4.2-I">Inquiry: Loan Traps & Terms</option>
+                    <option value="4.2-C">Comm: Dealership Tactics</option>
                 </optgroup>
-                <option value="all">All in One (Random Mix)</option>
+
+                <optgroup label="4.3 Credit Cards">
+                    <option value="4.3-K">Knowledge: Monthly Interest</option>
+                    <option value="4.3-A">Application: The Minimum Payment</option>
+                    <option value="4.3-I">Inquiry: Grace Periods & Advances</option>
+                    <option value="4.3-C">Comm: Avoiding the Debt Spiral</option>
+                </optgroup>
             </select>
 
-            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
-            <div class="score-board">Score: <span id="score-display">0</span></div>
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Random Question</button>
+            <div class="score-board">
+                Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
+                <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
+            </div>
         </div>
 
         <div id="question-area">
-            <p>Select a topic to begin.</p>
+            <p>Please select a module from the dropdown above to begin.</p>
         </div>
 
         <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
@@ -451,9 +494,10 @@
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
         
+        <div id="mc-area" class="option-grid" style="display:none;"></div>
+
         <div id="feedback-area"></div>
     </div>
-
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 4 Assignment: "The Reality Check" Project</h2>
         <p><strong>Objective:</strong> You will apply the financial concepts from this unit to make a realistic plan for purchasing and maintaining a vehicle based on a future career scenario.</p>
@@ -468,7 +512,7 @@
             <span class="task-step">Part A: The Income (Inquiry)</span>
             <p>1. Choose a career you are interested in (e.g., Electrician, Nurse, Graphic Designer).</p>
             <p>2. Find the average <strong>entry-level annual salary</strong> for this job in Ontario. (Cite your source).</p>
-            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). <br><em>(Hint: Assume tax takes about 25%. So multiply Annual Salary by 0.75, then divide by 12).</em></p>
+            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). Assume that taxes and deductions take exactly <strong>25%</strong> of your gross salary.</p>
         </div>
 
         <div class="task-box">
@@ -550,232 +594,479 @@
     </div>
 </main>
 
-<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+<div class="version-tag">v4.2 (Isolated Scoring, KICA Pools & Open Assignment)</div>
 
 <script>
     /* --- UTILS --- */
-    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    const formatMoney = (num) => '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-    // --- State Management ---
-    let currentScore = 0;
-    let isQuestionSolved = false; // New Anti-Spam flag
     
-    // --- Navigation ---
-    function openTab(tabId) {
+    // --- State Management ---
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit4_data')) || {};
+    let isQuestionSolved = false; 
+    
+    // --- Navigation (Fixed 'event' passing) ---
+    function openTab(evt, tabId) {
         const contents = document.getElementsByClassName('tab-content');
         for (let content of contents) content.classList.remove('active');
         document.getElementById(tabId).classList.add('active');
         const navBtns = document.querySelectorAll('nav button');
         navBtns.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-    }
-
-    // --- Accordion ---
-    const acc = document.getElementsByClassName("accordion");
-    for (let i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active-acc");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) panel.style.maxHeight = null;
-            else panel.style.maxHeight = panel.scrollHeight + "px";
-        });
+        evt.currentTarget.classList.add('active');
     }
 
     function printLesson(btn) {
-        alert("Printing functionality would open a system dialog here.");
         window.print();
     }
 
-    // --- Main Logic: Generate Question ---
-    function resetPracticeUI() {
-        document.getElementById('feedback-area').innerHTML = "";
-        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
-        document.getElementById('input-area').style.display = 'none';
-        currentScore = 0;
-        document.getElementById('score-display').innerText = currentScore;
+    // --- Scoring Logic ---
+    function updateScoreDisplay() {
+        const selector = document.getElementById('practice-selector');
+        let type = selector.value || 'default';
+        let data = practiceData[type] || { correct: 0, total: 0 };
+        
+        const scoreEl = document.getElementById('p-score');
+        const totalEl = document.getElementById('p-total');
+        if(scoreEl && totalEl) {
+            scoreEl.innerText = data.correct;
+            totalEl.innerText = data.total;
+        }
     }
 
+    function saveScore(isCorrect) {
+        let type = document.getElementById('practice-selector').value || 'default';
+        if (!practiceData[type]) {
+            practiceData[type] = { total: 0, correct: 0 };
+        }
+        
+        practiceData[type].total++;
+        if(isCorrect) practiceData[type].correct++;
+        
+        localStorage.setItem('mbf3c_unit4_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeScore() {
+        let type = document.getElementById('practice-selector').value || 'default';
+        practiceData[type] = { correct: 0, total: 0 };
+        localStorage.setItem('mbf3c_unit4_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeUI() {
+        document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
+        document.getElementById('input-area').style.display = 'none';
+        
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) {
+            mcArea.style.display = 'none';
+            mcArea.innerHTML = "";
+        }
+        
+        updateScoreDisplay();
+    }
+
+    // --- Main Logic: Generate Question ---
     let currentQuestion = null;
 
     function generateQuestion() {
         const selector = document.getElementById('practice-selector');
         let val = selector.value;
+        if(!val) return;
+
         const qArea = document.getElementById('question-area');
         const inputArea = document.getElementById('input-area');
+        const mcArea = document.getElementById('mc-area');
         const feedback = document.getElementById('feedback-area');
 
-        // Reset
+        // Reset UI
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
-        inputArea.style.display = 'block';
+        inputArea.style.display = 'none';
+        mcArea.style.display = 'none';
+        mcArea.innerHTML = "";
         
         // Anti-Spam Reset
         isQuestionSolved = false;
 
-        // All in One Handler
-        if (val === 'all') {
-            const options = ['simple', 'compound', 'car_loan', 'credit_card', 'buy_vs_lease'];
-            val = randChoice(options);
-        }
+        let parts = val.split('-');
+        let section = parts[0];
+        let kica = parts[1];
 
-        // Router
-        if (val === 'simple') genSimple(qArea);
-        else if (val === 'compound') genCompound(qArea);
-        else if (val === 'car_loan') genCarLoan(qArea);
-        else if (val === 'credit_card') genCreditCard(qArea);
-        else if (val === 'buy_vs_lease') genBuyVsLease(qArea);
+        if (section === "4.1") gen4_1(kica, qArea);
+        else if (section === "4.2") gen4_2(kica, qArea);
+        else if (section === "4.3") gen4_3(kica, qArea);
     }
 
-    // --- 1. Simple Interest ($I=Prt$) ---
-    function genSimple(qArea) {
-        const P = randInt(1, 20) * 500; // 500 to 10000
-        const r = randInt(2, 10); // percent
-        const t = randInt(1, 5); // years
-        
-        // Scenario Pool
-        const subjects = ["a friend", "a short-term bond", "a family member"];
-        const subject = randChoice(subjects);
-
-        const ans = P * (r/100) * t;
-
-        qArea.innerHTML = `
-            <p>You borrow <strong>$${P}</strong> from ${subject}.</p>
-            <p>Simple Interest Rate: <strong>${r}%</strong> per year.</p>
-            <p>Time: <strong>${t} years</strong>.</p>
-            <p>Calculate the <strong>Interest Only</strong> ($I$).</p>
-            <p>Formula: <span class="math-text">I = Prt</span></p>
-        `;
-        currentQuestion = { answer: ans, type: 'money' };
-    }
-
-    // --- 2. Compound Interest ($A=P(1+i)^n$) ---
-    function genCompound(qArea) {
-        const P = randInt(1, 10) * 1000;
-        const r = randInt(3, 12);
-        const t = randInt(2, 10);
-        
-        const ans = P * Math.pow((1 + r/100), t);
-
-        qArea.innerHTML = `
-            <p>You invest <strong>$${P}</strong> in a GIC.</p>
-            <p>Interest Rate: <strong>${r}%</strong> compounded annually.</p>
-            <p>Time: <strong>${t} years</strong>.</p>
-            <p>Calculate the <strong>Final Amount</strong> ($A$).</p>
-            <p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p>
-        `;
-        currentQuestion = { answer: ans, type: 'money' };
-    }
-
-    // --- 3. Car Loan (Total Cost) ---
-    function genCarLoan(qArea) {
-        const cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Kia Forte"];
-        const car = randChoice(cars);
-        const monthly = randInt(300, 800);
-        const months = randChoice([36, 48, 60, 72, 84]);
-        const down = randChoice([0, 1000, 2000, 5000]);
-
-        const totalPaid = (monthly * months) + down;
-
-        qArea.innerHTML = `
-            <p>You buy a <strong>${car}</strong>.</p>
-            <p>Monthly Payment: <strong>$${monthly}</strong></p>
-            <p>Term: <strong>${months} months</strong></p>
-            <p>Down Payment: <strong>$${down}</strong></p>
-            <p>What is the <strong>Total Amount Paid</strong> for this car?</p>
-        `;
-        currentQuestion = { answer: totalPaid, type: 'money' };
-    }
-
-    // --- 4. Credit Card Interest ---
-    function genCreditCard(qArea) {
-        const balance = randInt(5, 50) * 100; // 500 to 5000
-        const rate = 19.99; // Standard
-        
-        // Monthly interest roughly = (Balance * 0.1999) / 12
-        const ans = (balance * (rate/100)) / 12;
-
-        qArea.innerHTML = `
-            <p>Credit Card Balance: <strong>$${balance}</strong>.</p>
-            <p>Annual Interest Rate: <strong>${rate}%</strong>.</p>
-            <p>Calculate the interest charge for <strong>one month</strong>.</p>
-            <p><small>Hint: (Balance &times; Rate) &div; 12</small></p>
-        `;
-        currentQuestion = { answer: ans, type: 'money' };
-    }
-
-    // --- 5. Buy vs Lease (Logic) ---
-    function genBuyVsLease(qArea) {
-        // Simple logic question
-        const buyCost = randInt(25000, 35000);
-        const leasePayment = randInt(300, 400);
-        const leaseTerm = 48;
-        const buyout = randInt(12000, 15000);
-        
-        const leaseTotal = (leasePayment * leaseTerm) + buyout;
-        const diff = Math.abs(buyCost - leaseTotal);
-        
-        // Randomly ask "How much more does Leasing cost?" or "Total cost of Leasing?"
-        const type = Math.random() > 0.5 ? 'total' : 'diff';
-
-        qArea.innerHTML = `
-            <p><strong>Option A (Finance):</strong> Total price is <strong>$${buyCost}</strong>.</p>
-            <p><strong>Option B (Lease-to-own):</strong> $${leasePayment}/month for ${leaseTerm} months, plus a buyout of $${buyout} at the end.</p>
-        `;
-
-        if (type === 'total') {
-            qArea.innerHTML += `<p>What is the total cost of <strong>Option B</strong>?</p>`;
-            currentQuestion = { answer: leaseTotal, type: 'money' };
-        } else {
-            qArea.innerHTML += `<p>How much <strong>more</strong> expensive is Option B than Option A? (Find the difference)</p>`;
-            currentQuestion = { answer: leaseTotal - buyCost, type: 'money' };
+    // --- Section 4.1: Simple vs Compound ---
+    function gen4_1(kica, qArea) {
+        if (kica === "K") {
+            let isSimple = Math.random() > 0.5;
+            let P = randInt(10, 50) * 100;
+            let r = randInt(3, 10);
+            let t = randInt(2, 8);
+            
+            if (isSimple) {
+                let ans = P * (r/100) * t;
+                qArea.innerHTML = `<p>Calculate the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p><p><small>(Round to 2 decimal places)</small></p>`;
+                setupInput(ans.toFixed(2));
+            } else {
+                let ans = P * Math.pow(1 + r/100, t);
+                qArea.innerHTML = `<p>Calculate the <strong>Final Amount (A)</strong> using Compound Interest.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p><p><small>(Round to 2 decimal places)</small></p>`;
+                setupInput(ans.toFixed(2));
+            }
+        } else if (kica === "A") {
+            let P = randInt(20, 100) * 100;
+            let r = randInt(4, 12);
+            let t = randInt(5, 15);
+            let simpleA = P + (P * (r/100) * t);
+            let compA = P * Math.pow(1 + r/100, t);
+            let diff = compA - simpleA;
+            
+            qArea.innerHTML = `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest?</p><p><small>(Find Compound A - Simple A. Round to 2 decimal places)</small></p>`;
+            setupInput(diff.toFixed(2));
+            
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>If you graph Simple Interest and Compound Interest over 30 years, how do the shapes compare?</p>`,
+                    opts: [ {text: "Simple is a straight linear line, Compound is an exponential J-Curve that shoots upward.", correct: true}, {text: "Both are straight lines, Compound is just steeper.", correct: false}, {text: "Simple curves up, Compound goes down.", correct: false} ]
+                },
+                {
+                    q: `<p>According to the Rule of 72, if you have a 9% interest rate, how long does it take to double your money?</p>`,
+                    opts: [ {text: "Exactly 8 years (72 ÷ 9).", correct: true}, {text: "Exactly 9 years.", correct: false}, {text: "It depends on how much you invest.", correct: false} ]
+                },
+                {
+                    q: `<p>What happens if you increase the compounding frequency from 'Annually' to 'Daily'?</p>`,
+                    opts: [ {text: "The final amount increases because interest is calculated and added to the pile more often.", correct: true}, {text: "The final amount decreases due to bank fees.", correct: false}, {text: "Nothing, the rate stays the same.", correct: false} ]
+                },
+                {
+                    q: `<p>Which variable is the most mathematically powerful in the compound interest formula?</p>`,
+                    opts: [ {text: "Time (n), because it acts as an exponent, causing explosive repeated multiplication.", correct: true}, {text: "Principal (P), because you need money to make money.", correct: false}, {text: "Interest rate (i), because it dictates the percentage.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is Simple Interest rarely used in real-world investing like retirement accounts?</p>`,
+                    opts: [ {text: "Because it doesn't allow your earned interest to generate its own interest, severely limiting growth.", correct: true}, {text: "Because it is illegal for banks to use it.", correct: false}, {text: "Because it is too difficult for computers to calculate.", correct: false} ]
+                },
+                {
+                    q: `<p>If inflation is 3% and your bank account pays 1% Simple Interest, what is happening to your money?</p>`,
+                    opts: [ {text: "Your actual buying power is decaying exponentially. You are losing money in real terms.", correct: true}, {text: "You are making a 4% total return.", correct: false}, {text: "Your money is completely safe and holding its value.", correct: false} ]
+                },
+                {
+                    q: `<p>If you double your Principal (P) vs Double your Time (n) in a compound interest account, which yields more?</p>`,
+                    opts: [ {text: "Doubling Time (n) yields far more because it extends the exponential curve.", correct: true}, {text: "Doubling Principal (P) yields more.", correct: false}, {text: "They yield the exact same amount.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>Explain the concept of "Interest on Interest" to someone without using math formulas.</p>`,
+                    opts: [ {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every year without you working."`, correct: true}, {text: `"The bank just gives you a flat bonus every year for being loyal."`, correct: false}, {text: `"Your interest rate automatically doubles every few years."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain the "Cost of Waiting" to a 20-year-old who wants to delay investing until 40?</p>`,
+                    opts: [ {text: `"By waiting, you chop off the last 20 years of the exponential curve, which is where 90% of the massive wealth explosion happens."`, correct: true}, {text: `"Waiting is smart because you will have a higher salary at 40."`, correct: false}, {text: `"It just means you have to invest exactly double the money later to catch up."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend says "Compound interest is always a good thing." In what situation is it a terrible thing?</p>`,
+                    opts: [ {text: `"When you owe money, like on a credit card. The debt explodes upwards against you, trapping you in a cycle."`, correct: true}, {text: `"When you invest in the stock market, because stocks can crash."`, correct: false}, {text: `"It is never a bad thing, it's just math."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why does a $10,000 credit card debt take over 20 years to pay off if you only make the minimum payment?</p>`,
+                    opts: [ {text: `"Because almost all of your minimum payment goes just to cover the new interest generated that month, barely touching the actual principal."`, correct: true}, {text: `"Because credit card companies freeze your account if you only pay the minimum."`, correct: false}, {text: `"Because the principal increases every month automatically."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain why a 2% management fee on a mutual fund is a massive deal over 30 years.</p>`,
+                    opts: [ {text: `"Because it acts as exponential decay. You aren't just losing 2% once, you are losing the compounded growth of that 2% over decades."`, correct: true}, {text: `"It isn't a big deal, 2% is a very small number."`, correct: false}, {text: `"Because the fee is added directly to your starting principal."`, correct: false} ]
+                },
+                {
+                    q: `<p>A client is angry that their 40-year compound interest graph looks "flat and useless" for the first 15 years.</p>`,
+                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough interest base to trigger the vertical explosion in the later years."`, correct: true}, {text: `"It means the stock market was crashing during those 15 years."`, correct: false}, {text: `"It's a glitch in the graph software."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you persuade parents to open a college fund the week their baby is born?</p>`,
+                    opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The time exponent ('n') will do all the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you get a special interest rate for babies."`, correct: false}, {text: `"Because college tuition grows linearly."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
     }
 
-    // --- Check Answer (Updated with Precision & Anti-Spam) ---
+    // --- Section 4.2: Buying a Car ---
+    function gen4_2(kica, qArea) {
+        let cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Tesla Model 3"];
+        let car = randChoice(cars);
+        
+        if (kica === "K") {
+            let monthly = randInt(300, 800);
+            let months = randChoice([48, 60, 72, 84]);
+            let down = randChoice([0, 1000, 2500, 5000]);
+            let ans = (monthly * months) + down;
+            
+            qArea.innerHTML = `<p>You buy a <strong>${car}</strong>.</p><p>Monthly Payment: $${monthly}<br>Term: ${months} months<br>Down Payment: $${down}</p><p>Calculate the <strong>Total Amount Paid</strong>.</p>`;
+            setupInput(ans.toString());
+            
+        } else if (kica === "A") {
+            let cash = randInt(20, 45) * 1000;
+            let monthly = Math.floor(cash / 60) + randInt(80, 200); 
+            let months = randChoice([72, 84]);
+            let down = randInt(1, 4) * 1000;
+            let total = (monthly * months) + down;
+            let cob = total - cash;
+            
+            qArea.innerHTML = `<p>The cash price of a ${car} is <strong>$${cash}</strong>.</p><p>You finance it with $${down} down and $${monthly}/month for ${months} months.</p><p>What is the <strong>Cost of Borrowing</strong> (the extra money lost to interest)?</p>`;
+            setupInput(cob.toString());
+            
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>You are offered a 48-month loan and an 84-month loan. Which one has the LOWER Monthly Payment, and which has the LOWER Total Cost of Borrowing?</p>`,
+                    opts: [ {text: "84-month has lower monthly payment. 48-month has lower total cost of borrowing.", correct: true}, {text: "48-month is lower for both.", correct: false}, {text: "84-month is lower for both.", correct: false} ]
+                },
+                {
+                    q: `<p>What does it mean to have "Negative Equity" (being underwater) on a car loan?</p>`,
+                    opts: [ {text: "The car depreciated faster than you paid it off, meaning you owe the bank more money than the car is actually worth.", correct: true}, {text: "It means the bank owes you money.", correct: false}, {text: "It means your interest rate is negative.", correct: false} ]
+                },
+                {
+                    q: `<p>A dealership offers "0% Financing" but the car costs $35,000. The cash price is $30,000.</p><p>Is this actually 0% interest?</p>`,
+                    opts: [ {text: "No, the $5,000 difference is essentially hidden interest baked into the inflated price.", correct: true}, {text: "Yes, because the contract says 0%.", correct: false}, {text: "Yes, dealerships are legally required to lose money on these deals.", correct: false} ]
+                },
+                {
+                    q: `<p>What is the mathematical benefit of making a large Down Payment on a car?</p>`,
+                    opts: [ {text: "It directly reduces the Principal (P), which severely reduces the compound interest charged over the entire term.", correct: true}, {text: "It lowers the interest rate percentage.", correct: false}, {text: "It increases the trade-in value.", correct: false} ]
+                },
+                {
+                    q: `<p>If you switch from Monthly payments to Accelerated Bi-Weekly payments, what happens to the loan?</p>`,
+                    opts: [ {text: "You end up making one extra full payment a year, killing the principal faster and saving thousands in interest.", correct: true}, {text: "The total interest paid increases.", correct: false}, {text: "Nothing changes mathematically.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is leasing a car generally considered the most expensive way to operate a vehicle long-term?</p>`,
+                    opts: [ {text: "Because you are purely paying for the steepest part of the depreciation curve (first 3 years) and build exactly zero equity.", correct: true}, {text: "Because leases always have 20% interest rates.", correct: false}, {text: "Because you have to buy gas for leased cars.", correct: false} ]
+                },
+                {
+                    q: `<p>You buy a $40,000 car on a 7-year loan. In year 3, it is totalled in an accident. Insurance pays you $20,000 (market value), but you owe the bank $28,000. What happens?</p>`,
+                    opts: [ {text: "You must pay the bank the remaining $8,000 out of your own pocket for a car that no longer exists.", correct: true}, {text: "The bank forgives the remaining debt.", correct: false}, {text: "The dealership replaces the car for free.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>Explain why Car Salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>`,
+                    opts: [ {text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain the "15% Rule" to a friend buying their first car?</p>`,
+                    opts: [ {text: `"Your total car costs (Loan + Gas + Insurance) should never exceed 15% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly 15% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above 15%."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend says, "A car is a great investment!" How do you correct them using math?</p>`,
+                    opts: [ {text: `"A car is a depreciating liability, not an investment. Exponential decay means it loses value rapidly every single year."`, correct: true}, {text: `"They are investments because you can sleep in them."`, correct: false}, {text: `"Actually, cars appreciate in value due to compound interest."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why is buying a 3-year-old used car considered a financial 'hack'?</p>`,
+                    opts: [ {text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because 3-year-old cars have 0% interest rates."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain "Cost of Borrowing" to someone who has never taken a loan.</p>`,
+                    opts: [ {text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean the car."`, correct: false}, {text: `"It is the cost of gas and insurance combined."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why do financial advisors recommend keeping car loans to 48 months (4 years) maximum?</p>`,
+                    opts: [ {text: `"If a loan goes longer than 4 years, the car's value usually drops faster than you are paying off the loan, leaving you trapped in negative equity."`, correct: true}, {text: `"Because banks refuse to give loans longer than 4 years."`, correct: false}, {text: `"Because cars physically break down completely after exactly 4 years."`, correct: false} ]
+                },
+                {
+                    q: `<p>A dealership offers to 'roll over' your old $5,000 debt into a brand new car loan. Why is this toxic?</p>`,
+                    opts: [text: `"You are now paying compound interest on a dead car while also paying for the new one. You instantly start the new loan with massive negative equity."`, correct: true},
+                    {text: `"It's actually a great deal because it combines your payments into one."`, correct: false},
+                    {text: `"Because the $5,000 is taxed twice."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    // --- Section 4.3: Credit Cards ---
+    function gen4_3(kica, qArea) {
+        if (kica === "K") {
+            let bal = randInt(5, 30) * 100;
+            let rate = randChoice([19.99, 22.99, 24.99]);
+            let ans = (bal * (rate/100)) / 12;
+            
+            qArea.innerHTML = `<p>Credit card balance: <strong>$${bal}</strong>.</p><p>Annual interest rate: <strong>${rate}%</strong>.</p><p>Calculate the approximate interest charge for <strong>one month</strong>.</p><p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(ans.toFixed(2));
+            
+        } else if (kica === "A") {
+            let bal = randInt(15, 45) * 100;
+            let rate = 19.99;
+            let minPay = Math.max(10, Math.floor(bal * 0.03)); // Standard 3% min payment
+            let monthInt = (bal * (rate/100)) / 12;
+            let principalPaid = minPay - monthInt;
+            
+            qArea.innerHTML = `<p>Balance: <strong>$${bal}</strong> at ${rate}% annual interest.</p><p>You make the minimum payment of <strong>$${minPay}</strong>.</p><p>After the bank takes their monthly interest, exactly how much <strong>Principal</strong> did you actually pay off?</p><p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(principalPaid.toFixed(2));
+            
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>What is a Credit Card "Grace Period"?</p>`,
+                    opts: [ {text: "The 21-day window where you are charged exactly 0% interest, IF you pay your full statement balance before the due date.", correct: true}, {text: "A period where you can miss a payment without hurting your credit score.", correct: false}, {text: "The time it takes for a refund to process.", correct: false} ]
+                },
+                {
+                    q: `<p>You use your credit card at an ATM to withdraw $500 cash (Cash Advance). What happens to the Grace Period?</p>`,
+                    opts: [ {text: "The grace period is instantly voided. You are charged high interest (often 22%+) daily from the exact second the cash leaves the machine.", correct: true}, {text: "You have 21 days to pay it back interest-free.", correct: false}, {text: "You only pay a flat $5 ATM fee.", correct: false} ]
+                },
+                {
+                    q: `<p>Why does making only the "Minimum Payment" trap people in debt for decades?</p>`,
+                    opts: [ {text: "Because the minimum payment is mathematically designed to mostly cover that month's interest, reducing the actual principal by only a few dollars.", correct: true}, {text: "Because minimum payments trigger penalty fees.", correct: false}, {text: "Because the interest rate doubles if you only pay the minimum.", correct: false} ]
+                },
+                {
+                    q: `<p>Credit cards compound interest DAILY. What does this mean mathematically?</p>`,
+                    opts: [ {text: "Every single day, yesterday's interest is added to your principal, and today's interest is calculated on that new, slightly larger pile.", correct: true}, {text: "You have to pay your bill every single day.", correct: false}, {text: "The bank changes your interest rate percentage every day.", correct: false} ]
+                },
+                {
+                    q: `<p>What is "Credit Utilization" and how does it affect your Credit Score?</p>`,
+                    opts: [ {text: "It is the percentage of your limit you are using. Maxing out your card (100% utilization) destroys your credit score, even if you make payments.", correct: true}, {text: "It is how many times you swipe the card per month.", correct: false}, {text: "It is the reward points you utilize.", correct: false} ]
+                },
+                {
+                    q: `<p>If you have a $1000 limit, what is the recommended maximum balance you should carry to keep a high credit score?</p>`,
+                    opts: [ {text: "$300 (Under 30% utilization).", correct: true}, {text: "$999 (As long as you don't go over).", correct: false}, {text: "$50 (Under 5%).", correct: false} ]
+                },
+                {
+                    q: `<p>What happens if you miss a credit card payment by 30 days?</p>`,
+                    opts: [ {text: "It is reported to the credit bureau, violently dropping your credit score and potentially ruining your chance to get a mortgage for up to 7 years.", correct: true}, {text: "The bank just charges you a $10 late fee and nothing else happens.", correct: false}, {text: "Your card is instantly cancelled permanently.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>What is the ONLY mathematically smart way to use a credit card?</p>`,
+                    opts: [ {text: `"Treat it exactly like a debit card. Only spend money you already have in your checking account, and pay the entire balance in full every month."`, correct: true}, {text: `"Max it out to build your credit score quickly."`, correct: false}, {text: `"Always pay exactly the minimum payment on time."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain the difference between a Debit Card and a Credit Card.</p>`,
+                    opts: [ {text: `"Debit removes your own cash directly from your bank. Credit is a high-interest short-term loan from the bank's money."`, correct: true}, {text: `"Debit cards have higher interest rates than credit cards."`, correct: false}, {text: `"There is no difference, they both buy things."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend wants a credit card with a $120 annual fee because it offers "2% cash back". They spend $2000 a year on the card. Advise them.</p>`,
+                    opts: [text: `"It's a bad math deal. 2% of $2000 is only $40. You are paying the bank $120 to give you $40 back."`, correct: true},
+                    {text: `"It's a great deal, cash back is free money."`, correct: false},
+                    {text: `"You should get it but use cash advances to get the rewards faster."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain why transferring a credit card balance to a 'Line of Credit' is usually a good idea.</p>`,
+                    opts: [ {text: `"Lines of Credit usually charge 7-10% simple interest, compared to a credit card's brutal 20% daily compounding rate. It stops the bleeding."`, correct: true}, {text: `"Because lines of credit don't require you to pay them back."`, correct: false}, {text: `"It isn't a good idea, they are the exact same thing."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend has $5,000 in savings earning 2%, but owes $5,000 on a credit card at 20%. They want to "keep their savings safe". Advise them.</p>`,
+                    opts: [ {text: `"The math is killing you. You earn $100 a year in savings but lose $1000 a year to the card. Use the savings to instantly kill the debt."`, correct: true}, {text: `"Keep the savings. It's always better to have cash in the bank."`, correct: false}, {text: `"Invest the $5,000 in the stock market to beat the 20%."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why do credit card companies happily offer "Increase your limit!" buttons on their apps?</p>`,
+                    opts: [ {text: `"Psychologically, people spend more when their limit is higher. The bank wants you to overspend and get trapped paying 20% interest."`, correct: true}, {text: `"Because it's a legal requirement to reward good customers."`, correct: false}, {text: `"Because they want to lower your credit score."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain to a teenager why a Credit Score dictates their entire adult life?</p>`,
+                    opts: [ {text: `"It is your 'Adult GPA'. A low score means landlords won't rent to you, banks will deny your car loan, and you'll be blocked from buying a house."`, correct: true}, {text: `"It actually doesn't matter unless you want to be an investment banker."`, correct: false}, {text: `"It only matters if you plan to get a credit card."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    // --- Answer Checking Logic ---
+    function setupInput(correctAnswer) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
+        document.getElementById('input-area').style.display = 'block';
+    }
+
+    function setupMC(options) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
+        
+        // Shuffle options
+        options.sort(() => Math.random() - 0.5);
+
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = opt.text;
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
+    }
+
     function checkAnswer() {
-        if (!currentQuestion) return;
+        if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
-        // Anti-Spam: Stop if already solved
-        if (isQuestionSolved) return;
-        
+        // Strip out $ and commas
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
-        let userVal = parseFloat(userRaw);
-        let feedback = document.getElementById('feedback-area');
+        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         
-        // Attempt numeric parsing logic
-        let isCorrect = false;
+        // Try parsing for math tolerance
+        let userNum = parseFloat(cleanUser);
         let ansNum = parseFloat(currentQuestion.answer);
+        
+        let isCorrect = false;
 
-        if (!isNaN(userVal) && !isNaN(ansNum)) {
-             // 0.01 Precision for Numbers/Money
-             if (Math.abs(userVal - ansNum) <= 0.01) {
+        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1;
+
+        if (isPureNumber && !isNaN(userNum)) {
+             // Financial Math Tolerance (0.01)
+             if (Math.abs(userNum - ansNum) <= 0.011) {
                  isCorrect = true;
              }
         } else {
-            // String comparison (fallback for non-numeric logic if added later)
-            let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
-            let cleanAns = currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '');
-            if (cleanUser === cleanAns) {
+            // String fallback
+            if (cleanUser === currentQuestion.answer) {
                 isCorrect = true;
             }
         }
 
-        if (isCorrect) {
-            feedback.innerHTML = "Correct!";
-            feedback.className = "correct";
-            isQuestionSolved = true; // Lock
-            currentScore++;
-            document.getElementById('score-display').innerText = currentScore;
-        } else {
-            feedback.innerHTML = "Incorrect. Try again.";
-            feedback.className = "incorrect";
-        }
+        displayFeedback(isCorrect);
     }
 
-    // Init
-    generateQuestion();
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        // Highlight chosen button
+        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+        btn.style.color = 'white';
+        
+        displayFeedback(isCorrect);
+    }
+
+    function displayFeedback(isCorrect) {
+        let feedback = document.getElementById('feedback-area');
+        if (isCorrect) {
+            feedback.innerHTML = "✅ Correct! Great financial logic.";
+            feedback.className = "correct";
+            isQuestionSolved = true; 
+            saveScore(true);
+        } else {
+            feedback.innerHTML = "❌ Incorrect. Try again or check your calculations.";
+            feedback.className = "incorrect";
+            saveScore(false);
+        }
+    }
 
 </script>
 </body>
