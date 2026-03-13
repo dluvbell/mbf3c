@@ -624,7 +624,7 @@
     </div>
 </main>
 
-<div class="version-tag">v6.1 (KICA Deep Randomization)</div>
+<div class="version-tag">v6.2 (Deep Randomization & KICA System)</div>
 
 <script>
     /* --- UTILS --- */
@@ -730,95 +730,152 @@
         else if (section === "6.4") gen6_4(kica, qArea);
     }
 
-    // --- Section 1: Basics & Odds (6.1 & 6.2) ---
+    // --- Section 6.1 & 6.2: Basics & Odds ---
     function gen6_1(kica, qArea) {
         if (kica === "K") {
-            let isOdds = Math.random() > 0.5;
-            let win = randInt(2, 9);
-            let lose = randInt(2, 9);
-            let total = win + lose;
-            
-            if (isOdds) {
-                qArea.innerHTML = `<p>A bag has ${win} Red marbles and ${lose} Blue marbles.</p><p>What are the <strong>Odds in Favour</strong> of drawing a Red marble? (Format: win:lose e.g. 5:2)</p>`;
+            let type = randInt(1, 7);
+            if (type <= 3) {
+                let win = randInt(2, 9);
+                let lose = randInt(2, 9);
+                let total = win + lose;
+                let c1 = randChoice(["Red", "Green", "Yellow"]);
+                let c2 = randChoice(["Blue", "Black", "White"]);
+                qArea.innerHTML = `<p>A bag has ${win} ${c1} marbles and ${lose} ${c2} marbles.</p><p>What are the <strong>Odds in Favour</strong> of drawing a ${c1} marble? (Format: win:lose)</p>`;
                 setupInput(`${win}:${lose}`);
+            } else if (type <= 5) {
+                let win = randInt(1, 5);
+                let lose = randInt(3, 10);
+                let total = win + lose;
+                let game = randChoice(["board game", "lottery", "raffle"]);
+                qArea.innerHTML = `<p>The odds against winning a ${game} are ${lose} to ${win}.</p><p>What is the mathematical <strong>Probability</strong> of winning?</p><p><small>(Enter decimal to 2 places or a fraction like 1/5)</small></p>`;
+                setupInput((win/total).toFixed(2)); // Accepts fraction in checkAnswer
             } else {
-                qArea.innerHTML = `<p>The odds against winning a game are ${lose} to ${win}.</p><p>What is the <strong>Probability</strong> of winning? (Enter as a decimal to 2 places, e.g. 0.25)</p>`;
-                setupInput((win/total).toFixed(2));
+                let prob = randInt(10, 40);
+                qArea.innerHTML = `<p>The probability of rain is ${prob}%.</p><p>What are the <strong>Odds Against</strong> rain? (Format: unfavorable:favorable)</p>`;
+                setupInput(`${100-prob}:${prob}`);
             }
         } else if (kica === "A") {
+            let type = randInt(1, 7);
             let total = randChoice([50, 100, 200, 500]);
             let hit = randInt(10, total - 10);
             
-            let asks = [
-                `<p>You flip a coin ${total} times and get Heads ${hit} times.</p><p>Based on this data, what is the <strong>Experimental Probability</strong> of getting Heads? (Decimal to 2 places)</p>`,
-                `<p>A baseball player is at bat ${total} times and gets a hit ${hit} times.</p><p>What is their Experimental Probability of getting a hit? (Decimal to 2 places)</p>`,
-                `<p>Out of ${total} lightbulbs tested, ${hit} worked perfectly.</p><p>Calculate the Experimental Probability of a bulb working. (Decimal to 2 places)</p>`
+            let scenarios = [
+                `<p>You flip a coin ${total} times and get Heads exactly ${hit} times.</p><p>What is the <strong>Experimental Probability</strong> of getting Heads?</p>`,
+                `<p>A baseball player is at bat ${total} times and gets a hit ${hit} times.</p><p>Calculate their Experimental Probability of getting a hit.</p>`,
+                `<p>Out of ${total} lightbulbs tested on an assembly line, ${hit} worked perfectly.</p><p>What is the Experimental Probability of a bulb working?</p>`,
+                `<p>A basketball player shoots ${total} free throws and makes ${hit} of them.</p><p>Calculate their Experimental Probability of scoring.</p>`,
+                `<p>A weather app predicted rain ${total} times last year, but it only rained ${hit} of those times.</p><p>What is the app's Experimental Probability of being correct?</p>`,
+                `<p>You roll a die ${total} times and land on '6' exactly ${hit} times.</p><p>What is the Experimental Probability of rolling a 6 based on this data?</p>`,
+                `<p>A customer survey was sent to ${total} people. ${hit} people said they loved the product.</p><p>What is the Experimental Probability of a customer loving it?</p>`
             ];
-            qArea.innerHTML = randChoice(asks);
+            qArea.innerHTML = scenarios[type - 1] + `<p><small>(Enter as a decimal to 2 places or a fraction)</small></p>`;
             setupInput((hit/total).toFixed(2));
         } else if (kica === "I") {
+            let type = randInt(1, 7);
+            let p1 = randInt(10, 40);
+            let age = randInt(16, 22);
+            let crash = randInt(10, 25);
+            let rolls = randInt(5, 10);
+            let target = randInt(1, 6);
+            
             let pool = [
                 {
-                    q: `<p>If you flip a coin 5 times, you might get 4 Heads (80%). But if you flip it 10,000 times, the experimental probability will get extremely close to 50%.</p><p>What mathematical rule explains this?</p>`,
+                    q: `<p>If you flip a coin 5 times, you might get 4 Heads (80%). But if you flip it 10,000 times, the experimental probability will inevitably get extremely close to 50%.</p><p>What mathematical rule guarantees this?</p>`,
                     opts: [ {text: "The Law of Large Numbers.", correct: true}, {text: "The Gambler's Fallacy.", correct: false}, {text: "Mutually Exclusive Events.", correct: false} ]
                 },
                 {
-                    q: `<p>Why is "Odds" not the exact same thing as "Probability"?</p>`,
-                    opts: [ {text: "Probability compares winners to the TOTAL amount. Odds compares winners to LOSERS.", correct: true}, {text: "Odds are used for money, Probability is used for science.", correct: false}, {text: "Probability uses percentages, Odds uses decimals.", correct: false} ]
+                    q: `<p>Why is "Odds" not mathematically the exact same thing as "Probability"?</p>`,
+                    opts: [ {text: "Probability compares winners to the TOTAL amount. Odds compares winners strictly to LOSERS.", correct: true}, {text: "Odds are used for money, Probability is used for science.", correct: false}, {text: "Probability uses percentages, Odds uses decimals.", correct: false} ]
                 },
                 {
-                    q: `<p>An insurance company sees that 16-year-old drivers crashed 12% of the time last year.</p><p>Why do they use this Experimental Probability to set prices this year?</p>`,
+                    q: `<p>An insurance company sees that ${age}-year-old drivers crashed ${crash}% of the time last year.</p><p>Why do they use this Experimental Probability to set prices this year?</p>`,
                     opts: [ {text: "Because real-world past data is the most mathematically reliable way to predict future risk and cover costs.", correct: true}, {text: "Because theoretical math is too hard to calculate for cars.", correct: false}, {text: "Because it guarantees 0 accidents this year.", correct: false} ]
                 },
                 {
-                    q: `<p>If the Odds in Favour of an event are 1:1, what is the Probability?</p>`,
+                    q: `<p>If the Odds in Favour of an event are exactly 1:1, what is the Probability of that event happening?</p>`,
                     opts: [ {text: "50% (or 1/2).", correct: true}, {text: "100% (or 1/1).", correct: false}, {text: "0%.", correct: false} ]
-                }
-            ];
-            let sel = randChoice(pool);
-            qArea.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let pool = [
-                {
-                    q: `<p>A friend looks at a weather app that says "80% chance of Rain". They say, "The odds are 80 to 100!"</p><p>How do you correct their math terminology?</p>`,
-                    opts: [ {text: `"Probability is 80 out of 100. Odds compare rain to no-rain, so the odds are actually 80 to 20 (or 4 to 1)."`, correct: true}, {text: `"The odds are 100 to 80."`, correct: false}, {text: `"You are completely right, odds and probability are interchangeable words."`, correct: false} ]
                 },
                 {
-                    q: `<p>Explain to a casino customer why a game paying "10 to 1 odds" is actually a very bad sign for their chances of winning.</p>`,
-                    opts: [ {text: `"Casinos only offer massive payouts on events that are mathematically incredibly unlikely to happen. High reward means high risk of losing."`, correct: true}, {text: `"It means you are guaranteed to win $10."`, correct: false}, {text: `"It means the casino made a mistake and you should play."`, correct: false} ]
+                    q: `<p>A student says, "The probability of event A is ${p1}%, so the probability of event B must be ${100-p1}%."</p><p>When is this statement mathematically true?</p>`,
+                    opts: [ {text: "Only if Event A and Event B are the ONLY two possible outcomes (like flipping a coin).", correct: true}, {text: "It is always true for any two events.", correct: false}, {text: "It is never true.", correct: false} ]
+                },
+                {
+                    q: `<p>If an event has a theoretical probability of exactly 0, what does that mean?</p>`,
+                    opts: [ {text: "It is mathematically and physically impossible for the event to happen.", correct: true}, {text: "It means the event will happen, but very rarely.", correct: false}, {text: "It means the data was collected wrong.", correct: false} ]
+                },
+                {
+                    q: `<p>You roll a die ${rolls} times and get a '${target}' exactly 0 times. Does this mean the Theoretical Probability of rolling a '${target}' has changed?</p>`,
+                    opts: [ {text: "No. Theoretical probability is a fixed mathematical fact. Experimental data doesn't change the underlying math of the object.", correct: true}, {text: "Yes, the die is now 'due' to hit a " + target + ".", correct: false}, {text: "Yes, the theoretical probability is now 0%.", correct: false} ]
+                }
+            ];
+            qArea.innerHTML = pool[type-1].q;
+            setupMC(pool[type-1].opts);
+        } else if (kica === "C") {
+            let type = randInt(1, 7);
+            let pct = randInt(70, 90);
+            let payout = randInt(8, 15);
+            let pDie = randInt(1, 6);
+            let pR = randInt(5, 9);
+            
+            let pool = [
+                {
+                    q: `<p>A friend looks at a weather app that says "${pct}% chance of Rain". They say, "The odds are ${pct} to 100!"</p><p>How do you correct their math terminology?</p>`,
+                    opts: [ {text: `"Probability is ${pct} out of 100. Odds compare rain to no-rain, so the odds are actually ${pct} to ${100-pct}."`, correct: true}, {text: `"The odds are 100 to ${pct}."`, correct: false}, {text: `"You are completely right, odds and probability are interchangeable words."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain to a casino customer why a game paying "${payout} to 1 odds" is actually a very bad sign for their chances of winning.</p>`,
+                    opts: [ {text: `"Casinos only offer massive payouts on events that are mathematically incredibly unlikely to happen. High reward means high risk of losing."`, correct: true}, {text: `"It means you are guaranteed to win $${payout}."`, correct: false}, {text: `"It means the casino made a mistake and you should play."`, correct: false} ]
                 },
                 {
                     q: `<p>How do you explain the difference between Theoretical and Experimental probability using a six-sided die?</p>`,
-                    opts: [ {text: `"Theoretical is knowing you SHOULD get a '3' one out of six times. Experimental is actually rolling it 100 times and counting what REALLY happened."`, correct: true}, {text: `"Theoretical is when you use a calculator. Experimental is when you do it in your head."`, correct: false}, {text: `"Experimental means the die is loaded or rigged."`, correct: false} ]
+                    opts: [ {text: `"Theoretical is knowing you SHOULD get a '${pDie}' one out of six times based on math. Experimental is actually rolling it and counting what REALLY happened."`, correct: true}, {text: `"Theoretical is when you use a calculator. Experimental is when you do it in your head."`, correct: false}, {text: `"Experimental means the die is loaded or rigged."`, correct: false} ]
                 },
                 {
-                    q: `<p>A client says, "I rolled a die 6 times and didn't get a single '2'. The math is broken!"</p><p>How do you explain this mathematically?</p>`,
-                    opts: [ {text: `"Theoretical math predicts long-term averages. In a tiny sample size like 6 rolls, random variance makes anything possible."`, correct: true}, {text: `"The math is definitely broken, the die must be fake."`, correct: false}, {text: `"You need to roll it exactly 12 times to guarantee a 2."`, correct: false} ]
+                    q: `<p>A client says, "I rolled a die ${pR} times and didn't get a single '${pDie}'. The math is broken!"</p><p>How do you explain this mathematically?</p>`,
+                    opts: [ {text: `"Theoretical math predicts long-term averages. In a tiny sample size like ${pR} rolls, random variance makes short streaks completely normal."`, correct: true}, {text: `"The math is definitely broken, the die must be fake."`, correct: false}, {text: `"You need to roll it exactly 12 times to guarantee a ${pDie}."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain to a child why a coin flip is considered the most "fair" way to settle a dispute.</p>`,
+                    opts: [ {text: `"Because theoretically, it has exactly 2 sides with equal weighting, making the probability perfectly 50/50 for both people."`, correct: true}, {text: `"Because flipping a coin is purely experimental."`, correct: false}, {text: `"Because the person flipping always wins."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why do businesses care more about Experimental Probability (past sales data) than Theoretical Probability?</p>`,
+                    opts: [ {text: `"Because humans are unpredictable. Theoretical math can't account for human emotion, but Experimental data shows exactly what people actually paid for."`, correct: true}, {text: `"Because Theoretical math is too expensive to calculate."`, correct: false}, {text: `"They actually prefer Theoretical because it looks better on paper."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend says "The odds are in my favour, so I am guaranteed to win." Correct them.</p>`,
+                    opts: [ {text: `"Having odds in your favour just means the probability is higher than 50%. It does not mathematically guarantee anything."`, correct: true}, {text: `"You are right, if odds are in your favour you cannot lose."`, correct: false}, {text: `"Odds actually have nothing to do with winning."`, correct: false} ]
                 }
             ];
-            let sel = randChoice(pool);
-            qArea.innerHTML = sel.q;
-            setupMC(sel.opts);
+            qArea.innerHTML = pool[type-1].q;
+            setupMC(pool[type-1].opts);
         }
     }
 
-    // --- Section 2: OR Events (Mutually & Non-Mutually Exclusive) ---
+    // --- Section 6.3 & 6.4: OR Events ---
     function gen6_2(kica, qArea) {
         if (kica === "K") {
             let isMut = Math.random() > 0.5;
+            let n1 = randInt(1,3), n2 = randInt(4,6);
+            let s1 = randChoice(["Red card", "Black card"]);
+            let s2 = randChoice(["Heart", "Spade"]);
+            
             let pool = [];
             if (isMut) {
                 pool = [
-                    "Rolling a 2 OR a 5 on a single die.",
-                    "Being in Grade 9 OR being in Grade 12 at the same time.",
-                    "Drawing a Red card OR a Spade from a deck." // Spade is black
+                    `Rolling a ${n1} OR a ${n2} on a single die.`,
+                    `Being in Grade 9 OR being in Grade 12 at the exact same time.`,
+                    `Drawing a ${s1} OR a Club from a standard deck.`,
+                    `A traffic light being Red OR Green at the exact same moment.`,
+                    `A coin landing on Heads OR Tails on a single flip.`
                 ];
             } else {
                 pool = [
-                    "Drawing a King OR a Heart from a deck.",
-                    "Rolling an Even number OR a number greater than 4 on a die.",
-                    "A student playing Basketball OR being on the Honor Roll."
+                    `Drawing a King OR a ${s2} from a deck.`,
+                    `Rolling an Even number OR a number greater than 3 on a die.`,
+                    `A student playing Basketball OR being on the Honor Roll.`,
+                    `Picking a day that is in the weekend OR starts with the letter 'S'.`,
+                    `Drawing a ${s1} OR an Ace from a deck.`
                 ];
             }
             qArea.innerHTML = `<p><strong>Scenario:</strong> ${randChoice(pool)}</p><p>Is this Mutually Exclusive or Non-Mutually Exclusive?</p>`;
@@ -829,35 +886,48 @@
         } else if (kica === "A") {
             let isMut = Math.random() > 0.5;
             if (isMut) {
-                // P(A) + P(B)
-                let num = randInt(2, 5);
-                qArea.innerHTML = `<p>You roll a standard 6-sided die.</p><p>Calculate the probability of rolling a 1 <strong>OR</strong> a ${num}.</p><p><small>(Enter decimal to 2 places)</small></p>`;
+                let num1 = randInt(1, 3);
+                let num2 = randInt(4, 6);
+                qArea.innerHTML = `<p>You roll a standard 6-sided die.</p><p>Calculate the probability of rolling a ${num1} <strong>OR</strong> a ${num2}.</p><p><small>(Enter decimal to 2 places or fraction)</small></p>`;
                 setupInput((2/6).toFixed(2));
             } else {
-                // Cards: P(A) + P(B) - P(A and B)
                 let suit = randChoice(["Hearts", "Diamonds", "Clubs", "Spades"]);
                 let face = randChoice(["King", "Queen", "Jack"]);
-                qArea.innerHTML = `<p>You draw one card from a standard 52-card deck.</p><p>Calculate the probability of drawing a <strong>${suit} OR a ${face}</strong>.</p><p><small>(Enter decimal to 2 places. Hint: P(Suit) + P(Face) - P(Both))</small></p>`;
-                // 13 suits + 4 faces - 1 overlap
+                qArea.innerHTML = `<p>You draw one card from a standard 52-card deck.</p><p>Calculate the probability of drawing a <strong>${suit} OR a ${face}</strong>.</p><p><small>(Hint: P(Suit) + P(Face) - P(Both overlap). Enter decimal to 2 places)</small></p>`;
                 setupInput(((13 + 4 - 1)/52).toFixed(2));
             }
         } else if (kica === "I") {
+            let pA = randInt(30, 45);
+            let pB = randInt(20, 35);
+            
             let pool = [
                 {
                     q: `<p>In the formula <span class="math-text">P(A or B) = P(A) + P(B) - P(A and B)</span>, why do we mathematically HAVE to subtract the end part?</p>`,
                     opts: [ {text: "Because if events overlap (like a Red Queen), we counted that card twice. Subtracting it fixes the double-counting.", correct: true}, {text: "Because 'OR' always means subtract in mathematics.", correct: false}, {text: "To account for the margin of error.", correct: false} ]
                 },
                 {
-                    q: `<p>If two events are Mutually Exclusive, what does <span class="math-text">P(A and B)</span> equal?</p>`,
-                    opts: [ {text: "0. They cannot happen at the exact same time.", correct: true}, {text: "1. They always happen together.", correct: false}, {text: "It equals P(A) + P(B).", correct: false} ]
+                    q: `<p>If two events are genuinely Mutually Exclusive, what does the overlap <span class="math-text">P(A and B)</span> equal?</p>`,
+                    opts: [ {text: "0. They cannot physically happen at the exact same time.", correct: true}, {text: "1. They always happen together.", correct: false}, {text: "It equals P(A) + P(B).", correct: false} ]
                 },
                 {
-                    q: `<p>A survey shows 40% of people like Pizza, and 30% like Burgers. Why is it WRONG to say 70% of people like Pizza OR Burgers?</p>`,
-                    opts: [ {text: "Because it ignores the overlap. Many people like BOTH, and you just double-counted them.", correct: true}, {text: "Because you are supposed to multiply them.", correct: false}, {text: "Because it should be 100%.", correct: false} ]
+                    q: `<p>A survey shows ${pA}% of people like Pizza, and ${pB}% like Burgers. Why is it mathematically WRONG to confidently say ${pA+pB}% of people like Pizza OR Burgers?</p>`,
+                    opts: [ {text: "Because it completely ignores the overlap. Many people like BOTH, and you just double-counted them.", correct: true}, {text: "Because you are supposed to multiply them.", correct: false}, {text: "Because it should always equal 100%.", correct: false} ]
                 },
                 {
                     q: `<p>If you are calculating P(Red Card OR Black Card), do you need to subtract an overlap?</p>`,
-                    opts: [ {text: "No, because a card cannot be both purely red and purely black at the same time (Mutually Exclusive).", correct: true}, {text: "Yes, you must always subtract overlap.", correct: false}, {text: "Yes, you subtract the Jokers.", correct: false} ]
+                    opts: [ {text: "No, because a standard card cannot be both purely red and purely black at the same time (Mutually Exclusive).", correct: true}, {text: "Yes, you must always subtract overlap.", correct: false}, {text: "Yes, you subtract the Jokers.", correct: false} ]
+                },
+                {
+                    q: `<p>In a Venn Diagram, what physical part of the drawing represents the <span class="math-text">P(A and B)</span> that must be subtracted in a Non-Mutually Exclusive OR equation?</p>`,
+                    opts: [ {text: "The middle intersecting section where the two circles overlap.", correct: true}, {text: "The outer edges of the circles.", correct: false}, {text: "The blank space outside the circles.", correct: false} ]
+                },
+                {
+                    q: `<p>If P(A) is 0.6 and P(B) is 0.5, why MUST they be Non-Mutually Exclusive?</p>`,
+                    opts: [ {text: "Because 0.6 + 0.5 = 1.1 (110%). Since probability cannot exceed 100%, there MUST be an overlap between them.", correct: true}, {text: "Because 0.6 and 0.5 are both greater than zero.", correct: false}, {text: "Actually, they can be Mutually Exclusive.", correct: false} ]
+                },
+                {
+                    q: `<p>You are finding P(Even OR Prime) on a 6-sided die. The number '2' is both Even and Prime. What is this '2' called in probability terms?</p>`,
+                    opts: [ {text: "The intersection or overlap (The 'AND' event) that must be subtracted so it isn't counted twice.", correct: true}, {text: "An outlier that should be ignored.", correct: false}, {text: "A mutually exclusive variable.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -871,7 +941,7 @@
                 },
                 {
                     q: `<p>Explain why getting an Academic Scholarship OR an Athletic Scholarship is Non-Mutually Exclusive.</p>`,
-                    opts: [ {text: `"Because it is entirely possible for a student to be both smart and athletic at the same time, meaning the two events can overlap."`, correct: true}, {text: `"Because you can only pick one."`, correct: false}, {text: `"Because they are paid by the same school."`, correct: false} ]
+                    opts: [ {text: `"Because it is entirely possible for a single student to be both smart and athletic at the exact same time, meaning the two events can overlap."`, correct: true}, {text: `"Because you can only legally accept one scholarship."`, correct: false}, {text: `"Because they are paid by the same university."`, correct: false} ]
                 },
                 {
                     q: `<p>A friend adds P(Rolling a 2) + P(Rolling a 3) and gets 2/6. They ask why they didn't subtract the overlap. Explain it to them.</p>`,
@@ -879,7 +949,19 @@
                 },
                 {
                     q: `<p>Translate the math keyword "OR" into a simple rule of thumb for calculating probability.</p>`,
-                    opts: [ {text: `"Whenever you hear 'OR', you are expanding your chances of winning, so you ADD the probabilities together."`, correct: true}, {text: `"Whenever you hear 'OR', you MULTIPLY the probabilities."`, correct: false}, {text: `"OR means you divide the two numbers."`, correct: false} ]
+                    opts: [ {text: `"Whenever you hear 'OR', you are expanding your options for winning, so you ADD the probabilities together."`, correct: true}, {text: `"Whenever you hear 'OR', you MULTIPLY the probabilities."`, correct: false}, {text: `"OR means you divide the two numbers."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you visually explain Mutually Exclusive events using a Venn Diagram?</p>`,
+                    opts: [ {text: `"It is two separate circles that never touch or overlap. You are either in one circle, the other, or neither."`, correct: true}, {text: `"It is one giant circle inside another circle."`, correct: false}, {text: `"It is two circles that overlap completely in the middle."`, correct: false} ]
+                },
+                {
+                    q: `<p>A client is confused why the probability of pulling a King OR a Queen is simply 4/52 + 4/52. Explain why.</p>`,
+                    opts: [ {text: `"Because a single card cannot be a King and a Queen at the same time. There is no overlap card to subtract."`, correct: true}, {text: `"Because you always add probabilities without thinking."`, correct: false}, {text: `"Because there are 4 of each suit."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why is calculating P(A OR B) for Non-Mutually exclusive events considered harder than Mutually exclusive?</p>`,
+                    opts: [ {text: `"Because you have to do the extra mental work of identifying exactly how many outcomes share both traits and manually subtract them."`, correct: true}, {text: `"Because you have to multiply instead of add."`, correct: false}, {text: `"It isn't harder, the formula is exactly the same."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -888,22 +970,30 @@
         }
     }
 
-    // --- Section 3: AND Events (Independent & Dependent) ---
+    // --- Section 6.5 & 6.6: AND Events ---
     function gen6_3(kica, qArea) {
         if (kica === "K") {
             let isInd = Math.random() > 0.5;
+            let n1 = randInt(1, 6);
+            let n2 = randInt(1, 6);
+            let c1 = randChoice(["Red", "Blue", "Green"]);
+            
             let pool = [];
             if (isInd) {
                 pool = [
-                    "Flipping a coin, then rolling a die.",
-                    "Drawing a card, PUTTING IT BACK, then drawing another.",
-                    "Winning the lottery, and then getting struck by lightning."
+                    `Flipping a coin, then rolling a ${n1} on a die.`,
+                    `Drawing a card, PUTTING IT BACK, then drawing another card.`,
+                    `Winning the lottery, and then getting struck by lightning.`,
+                    `Rolling a ${n1} on one die, and a ${n2} on a completely different die.`,
+                    `Picking a ${c1} marble, replacing it, and picking again.`
                 ];
             } else {
                 pool = [
-                    "Drawing an Ace, KEEPING IT, then drawing another Ace.",
-                    "Eating a red candy from a bag, then pulling out another candy.",
-                    "Picking a team captain, then picking a co-captain from the remaining players."
+                    `Drawing an Ace, KEEPING IT, then drawing another Ace.`,
+                    `Eating a ${c1} candy from a bag, then pulling out another candy.`,
+                    `Picking a team captain, then picking a co-captain from the remaining players.`,
+                    `Drawing 3 cards in a row WITHOUT replacement.`,
+                    `Selecting a winning raffle ticket and throwing it away, then picking the second winner.`
                 ];
             }
             qArea.innerHTML = `<p><strong>Scenario:</strong> ${randChoice(pool)}</p><p>Is this Independent or Dependent?</p>`;
@@ -916,39 +1006,53 @@
             if (isInd) {
                 let coin = randChoice(["Heads", "Tails"]);
                 let die = randInt(1, 6);
-                qArea.innerHTML = `<p>You flip a coin and roll a die.</p><p>What is the probability of getting <strong>${coin} AND a ${die}</strong>?</p><p><small>(Enter decimal to 3 places)</small></p>`;
+                qArea.innerHTML = `<p>You flip a coin and roll a die.</p><p>What is the probability of getting exactly <strong>${coin} AND a ${die}</strong>?</p><p><small>(Enter decimal to 3 places or fraction)</small></p>`;
                 setupInput(((1/2) * (1/6)).toFixed(3));
             } else {
-                let color = randChoice(["Red", "Blue"]);
-                let total = randInt(8, 12);
-                let target = randInt(3, 5);
+                let color = randChoice(["Red", "Blue", "Green"]);
+                let total = randInt(8, 15);
+                let target = randInt(3, 6);
                 qArea.innerHTML = `<p>A bag has ${target} ${color} marbles out of ${total} total marbles.</p><p>You draw one ${color} marble, <strong>KEEP IT</strong>, and draw a second one.</p><p>What is the probability they are <strong>BOTH ${color}</strong>?</p><p><small>(Enter decimal to 3 places)</small></p>`;
                 let ans = (target/total) * ((target-1)/(total-1));
                 setupInput(ans.toFixed(3));
             }
         } else if (kica === "I") {
+            let n1 = randInt(5, 15);
             let pool = [
                 {
                     q: `<p>In a Dependent event (like drawing two cards without replacement), what happens to the mathematical denominator for the second draw?</p>`,
                     opts: [ {text: "It decreases by 1 (e.g., from 52 to 51) because the total pool of available items has physically shrunk.", correct: true}, {text: "It stays exactly the same.", correct: false}, {text: "It multiplies by 2.", correct: false} ]
                 },
                 {
-                    q: `<p>A roulette wheel lands on Red 10 times in a row. A gambler bets $1000 on Black, saying "It's due to hit!"</p><p>What mathematical rule are they ignoring?</p>`,
-                    opts: [ {text: "Spins are entirely Independent events. The wheel has no memory, so the chance of Black is still exactly ~47% on the 11th spin.", correct: true}, {text: "They are right, the chance of Black is now almost 100%.", correct: false}, {text: "Roulette is a Dependent event.", correct: false} ]
+                    q: `<p>A roulette wheel lands on Red ${n1} times in a row. A gambler bets heavy on Black, saying "It's due to hit!"</p><p>What mathematical rule are they ignoring?</p>`,
+                    opts: [ {text: "Spins are entirely Independent events. The wheel has no memory, so the chance of Black is still exactly ~47% on the next spin.", correct: true}, {text: "They are right, the chance of Black is now almost 100%.", correct: false}, {text: "Roulette is a Dependent event.", correct: false} ]
                 },
                 {
-                    q: `<p>If P(A) is 0.5 and P(B) is 0.5, why does P(A <strong>AND</strong> B) equal 0.25?</p>`,
+                    q: `<p>If P(A) is 0.5 and P(B) is 0.5, why does P(A <strong>AND</strong> B) magically shrink to 0.25?</p>`,
                     opts: [ {text: "Because requiring two things to happen in a row makes it much harder to win. You MULTIPLY fractions, making the resulting probability smaller.", correct: true}, {text: "Because you add them: 0.5 + 0.5 = 1.0.", correct: false}, {text: "It's a coincidence.", correct: false} ]
                 },
                 {
                     q: `<p>Why is card counting in Blackjack mathematically possible, but card counting in Roulette impossible?</p>`,
-                    opts: [ {text: "Blackjack deals without replacement (Dependent), so past events alter future odds. Roulette resets every spin (Independent).", correct: true}, {text: "Because Roulette spins too fast to count.", correct: false}, {text: "Card counting is impossible in both games.", correct: false} ]
+                    opts: [ {text: "Blackjack deals without replacement (Dependent), so past events physically alter future odds. Roulette resets every spin (Independent).", correct: true}, {text: "Because Roulette spins too fast to count.", correct: false}, {text: "Card counting is impossible in both games.", correct: false} ]
+                },
+                {
+                    q: `<p>If you draw a marble, look at it, and <strong>put it back</strong> before drawing again, what type of event is the second draw?</p>`,
+                    opts: [ {text: "Independent. The starting conditions were perfectly reset, so the odds are exactly the same as the first draw.", correct: true}, {text: "Dependent. You already looked at the marble.", correct: false}, {text: "Mutually Exclusive.", correct: false} ]
+                },
+                {
+                    q: `<p>You are drawing two Aces without replacement. Why does the numerator change from 4 to 3 for the second draw?</p>`,
+                    opts: [ {text: "Because the first draw was an Ace, there is now one less 'winning' card available in the deck.", correct: true}, {text: "Because the deck size decreased.", correct: false}, {text: "It doesn't change, it stays 4.", correct: false} ]
+                },
+                {
+                    q: `<p>If Event A does absolutely nothing to change the probability of Event B, they are called:</p>`,
+                    opts: [ {text: "Independent Events.", correct: true}, {text: "Dependent Events.", correct: false}, {text: "Mutually Exclusive Events.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         } else if (kica === "C") {
+            let tAmt = randInt(2, 5);
             let pool = [
                 {
                     q: `<p>Translate the math keyword "AND" into a simple rule of thumb for calculating probability.</p>`,
@@ -965,6 +1069,20 @@
                 {
                     q: `<p>Why do lottery tickets have such an impossibly low probability of winning?</p>`,
                     opts: [ {text: `"Because you have to match the 1st number AND the 2nd number AND the 3rd number... Multiplying tiny fractions together repeatedly creates an infinitesimally small final number."`, correct: true}, {text: `"Because they only print one winning ticket."`, correct: false}, {text: `"Because the numbers are mutually exclusive."`, correct: false} ]
+                },
+                {
+                    q: `<p>If you need to flip Heads ${tAmt} times in a row, why does the probability drop so fast?</p>`,
+                    opts: [ {text: `"Because you are multiplying 1/2 by itself ${tAmt} times. Each requirement cuts your survival chance in half."`, correct: true}, {text: `"Because the coin gets heavier."`, correct: false}, {text: `"Because you are adding 1/2 + 1/2."`, correct: false} ]
+                },
+                {
+                    q: `<p>A client asks why Car Insurance is higher for teenagers who have never crashed. Explain using Independent vs Dependent concepts.</p>`,
+                    opts: [ {text: `"While your specific driving record is clean, insurance uses the vast pool of experimental data. Teenagers as a whole group have a dependent relationship with higher crash rates."`, correct: true}, {text: `"Because insurance is an independent event."`, correct: false}, {text: `"Because teenagers drive faster cars."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain how a Tree Diagram proves that P(Heads AND Heads) is 1/4.</p>`,
+                    opts: [text: `"The tree splits into 2 branches for the first flip, and each of those splits into 2 more for the second flip. There are 4 total end-branches, and only 1 path represents H-H."`, correct: true},
+                    {text: `"Because you add 1/2 and 1/2 to get 1/4."`, correct: false},
+                    {text: `"Because there are 4 sides to a coin."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -973,7 +1091,7 @@
         }
     }
 
-    // --- Section 4: Expected Value (6.7) ---
+    // --- Section 6.7: Expected Value (EV) ---
     function gen6_4(kica, qArea) {
         if (kica === "K") {
             let winAmt = randInt(5, 20) * 10;
@@ -982,7 +1100,13 @@
             let pLose = 1 - pWin;
             let ans = (pWin * winAmt) - (pLose * loseAmt);
             
-            qArea.innerHTML = `<p>You play a game. <br>Chance to WIN $${winAmt} is ${pWin}. <br>Chance to LOSE $${loseAmt} is ${pLose.toFixed(1)}.</p><p>Calculate the <strong>Expected Value (EV)</strong>.</p><p><small>(Formula: (P(Win) &times; Win $) - (P(Lose) &times; Lose $). Can be negative.)</small></p>`;
+            let pool = [
+                `<p>You play a game. <br>Chance to WIN $${winAmt} is ${pWin}. <br>Chance to LOSE $${loseAmt} is ${pLose.toFixed(1)}.</p><p>Calculate the <strong>Expected Value (EV)</strong>.</p>`,
+                `<p>An investment has a ${pWin} probability of making $${winAmt}, and a ${pLose.toFixed(1)} probability of losing $${loseAmt}.</p><p>Calculate the mathematical Expected Value.</p>`,
+                `<p>A scratch ticket pays $${winAmt} with probability ${pWin}. It costs $${loseAmt} to play (Probability of losing is ${pLose.toFixed(1)}).</p><p>Find the EV.</p>`
+            ];
+            
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Formula: (P(Win) &times; Win $) - (P(Lose) &times; Lose $). Can be negative.)</small></p>`;
             setupInput(ans.toFixed(2));
             
         } else if (kica === "A") {
@@ -990,26 +1114,46 @@
             let breakProb = randInt(5, 15);
             let ans = itemCost * (breakProb/100);
             
-            qArea.innerHTML = `<p>A $${itemCost} laptop has a ${breakProb}% chance of breaking.</p><p>What is the mathematical <strong>Expected Cost</strong> of the repair if you don't buy a warranty?</p><p><small>(Calculate: ${breakProb}% of $${itemCost})</small></p>`;
+            let pool = [
+                `<p>A $${itemCost} laptop has a ${breakProb}% chance of breaking.</p><p>What is the mathematical <strong>Expected Cost</strong> of the repair if you don't buy a warranty?</p>`,
+                `<p>A $${itemCost} TV has a ${breakProb}% failure rate in the first 2 years.</p><p>Calculate the Expected Value of the failure cost.</p>`,
+                `<p>A shipping company loses ${breakProb}% of packages. A package is worth $${itemCost}.</p><p>What is the Expected Value of the loss per package?</p>`
+            ];
+            
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Calculate: ${breakProb}% of $${itemCost})</small></p>`;
             setupInput(ans.toFixed(2));
             
         } else if (kica === "I") {
+            let wPrice = randInt(80, 150);
+            let evCost = randInt(20, 60);
             let pool = [
                 {
-                    q: `<p>If the Expected Value (EV) of a casino game is <strong>-$0.50</strong>, what does this actually mean?</p>`,
-                    opts: [ {text: "On average, you will lose 50 cents every single time you play the game. If you play 100 times, you will lose about $50.", correct: true}, {text: "It means every time you play, you will hand the dealer exactly 50 cents.", correct: false}, {text: "It means the game is broken.", correct: false} ]
+                    q: `<p>If the Expected Value (EV) of a casino game is <strong>-$0.50</strong>, what does this actually mean in reality?</p>`,
+                    opts: [ {text: "On average, you will bleed 50 cents every single time you play the game. If you play 100 times, math guarantees you will lose about $50.", correct: true}, {text: "It means every time you play, you will hand the dealer exactly 50 cents.", correct: false}, {text: "It means the game is broken.", correct: false} ]
                 },
                 {
-                    q: `<p>Why are casino games always mathematically designed to have a NEGATIVE Expected Value for the player?</p>`,
-                    opts: [ {text: "Because the player's negative EV is the Casino's positive EV. That guaranteed mathematical edge is how the business pays its bills and makes profit.", correct: true}, {text: "Because casinos are legally not allowed to give away money.", correct: false}, {text: "Because players prefer games that are hard to win.", correct: false} ]
+                    q: `<p>Why are casino games completely reliant on having a NEGATIVE Expected Value for the player?</p>`,
+                    opts: [ {text: "Because the player's negative EV is the Casino's positive EV. That guaranteed mathematical edge is the only way the business makes profit.", correct: true}, {text: "Because casinos are legally not allowed to give away money.", correct: false}, {text: "Because players prefer games that are hard to win.", correct: false} ]
                 },
                 {
-                    q: `<p>You calculate the EV of buying a $100 warranty, and the math says the expected cost of repair is only $40.</p><p>Mathematically, is the warranty a good deal?</p>`,
-                    opts: [ {text: "No. You are paying $100 to protect against a mathematically expected loss of only $40. The company is making a $60 profit off you.", correct: true}, {text: "Yes, because $100 is more than $40.", correct: false}, {text: "Yes, warranties are always mathematically positive EV.", correct: false} ]
+                    q: `<p>You calculate the EV of buying a $${wPrice} warranty, and the math says the expected cost of repair is only $${evCost}.</p><p>Mathematically, is the warranty a smart financial deal?</p>`,
+                    opts: [ {text: `No. You are paying $${wPrice} to protect against a mathematically expected loss of only $${evCost}. The company is making a massive profit off your fear.`, correct: true}, {text: `Yes, because $${wPrice} is more than $${evCost}.`, correct: false}, {text: "Yes, warranties are always mathematically positive EV.", correct: false} ]
                 },
                 {
-                    q: `<p>How does a Tree Diagram help calculate Expected Value?</p>`,
-                    opts: [ {text: "It visually maps out every possible timeline (win, lose, draw) and its exact probability, so you can multiply them by the money outcomes without missing anything.", correct: true}, {text: "It generates random numbers for you.", correct: false}, {text: "It changes dependent events into independent ones.", correct: false} ]
+                    q: `<p>How does a Tree Diagram physically help you calculate Expected Value for a complex business decision?</p>`,
+                    opts: [ {text: "It visually maps out every possible timeline (win, lose, draw) and its exact probability, so you can multiply them by the money outcomes without missing a scenario.", correct: true}, {text: "It generates random numbers for you automatically.", correct: false}, {text: "It changes dependent events into independent ones.", correct: false} ]
+                },
+                {
+                    q: `<p>What does it mean if a game has an Expected Value of exactly $0.00?</p>`,
+                    opts: [ {text: "It is a perfectly 'Fair Game'. Over the long run, neither the player nor the house will make any profit.", correct: true}, {text: "It means no one can ever win.", correct: false}, {text: "It means the game is rigged.", correct: false} ]
+                },
+                {
+                    q: `<p>If an investment has a 90% chance to lose $100, and a 10% chance to win $1000, what is the EV?</p>`,
+                    opts: [ {text: "EV = +$10. Even though you lose 90% of the time, the massive payout makes it a mathematically profitable long-term risk.", correct: true}, {text: "EV = -$90.", correct: false}, {text: "EV = $1000.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is Expected Value considered a tool for 'Long Term' thinking?</p>`,
+                    opts: [ {text: "Because in a single try, EV is meaningless (you either win or lose). EV only becomes reality when you repeat the action hundreds of times.", correct: true}, {text: "Because the calculation takes a long time to do.", correct: false}, {text: "Because it only applies to retirement accounts.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -1017,22 +1161,36 @@
             setupMC(sel.opts);
             
         } else if (kica === "C") {
+            let uncleWin = randInt(5, 50) * 1000;
+            let lossAmt = randChoice([2, 5, 10]);
             let pool = [
                 {
-                    q: `<p>A client says, "The Expected Value of this lottery ticket is -$2.00, but my uncle won $10,000 yesterday! The math is wrong!"</p><p>How do you explain this?</p>`,
-                    opts: [ {text: `"Expected Value doesn't predict single events; it predicts the AVERAGE over millions of tickets. Your uncle got lucky, but the million people who lost $2.00 prove the math."`, correct: true}, {text: `"Your uncle must have cheated."`, correct: false}, {text: `"The math is wrong, lotteries actually have positive EV."`, correct: false} ]
+                    q: `<p>A client says, "The Expected Value of this lottery ticket is -$${lossAmt}.00, but my uncle won $${uncleWin} yesterday! The math is a lie!"</p><p>How do you explain this?</p>`,
+                    opts: [ {text: `"Expected Value doesn't predict a single lucky event; it predicts the AVERAGE over millions of tickets. Your uncle beat the odds, but the million people who lost $${lossAmt} prove the math."`, correct: true}, {text: `"Your uncle must have cheated."`, correct: false}, {text: `"The math is actually wrong, lotteries have positive EV."`, correct: false} ]
                 },
                 {
-                    q: `<p>Explain to a friend why buying an extended warranty on a $50 toaster is usually a bad financial idea.</p>`,
-                    opts: [ {text: `"Insurance companies set the warranty price higher than the Expected Value of the toaster breaking. Over your lifetime, paying cash to replace cheap broken items is mathematically cheaper than buying warranties for everything."`, correct: true}, {text: `"Because toasters never break."`, correct: false}, {text: `"Because warranties are illegal for small appliances."`, correct: false} ]
+                    q: `<p>Explain to a friend why buying an extended warranty on a $30 toaster is always a terrible financial idea.</p>`,
+                    opts: [ {text: `"Stores set the warranty price higher than the Expected Value of the toaster breaking. Over your lifetime, paying cash to replace cheap broken items is mathematically far cheaper than buying warranties for everything."`, correct: true}, {text: `"Because toasters literally never break."`, correct: false}, {text: `"Because warranties are illegal for small appliances."`, correct: false} ]
                 },
                 {
-                    q: `<p>If the math says warranties are a "bad deal" (Negative EV), explain to a client why people still buy life insurance or house insurance.</p>`,
+                    q: `<p>If the math says warranties are a "bad deal" (Negative EV), explain to a client why people still willingly buy Life Insurance or House Insurance.</p>`,
                     opts: [ {text: `"Because the absolute worst-case scenario (house burning down) would bankrupt you. You willingly accept a Negative EV to buy 'peace of mind' and protection against total financial ruin."`, correct: true}, {text: `"Because house insurance actually has a Positive EV."`, correct: false}, {text: `"Because the government forces you to."`, correct: false} ]
                 },
                 {
                     q: `<p>How would you summarize the core rule of Expected Value (EV) in investing or gambling?</p>`,
-                    opts: [ {text: `"Never put your money into a system with a Negative Expected Value over the long term, because mathematics guarantees you will eventually go broke."`, correct: true}, {text: `"Always bet on the highest possible payout, regardless of the EV."`, correct: false}, {text: `"EV is only for casinos, it doesn't apply to stocks or investments."`, correct: false} ]
+                    opts: [ {text: `"Never put your money into a system with a Negative Expected Value over the long term, because the Law of Large Numbers guarantees you will eventually go broke."`, correct: true}, {text: `"Always bet on the highest possible payout, regardless of the EV."`, correct: false}, {text: `"EV is only for casinos, it doesn't apply to stocks."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain how a Tree Diagram helps a CEO make a decision about launching a risky new product.</p>`,
+                    opts: [ {text: `"It maps out the probability of Success vs Failure, and multiplies them by the Potential Profit vs Potential Loss, giving the CEO a single 'Expected Value' dollar amount to base their decision on."`, correct: true}, {text: `"It draws a picture of the product."`, correct: false}, {text: `"It proves that every product will eventually fail."`, correct: false} ]
+                },
+                {
+                    q: `<p>A casino manager says, "We let people win sometimes so they keep playing." Explain how EV protects the casino's profits anyway.</p>`,
+                    opts: [ {text: `"As long as the game's overall EV is negative for the player, short-term winners act as free advertising. The math guarantees the casino always wins over millions of spins."`, correct: true}, {text: `"The casino actually loses money when people win."`, correct: false}, {text: `"EV is paused when someone wins a jackpot."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain to someone that 'EV = 0' is the only true 'Fair Game'?</p>`,
+                    opts: [ {text: `"If EV is 0, neither side has a mathematical advantage. Over infinite games, you would break exactly even, making it purely a game of luck rather than a rigged system."`, correct: true}, {text: `"Because 0 means you don't have to pay to play."`, correct: false}, {text: `"Because fair games always result in a tie."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -1057,7 +1215,7 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = opt.text; // Ensure HTML tags (like superscripts) render in buttons if present
+            btn.innerHTML = opt.text; 
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
