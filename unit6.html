@@ -179,55 +179,61 @@
             padding: 20px;
             border-radius: var(--border-radius);
             margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
+            border: 1px solid #bdc3c7;
         }
 
         select, input[type="text"], input[type="number"] {
-            padding: 8px;
-            border: 1px solid #ccc;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
             border-radius: 4px;
             font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
         }
 
         .btn-primary {
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1rem;
+            margin-top: 10px;
         }
-
         .btn-primary:hover { background-color: #2980b9; }
 
         .score-board {
-            margin-left: auto;
             font-weight: bold;
             color: var(--primary-color);
+            font-size: 1.1rem;
+            float: right;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         #question-area {
             margin: 20px 0;
-            padding: 20px;
+            padding: 30px;
             border: 2px dashed #bdc3c7;
             border-radius: var(--border-radius);
             text-align: center;
-            min-height: 150px;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            font-size: 1.3rem;
+            font-weight: 500;
         }
 
-        /* Option Buttons for Which Rule */
+        /* Option Buttons for KICA */
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 15px;
             width: 100%;
             max-width: 600px;
             margin-top: 20px;
@@ -241,6 +247,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.2s;
+            font-size: 1rem;
         }
         .option-btn:hover {
             background: var(--accent-color);
@@ -249,76 +256,25 @@
 
         #feedback-area {
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
             min-height: 24px;
+            font-size: 1.1rem;
         }
 
         .correct { color: var(--success-color); }
         .incorrect { color: var(--error-color); }
 
-        /* Visual Elements for Practice */
-        /* Dice */
-        .dice {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border: 2px solid #333;
-            border-radius: 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            padding: 4px;
-            gap: 2px;
-            margin: 10px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-        }
-        .dot { background: #333; border-radius: 50%; width: 100%; height: 100%; visibility: hidden; }
-        .d-show { visibility: visible; }
-
-        /* Cards */
-        .playing-card {
-            width: 80px;
-            height: 110px;
-            background: white;
-            border: 1px solid #aaa;
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            margin: 10px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            position: relative;
-        }
-        .card-red { color: #e74c3c; }
-        .card-black { color: #2c3e50; }
-        .corner-top { position: absolute; top: 2px; left: 5px; font-size: 1rem; }
-        .corner-bottom { position: absolute; bottom: 2px; right: 5px; font-size: 1rem; transform: rotate(180deg); }
-
-        /* Spinner */
-        .spinner-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 10px;
-        }
-        .spinner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid #333;
-            background: conic-gradient(red 0deg 90deg, blue 90deg 180deg, green 180deg 270deg, yellow 270deg 360deg);
-        }
-        .arrow {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0; 
-            height: 0; 
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 15px solid #333;
+        /* Print Button */
+        .print-btn {
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            float: right;
         }
 
         /* Assignment Table */
@@ -334,25 +290,11 @@
         }
         th { background-color: var(--primary-color); color: white; }
 
-        /* Print Button */
-        .print-btn {
-            background-color: #7f8c8d;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-top: 10px;
-            float: right;
-        }
-
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
             nav { flex-direction: column; }
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
-            .histogram-container { width: 100%; }
         }
         
         .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
@@ -367,10 +309,10 @@
 
 <nav>
     <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button class="active" onclick="openTab('tab-calculator')">Calculator</button>
-    <button onclick="openTab('tab-lessons')">Lessons</button>
-    <button onclick="openTab('tab-practice')">Practice</button>
-    <button onclick="openTab('tab-assignment')">Assignment</button>
+    <button class="active" onclick="openTab(event, 'tab-calculator')">Calculator</button>
+    <button onclick="openTab(event, 'tab-lessons')">Lessons</button>
+    <button onclick="openTab(event, 'tab-practice')">Practice</button>
+    <button onclick="openTab(event, 'tab-assignment')">Assignment</button>
 </nav>
 
 <main>
@@ -538,32 +480,62 @@
     </div>
 
     <div id="tab-practice" class="tab-content">
-        <h2>Practice Problems</h2>
+        <h2>Practice Problems (KICA Training)</h2>
+        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills.</p>
+        
         <div class="practice-controls">
-            <label for="practice-mode">Select Mode:</label>
-            <select id="practice-mode" onchange="resetPracticeUI()">
-                <option value="visual">Single Problem (Visual)</option>
-                <option value="text">Text Based (Word Problems)</option>
-                <option value="rule">Which Rule? (Scenario Analysis)</option>
-                <option value="all">All in One (Random)</option>
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic & KICA Skill:</label>
+            <select id="practice-selector" onchange="resetPracticeUI()">
+                <option value="" disabled selected>-- Choose a Training Module --</option>
+                
+                <optgroup label="6.1 & 6.2: Basics & Odds">
+                    <option value="6.1-K">Knowledge: Calculate Basic Prob/Odds</option>
+                    <option value="6.1-A">Application: Experimental Probability</option>
+                    <option value="6.1-I">Inquiry: Law of Large Numbers</option>
+                    <option value="6.1-C">Comm: Explain Odds vs Probability</option>
+                </optgroup>
+
+                <optgroup label="6.3 & 6.4: Mutually & Non-Mutually Exclusive (OR)">
+                    <option value="6.2-K">Knowledge: Identify Exclusive vs Non-Exclusive</option>
+                    <option value="6.2-A">Application: Calculate P(A or B)</option>
+                    <option value="6.2-I">Inquiry: The Overlap Danger</option>
+                    <option value="6.2-C">Comm: Real-World Overlaps</option>
+                </optgroup>
+
+                <optgroup label="6.5 & 6.6: Independent & Dependent (AND)">
+                    <option value="6.3-K">Knowledge: Identify Independent vs Dependent</option>
+                    <option value="6.3-A">Application: Calculate P(A and B)</option>
+                    <option value="6.3-I">Inquiry: Replacement Mechanics</option>
+                    <option value="6.3-C">Comm: The Gambler's Fallacy</option>
+                </optgroup>
+
+                <optgroup label="6.7: Expected Value (EV)">
+                    <option value="6.4-K">Knowledge: Calculate Expected Value</option>
+                    <option value="6.4-A">Application: Warranty & Casino Math</option>
+                    <option value="6.4-I">Inquiry: The Meaning of Negative EV</option>
+                    <option value="6.4-C">Comm: Advising a Client on Risk</option>
+                </optgroup>
             </select>
-            <button class="btn-primary" onclick="generateQuestion()">New Question</button>
-            <span class="score-board">Score: <span id="score-display">0</span></span>
+
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Random Question</button>
+            <div class="score-board">
+                Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
+                <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
+            </div>
         </div>
 
         <div id="question-area">
-            <p>Select a mode and click "New Question" to begin.</p>
+            <p>Please select a module from the dropdown above to begin.</p>
         </div>
 
-        <div id="input-area" style="text-align: center; margin-top: 15px;">
-            <input type="text" id="user-answer" placeholder="Enter answer (e.g., 25 or 1/4)">
+        <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
+            <input type="text" id="user-answer" placeholder="Enter answer (e.g. 0.25 or 1/4)">
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
         
+        <div id="mc-area" class="option-grid" style="display:none;"></div>
+
         <div id="feedback-area"></div>
-        <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;" id="format-hint">
-            * Acceptable formats: Fractions (1/2), Decimals (0.5), or Percent (50%).
-        </p>
     </div>
 
     <div id="tab-assignment" class="tab-content">
@@ -652,455 +624,501 @@
     </div>
 </main>
 
-<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+<div class="version-tag">v6.1 (KICA Deep Randomization)</div>
 
 <script>
-    // --- State Management ---
-    let currentScore = 0; // Initialize logic variable
-    let isQuestionSolved = false; // New Anti-Spam flag
+    /* --- UTILS --- */
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // --- Navigation Logic ---
-    function openTab(tabId) {
-        // Hide all tabs
+    // --- State Management ---
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit6_data')) || {};
+    let isQuestionSolved = false; 
+    
+    // --- Navigation ---
+    function openTab(evt, tabId) {
         const contents = document.getElementsByClassName('tab-content');
-        for (let content of contents) {
-            content.classList.remove('active');
-        }
-        // Show selected tab
+        for (let content of contents) content.classList.remove('active');
         document.getElementById(tabId).classList.add('active');
-
-        // Update nav buttons
         const navBtns = document.querySelectorAll('nav button');
         navBtns.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
+        evt.currentTarget.classList.add('active');
     }
 
-    // --- Accordion Logic ---
-    const acc = document.getElementsByClassName("accordion");
-    for (let i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active-acc");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-        });
-    }
-
-    // --- Print Logic ---
     function printLesson(btn) {
-        alert("Printing functionality would open a system dialog here.");
         window.print();
     }
 
-    // --- Helpers ---
-    function randInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    
-    function randChoice(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    // --- Visual Generators ---
-    function getDiceHTML(num) {
-        let dots = '';
-        const patterns = {
-            1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8]
-        };
-        for(let i=0; i<9; i++) {
-            let visibility = patterns[num].includes(i) ? 'd-show' : '';
-            dots += `<div class="dot ${visibility}"></div>`;
+    // --- Scoring Logic ---
+    function updateScoreDisplay() {
+        const selector = document.getElementById('practice-selector');
+        let type = selector.value || 'default';
+        let data = practiceData[type] || { correct: 0, total: 0 };
+        
+        const scoreEl = document.getElementById('p-score');
+        const totalEl = document.getElementById('p-total');
+        if(scoreEl && totalEl) {
+            scoreEl.innerText = data.correct;
+            totalEl.innerText = data.total;
         }
-        return `<div class="dice">${dots}</div>`;
     }
 
-    function getCardHTML(value, suit) {
-        const suits = {'H': '♥', 'D': '♦', 'C': '♣', 'S': '♠'};
-        const colorClass = (suit === 'H' || suit === 'D') ? 'card-red' : 'card-black';
-        return `
-        <div class="playing-card ${colorClass}">
-            <div class="corner-top">${value}${suits[suit]}</div>
-            <div>${suits[suit]}</div>
-            <div class="corner-bottom">${value}${suits[suit]}</div>
-        </div>`;
+    function saveScore(isCorrect) {
+        let type = document.getElementById('practice-selector').value || 'default';
+        if (!practiceData[type]) {
+            practiceData[type] = { total: 0, correct: 0 };
+        }
+        
+        practiceData[type].total++;
+        if(isCorrect) practiceData[type].correct++;
+        
+        localStorage.setItem('mbf3c_unit6_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
     }
 
-    function getSpinnerHTML(sections) {
-        // Simplified spinner visual representation
-        return `
-        <div class="spinner-container">
-            <div class="arrow"></div>
-            <div class="spinner"></div>
-        </div>
-        <p>Sections: Red, Blue, Green, Yellow (Equal Size)</p>
-        `;
+    function resetPracticeScore() {
+        let type = document.getElementById('practice-selector').value || 'default';
+        practiceData[type] = { correct: 0, total: 0 };
+        localStorage.setItem('mbf3c_unit6_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
     }
 
-    // --- Main Logic ---
     function resetPracticeUI() {
         document.getElementById('feedback-area').innerHTML = "";
-        document.getElementById('question-area').innerHTML = "<p>Click 'New Question' to begin.</p>";
-        document.getElementById('user-answer').value = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
+        document.getElementById('input-area').style.display = 'none';
         
-        // Reset score on section change
-        currentScore = 0;
-        document.getElementById('score-display').innerText = currentScore;
-        
-        // Anti-Spam Reset
-        isQuestionSolved = false;
-
-        const mode = document.getElementById('practice-mode').value;
-        if (mode === 'rule') {
-            document.getElementById('input-area').style.display = 'none';
-            document.getElementById('format-hint').style.display = 'none';
-        } else {
-            document.getElementById('input-area').style.display = 'block';
-            document.getElementById('format-hint').style.display = 'block';
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) {
+            mcArea.style.display = 'none';
+            mcArea.innerHTML = "";
         }
+        
+        updateScoreDisplay();
     }
 
+    // --- Main Logic: Generate Question ---
     let currentQuestion = null;
 
     function generateQuestion() {
-        const mode = document.getElementById('practice-mode').value;
+        const selector = document.getElementById('practice-selector');
+        let val = selector.value;
+        if(!val) return;
+
         const qArea = document.getElementById('question-area');
+        const inputArea = document.getElementById('input-area');
+        const mcArea = document.getElementById('mc-area');
         const feedback = document.getElementById('feedback-area');
-        const input = document.getElementById('user-answer');
-        
-        feedback.innerText = "";
-        feedback.className = "";
-        input.value = "";
+
+        // Reset UI
+        feedback.innerText = ""; feedback.className = "";
+        document.getElementById('user-answer').value = "";
+        inputArea.style.display = 'none';
+        mcArea.style.display = 'none';
+        mcArea.innerHTML = "";
         
         // Anti-Spam Reset
         isQuestionSolved = false;
 
-        let qType = mode;
-        if (mode === 'all') {
-            const types = ['visual', 'text', 'rule'];
-            qType = types[Math.floor(Math.random() * types.length)];
-        }
+        let parts = val.split('-');
+        let section = parts[0];
+        let kica = parts[1];
 
-        // Adjust UI based on type
-        if (qType === 'rule') {
-            document.getElementById('input-area').style.display = 'none';
-            document.getElementById('format-hint').style.display = 'none';
-        } else {
-            document.getElementById('input-area').style.display = 'block';
-            document.getElementById('format-hint').style.display = 'block';
-        }
+        if (section === "6.1") gen6_1(kica, qArea);
+        else if (section === "6.2") gen6_2(kica, qArea);
+        else if (section === "6.3") gen6_3(kica, qArea);
+        else if (section === "6.4") gen6_4(kica, qArea);
+    }
 
-        if (qType === 'visual') {
-            generateVisualQuestion(qArea);
-        } else if (qType === 'text') {
-            generateTextQuestion(qArea);
-        } else if (qType === 'rule') {
-            generateRuleQuestion(qArea);
+    // --- Section 1: Basics & Odds (6.1 & 6.2) ---
+    function gen6_1(kica, qArea) {
+        if (kica === "K") {
+            let isOdds = Math.random() > 0.5;
+            let win = randInt(2, 9);
+            let lose = randInt(2, 9);
+            let total = win + lose;
+            
+            if (isOdds) {
+                qArea.innerHTML = `<p>A bag has ${win} Red marbles and ${lose} Blue marbles.</p><p>What are the <strong>Odds in Favour</strong> of drawing a Red marble? (Format: win:lose e.g. 5:2)</p>`;
+                setupInput(`${win}:${lose}`);
+            } else {
+                qArea.innerHTML = `<p>The odds against winning a game are ${lose} to ${win}.</p><p>What is the <strong>Probability</strong> of winning? (Enter as a decimal to 2 places, e.g. 0.25)</p>`;
+                setupInput((win/total).toFixed(2));
+            }
+        } else if (kica === "A") {
+            let total = randChoice([50, 100, 200, 500]);
+            let hit = randInt(10, total - 10);
+            
+            let asks = [
+                `<p>You flip a coin ${total} times and get Heads ${hit} times.</p><p>Based on this data, what is the <strong>Experimental Probability</strong> of getting Heads? (Decimal to 2 places)</p>`,
+                `<p>A baseball player is at bat ${total} times and gets a hit ${hit} times.</p><p>What is their Experimental Probability of getting a hit? (Decimal to 2 places)</p>`,
+                `<p>Out of ${total} lightbulbs tested, ${hit} worked perfectly.</p><p>Calculate the Experimental Probability of a bulb working. (Decimal to 2 places)</p>`
+            ];
+            qArea.innerHTML = randChoice(asks);
+            setupInput((hit/total).toFixed(2));
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>If you flip a coin 5 times, you might get 4 Heads (80%). But if you flip it 10,000 times, the experimental probability will get extremely close to 50%.</p><p>What mathematical rule explains this?</p>`,
+                    opts: [ {text: "The Law of Large Numbers.", correct: true}, {text: "The Gambler's Fallacy.", correct: false}, {text: "Mutually Exclusive Events.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is "Odds" not the exact same thing as "Probability"?</p>`,
+                    opts: [ {text: "Probability compares winners to the TOTAL amount. Odds compares winners to LOSERS.", correct: true}, {text: "Odds are used for money, Probability is used for science.", correct: false}, {text: "Probability uses percentages, Odds uses decimals.", correct: false} ]
+                },
+                {
+                    q: `<p>An insurance company sees that 16-year-old drivers crashed 12% of the time last year.</p><p>Why do they use this Experimental Probability to set prices this year?</p>`,
+                    opts: [ {text: "Because real-world past data is the most mathematically reliable way to predict future risk and cover costs.", correct: true}, {text: "Because theoretical math is too hard to calculate for cars.", correct: false}, {text: "Because it guarantees 0 accidents this year.", correct: false} ]
+                },
+                {
+                    q: `<p>If the Odds in Favour of an event are 1:1, what is the Probability?</p>`,
+                    opts: [ {text: "50% (or 1/2).", correct: true}, {text: "100% (or 1/1).", correct: false}, {text: "0%.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>A friend looks at a weather app that says "80% chance of Rain". They say, "The odds are 80 to 100!"</p><p>How do you correct their math terminology?</p>`,
+                    opts: [ {text: `"Probability is 80 out of 100. Odds compare rain to no-rain, so the odds are actually 80 to 20 (or 4 to 1)."`, correct: true}, {text: `"The odds are 100 to 80."`, correct: false}, {text: `"You are completely right, odds and probability are interchangeable words."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain to a casino customer why a game paying "10 to 1 odds" is actually a very bad sign for their chances of winning.</p>`,
+                    opts: [ {text: `"Casinos only offer massive payouts on events that are mathematically incredibly unlikely to happen. High reward means high risk of losing."`, correct: true}, {text: `"It means you are guaranteed to win $10."`, correct: false}, {text: `"It means the casino made a mistake and you should play."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain the difference between Theoretical and Experimental probability using a six-sided die?</p>`,
+                    opts: [ {text: `"Theoretical is knowing you SHOULD get a '3' one out of six times. Experimental is actually rolling it 100 times and counting what REALLY happened."`, correct: true}, {text: `"Theoretical is when you use a calculator. Experimental is when you do it in your head."`, correct: false}, {text: `"Experimental means the die is loaded or rigged."`, correct: false} ]
+                },
+                {
+                    q: `<p>A client says, "I rolled a die 6 times and didn't get a single '2'. The math is broken!"</p><p>How do you explain this mathematically?</p>`,
+                    opts: [ {text: `"Theoretical math predicts long-term averages. In a tiny sample size like 6 rolls, random variance makes anything possible."`, correct: true}, {text: `"The math is definitely broken, the die must be fake."`, correct: false}, {text: `"You need to roll it exactly 12 times to guarantee a 2."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
     }
 
-    // --- 1. Infinite Visual Questions ---
-    function generateVisualQuestion(container) {
-        const rand = Math.random();
-        let ans, qText;
-
-        if (rand < 0.33) {
-            // Dice
-            const target = randInt(1, 6);
-            // Dynamic Question Type
-            const qType = randChoice(['specific', 'less', 'greater', 'parity']);
-            
-            if (qType === 'specific') {
-                qText = `What is the probability of rolling a <strong>${target}</strong>?`;
-                ans = 1/6;
-            } else if (qType === 'less') {
-                // "less than X" (X from 2 to 7)
-                const limit = randInt(2, 6); 
-                qText = `What is the probability of rolling a number <strong>less than ${limit}</strong>?`;
-                ans = (limit - 1) / 6;
-            } else if (qType === 'greater') {
-                // "greater than X" (X from 0 to 5)
-                const limit = randInt(1, 5);
-                qText = `What is the probability of rolling a number <strong>greater than ${limit}</strong>?`;
-                ans = (6 - limit) / 6;
+    // --- Section 2: OR Events (Mutually & Non-Mutually Exclusive) ---
+    function gen6_2(kica, qArea) {
+        if (kica === "K") {
+            let isMut = Math.random() > 0.5;
+            let pool = [];
+            if (isMut) {
+                pool = [
+                    "Rolling a 2 OR a 5 on a single die.",
+                    "Being in Grade 9 OR being in Grade 12 at the same time.",
+                    "Drawing a Red card OR a Spade from a deck." // Spade is black
+                ];
             } else {
-                const isEven = Math.random() > 0.5;
-                qText = `What is the probability of rolling an <strong>${isEven ? "Even" : "Odd"}</strong> number?`;
-                ans = 0.5;
+                pool = [
+                    "Drawing a King OR a Heart from a deck.",
+                    "Rolling an Even number OR a number greater than 4 on a die.",
+                    "A student playing Basketball OR being on the Honor Roll."
+                ];
             }
-            
-            // Show a random dice face for flavor
-            container.innerHTML = `
-                ${getDiceHTML(randInt(1,6))}
-                <p>Consider a standard fair die. ${qText}</p>
-            `;
-        } else if (rand < 0.66) {
-            // Spinner (Red, Blue, Green, Yellow)
-            const colors = ['Red', 'Blue', 'Green', 'Yellow'];
-            const targetC = randChoice(colors);
-            const isOr = Math.random() > 0.5;
-            
-            if (isOr) {
-                // P(A or B)
-                let secondC = targetC;
-                while(secondC === targetC) secondC = randChoice(colors);
-                qText = `What is the probability of landing on <strong>${targetC} OR ${secondC}</strong>?`;
-                ans = 2/4;
+            qArea.innerHTML = `<p><strong>Scenario:</strong> ${randChoice(pool)}</p><p>Is this Mutually Exclusive or Non-Mutually Exclusive?</p>`;
+            setupMC([
+                {text: "Mutually Exclusive", correct: isMut},
+                {text: "Non-Mutually Exclusive", correct: !isMut}
+            ]);
+        } else if (kica === "A") {
+            let isMut = Math.random() > 0.5;
+            if (isMut) {
+                // P(A) + P(B)
+                let num = randInt(2, 5);
+                qArea.innerHTML = `<p>You roll a standard 6-sided die.</p><p>Calculate the probability of rolling a 1 <strong>OR</strong> a ${num}.</p><p><small>(Enter decimal to 2 places)</small></p>`;
+                setupInput((2/6).toFixed(2));
             } else {
-                qText = `What is the probability of landing on <strong>${targetC}</strong>?`;
-                ans = 1/4;
+                // Cards: P(A) + P(B) - P(A and B)
+                let suit = randChoice(["Hearts", "Diamonds", "Clubs", "Spades"]);
+                let face = randChoice(["King", "Queen", "Jack"]);
+                qArea.innerHTML = `<p>You draw one card from a standard 52-card deck.</p><p>Calculate the probability of drawing a <strong>${suit} OR a ${face}</strong>.</p><p><small>(Enter decimal to 2 places. Hint: P(Suit) + P(Face) - P(Both))</small></p>`;
+                // 13 suits + 4 faces - 1 overlap
+                setupInput(((13 + 4 - 1)/52).toFixed(2));
             }
-            
-            container.innerHTML = `
-                ${getSpinnerHTML()}
-                <p>${qText}</p>
-            `;
-        } else {
-            // Cards
-            const v = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'][Math.floor(Math.random()*13)];
-            const s = ['H', 'D', 'C', 'S'][Math.floor(Math.random()*4)];
-            
-            const qType = randChoice(['suit', 'face', 'color', 'specific']);
-            
-            if (qType === 'suit') {
-                const suitName = {'H':'Hearts','D':'Diamonds','C':'Clubs','S':'Spades'}[s];
-                qText = `What is the probability of drawing a <strong>${suitName}</strong> from a full deck?`;
-                ans = 13/52;
-            } else if (qType === 'face') {
-                qText = `What is the probability of drawing a <strong>Face Card</strong> (J, Q, K)?`;
-                ans = 12/52;
-            } else if (qType === 'color') {
-                const color = (s === 'H' || s === 'D') ? "Red" : "Black";
-                qText = `What is the probability of drawing a <strong>${color}</strong> card?`;
-                ans = 26/52;
-            } else {
-                qText = `What is the probability of drawing exactly the <strong>${v} of ${s}</strong>?`;
-                ans = 1/52;
-            }
-
-            container.innerHTML = `
-                ${getCardHTML(v, s)}
-                <p>Consider a standard 52-card deck. ${qText}</p>
-            `;
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>In the formula <span class="math-text">P(A or B) = P(A) + P(B) - P(A and B)</span>, why do we mathematically HAVE to subtract the end part?</p>`,
+                    opts: [ {text: "Because if events overlap (like a Red Queen), we counted that card twice. Subtracting it fixes the double-counting.", correct: true}, {text: "Because 'OR' always means subtract in mathematics.", correct: false}, {text: "To account for the margin of error.", correct: false} ]
+                },
+                {
+                    q: `<p>If two events are Mutually Exclusive, what does <span class="math-text">P(A and B)</span> equal?</p>`,
+                    opts: [ {text: "0. They cannot happen at the exact same time.", correct: true}, {text: "1. They always happen together.", correct: false}, {text: "It equals P(A) + P(B).", correct: false} ]
+                },
+                {
+                    q: `<p>A survey shows 40% of people like Pizza, and 30% like Burgers. Why is it WRONG to say 70% of people like Pizza OR Burgers?</p>`,
+                    opts: [ {text: "Because it ignores the overlap. Many people like BOTH, and you just double-counted them.", correct: true}, {text: "Because you are supposed to multiply them.", correct: false}, {text: "Because it should be 100%.", correct: false} ]
+                },
+                {
+                    q: `<p>If you are calculating P(Red Card OR Black Card), do you need to subtract an overlap?</p>`,
+                    opts: [ {text: "No, because a card cannot be both purely red and purely black at the same time (Mutually Exclusive).", correct: true}, {text: "Yes, you must always subtract overlap.", correct: false}, {text: "Yes, you subtract the Jokers.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>How would you explain the concept of "Double Counting" to a business client looking at customer data?</p>`,
+                    opts: [ {text: `"If we add the number of customers who bought Laptops to those who bought Phones, we accidentally count people who bought BOTH twice. We have to subtract that overlap to get the true number of unique shoppers."`, correct: true}, {text: `"Double counting means we made twice as much money."`, correct: false}, {text: `"It means counting the inventory twice to be safe."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain why getting an Academic Scholarship OR an Athletic Scholarship is Non-Mutually Exclusive.</p>`,
+                    opts: [ {text: `"Because it is entirely possible for a student to be both smart and athletic at the same time, meaning the two events can overlap."`, correct: true}, {text: `"Because you can only pick one."`, correct: false}, {text: `"Because they are paid by the same school."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend adds P(Rolling a 2) + P(Rolling a 3) and gets 2/6. They ask why they didn't subtract the overlap. Explain it to them.</p>`,
+                    opts: [ {text: `"Because a single die cannot physically land on 2 and 3 at the exact same moment. There is zero overlap to subtract."`, correct: true}, {text: `"Because you only subtract when using cards, not dice."`, correct: false}, {text: `"They actually should have subtracted 1/6."`, correct: false} ]
+                },
+                {
+                    q: `<p>Translate the math keyword "OR" into a simple rule of thumb for calculating probability.</p>`,
+                    opts: [ {text: `"Whenever you hear 'OR', you are expanding your chances of winning, so you ADD the probabilities together."`, correct: true}, {text: `"Whenever you hear 'OR', you MULTIPLY the probabilities."`, correct: false}, {text: `"OR means you divide the two numbers."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
-        currentQuestion = { answer: ans, type: 'numeric' };
     }
 
-    // --- 2. Infinite Text Questions ---
-    function generateTextQuestion(container) {
-        // Procedurally generated scenarios
-        const type = randInt(0, 5); // 6 types
-        let qText, ans, ansType = 'numeric';
-
-        if (type === 0) {
-            // Marbles in Bag
-            const red = randInt(2, 10);
-            const blue = randInt(2, 10);
-            const total = red + blue;
-            qText = `A bag contains ${red} Red marbles and ${blue} Blue marbles. What is the probability of picking a <strong>Red</strong> marble?`;
-            ans = red / total;
-        } else if (type === 1) {
-            // Odds Calculation
-            const win = randInt(1, 5);
-            const lose = randInt(1, 10);
-            // 50% Odds in Favour, 50% Probability from Odds
-            if (Math.random() > 0.5) {
-                const total = win + lose;
-                qText = `The odds against winning are ${lose}:${win}. What is the <strong>probability</strong> of winning?`;
-                ans = win / total;
+    // --- Section 3: AND Events (Independent & Dependent) ---
+    function gen6_3(kica, qArea) {
+        if (kica === "K") {
+            let isInd = Math.random() > 0.5;
+            let pool = [];
+            if (isInd) {
+                pool = [
+                    "Flipping a coin, then rolling a die.",
+                    "Drawing a card, PUTTING IT BACK, then drawing another.",
+                    "Winning the lottery, and then getting struck by lightning."
+                ];
             } else {
-                const p = randInt(10, 90); // percent
-                const favorable = p;
-                const unfavorable = 100 - p;
-                // Simplify roughly for display? No, just ask for format
-                qText = `The probability of rain is ${p}%. What are the <strong>Odds in Favour</strong> of rain? (Format: Yes:No, e.g. 20:80)`;
-                ans = `${favorable}:${unfavorable}`;
-                ansType = 'string';
+                pool = [
+                    "Drawing an Ace, KEEPING IT, then drawing another Ace.",
+                    "Eating a red candy from a bag, then pulling out another candy.",
+                    "Picking a team captain, then picking a co-captain from the remaining players."
+                ];
             }
-        } else if (type === 2) {
-            // Coin Flips (Independent)
-            const flips = randInt(2, 4);
-            qText = `You flip a fair coin <strong>${flips} times</strong>. What is the probability of getting Heads every single time?`;
-            ans = Math.pow(0.5, flips);
-        } else if (type === 3) {
-            // Mutually Exclusive (P(A or B))
-            const pA = randInt(1, 4) / 10; // 0.1 to 0.4
-            const pB = randInt(1, 4) / 10;
-            qText = `Event A and B are Mutually Exclusive. P(A)=${pA}, P(B)=${pB}. What is <strong>P(A or B)</strong>?`;
-            ans = pA + pB;
-        } else if (type === 4) {
-            // Independent (P(A and B))
-            const pA = 0.5;
-            const pB = randInt(1, 6) / 6; // Dice roll prob
-            // e.g. 1/6 = 0.166...
-            qText = `You flip a coin and roll a die. What is P(Heads <strong>AND</strong> rolling less than ${randInt(2,6)})?`; 
-            // Let's simplify: fixed numbers for easier checking
-            const limit = randInt(2, 5); // less than 2,3,4,5
-            const probDie = (limit - 1) / 6;
-            qText = `You flip a coin and roll a die. What is P(Heads <strong>AND</strong> rolling a number less than ${limit})?`;
-            ans = 0.5 * probDie;
-        } else {
-            // Dependent (No replacement)
-            const total = randInt(10, 20);
-            const winners = randInt(2, 5);
-            qText = `A raffle has ${total} tickets. You buy 2 tickets. There are ${winners} winning tickets. What is the probability that <strong>BOTH</strong> of your tickets are winners?`;
-            ans = (winners / total) * ((winners - 1) / (total - 1));
+            qArea.innerHTML = `<p><strong>Scenario:</strong> ${randChoice(pool)}</p><p>Is this Independent or Dependent?</p>`;
+            setupMC([
+                {text: "Independent", correct: isInd},
+                {text: "Dependent", correct: !isInd}
+            ]);
+        } else if (kica === "A") {
+            let isInd = Math.random() > 0.5;
+            if (isInd) {
+                let coin = randChoice(["Heads", "Tails"]);
+                let die = randInt(1, 6);
+                qArea.innerHTML = `<p>You flip a coin and roll a die.</p><p>What is the probability of getting <strong>${coin} AND a ${die}</strong>?</p><p><small>(Enter decimal to 3 places)</small></p>`;
+                setupInput(((1/2) * (1/6)).toFixed(3));
+            } else {
+                let color = randChoice(["Red", "Blue"]);
+                let total = randInt(8, 12);
+                let target = randInt(3, 5);
+                qArea.innerHTML = `<p>A bag has ${target} ${color} marbles out of ${total} total marbles.</p><p>You draw one ${color} marble, <strong>KEEP IT</strong>, and draw a second one.</p><p>What is the probability they are <strong>BOTH ${color}</strong>?</p><p><small>(Enter decimal to 3 places)</small></p>`;
+                let ans = (target/total) * ((target-1)/(total-1));
+                setupInput(ans.toFixed(3));
+            }
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>In a Dependent event (like drawing two cards without replacement), what happens to the mathematical denominator for the second draw?</p>`,
+                    opts: [ {text: "It decreases by 1 (e.g., from 52 to 51) because the total pool of available items has physically shrunk.", correct: true}, {text: "It stays exactly the same.", correct: false}, {text: "It multiplies by 2.", correct: false} ]
+                },
+                {
+                    q: `<p>A roulette wheel lands on Red 10 times in a row. A gambler bets $1000 on Black, saying "It's due to hit!"</p><p>What mathematical rule are they ignoring?</p>`,
+                    opts: [ {text: "Spins are entirely Independent events. The wheel has no memory, so the chance of Black is still exactly ~47% on the 11th spin.", correct: true}, {text: "They are right, the chance of Black is now almost 100%.", correct: false}, {text: "Roulette is a Dependent event.", correct: false} ]
+                },
+                {
+                    q: `<p>If P(A) is 0.5 and P(B) is 0.5, why does P(A <strong>AND</strong> B) equal 0.25?</p>`,
+                    opts: [ {text: "Because requiring two things to happen in a row makes it much harder to win. You MULTIPLY fractions, making the resulting probability smaller.", correct: true}, {text: "Because you add them: 0.5 + 0.5 = 1.0.", correct: false}, {text: "It's a coincidence.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is card counting in Blackjack mathematically possible, but card counting in Roulette impossible?</p>`,
+                    opts: [ {text: "Blackjack deals without replacement (Dependent), so past events alter future odds. Roulette resets every spin (Independent).", correct: true}, {text: "Because Roulette spins too fast to count.", correct: false}, {text: "Card counting is impossible in both games.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>Translate the math keyword "AND" into a simple rule of thumb for calculating probability.</p>`,
+                    opts: [ {text: `"Whenever you hear 'AND', you are requiring multiple things to go right in a sequence, which shrinks your chances. Therefore, you MULTIPLY the probabilities."`, correct: true}, {text: `"Whenever you hear 'AND', you ADD the probabilities."`, correct: false}, {text: `"AND means you subtract the overlap."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain the "Gambler's Fallacy" to a friend who is losing money at a casino?</p>`,
+                    opts: [ {text: `"You are acting like the dice remember what happened 5 minutes ago. Independent events don't care about the past; the math resets to zero every single time you play."`, correct: true}, {text: `"The casino is cheating you."`, correct: false}, {text: `"You just need to bet more money to break the streak."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain the concept of "Without Replacement" using a jar of candies.</p>`,
+                    opts: [ {text: `"If I eat a red candy, it's gone forever. Now there is one less red candy, AND one less candy overall. My next draw has completely different odds because the universe changed."`, correct: true}, {text: `"It means I put the candy back after looking at it."`, correct: false}, {text: `"It means the candies are replaced by a different color."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why do lottery tickets have such an impossibly low probability of winning?</p>`,
+                    opts: [ {text: `"Because you have to match the 1st number AND the 2nd number AND the 3rd number... Multiplying tiny fractions together repeatedly creates an infinitesimally small final number."`, correct: true}, {text: `"Because they only print one winning ticket."`, correct: false}, {text: `"Because the numbers are mutually exclusive."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
-
-        container.innerHTML = `<p>${qText}</p>`;
-        currentQuestion = { answer: ans, type: ansType };
     }
 
-    // --- 3. Infinite Rule Questions ---
-    function generateRuleQuestion(container) {
-        // Templates to generate scenarios
-        const templates = [
-            {
-                q: "Rolling a [N1] OR a [N2] on a single die.",
-                a: "Mutually Exclusive",
-                vars: { N1: randInt(1,3), N2: randInt(4,6) } 
-            },
-            {
-                q: "Drawing a King OR a [Suit] from a deck.",
-                a: "Non-Mutually Exclusive",
-                vars: { Suit: randChoice(['Heart', 'Spade', 'Diamond']) }
-            },
-            {
-                q: "Flipping Heads AND then rolling a [N].",
-                a: "Independent",
-                vars: { N: randInt(1,6) }
-            },
-            {
-                q: "Picking a [Color] marble, NOT replacing it, then picking another.",
-                a: "Dependent",
-                vars: { Color: randChoice(['Red', 'Blue', 'Green']) }
-            },
-            {
-                q: "Buying a lottery ticket AND getting struck by lightning.",
-                a: "Independent",
-                vars: {}
-            },
-            {
-                q: "Being in Grade 11 OR being in Grade 12 (at the same time).",
-                a: "Mutually Exclusive",
-                vars: {}
-            },
-            {
-                q: "Drawing two Aces from a deck [Condition].",
-                a: "Dependent", // Default if condition is no replacement
-                special: true 
-            }
-        ];
-
-        let item = randChoice(templates);
-        let text = item.q;
-
-        // Special handling for variations
-        if (item.special) {
-            if (Math.random() > 0.5) {
-                text = "Drawing two Aces WITHOUT replacement.";
-                item.a = "Dependent";
-            } else {
-                text = "Drawing an Ace, putting it back, then drawing another.";
-                item.a = "Independent";
-            }
-        } else {
-            // Replace vars
-            for (const [key, val] of Object.entries(item.vars)) {
-                text = text.replace(`[${key}]`, val);
-            }
+    // --- Section 4: Expected Value (6.7) ---
+    function gen6_4(kica, qArea) {
+        if (kica === "K") {
+            let winAmt = randInt(5, 20) * 10;
+            let loseAmt = randInt(1, 5) * 5;
+            let pWin = randInt(1, 4) / 10;
+            let pLose = 1 - pWin;
+            let ans = (pWin * winAmt) - (pLose * loseAmt);
+            
+            qArea.innerHTML = `<p>You play a game. <br>Chance to WIN $${winAmt} is ${pWin}. <br>Chance to LOSE $${loseAmt} is ${pLose.toFixed(1)}.</p><p>Calculate the <strong>Expected Value (EV)</strong>.</p><p><small>(Formula: (P(Win) &times; Win $) - (P(Lose) &times; Lose $). Can be negative.)</small></p>`;
+            setupInput(ans.toFixed(2));
+            
+        } else if (kica === "A") {
+            let itemCost = randInt(5, 15) * 100;
+            let breakProb = randInt(5, 15);
+            let ans = itemCost * (breakProb/100);
+            
+            qArea.innerHTML = `<p>A $${itemCost} laptop has a ${breakProb}% chance of breaking.</p><p>What is the mathematical <strong>Expected Cost</strong> of the repair if you don't buy a warranty?</p><p><small>(Calculate: ${breakProb}% of $${itemCost})</small></p>`;
+            setupInput(ans.toFixed(2));
+            
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>If the Expected Value (EV) of a casino game is <strong>-$0.50</strong>, what does this actually mean?</p>`,
+                    opts: [ {text: "On average, you will lose 50 cents every single time you play the game. If you play 100 times, you will lose about $50.", correct: true}, {text: "It means every time you play, you will hand the dealer exactly 50 cents.", correct: false}, {text: "It means the game is broken.", correct: false} ]
+                },
+                {
+                    q: `<p>Why are casino games always mathematically designed to have a NEGATIVE Expected Value for the player?</p>`,
+                    opts: [ {text: "Because the player's negative EV is the Casino's positive EV. That guaranteed mathematical edge is how the business pays its bills and makes profit.", correct: true}, {text: "Because casinos are legally not allowed to give away money.", correct: false}, {text: "Because players prefer games that are hard to win.", correct: false} ]
+                },
+                {
+                    q: `<p>You calculate the EV of buying a $100 warranty, and the math says the expected cost of repair is only $40.</p><p>Mathematically, is the warranty a good deal?</p>`,
+                    opts: [ {text: "No. You are paying $100 to protect against a mathematically expected loss of only $40. The company is making a $60 profit off you.", correct: true}, {text: "Yes, because $100 is more than $40.", correct: false}, {text: "Yes, warranties are always mathematically positive EV.", correct: false} ]
+                },
+                {
+                    q: `<p>How does a Tree Diagram help calculate Expected Value?</p>`,
+                    opts: [ {text: "It visually maps out every possible timeline (win, lose, draw) and its exact probability, so you can multiply them by the money outcomes without missing anything.", correct: true}, {text: "It generates random numbers for you.", correct: false}, {text: "It changes dependent events into independent ones.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>A client says, "The Expected Value of this lottery ticket is -$2.00, but my uncle won $10,000 yesterday! The math is wrong!"</p><p>How do you explain this?</p>`,
+                    opts: [ {text: `"Expected Value doesn't predict single events; it predicts the AVERAGE over millions of tickets. Your uncle got lucky, but the million people who lost $2.00 prove the math."`, correct: true}, {text: `"Your uncle must have cheated."`, correct: false}, {text: `"The math is wrong, lotteries actually have positive EV."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain to a friend why buying an extended warranty on a $50 toaster is usually a bad financial idea.</p>`,
+                    opts: [ {text: `"Insurance companies set the warranty price higher than the Expected Value of the toaster breaking. Over your lifetime, paying cash to replace cheap broken items is mathematically cheaper than buying warranties for everything."`, correct: true}, {text: `"Because toasters never break."`, correct: false}, {text: `"Because warranties are illegal for small appliances."`, correct: false} ]
+                },
+                {
+                    q: `<p>If the math says warranties are a "bad deal" (Negative EV), explain to a client why people still buy life insurance or house insurance.</p>`,
+                    opts: [ {text: `"Because the absolute worst-case scenario (house burning down) would bankrupt you. You willingly accept a Negative EV to buy 'peace of mind' and protection against total financial ruin."`, correct: true}, {text: `"Because house insurance actually has a Positive EV."`, correct: false}, {text: `"Because the government forces you to."`, correct: false} ]
+                },
+                {
+                    q: `<p>How would you summarize the core rule of Expected Value (EV) in investing or gambling?</p>`,
+                    opts: [ {text: `"Never put your money into a system with a Negative Expected Value over the long term, because mathematics guarantees you will eventually go broke."`, correct: true}, {text: `"Always bet on the highest possible payout, regardless of the EV."`, correct: false}, {text: `"EV is only for casinos, it doesn't apply to stocks or investments."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
+    }
 
-        container.innerHTML = `
-            <p><strong>Scenario:</strong> ${text}</p>
-            <p>Identify the Scenario Type:</p>
-            <div class="option-grid">
-                <button class="option-btn" onclick="checkRuleAnswer('Mutually Exclusive')">Mutually Exclusive (OR)</button>
-                <button class="option-btn" onclick="checkRuleAnswer('Non-Mutually Exclusive')">Non-Mutually Exclusive (OR)</button>
-                <button class="option-btn" onclick="checkRuleAnswer('Independent')">Independent (AND)</button>
-                <button class="option-btn" onclick="checkRuleAnswer('Dependent')">Dependent (AND)</button>
-            </div>
-        `;
+    // --- Answer Checking Logic ---
+    function setupInput(correctAnswer) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
+        document.getElementById('input-area').style.display = 'block';
+    }
+
+    function setupMC(options) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
         
-        currentQuestion = { answer: item.a, type: 'rule_selection' };
-    }
+        // Shuffle options
+        options.sort(() => Math.random() - 0.5);
 
-    function checkRuleAnswer(selected) {
-        // Anti-Spam Lock
-        if (isQuestionSolved) return;
-
-        const feedback = document.getElementById('feedback-area');
-        if (selected === currentQuestion.answer) {
-            feedback.innerHTML = "Correct! It is " + selected + ".";
-            feedback.className = "correct";
-            
-            isQuestionSolved = true; // Lock
-            updateScore();
-            setTimeout(generateQuestion, 1500);
-        } else {
-            feedback.innerHTML = "Incorrect. Try again.";
-            feedback.className = "incorrect";
-        }
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = opt.text; // Ensure HTML tags (like superscripts) render in buttons if present
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
     }
 
     function checkAnswer() {
-        if (!currentQuestion || currentQuestion.type === 'rule_selection') return;
+        if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
-        // Anti-Spam Lock
-        if (isQuestionSolved) return;
+        let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
+        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         
-        const userRaw = document.getElementById('user-answer').value.trim();
-        const feedback = document.getElementById('feedback-area');
+        let userNum = parseFloat(cleanUser);
         
+        // Convert fractions to decimal for checking
+        if (cleanUser.includes('/')) {
+            let parts = cleanUser.split('/');
+            userNum = parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+
+        let ansNum = parseFloat(currentQuestion.answer);
         let isCorrect = false;
 
-        if (currentQuestion.type === 'string') {
-            if (userRaw.toLowerCase() === currentQuestion.answer.toString().toLowerCase()) {
-                isCorrect = true;
-            }
-        } else {
-            // Numeric handling
-            let userVal = parseFloat(userRaw);
-            
-            // Handle fractions (e.g., "1/2")
-            if (userRaw.includes('/')) {
-                const parts = userRaw.split('/');
-                userVal = parseInt(parts[0]) / parseInt(parts[1]);
-            }
-            // Handle percentages (e.g., "50" or "50%")
-            else if (userRaw.includes('%') || (userVal > 1 && userVal <= 100)) {
-                userVal = parseFloat(userRaw) / 100;
-            }
+        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf(':') === -1;
 
-            // Margin of error for decimals
-            if (Math.abs(userVal - currentQuestion.answer) < 0.01) {
+        if (isPureNumber && !isNaN(userNum)) {
+             // Tolerance for probabilities/money
+             if (Math.abs(userNum - ansNum) <= 0.015) {
+                 isCorrect = true;
+             }
+        } else {
+            // String fallback (like Odds "5:2")
+            if (cleanUser === currentQuestion.answer) {
                 isCorrect = true;
             }
         }
 
+        displayFeedback(isCorrect);
+    }
+
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+        btn.style.color = 'white';
+        
+        displayFeedback(isCorrect);
+    }
+
+    function displayFeedback(isCorrect) {
+        let feedback = document.getElementById('feedback-area');
         if (isCorrect) {
-            feedback.innerHTML = "Correct!";
+            feedback.innerHTML = "✅ Correct! Excellent mathematical reasoning.";
             feedback.className = "correct";
-            
-            isQuestionSolved = true; // Lock
-            updateScore();
-            setTimeout(generateQuestion, 1500);
+            isQuestionSolved = true; 
+            saveScore(true);
         } else {
-            feedback.innerHTML = "Incorrect. Try again.";
+            feedback.innerHTML = "❌ Incorrect. Try again or review the lesson.";
             feedback.className = "incorrect";
+            saveScore(false);
         }
     }
-    
-    function updateScore() {
-        currentScore++;
-        // We generally don't persist mixed session scores, but consistent with UI
-        document.getElementById('score-display').innerText = currentScore;
-    }
-
-    // Initial Load
-    generateQuestion();
 
 </script>
 </body>
