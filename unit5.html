@@ -58,7 +58,7 @@
             background-color: var(--accent-color);
             border-bottom: 3px solid white;
         }
-        
+
         .home-btn { background-color: #e67e22 !important; }
 
         /* Content Structure */
@@ -162,15 +162,14 @@
             gap: 10px;
         }
 
-        /* Math Formatting */
-        .math-text {
-            font-family: 'Times New Roman', serif;
-            font-size: 1.15rem;
-            font-style: italic;
-        }
-        sup {
-            font-size: 0.8em;
-            vertical-align: super;
+        .data-array {
+            font-size: 1.2rem;
+            font-family: monospace;
+            background: #e8f4f8;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
         /* Practice Section */
@@ -206,9 +205,12 @@
         .score-board {
             font-weight: bold;
             color: var(--primary-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             float: right;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         #question-area {
@@ -224,6 +226,31 @@
             align-items: center;
             font-size: 1.3rem;
             font-weight: 500;
+        }
+
+        /* Option Buttons for KICA */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .option-btn:hover {
+            background: var(--accent-color);
+            color: white;
         }
 
         #feedback-area {
@@ -252,87 +279,10 @@
         }
         th { background-color: var(--primary-color); color: white; }
 
-        /* Assignment Task Box */
-        .task-box {
-            border-left: 5px solid var(--accent-color);
-            background: #fdfdfd;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        .task-step {
-            font-weight: bold;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        /* --- HISTOGRAM CHART STYLES (Fixed) --- */
-        .histogram-container {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between; /* Evenly distribute bins */
-            height: 200px;
-            border-bottom: 2px solid #333;
-            border-left: 2px solid #333;
-            padding: 0 10px 10px 10px; /* Padding for labels */
-            margin: 20px auto;
-            width: 80%;
-            background-color: #fff;
-            box-sizing: border-box;
-        }
-
-        .hist-bin {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            flex: 1; /* Key for Histogram: Equal width, filling space */
-            height: 100%;
-            margin: 0; /* Key: No gaps between bars */
-            position: relative;
-        }
-
-        .hist-bar {
-            width: 100%; /* Fill the bin */
-            background-color: var(--accent-color);
-            color: white;
-            font-size: 0.9rem;
-            text-align: center;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            border-right: 1px solid white; /* Thin separator visually */
-            transition: height 0.5s ease;
-            box-sizing: border-box;
-        }
-        /* Remove border for last bar */
-        .hist-bin:last-child .hist-bar {
-            border-right: none;
-        }
-
-        .hist-label {
-            margin-top: 5px;
-            font-size: 0.8rem;
-            color: #555;
-            position: absolute;
-            bottom: -25px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .hist-value {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
             nav { flex-direction: column; }
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
-            .histogram-container { width: 100%; }
         }
         
         .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
@@ -341,191 +291,192 @@
 <body>
 
 <header>
-    <h1>MBF3C Unit 5: Statistics</h1>
+    <h1>MBF3C Unit 5: Statistics & Data</h1>
     <p>Ontario Curriculum | College Preparation</p>
 </header>
 
 <nav>
     <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button class="active" onclick="openTab('tab-calculator')">Calculator</button>
-    <button onclick="openTab('tab-lessons')">Lessons</button>
-    <button onclick="openTab('tab-practice')">Practice</button>
-    <button onclick="openTab('tab-assignment')">Assignment</button>
+    <button class="active" onclick="openTab(event, 'tab-calculator')">Calculator</button>
+    <button onclick="openTab(event, 'tab-lessons')">Lessons</button>
+    <button onclick="openTab(event, 'tab-practice')">Practice</button>
+    <button onclick="openTab(event, 'tab-assignment')">Assignment</button>
 </nav>
 
 <main>
     <div id="tab-calculator" class="tab-content active">
-        <h2>Statistics Calculator</h2>
-        <p>Use this tool to calculate Mean, Median, Mode, and more. Enter numbers separated by commas.</p>
-        <button class="btn-primary" onclick="window.open('https://www.calculator.net/statistics-calculator.html', '_blank')">Open Calculator in New Tab</button>
+        <h2>Statistics Calculator (Mean, Median, Mode)</h2>
+        <p>Enter your dataset below separated by commas (e.g., 10, 15, 20, 25) to easily calculate the measures of central tendency and spread.</p>
+        <button class="btn-primary" onclick="window.open('https://www.calculator.net/statistics-calculator.html', '_blank')">Open Full Stats Calculator in New Tab</button>
         <br><br>
-        <iframe src="https://www.calculator.net/statistics-calculator.html?array=15%2C+20%2C+25%2C+30%2C+35&x=64&y=16" width="100%" height="800" frameborder="0"></iframe>
+        <iframe src="https://www.calculator.net/statistics-calculator.html" width="100%" height="800" frameborder="0" style="border:1px solid #ccc; border-radius:8px;"></iframe>
     </div>
 
     <div id="tab-lessons" class="tab-content">
         <h2>Unit 5 Lessons</h2>
-        <p>Statistics is the science of learning from data. It helps us find the "truth" hidden in the numbers.</p>
+        <p>Learn how to collect data, analyze it, and spot when people are using statistics to lie.</p>
 
-        <button class="accordion">5.1 Mean, Median, Mode (Central Tendency)</button>
+        <button class="accordion">5.1 Sampling Techniques (Collecting Data)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>We use these three measures to find the "center" or "typical" value of a dataset.</p>
-            <ul>
-                <li><strong>Mean (<span class="math-text">x̄</span>):</strong> The average. (Sum of values &div; Count).</li>
-                <li><strong>Median:</strong> The middle number when sorted from lowest to highest.</li>
-                <li><strong>Mode:</strong> The number that appears most often.</li>
-            </ul>
+            <p>You can't ask everyone in the world a question (that's a <strong>Census</strong>). Instead, you ask a small group (a <strong>Sample</strong>). How you pick that group determines if your data is good or garbage.</p>
             
-            <h3>4 Examples</h3>
+            <h3>Types of Sampling</h3>
             <div class="example-box">
-                <span class="example-title">Ex 1: Test Scores</span>
-                Data: {70, 75, 80, 80, 95}.<br>
-                <strong>Mean:</strong> (70+75+80+80+95) &div; 5 = 80.<br>
-                <strong>Median:</strong> 80 (Middle number).<br>
-                <strong>Mode:</strong> 80 (Appears twice).
+                <span class="example-title">1. Simple Random Sampling</span>
+                Everyone has an equal chance of being picked. Like drawing names from a hat or using a random number generator. <em>(Best method)</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 2: The "Billionaire" Effect (Outliers)</span>
-                Data (Annual Income): {30k, 30k, 30k, 30k, <strong>$10 Million</strong>}.<br>
-                <strong>Mean:</strong> $2,024,000 (Very misleading!).<br>
-                <strong>Median:</strong> $30,000 (Typical person).<br>
-                <em>Lesson: Use Median when there are extreme outliers.</em>
+                <span class="example-title">2. Systematic Sampling</span>
+                You pick every "n-th" person. Example: Standing at a door and asking every 10th customer who walks in.
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 3: Shoe Sizes</span>
-                Data: {7, 7, 7, 8, 9, 10, 11, 12}.<br>
-                <strong>Mode:</strong> 7.<br>
-                <em>Lesson: Mode is useful for inventory (stocking the most popular size).</em>
+                <span class="example-title">3. Stratified Sampling</span>
+                You divide the population into groups (strata) first, then take a random sample from EACH group so it's proportional. Example: 10% freshmen, 10% sophomores, etc.
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 4: Median with Even Numbers</span>
-                Data: {2, 5, 8, 10}. (4 numbers).<br>
-                Middle two are 5 and 8.<br>
-                <strong>Median:</strong> (5 + 8) &div; 2 = 6.5.
+                <span class="example-title">4. Convenience Sampling</span>
+                Just asking the people easiest to reach. Example: Asking your 5 best friends. <em>(Terrible method, leads to heavily biased data).</em>
             </div>
 
             <div class="money-box">
-                <div class="money-header">💸 Money Connection: "Average" Salary</div>
-                <p>When news reports say the "Average" salary is $60,000, be careful. A few CEOs making millions pull that average up. Always ask for the <strong>Median</strong> salary to know what a "normal" person actually makes.</p>
+                <div class="money-header">💸 Money Connection: Market Research</div>
+                <p>If a company wants to launch a new product, they pay millions for good Stratified Sampling to see if people will buy it. If they use Convenience Sampling (just asking their own employees), they might manufacture millions of units of a product that real customers hate, bankrupting the company.</p>
             </div>
         </div>
 
-        <button class="accordion">5.2 Range and Outliers</button>
+        <button class="accordion">5.2 Central Tendency (Mean, Median, Mode)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>Measures of "Spread" tell us how consistent the data is.</p>
-            <ul>
-                <li><strong>Range:</strong> <span class="math-text">Max Value - Min Value</span>.</li>
-                <li><strong>Outlier:</strong> A value much higher or lower than the rest.</li>
-            </ul>
+            <p>These are three different ways to find the "middle" or "average" of your data.</p>
             
-            <h3>4 Examples</h3>
+            <h3>The 3 Measures</h3>
             <div class="example-box">
-                <span class="example-title">Ex 1: Daily Temperatures</span>
-                City A: {20, 22, 21, 23, 22}. Range = 3 (Consistent).<br>
-                City B: {10, 30, 5, 35, 20}. Range = 30 (Wild weather).
+                <span class="example-title">1. Mean (The Average)</span>
+                Add all the numbers up, then divide by how many numbers there are.<br>
+                <em>Data: 2, 4, 6. Mean = (2+4+6)/3 = 4.</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 2: House Prices (Range)</span>
-                Street A: $500k to $550k. Range = $50k.<br>
-                Street B: $300k to $2.5M. Range = $2.2M.<br>
-                Street B is a "mixed" neighborhood.
+                <span class="example-title">2. Median (The Middle)</span>
+                Put the numbers in order from smallest to largest, and pick the one exactly in the middle. If there are two in the middle, average them.<br>
+                <em>Data: 1, 3, 5, 9, 10. Median = 5.</em>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 3: Consistency in Sports</span>
-                Player A scores: {15, 15, 15, 15}. Range = 0.<br>
-                Player B scores: {0, 30, 0, 30}. Range = 30.<br>
-                Coaches usually prefer consistent players (Low Range).
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 4: Identifying Outliers</span>
-                Data: {4, 5, 6, 5, 105}.<br>
-                105 is clearly an outlier. It ruins the Mean but doesn't hurt the Median much.
+                <span class="example-title">3. Mode (The Most Popular)</span>
+                The number that shows up the most often. You can have no mode, or multiple modes.<br>
+                <em>Data: 2, 2, 4, 5, 5, 5, 8. Mode = 5.</em>
             </div>
 
             <div class="money-box">
-                <div class="money-header">💸 Money Connection: Risk</div>
-                <p>In investing, <strong>Range</strong> represents <strong>Risk</strong>. A bank account has a range of 0% (Safe). Cryptocurrency has a huge range (High Risk). High range means you could win big or lose big.</p>
+                <div class="money-header">💸 Money Connection: The "Average" Trap</div>
+                <p>Imagine 9 teachers earn $50k, and the principal earns $500k. The <strong>Mean</strong> salary is $95k. If you apply for a job there thinking you'll make $95k, you are being tricked by the Mean!</p>
+                <p>The <strong>Median</strong> salary is $50k. For money (like house prices or salaries), the <strong>Median</strong> is always the most honest number because it ignores crazy extremes (outliers).</p>
             </div>
         </div>
 
-        <button class="accordion">5.3 Histograms (Visualizing Data)</button>
+        <button class="accordion">5.3 Measures of Spread (Range & Outliers)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>A Histogram uses bars to show the <strong>frequency</strong> of data in intervals (bins). <strong>Key Rule: The bars must touch</strong> (no gaps) because the data is continuous (like time, height, or money).</p>
+            <p>Central tendency tells us the middle, but <strong>Spread</strong> tells us how scattered or unpredictable the data is.</p>
             
-            <h3>Visual Examples</h3>
+            <h3>Key Concepts</h3>
             <div class="example-box">
-                <span class="example-title">Ex 1: Normal Distribution (Bell Curve)</span>
-                <p>Most data is in the middle (e.g., Average Grades). Frequencies: 5, 20, 35, 20, 5.</p>
-                <div class="histogram-container">
-                    <div class="hist-bin"><div class="hist-bar" style="height: 14%;"><span class="hist-value">5</span></div><div class="hist-label">F</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 57%;"><span class="hist-value">20</span></div><div class="hist-label">D</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 100%;"><span class="hist-value">35</span></div><div class="hist-label">C</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 57%;"><span class="hist-value">20</span></div><div class="hist-label">B</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 14%;"><span class="hist-value">5</span></div><div class="hist-label">A</div></div>
-                </div>
+                <span class="example-title">1. Range</span>
+                The simplest measure of spread. Maximum Value minus Minimum Value.<br>
+                <em>Data: 10, 15, 20, 80. Range = 80 - 10 = 70.</em>
             </div>
-            
             <div class="example-box">
-                <span class="example-title">Ex 2: Right Skewed (Real Estate)</span>
-                <p>Most houses are affordable, a few are ultra-rich. Frequencies: 50, 30, 15, 5.</p>
-                <div class="histogram-container">
-                    <div class="hist-bin"><div class="hist-bar" style="height: 100%;"><span class="hist-value">50</span></div><div class="hist-label">Low</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 60%;"><span class="hist-value">30</span></div><div class="hist-label">Med</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 30%;"><span class="hist-value">15</span></div><div class="hist-label">High</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 10%;"><span class="hist-value">5</span></div><div class="hist-label">Ultra</div></div>
-                </div>
+                <span class="example-title">2. Outliers</span>
+                A data point that is abnormally far away from all the other points. Outliers severely distort the Mean and the Range.
             </div>
-
             <div class="example-box">
-                <span class="example-title">Ex 3: Bimodal (Two Groups)</span>
-                <p>Two separate peaks. Frequencies: 30, 5, 10, 30.</p>
-                <div class="histogram-container">
-                    <div class="hist-bin"><div class="hist-bar" style="height: 100%;"><span class="hist-value">30</span></div><div class="hist-label">Grp 1</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 16%;"><span class="hist-value">5</span></div><div class="hist-label">Gap</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 33%;"><span class="hist-value">10</span></div><div class="hist-label">Gap</div></div>
-                    <div class="hist-bin"><div class="hist-bar" style="height: 100%;"><span class="hist-value">30</span></div><div class="hist-label">Grp 2</div></div>
-                </div>
+                <span class="example-title">3. Standard Deviation (Concept)</span>
+                We don't need to manually calculate this in MBF3C, but conceptually: It measures how closely clumped the data is around the mean. A small standard deviation means everyone is very close to average. A large one means results are wildly scattered.
             </div>
 
             <div class="money-box">
-                <div class="money-header">💸 Money Connection: Spending Habits</div>
-                <p>If you made a histogram of your monthly expenses, you'd likely see many small bars for coffee/snacks (High Frequency, Low Cost) and one or two bars for Rent/Car (Low Frequency, High Cost).</p>
+                <div class="money-header">💸 Money Connection: Risk and Volatility</div>
+                <p>In the stock market, "Spread" is called <strong>Volatility (Risk)</strong>. If Stock A returns between 4% and 6% every year (small range), it is low risk. If Stock B returns between -20% and +30% (huge range), it is high risk. Spread helps you decide where to put your retirement money.</p>
+            </div>
+        </div>
+
+        <button class="accordion">5.4 Bias (Lying with Statistics)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p>Bias happens when a survey is flawed in a way that artificially pushes the results in one direction.</p>
+            
+            <h3>3 Types of Bias</h3>
+            <div class="example-box">
+                <span class="example-title">1. Sampling Bias</span>
+                Your sample doesn't represent the population. Example: Trying to find the most popular sport in Canada by only surveying people inside a hockey arena.
+            </div>
+            <div class="example-box">
+                <span class="example-title">2. Non-Response Bias</span>
+                When a specific group of people refuse to answer your survey, ruining the data. Example: A restaurant emails a survey. Only extremely angry customers take the time to reply. The data looks like 100% of people hate the food.
+            </div>
+            <div class="example-box">
+                <span class="example-title">3. Response Bias (Leading Questions)</span>
+                When the question itself forces people to answer a certain way. Example: "Do you agree that our heroic, hard-working mayor deserves a raise?"
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: Fake "Studies"</div>
+                <p>Companies constantly use <strong>Response Bias</strong> to sell you things. They will run a survey saying, "Would you rather use our advanced cleaning product or stay dirty?" and then print "100% of people prefer our product!" on the box. Knowing statistics protects you from being manipulated.</p>
             </div>
         </div>
     </div>
 
     <div id="tab-practice" class="tab-content">
-        <h2>Practice Problems</h2>
+        <h2>Practice Problems (KICA Training)</h2>
+        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills.</p>
         
         <div class="practice-controls">
-            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic:</label>
+            <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic & KICA Skill:</label>
             <select id="practice-selector" onchange="resetPracticeUI()">
-                <option value="" disabled selected>-- Choose a Topic --</option>
-                <optgroup label="Calculations">
-                    <option value="mean">Calculate Mean (Average)</option>
-                    <option value="median">Calculate Median (Middle)</option>
-                    <option value="mode">Calculate Mode (Most Frequent)</option>
-                    <option value="range">Calculate Range (Max - Min)</option>
+                <option value="" disabled selected>-- Choose a Training Module --</option>
+                
+                <optgroup label="5.1 Sampling Techniques">
+                    <option value="5.1-K">Knowledge: Identify the Method</option>
+                    <option value="5.1-A">Application: Choose the Best Method</option>
+                    <option value="5.1-I">Inquiry: Why Samples Fail</option>
+                    <option value="5.1-C">Comm: Explain Stratified to a Client</option>
                 </optgroup>
-                <optgroup label="Analysis">
-                    <option value="outlier">Identify the Outlier</option>
-                    <option value="histogram_read">Interpret Histogram</option>
-                    <option value="missing">Find the Missing Number (Challenge)</option>
+
+                <optgroup label="5.2 Central Tendency">
+                    <option value="5.2-K">Knowledge: Calculate Mean/Median/Mode</option>
+                    <option value="5.2-A">Application: Calculate Real-World Stats</option>
+                    <option value="5.2-I">Inquiry: Mean vs Median with Outliers</option>
+                    <option value="5.2-C">Comm: Deconstruct a Misleading Average</option>
                 </optgroup>
-                <option value="all">All in One (Random Mix)</option>
+
+                <optgroup label="5.3 Measures of Spread">
+                    <option value="5.3-K">Knowledge: Calculate Range</option>
+                    <option value="5.3-A">Application: Compare Volatility</option>
+                    <option value="5.3-I">Inquiry: What Wide Spread Means</option>
+                    <option value="5.3-C">Comm: Explain Risk to an Investor</option>
+                </optgroup>
+
+                <optgroup label="5.4 Bias in Data">
+                    <option value="5.4-K">Knowledge: Identify the Bias Type</option>
+                    <option value="5.4-A">Application: Spot the Flawed Survey</option>
+                    <option value="5.4-I">Inquiry: Fixing a Leading Question</option>
+                    <option value="5.4-C">Comm: Email Rejecting Bad Data</option>
+                </optgroup>
             </select>
 
-            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Question</button>
-            <div class="score-board">Score: <span id="score-display">0</span></div>
+            <button class="btn-primary" style="margin-top: 15px;" onclick="generateQuestion()">Generate Random Question</button>
+            <div class="score-board">
+                Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
+                <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
+            </div>
         </div>
 
         <div id="question-area">
-            <p>Select a topic to begin.</p>
+            <p>Please select a module from the dropdown above to begin.</p>
         </div>
 
         <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
@@ -533,376 +484,521 @@
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
         
+        <div id="mc-area" class="option-grid" style="display:none;"></div>
+
         <div id="feedback-area"></div>
     </div>
 
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 5 Assignment: "The Real Estate Reality Check"</h2>
-        <p><strong>Objective:</strong> You will act as a Data Analyst. You will collect real data, calculate statistics, and <strong>Create a Histogram</strong> to visualize the market.</p>
-        <p><strong>Instructions:</strong> Complete the following sections in a separate report. Submit your findings to your teacher.</p>
-
+        <h2>Unit 5 Assignment: The Data Detective</h2>
+        <p><strong>Scenario:</strong> You are a financial analyst. People often use "averages" to trick consumers. Your job is to collect real-world data and prove why the Mean can be a massive lie, and why the Median is the truth.</p>
+        
         <div class="money-box">
-            <div class="money-header">💼 Scenario</div>
-            <p>A client wants to buy a house in your city. They heard the "Average" price is $800,000, but they see many cheaper houses. Help them understand the data using Mean, Median, and Graphs.</p>
+            <div class="money-header">💼 Your Mission Setup (Real Data)</div>
+            <p>1. Go to AutoTrader.ca or Realtor.ca.</p>
+            <p>2. Pick a specific item (e.g., 2018 Honda Civics, or 2-Bedroom Condos in Toronto).</p>
+            <p>3. Find the prices of <strong>10 normal listings</strong>. Write them down.</p>
+            <p>4. Find <strong>1 extreme Outlier</strong> (e.g., a heavily damaged car that is incredibly cheap, or a luxury penthouse that is massively expensive). Add this as your 11th number.</p>
         </div>
 
-        <div class="task-box">
-            <span class="task-step">Part A: Data Mining (Inquiry)</span>
-            <p>1. Go to <strong>Realtor.ca</strong> (or a local listing site).</p>
-            <p>2. Find <strong>10 different house prices</strong> in one city. (e.g., Barrie, ON).</p>
-            <p>3. List your 10 prices in your report.</p>
-        </div>
+        <h3>Question 1: The Calculations (Knowledge & Application)</h3>
+        <p>Using your 11 real-world data points:</p>
+        <ul>
+            <li><strong>Mean:</strong> Calculate the Mean price of your items. Show your addition and division.</li>
+            <li><strong>Median:</strong> Order the 11 items from cheapest to most expensive and identify the exact Median.</li>
+            <li><strong>Range:</strong> Calculate the Range (Maximum - Minimum) of your 11 items.</li>
+        </ul>
 
-        <div class="task-box">
-            <span class="task-step">Part B: Running the Stats (Application)</span>
-            <p>Using your 10 prices:</p>
-            <p>1. Calculate the <strong>Mean (Average)</strong>.</p>
-            <p>2. Calculate the <strong>Median</strong>.</p>
-            <p>3. Calculate the <strong>Range</strong>.</p>
-        </div>
+        <h3>Question 2: The Outlier Effect (Inquiry)</h3>
+        <ul>
+            <li><strong>Explain:</strong> Look at your Mean and your Median. Which one is higher/lower? Explain mathematically exactly how the 1 extreme Outlier you chose managed to "pull" the Mean away from the real normal prices.</li>
+        </ul>
 
-        <div class="task-box">
-            <span class="task-step">Part C: The "Mansion" Effect (Analysis)</span>
-            <p>1. Imagine a celebrity moves in next door. Add an 11th house to your list worth <strong>$10,000,000</strong>.</p>
-            <p>2. Recalculate the <strong>New Mean</strong> with 11 houses.</p>
-            <p>3. Recalculate the <strong>New Median</strong> with 11 houses.</p>
-            <p>4. <strong>Compare:</strong> Which number changed more? The Mean or the Median? Why?</p>
-        </div>
+        <h3>Question 3: The Sales Pitch (Communication)</h3>
+        <p>Imagine you work for an advertising agency trying to sell these items.</p>
+        <ul>
+            <li><strong>Explain:</strong> Write a 3-sentence advertisement. Deliberately use the misleading measure (either the Mean or Median, depending on what makes your item look better to a buyer) to make the prices seem much cheaper or much higher than they actually are. Explain to me why you chose that specific number to trick the buyer.</li>
+        </ul>
 
-        <div class="task-box">
-            <span class="task-step">Part D: Visualization (Communication)</span>
-            <p><strong>Draw the histogram</strong> using your 11 house prices (including the mansion).</p>
-            <p>1. Create 3-4 Price Intervals (Bins). Example: [0-500k], [500k-1M], [1M-2M], [2M+].</p>
-            <p>2. Count how many houses fall into each bin (Frequency).</p>
-            <p>3. Draw the histogram by hand or using technology and paste it into your report. <strong>Ensure bars touch!</strong></p>
-        </div>
+        <h3>Question 4: Spotting Bias (Inquiry & Communication)</h3>
+        <p>A dealership sends out a survey to its customers saying: <em>"Don't you agree that our premium car prices are perfectly fair given our world-class, award-winning service?"</em></p>
+        <ul>
+            <li><strong>Analyze:</strong> Identify the specific type of bias in this question (Sampling, Non-response, or Response bias).</li>
+            <li><strong>Fix It:</strong> Rewrite the survey question so it is 100% neutral and will gather honest data.</li>
+        </ul>
 
-        <div class="task-box">
-            <span class="task-step">Part E: The Report (Communication)</span>
-            <p>Write a conclusion for your client:</p>
-            <ul>
-                <li>"Based on my analysis, the 'typical' price is $________ (Mean or Median)."</li>
-                <li>Explain <strong>WHY</strong> you chose Mean or Median based on your data shape (especially with the mansion outlier).</li>
-            </ul>
-        </div>
+        <hr>
 
-        <h3>Assessment Rubric (Growing Success)</h3>
-        <table style="font-size: 0.9rem;">
+        <h3>Grading Rubric (KICA)</h3>
+        <table>
             <thead>
                 <tr>
-                    <th style="width: 20%;">Category</th>
-                    <th style="width: 20%;">Level 1 (50-59%)</th>
-                    <th style="width: 20%;">Level 2 (60-69%)</th>
-                    <th style="width: 20%;">Level 3 (70-79%)</th>
-                    <th style="width: 20%;">Level 4 (80-100%)</th>
+                    <th>Category</th>
+                    <th>Level 4 (80-100%)</th>
+                    <th>Level 3 (70-79%)</th>
+                    <th>Level 2 (60-69%)</th>
+                    <th>Level 1 (50-59%)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Knowledge</strong></td>
-                    <td>Calculations contain frequent errors.</td>
-                    <td>Calculations are mostly correct.</td>
-                    <td>Calculations of Mean/Median are correct.</td>
-                    <td>Calculations are precise and verified.</td>
+                    <td><strong>Knowledge (Q1)</strong></td>
+                    <td>Flawlessly calculates Mean, Median, and Range with real-world data.</td>
+                    <td>Calculates correctly but makes a minor addition or rounding error.</td>
+                    <td>Struggles with the formulas (e.g., forgets to order numbers before finding Median).</td>
+                    <td>Cannot calculate the measures of central tendency.</td>
                 </tr>
                 <tr>
-                    <td><strong>Inquiry</strong></td>
-                    <td>Data gathered is insufficient (fewer than 10 houses).</td>
-                    <td>Data is gathered but variety is limited.</td>
-                    <td>Data is gathered correctly from real sources.</td>
-                    <td>Data is diverse, realistic, and well-organized.</td>
+                    <td><strong>Inquiry (Q2, Q4)</strong></td>
+                    <td>Insightfully explains exactly how the outlier skews the mean, and perfectly diagnoses the survey bias.</td>
+                    <td>Explains outlier effect and identifies bias correctly.</td>
+                    <td>Identifies the outlier or bias, but struggles to explain *why* it ruins the data.</td>
+                    <td>Fails to understand outliers or bias.</td>
                 </tr>
                 <tr>
-                    <td><strong>Application</strong></td>
-                    <td>Difficulty recalculating stats with the outlier.</td>
-                    <td>Recalculates stats with some errors.</td>
-                    <td>Correctly recalculates stats to show the outlier effect.</td>
-                    <td>Perfectly demonstrates the impact of outliers (The Mansion) on data.</td>
+                    <td><strong>Communication (Q3, Q4)</strong></td>
+                    <td>The "trick" advertisement is clever and proves a deep understanding of statistical manipulation. The rewritten survey is perfectly neutral.</td>
+                    <td>Advertisement and rewritten survey are clear and use appropriate terms.</td>
+                    <td>Explanations are somewhat vague or rely too heavily on everyday language.</td>
+                    <td>Explanations are confusing or missing.</td>
                 </tr>
                 <tr>
-                    <td><strong>Communication</strong></td>
-                    <td>Histogram is missing or resembles a bar graph (gaps).</td>
-                    <td>Histogram is present but lacks labels.</td>
-                    <td>Histogram correctly represents the data (touching bars).</td>
-                    <td>Histogram is professional, accurate, and enhances the report.</td>
+                    <td><strong>Application (Q1-Q4)</strong></td>
+                    <td>Applies statistical tools perfectly to real-world AutoTrader/Realtor data, drawing valid conclusions.</td>
+                    <td>Successfully applies tools to real-world data.</td>
+                    <td>Collects data but struggles to connect the math results to the real-world meaning.</td>
+                    <td>Unable to apply math to the data.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
 
-<div class="version-tag">v2.1 (Anti-Spam & Precision)</div>
+<div class="version-tag">v5.1 (Isolated Scoring & Deep Randomization Pools)</div>
 
 <script>
     /* --- UTILS --- */
-    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    const formatMoney = (num) => '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-    // --- State Management ---
-    let currentScore = 0;
-    let isQuestionSolved = false; // New Anti-Spam flag
     
-    // --- Navigation ---
-    function openTab(tabId) {
+    function calcMean(arr) { return arr.reduce((a,b)=>a+b,0) / arr.length; }
+    function calcMedian(arr) {
+        let s = [...arr].sort((a,b)=>a-b);
+        let mid = Math.floor(s.length/2);
+        return s.length % 2 !== 0 ? s[mid] : (s[mid-1] + s[mid]) / 2;
+    }
+    
+    // --- State Management ---
+    // KEY CHANGED TO unit5 TO ISOLATE SCORES FROM UNIT 2 & 3
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit5_data')) || {};
+    let isQuestionSolved = false; 
+    
+    // --- Navigation (Fixed 'event' passing) ---
+    function openTab(evt, tabId) {
         const contents = document.getElementsByClassName('tab-content');
         for (let content of contents) content.classList.remove('active');
         document.getElementById(tabId).classList.add('active');
         const navBtns = document.querySelectorAll('nav button');
         navBtns.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-    }
-
-    // --- Accordion ---
-    const acc = document.getElementsByClassName("accordion");
-    for (let i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active-acc");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) panel.style.maxHeight = null;
-            else panel.style.maxHeight = panel.scrollHeight + "px";
-        });
+        evt.currentTarget.classList.add('active');
     }
 
     function printLesson(btn) {
-        alert("Printing functionality would open a system dialog here.");
         window.print();
     }
 
-    // --- Helpers ---
-    function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-    function randChoice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-    function formatMoney(num) { return '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }
-
-    // --- Main Logic: Generate Question ---
-    function resetPracticeUI() {
-        document.getElementById('feedback-area').innerHTML = "";
-        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Question' to start.</p>";
-        document.getElementById('input-area').style.display = 'none';
-        currentScore = 0;
-        document.getElementById('score-display').innerText = currentScore;
+    // --- Scoring Logic ---
+    function updateScoreDisplay() {
+        const selector = document.getElementById('practice-selector');
+        let type = selector.value || 'default';
+        let data = practiceData[type] || { correct: 0, total: 0 };
+        
+        const scoreEl = document.getElementById('p-score');
+        const totalEl = document.getElementById('p-total');
+        if(scoreEl && totalEl) {
+            scoreEl.innerText = data.correct;
+            totalEl.innerText = data.total;
+        }
     }
 
+    function saveScore(isCorrect) {
+        let type = document.getElementById('practice-selector').value || 'default';
+        if (!practiceData[type]) {
+            practiceData[type] = { total: 0, correct: 0 };
+        }
+        
+        practiceData[type].total++;
+        if(isCorrect) practiceData[type].correct++;
+        
+        localStorage.setItem('mbf3c_unit5_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeScore() {
+        let type = document.getElementById('practice-selector').value || 'default';
+        practiceData[type] = { correct: 0, total: 0 };
+        localStorage.setItem('mbf3c_unit5_data', JSON.stringify(practiceData));
+        updateScoreDisplay();
+    }
+
+    function resetPracticeUI() {
+        document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
+        document.getElementById('input-area').style.display = 'none';
+        
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) {
+            mcArea.style.display = 'none';
+            mcArea.innerHTML = "";
+        }
+        
+        updateScoreDisplay();
+    }
+
+    // --- Main Logic: Generate Question ---
     let currentQuestion = null;
 
     function generateQuestion() {
         const selector = document.getElementById('practice-selector');
         let val = selector.value;
+        if(!val) return;
+
         const qArea = document.getElementById('question-area');
         const inputArea = document.getElementById('input-area');
+        const mcArea = document.getElementById('mc-area');
         const feedback = document.getElementById('feedback-area');
 
-        // Reset
+        // Reset UI
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
-        inputArea.style.display = 'block';
+        inputArea.style.display = 'none';
+        mcArea.style.display = 'none';
+        mcArea.innerHTML = "";
         
         // Anti-Spam Reset
         isQuestionSolved = false;
 
-        // All in One Handler
-        if (val === 'all') {
-            const options = ['mean', 'median', 'mode', 'range', 'outlier', 'missing', 'histogram_read'];
-            val = randChoice(options);
+        let parts = val.split('-');
+        let section = parts[0];
+        let kica = parts[1];
+
+        if (section === "5.1") gen5_1(kica, qArea);
+        else if (section === "5.2") gen5_2(kica, qArea);
+        else if (section === "5.3") gen5_3(kica, qArea);
+        else if (section === "5.4") gen5_4(kica, qArea);
+    }
+
+    // --- 5.1 Sampling Techniques ---
+    function gen5_1(kica, qArea) {
+        if (kica === "K") {
+            let pool = [
+                {q: "You divide the school by grade, then randomly pick 10 students from each grade.", a: "Stratified"},
+                {q: "You stand at the door and ask every 5th person who walks in.", a: "Systematic"},
+                {q: "You just ask your 4 closest friends sitting at your lunch table.", a: "Convenience"},
+                {q: "You put everyone's name in a computer and it randomly draws 20 names.", a: "Simple Random"}
+            ];
+            let selected = randChoice(pool);
+            qArea.innerHTML = `<p><strong>Scenario:</strong> ${selected.q}</p><p>What type of sampling is this?</p>`;
+            setupMC([
+                {text: "Stratified", correct: selected.a === "Stratified"},
+                {text: "Systematic", correct: selected.a === "Systematic"},
+                {text: "Convenience", correct: selected.a === "Convenience"},
+                {text: "Simple Random", correct: selected.a === "Simple Random"}
+            ]);
+        } else if (kica === "A") {
+            let n = randInt(10, 50);
+            let pool = [
+                {
+                    q: `<p>A hospital wants to test a new policy. They pull the file of every ${n}th patient. What method is being applied?</p>`,
+                    opts: [ {text: "Systematic Sampling", correct: true}, {text: "Convenience Sampling", correct: false}, {text: "Stratified Sampling", correct: false} ]
+                },
+                {
+                    q: `<p>A game developer wants to test a bug. Instead of finding random players, they just ask the ${n} developers sitting in their office.</p>`,
+                    opts: [ {text: "Convenience Sampling", correct: true}, {text: "Simple Random Sampling", correct: false}, {text: "Systematic Sampling", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>Why is "Convenience Sampling" almost always rejected by professional statisticians?</p>`,
+                    opts: [ {text: "Because people near you usually share similar traits or opinions to you, destroying the randomness needed for accurate data.", correct: true}, {text: "Because it takes too much time to do.", correct: false}, {text: "Because it is mathematically too difficult to calculate the mean.", correct: false} ]
+                },
+                {
+                    q: `<p>A survey about ending the 'wealth tax' is done by randomly calling numbers in only the wealthiest zip code. Why does this sample fail?</p>`,
+                    opts: [ {text: "It suffers from extreme Sampling Bias. It completely excludes the middle and lower classes from the data.", correct: true}, {text: "It is a Systematic Sample, which is always bad.", correct: false}, {text: "It actually doesn't fail; random calling is always perfectly fair.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>Explain to a CEO why "Stratified Sampling" is better than "Simple Random" when surveying a company with 900 factory workers and 100 managers.</p>`,
+                    opts: [ {text: `"Simple random might accidentally pick mostly managers. Stratified forces the sample to maintain the 90% to 10% ratio, guaranteeing both voices are accurately represented."`, correct: true}, {text: `"Stratified is faster because you just ask whoever is closest to you in the office."`, correct: false}, {text: `"Simple Random is actually better. You should never use Stratified."`, correct: false} ]
+                },
+                {
+                    q: `<p>A politician brags, "I surveyed 50,000 of my followers on Twitter, and 99% love my new law!" How do you explain the flaw in this boast?</p>`,
+                    opts: [ {text: `"The sample size is huge, but the source is heavily biased. Followers already like you. A small, truly random sample of 1,000 citizens would yield far more accurate data."`, correct: true}, {text: `"You didn't ask enough people. 50,000 is too small for a good sample."`, correct: false}, {text: `"There is no flaw. 50,000 people is enough to prove any statistic."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
-
-        // Generate Dataset (Infinite Pool)
-        const size = randChoice([5, 7, 9]); 
-        let data = [];
-        for(let i=0; i<size; i++) data.push(randInt(1, 20));
-        
-        // Router
-        if (val === 'mean') genMean(qArea, data);
-        else if (val === 'median') genMedian(qArea, data);
-        else if (val === 'mode') genMode(qArea); 
-        else if (val === 'range') genRange(qArea, data);
-        else if (val === 'outlier') genOutlier(qArea);
-        else if (val === 'missing') genMissing(qArea);
-        else if (val === 'histogram_read') genHistogramRead(qArea);
     }
 
-    // --- 1. Mean ---
-    function genMean(qArea, data) {
-        let sum = data.reduce((a,b)=>a+b, 0);
-        let remainder = sum % data.length;
-        if(remainder !== 0) {
-            data[0] += (data.length - remainder); 
+    // --- 5.2 Central Tendency ---
+    function gen5_2(kica, qArea) {
+        if (kica === "K") {
+            let arr = [];
+            for(let i=0; i<5; i++) arr.push(randInt(2, 20));
+            let type = randChoice(["Mean", "Median"]);
+            let ans = type === "Mean" ? calcMean(arr) : calcMedian(arr);
+            
+            qArea.innerHTML = `<p>Data Set:</p><div class="data-array">${arr.join(", ")}</div><p>Calculate the <strong>${type}</strong>.</p><p><small>(If a decimal, round to 1 decimal place)</small></p>`;
+            setupInput(ans.toFixed(1).replace(/\.0$/, '')); // trim .0 if whole
+            
+        } else if (kica === "A") {
+            let s1 = randInt(40, 60)*1000;
+            let s2 = randInt(40, 60)*1000;
+            let s3 = randInt(40, 60)*1000;
+            let s4 = randInt(40, 60)*1000;
+            let boss = randInt(200, 500)*1000;
+            let arr = [s1, s2, s3, s4, boss];
+            
+            let type = randChoice(["Mean", "Median"]);
+            let ans = type === "Mean" ? calcMean(arr) : calcMedian(arr);
+
+            qArea.innerHTML = `<p>Five salaries at a startup:</p><div class="data-array">$${s1}, $${s2}, $${s3}, $${s4}, $${boss}</div><p>Calculate the <strong>${type}</strong> salary.</p>`;
+            setupInput(ans.toString());
+
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>A dataset of 10 normal house prices has a massive Outlier added to it (a $10 Million mansion).</p><p>Which measure is pulled upwards the most?</p>`,
+                    opts: [ {text: "The Mean. It adds all values together, so the massive outlier heavily distorts the average.", correct: true}, {text: "The Median. The middle number changes completely.", correct: false}, {text: "The Mode.", correct: false} ]
+                },
+                {
+                    q: `<p>If data is perfectly symmetrical (like a perfect bell curve), what is the relationship between the Mean and the Median?</p>`,
+                    opts: [ {text: "They are exactly the same number.", correct: true}, {text: "The Mean is higher.", correct: false}, {text: "The Median is higher.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>Why do news articles report the "Median House Price" in Toronto instead of the "Mean House Price"?</p>`,
+                    opts: [ {text: `"Because a few ultra-rich $20 million mansions will artificially drag the Mean upwards. The Median ignores those extremes and shows what a normal person is actually paying."`, correct: true}, {text: `"Because the Median is much easier to calculate on a computer than the Mean."`, correct: false}, {text: `"Because the Mean is only used for science, not money."`, correct: false} ]
+                },
+                {
+                    q: `<p>Your boss says, "Our average (mean) customer is 45 years old." But your data is mostly teenagers and senior citizens. How do you explain the flaw?</p>`,
+                    opts: [ {text: `"The Mean is 45 because the teens and seniors average out in the middle. But nobody who is actually 45 buys our product. We should look at the Mode instead."`, correct: true}, {text: `"The Mean is correct, we should start marketing to 45-year-olds immediately."`, correct: false}, {text: `"The Median is the only way to solve this."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
-        sum = data.reduce((a,b)=>a+b, 0);
-        const ans = sum / data.length;
-        
-        qArea.innerHTML = `
-            <p>Data Set: <strong>{ ${data.join(', ')} }</strong></p>
-            <p>Calculate the <strong>Mean</strong> (<span class="math-text">x̄</span>).</p>
-            <p><small>(Sum &div; Count)</small></p>
-        `;
-        currentQuestion = { answer: ans, type: 'numeric' };
     }
 
-    // --- 2. Median ---
-    function genMedian(qArea, data) {
-        let sorted = [...data].sort((a,b) => a-b);
-        let mid = Math.floor(sorted.length / 2);
-        const ans = sorted[mid];
+    // --- 5.3 Spread ---
+    function gen5_3(kica, qArea) {
+        if (kica === "K") {
+            let arr = [];
+            for(let i=0; i<6; i++) arr.push(randInt(5, 100));
+            let max = Math.max(...arr);
+            let min = Math.min(...arr);
+            let ans = max - min;
+            
+            qArea.innerHTML = `<p>Data Set:</p><div class="data-array">${arr.join(", ")}</div><p>Calculate the <strong>Range</strong> of this data.</p>`;
+            setupInput(ans.toString());
 
-        qArea.innerHTML = `
-            <p>Data Set: <strong>{ ${data.join(', ')} }</strong></p>
-            <p>Calculate the <strong>Median</strong>.</p>
-            <p><small>(Don't forget to order them first!)</small></p>
-        `;
-        currentQuestion = { answer: ans, type: 'numeric' };
-    }
+        } else if (kica === "A") {
+            let pA_min = randInt(2, 5); let pA_max = randInt(6, 10);
+            let pB_min = randInt(-20, -5); let pB_max = randInt(20, 50);
+            let askRisk = Math.random() > 0.5;
 
-    // --- 3. Mode ---
-    function genMode(qArea) {
-        let data = [randInt(1,10), randInt(1,10), randInt(1,10)];
-        const target = randInt(11, 20);
-        data.push(target, target, target);
-        data.sort(() => Math.random() - 0.5);
-        
-        qArea.innerHTML = `
-            <p>Data Set: <strong>{ ${data.join(', ')} }</strong></p>
-            <p>Identify the <strong>Mode</strong>.</p>
-            <p><small>(The most frequent number)</small></p>
-        `;
-        currentQuestion = { answer: target, type: 'numeric' };
-    }
+            qArea.innerHTML = `<p>Stock A returns between ${pA_min}% and ${pA_max}% per year.</p><p>Stock B returns between ${pB_min}% and ${pB_max}% per year.</p><p>Which stock is considered <strong>${askRisk ? "HIGHER Risk (More Volatile)" : "LOWER Risk (Safer)"}</strong>?</p>`;
+            setupMC([
+                {text: "Stock A", correct: !askRisk},
+                {text: "Stock B", correct: askRisk}
+            ]);
 
-    // --- 4. Range ---
-    function genRange(qArea, data) {
-        let min = Math.min(...data);
-        let max = Math.max(...data);
-        const ans = max - min;
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>Two classes take a math test. Both have a Mean of 75%. Class A has a Range of 10%. Class B has a Range of 50%.</p><p>What can you infer about Class B?</p>`,
+                    opts: [ {text: "The students' abilities are wildly scattered. Some did extremely well, while others failed miserably.", correct: true}, {text: "Every student in Class B got exactly 75%.", correct: false}, {text: "Class B is much smarter overall than Class A.", correct: false} ]
+                },
+                {
+                    q: `<p>What happens to the standard deviation/spread of a dataset if all the numbers are identical (e.g., 5, 5, 5, 5, 5)?</p>`,
+                    opts: [ {text: "The spread is exactly zero, because there is no variation at all.", correct: true}, {text: "The spread is 5.", correct: false}, {text: "The spread cannot be calculated.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
 
-        qArea.innerHTML = `
-            <p>Data Set: <strong>{ ${data.join(', ')} }</strong></p>
-            <p>Calculate the <strong>Range</strong>.</p>
-            <p><small>(Max - Min)</small></p>
-        `;
-        currentQuestion = { answer: ans, type: 'numeric' };
-    }
-
-    // --- 5. Outlier ---
-    function genOutlier(qArea) {
-        let data = [10, 12, 11, 13, 12];
-        let outlier = randInt(50, 100);
-        data.push(outlier);
-        data.sort(() => Math.random() - 0.5);
-
-        qArea.innerHTML = `
-            <p>Data Set: <strong>{ ${data.join(', ')} }</strong></p>
-            <p>Which number is the <strong>Outlier</strong>?</p>
-        `;
-        currentQuestion = { answer: outlier, type: 'numeric' };
-    }
-
-    // --- 6. Missing Number (3 to 5 items) ---
-    function genMissing(qArea) {
-        // Random count between 3 and 5
-        const count = randInt(3, 5);
-        const targetMean = randInt(5, 15);
-        const totalNeeded = targetMean * count;
-        
-        // Generate count-1 numbers
-        let knownNumbers = [];
-        let currentSum = 0;
-        for(let i=0; i < count - 1; i++) {
-            let n = randInt(1, targetMean + 5);
-            knownNumbers.push(n);
-            currentSum += n;
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>How do you explain the concept of "Spread" (Standard Deviation) to a financial client picking mutual funds?</p>`,
+                    opts: [ {text: `"Spread is the 'rollercoaster' factor. A large spread means your account value will violently jump up and down. A small spread means slow, predictable movement."`, correct: true}, {text: `"Spread tells us the exact average amount of money you will make."`, correct: false}, {text: `"Spread is the difference between the stock price and the bank's fee."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why is reporting only the "Mean" dangerous without also reporting the "Spread"?</p>`,
+                    opts: [ {text: `"Because a Mean of 50 could come from steady data (49, 50, 51) OR highly erratic data (0, 50, 100). Spread tells you if you can actually trust the Mean to be normal."`, correct: true}, {text: `"Because the Mean is usually calculated wrong."`, correct: false}, {text: `"It isn't dangerous. The Mean tells you everything you need to know."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
-        
-        // The missing number
-        const nMissing = totalNeeded - currentSum;
-
-        qArea.innerHTML = `
-            <p>The <strong>Mean</strong> of ${count} numbers is <strong>${targetMean}</strong>.</p>
-            <p>The known numbers are: <strong>${knownNumbers.join(', ')}</strong>.</p>
-            <p>What is the missing number?</p>
-            <p><small>Hint: Total Sum must be ${count} &times; ${targetMean} = ${totalNeeded}</small></p>
-        `;
-        currentQuestion = { answer: nMissing, type: 'numeric' };
     }
 
-    // --- 7. Interpret Histogram (Visual Fix) ---
-    function genHistogramRead(qArea) {
-        const h1 = randInt(2, 10);
-        const h2 = randInt(10, 25); 
-        const h3 = randInt(5, 15);
-        const h4 = randInt(1, 8);
-        
-        // Max height for scaling (25 is max random above)
-        const scale = 180 / 25; 
+    // --- 5.4 Bias ---
+    function gen5_4(kica, qArea) {
+        if (kica === "K") {
+            let pool = [
+                {q: "People refuse to return the survey, so you only get angry reviews.", a: "Non-Response Bias"},
+                {q: "The question says: 'Don't you agree the city is wasting our money?'", a: "Response Bias"},
+                {q: "Surveying only gym members about whether the city should build more gyms.", a: "Sampling Bias"}
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = `<p><strong>Scenario:</strong> ${sel.q}</p><p>Identify the type of Bias.</p>`;
+            setupMC([
+                {text: "Non-Response Bias", correct: sel.a === "Non-Response Bias"},
+                {text: "Response Bias (Leading Q)", correct: sel.a === "Response Bias"},
+                {text: "Sampling Bias", correct: sel.a === "Sampling Bias"}
+            ]);
 
-        const type = Math.random() > 0.5 ? 'count' : 'max';
-        let qText = "";
-        let ans = 0;
+        } else if (kica === "A") {
+            let bType = randChoice(["Sampling", "Response"]);
+            if (bType === "Sampling") {
+                qArea.innerHTML = `<p>A principal wants to know if the math homework is too hard. She only asks the students in the Advanced AP Math class.</p><p>Why is this data flawed?</p>`;
+                setupMC([
+                    {text: "Sampling Bias. She excluded the regular and struggling students, guaranteeing an artificially positive result.", correct: true},
+                    {text: "Response Bias. She forced them to answer a certain way.", correct: false},
+                    {text: "It isn't flawed. AP students take math, so they are a valid sample.", correct: false}
+                ]);
+            } else {
+                qArea.innerHTML = `<p>A survey asks: "Should the greedy government raise taxes to punish hard workers?"</p><p>Why is this data flawed?</p>`;
+                setupMC([
+                    {text: "Response Bias. The emotional words 'greedy' and 'punish' pressure people into saying 'No', destroying the neutrality.", correct: true},
+                    {text: "Sampling Bias. They didn't ask enough people.", correct: false},
+                    {text: "Non-Response bias. No one will answer that.", correct: false}
+                ]);
+            }
 
-        if (type === 'count') {
-            qText = "How many people are in the <strong>[20-30]</strong> age group?";
-            ans = h2;
-        } else {
-            qText = "What is the frequency of the <strong>[40-50]</strong> group?";
-            ans = h4;
+        } else if (kica === "I") {
+            let pool = [
+                {
+                    q: `<p>How do you fix a "Leading Question" (Response Bias)?</p>`,
+                    opts: [ {text: "Remove all emotionally charged adjectives and present the options neutrally.", correct: true}, {text: "Ask more people the exact same question.", correct: false}, {text: "Offer them a gift card if they answer.", correct: false} ]
+                },
+                {
+                    q: `<p>Why do voluntary internet polls (like Twitter polls) almost always suffer from extreme Non-Response Bias?</p>`,
+                    opts: [ {text: "Because neutral, average people usually just scroll past. Only the most furious or most passionate 1% take the time to click and vote.", correct: true}, {text: "Because internet algorithms change the numbers automatically.", correct: false}, {text: "Because they are completely random.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+
+        } else if (kica === "C") {
+            let pool = [
+                {
+                    q: `<p>Your marketing team shows you a survey proving "100% of people love our new flavor." You realize they only surveyed employees of the company.</p><p>What do you say in your email rejecting the data?</p>`,
+                    opts: [ {text: `"This data is ruined by Sampling Bias. Employees are paid by the company, so they are not an objective, random sample of real consumers."`, correct: true}, {text: `"This data has Response Bias because the question was too confusing."`, correct: false}, {text: `"The sample size was just too small. Ask more employees."`, correct: false} ]
+                },
+                {
+                    q: `<p>How would you briefly explain to a client how 'Statistics can be used to lie'?</p>`,
+                    opts: [ {text: `"By deliberately changing how a sample is picked or how a question is worded, you can mathematically force a 'fact' to support whatever agenda you want."`, correct: true}, {text: `"You can just invent fake numbers and put them in a graph."`, correct: false}, {text: `"Statistics never lie, only the people reading them misunderstand."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
-
-        let chartHTML = `
-            <div class="histogram-container" style="height:200px; width:100%;">
-                <div class="hist-bin"><div class="hist-bar" style="height: ${h1*scale}px;"><span class="hist-value">${h1}</span></div><div class="hist-label">10-20</div></div>
-                <div class="hist-bin"><div class="hist-bar" style="height: ${h2*scale}px;"><span class="hist-value">${h2}</span></div><div class="hist-label">20-30</div></div>
-                <div class="hist-bin"><div class="hist-bar" style="height: ${h3*scale}px;"><span class="hist-value">${h3}</span></div><div class="hist-label">30-40</div></div>
-                <div class="hist-bin"><div class="hist-bar" style="height: ${h4*scale}px;"><span class="hist-value">${h4}</span></div><div class="hist-label">40-50</div></div>
-            </div>
-        `;
-
-        qArea.innerHTML = `
-            <p>Look at the Histogram below (Age Groups). Note: Bars touch because age is continuous.</p>
-            ${chartHTML}
-            <p>${qText}</p>
-        `;
-        currentQuestion = { answer: ans, type: 'numeric' };
     }
 
-    // --- Check Answer (Updated with Precision & Anti-Spam) ---
+    // --- Answer Checking Logic ---
+    function setupInput(correctAnswer) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
+        document.getElementById('input-area').style.display = 'block';
+    }
+
+    function setupMC(options) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
+        
+        // Shuffle options
+        options.sort(() => Math.random() - 0.5);
+
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = opt.text; 
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
+    }
+
     function checkAnswer() {
-        if (!currentQuestion) return;
-        
-        // Anti-Spam: Stop if already solved
-        if (isQuestionSolved) return;
+        if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
-        let userVal = parseFloat(userRaw);
-        let feedback = document.getElementById('feedback-area');
+        let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         
-        if (isNaN(userVal)) {
-            feedback.innerHTML = "Please enter a valid number.";
-            feedback.className = "";
-            return;
-        }
-
+        let userNum = parseFloat(cleanUser);
+        let ansNum = parseFloat(currentQuestion.answer);
+        
         let isCorrect = false;
-        let correctVal = currentQuestion.answer;
-        // Smart Accuracy: 0.01 tolerance
-        const margin = 0.01;
 
-        if (Math.abs(userVal - correctVal) <= margin) {
-            isCorrect = true;
-        }
+        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1;
 
-        if (isCorrect) {
-            feedback.innerHTML = "Correct!";
-            feedback.className = "correct";
-            isQuestionSolved = true; // Lock
-            currentScore++;
-            document.getElementById('score-display').innerText = currentScore;
+        if (isPureNumber && !isNaN(userNum)) {
+             if (Math.abs(userNum - ansNum) <= 0.011) {
+                 isCorrect = true;
+             }
         } else {
-            feedback.innerHTML = "Incorrect. Try again.";
-            feedback.className = "incorrect";
+            if (cleanUser === currentQuestion.answer) {
+                isCorrect = true;
+            }
         }
+
+        displayFeedback(isCorrect);
     }
 
-    // Init
-    generateQuestion();
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+        btn.style.color = 'white';
+        
+        displayFeedback(isCorrect);
+    }
+
+    function displayFeedback(isCorrect) {
+        let feedback = document.getElementById('feedback-area');
+        if (isCorrect) {
+            feedback.innerHTML = "✅ Correct! Excellent logic.";
+            feedback.className = "correct";
+            isQuestionSolved = true; 
+            saveScore(true);
+        } else {
+            feedback.innerHTML = "❌ Incorrect. Try again or review the lesson.";
+            feedback.className = "incorrect";
+            saveScore(false);
+        }
+    }
 
 </script>
 </body>
