@@ -162,6 +162,21 @@
             gap: 10px;
         }
 
+        .graph-box {
+            background-color: #e8f8f5;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .graph-header {
+            color: #1a8a4a;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
         /* Math Formatting */
         .math-text {
             font-family: 'Times New Roman', serif;
@@ -404,6 +419,17 @@
                     <li>Stock Market (10%): 72 &div; 10 = 7.2 years to double.</li>
                 </ul>
             </div>
+
+            <div class="graph-box">
+                <div class="graph-header">📊 Reading the J-Curve in Real Life (No Drawing Required)</div>
+                <p>When you look at a real exponential growth chart, here is what to notice:</p>
+                <ul>
+                    <li><strong>Starting point (a):</strong> Where the line begins on the left — your initial investment or population at time zero.</li>
+                    <li><strong>The flat early phase:</strong> The first several years look boring. Nothing dramatic seems to be happening — but compounding is silently building a base.</li>
+                    <li><strong>The "elbow":</strong> The curve bends sharply upward. This is the moment accumulated interest starts generating more wealth than your original contributions ever did.</li>
+                    <li><strong>Real example:</strong> Search "S&P 500 historical chart" and zoom out to 1980–today. It looks nearly flat through the 1980s, then bends violently upward after 2000. That elbow is the J-Curve. The people who started investing in 1980 are the ones sitting on that vertical spike now.</li>
+                </ul>
+            </div>
         </div>
 
         <button class="accordion">3.3 Compound Interest (Making Money)</button>
@@ -440,13 +466,29 @@
                 <span class="math-text">A = 2000(1.12)<sup>5</sup> = $3,524.68</span>
             </div>
             <div class="example-box">
-                <span class="example-title">Ex 5: Compounding Frequency</span>
-                Interest can be calculated Annually (1 time a year), Monthly (12 times a year), or Daily. The more frequently interest is calculated, the larger your final amount will be, because you start earning "interest on your interest" much sooner.
+                <span class="example-title">Ex 5: Compounding Frequency — <span class="math-text">A = P(1 + r/n)<sup>nt</sup></span></span>
+                When interest is calculated <em>more than once per year</em>, use the extended formula:<br>
+                <span class="math-text">A = P(1 + r/n)<sup>nt</sup></span> — where <strong>n</strong> = compounding periods per year, <strong>t</strong> = total years.<br><br>
+                <strong>Example:</strong> $2,000 at 6% annual rate for 5 years:<br>
+                &bull; <strong>Annually</strong> (n=1): <span class="math-text">A = 2000(1 + 0.06/1)<sup>1&times;5</sup> = $2,676.45</span><br>
+                &bull; <strong>Monthly</strong> (n=12): <span class="math-text">A = 2000(1 + 0.06/12)<sup>12&times;5</sup> = $2,697.70</span><br>
+                Monthly earns <strong>$21.25 more</strong> — modest over 5 years, but the gap widens dramatically over decades.
             </div>
 
             <div class="money-box">
                 <div class="money-header">💸 Money Connection: Start Early</div>
                 <p><strong>Compound Interest loves Time.</strong> Investing $100/month starting at age 20 creates way more wealth than starting at age 40, even if the 40-year-old invests more money later. The exponent <strong>n</strong> is the most powerful variable.</p>
+            </div>
+
+            <div class="graph-box">
+                <div class="graph-header">📊 Reading the Compound Interest Curve (No Drawing Required)</div>
+                <p>When you look at a compound interest graph, here is what each part tells you:</p>
+                <ul>
+                    <li><strong>Y-axis (left side):</strong> Dollar value of your account over time.</li>
+                    <li><strong>X-axis (bottom):</strong> Years elapsed since you started investing.</li>
+                    <li><strong>The slow start:</strong> Early years barely look like anything is happening. This is normal — the base is still small.</li>
+                    <li><strong>Where does the "Start Early" rule come from?</strong> The last 10 years of a 40-year investment produce more dollars than the first 30 years combined. Starting 5 years later means you miss the steepest, most explosive part of the curve entirely.</li>
+                </ul>
             </div>
         </div>
 
@@ -480,10 +522,29 @@
                 It is worth 97% of last year. b = 0.97.<br>
                 Eq: <span class="math-text">y = 100(0.97)<sup>x</sup></span>
             </div>
+            <div class="example-box">
+                <span class="example-title">Ex 5: Half-Life — when b = 0.5 exactly</span>
+                <strong>Half-life</strong> is the time it takes for exactly half of something to decay. The base is always <strong>b = 0.5</strong>.<br>
+                Formula: <span class="math-text">y = a(0.5)<sup>x</sup></span> where x = number of half-life periods elapsed.<br><br>
+                <strong>Real examples:</strong><br>
+                &bull; <strong>Medication:</strong> A 400mg dose with a 6-hour half-life → after 18 hours (3 periods): <span class="math-text">400(0.5)<sup>3</sup> = 50mg</span> remaining. Doctors time your next dose before it drops too low.<br>
+                &bull; <strong>Caffeine:</strong> Half-life is roughly 5 hours. One cup of coffee = ~200mg. After 20 hours (4 periods): <span class="math-text">200(0.5)<sup>4</sup> = 12.5mg</span> — that is why late-night coffee still affects your sleep.
+            </div>
 
             <div class="money-box">
                 <div class="money-header">💸 Money Connection: The "New Car" Trap</div>
                 <p>Cars are depreciating assets. A new car loses ~15% value the moment you drive it off the lot. Smart financial planning involves buying used cars to let someone else pay for that steep initial decay.</p>
+            </div>
+
+            <div class="graph-box">
+                <div class="graph-header">📊 Reading the Decay Curve in Real Life (No Drawing Required)</div>
+                <p>When you see an exponential decay chart — like a car's resale value over time — notice these three parts:</p>
+                <ul>
+                    <li><strong>The peak (a):</strong> The starting value, far left. The sticker price or original dose.</li>
+                    <li><strong>The steep initial drop:</strong> Years 1–3 for a car are brutal. Most of the total value lost happens here. This is the "New Car Trap."</li>
+                    <li><strong>The flat tail (Asymptote):</strong> As the value gets smaller, each year's percentage loss is also smaller in dollar terms. A 15-year-old car still technically has a positive value — the curve never actually hits zero.</li>
+                    <li><strong>Real example:</strong> Look at any car's trade-in value chart on CarFax or Canadian Black Book. It drops sharply in year 1, flattens out by year 5, and barely moves after year 8. Smart buyers jump in at year 3–4 — after the steep part, before the car is worn out.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -523,6 +584,7 @@
                     <option value="3.4-A">Application: Calculate Depreciation</option>
                     <option value="3.4-I">Inquiry: Asymptotes & Decay</option>
                     <option value="3.4-C">Comm: Real-World Decay Traps</option>
+                    <option value="3.4-HL">Half-Life: Calculate Remaining Amount</option>
                 </optgroup>
             </select>
 
@@ -547,6 +609,12 @@
         <div id="feedback-area"></div>
     </div>
     <div id="tab-assignment" class="tab-content">
+
+        <div style="background:#e8f4fc; border-left:5px solid #3498db; border-radius:8px; padding:15px 20px; margin-bottom:25px;">
+            <strong>📋 Submission Instructions</strong><br>
+            This assignment already exists as a Google Doc in your <strong>Google Classroom</strong> under the <em>Unit 3 Assignment</em> section. Open that document, complete your work directly inside it, and submit through Google Classroom when finished. <strong>Do not create a new document</strong> — use the one already posted.
+        </div>
+
         <h2>Unit 3 Assignment: The Wealth Formula</h2>
         <p><strong>Scenario:</strong> Instead of solving a generic textbook problem, you will apply the math to <strong>Your Own Life</strong>. You will research a real-world depreciating asset (a car) and compare it against the power of compounding investments. Because every student chooses their own parameters, your mathematical equations and final dollar amounts will be entirely unique to you.</p>
         
@@ -559,11 +627,12 @@
             <p>5. <strong>The Timeline:</strong> Write down your current age: _______. Write down your target retirement age: _______.</p>
         </div>
 
-        <h3>Question 1: The Depreciating Asset (3.4 Decay - Application & Knowledge)</h3>
+        <h3>Question 1: The Depreciating Asset (3.4 Decay — Knowledge)</h3>
         <p>Assume your dream car depreciates at the rate you researched in Step 2.</p>
         <ul>
-            <li><strong>Calculate:</strong> Determine your specific decay factor (b). Write your official exponential decay equation <span class="math-text">y = a(b)<sup>x</sup></span> using your car's starting price. Calculate exactly what this car will be worth in <strong>5 years</strong>.</li>
-            <li><strong>Evaluate:</strong> Subtract the future value from the original price. Exactly how much money "evaporated" (was lost to depreciation) over those 5 years?</li>
+            <li><strong>Find:</strong> Your decay factor (b) = 1 minus your depreciation rate. For example, if the car loses 20% per year, b = 0.80.</li>
+            <li><strong>Calculate:</strong> Open the <strong>Depreciation Calculator</strong> (Calculator tab) and enter your car's price, your depreciation rate, and 5 years. Record the value the calculator gives you for Year 5.</li>
+            <li><strong>Evaluate:</strong> Subtract the Year 5 value from your car's original price. How many dollars "evaporated" in 5 years?</li>
         </ul>
 
         <h3>Question 2: The Rule of 72 Reality Check (3.2 Growth - Inquiry)</h3>
@@ -572,18 +641,20 @@
             <li><strong>Calculate & Explain:</strong> Using the <strong>Rule of 72</strong> and your chosen fund's Growth Rate, calculate how many years it would take for that lost money to double in the stock market. Explain what this means for your future buying power.</li>
         </ul>
 
-        <h3>Question 3: The Cost of Waiting (3.3 Compound Interest - Application)</h3>
-        <p>Let's look at your starting investment (P<sub>invest</sub>) and your chosen ETF's Growth Rate.</p>
+        <h3>Question 3: The Cost of Waiting (3.3 Compound Interest — Application)</h3>
+        <p>Open the <strong>Compound Interest Calculator</strong> (Calculator tab) and use your starting investment (P<sub>invest</sub>) and your ETF's Growth Rate.</p>
         <ul>
-            <li><strong>Scenario A (Start Now):</strong> Calculate the final value of your investment when you reach your chosen retirement age using <span class="math-text">A = P(1 + i)<sup>n</sup></span>. (Note: 'n' is the difference between your retirement age and your current age).</li>
-            <li><strong>Scenario B (Procrastinate):</strong> Assume you wait until you are <strong>30 years old</strong> to invest that exact same starting amount. Calculate the final value at your retirement age.</li>
+            <li><strong>Scenario A (Start Now):</strong> Enter your starting amount, your ETF's growth rate, and the number of years until retirement. Record the final value the calculator gives you.</li>
+            <li><strong>Scenario B (Procrastinate):</strong> Keep everything the same but change the start year to age 30 (fewer years until retirement). Record this final value.</li>
+            <li><strong>Evaluate:</strong> Subtract Scenario B from Scenario A. This dollar difference is your <strong>"Price of Procrastination"</strong> — the exact mathematical cost of waiting.</li>
+        </ul>
             <li><strong>Evaluate:</strong> Subtract Scenario B from Scenario A to calculate your <strong>"Price of Procrastination"</strong>. (The "Price of Procrastination" represents the exact mathematical penalty and the massive amount of lost wealth caused simply by waiting to invest, demonstrating how missing out on the final years of compounding drastically reduces your final amount).</li>
         </ul>
 
-        <h3>Question 4: The Power of 'n' (3.1 Exponent Laws - Communication)</h3>
-        <p>Look at the massive dollar difference you calculated in Question 3.</p>
+        <h3>Question 4: The Power of 'n' (3.1 Exponent Laws — Communication)</h3>
+        <p>Look at the massive dollar difference you found in Question 3.</p>
         <ul>
-            <li><strong>Explain:</strong> Use the <strong>Product Rule of exponents</strong> (<span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span>) to mathematically explain to a friend exactly why the "Price of Procrastination" is so large. Discuss how an exponent like 'n' functions in a compound interest equation to create a J-Curve.</li>
+            <li><strong>Explain:</strong> Why is the gap between Scenario A and Scenario B so large? Use the idea of the <strong>Product Rule of exponents</strong> (adding time = multiplying growth) to explain to a friend why starting early creates such a dramatically different outcome. Discuss how the number of years ('n') acts as a multiplier of the compounding effect.</li>
         </ul>
 
         <h3>Question 5: The Ultimate Financial Advice (Synthesis)</h3>
@@ -598,47 +669,52 @@
             <thead>
                 <tr>
                     <th>Category</th>
-                    <th>Level 4 (80-100%)</th>
-                    <th>Level 3 (70-79%)</th>
-                    <th>Level 2 (60-69%)</th>
-                    <th>Level 1 (50-59%)</th>
+                    <th>Assessed In</th>
+                    <th>Level 4 (80–100%)</th>
+                    <th>Level 3 (70–79%)</th>
+                    <th>Level 2 (60–69%)</th>
+                    <th>Level 1 (50–59%)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Knowledge (Q1, Q3)</strong></td>
-                    <td>Flawlessly sets up both the exponential decay and compound interest equations using personal data without given hints.</td>
-                    <td>Sets up equations correctly but makes a minor mathematical or rounding error.</td>
-                    <td>Equations are partially set up but struggles with the correct formulas or decimal conversions.</td>
-                    <td>Cannot set up the decay or compound interest equations.</td>
+                    <td><strong>Knowledge (K)</strong></td>
+                    <td>Q1</td>
+                    <td>Correctly identifies the decay factor (b) for their specific car and uses the calculator to find the 5-year value with no errors. Knows what each variable in the formula represents.</td>
+                    <td>Correctly identifies b and uses the calculator, but makes a minor input or rounding error.</td>
+                    <td>Understands which calculator to use but enters the wrong decay factor or years.</td>
+                    <td>Unable to identify the decay factor or use the depreciation calculator correctly.</td>
                 </tr>
                 <tr>
-                    <td><strong>Inquiry (Q2, Q5)</strong></td>
-                    <td>Insightfully applies the Rule of 72 and connects mathematical results to deep, realistic financial planning.</td>
-                    <td>Applies Rule of 72 correctly and makes logical connections to financial planning.</td>
-                    <td>Calculates Rule of 72 but struggles to explain the deeper meaning or synthesis.</td>
-                    <td>Fails to apply the Rule of 72 or synthesize the information.</td>
+                    <td><strong>Application (A)</strong></td>
+                    <td>Q3</td>
+                    <td>Uses the compound interest calculator accurately for both scenarios with their real personal data; correctly finds the dollar gap and clearly explains what it means for their future.</td>
+                    <td>Both scenarios calculated correctly using the calculator with a minor error in one.</td>
+                    <td>Runs one scenario correctly but makes an input error in the second, or finds the gap without explaining what it means.</td>
+                    <td>Unable to use the compound interest calculator to produce a valid result for either scenario.</td>
                 </tr>
                 <tr>
-                    <td><strong>Communication (Q4, Q5)</strong></td>
-                    <td>The explanation of exponent laws and the email to the future self are exceptionally clear, persuasive, and use precise mathematical vocabulary (J-Curve, Decay, Compounding).</td>
-                    <td>Explanations and email are clear and use appropriate math terms.</td>
-                    <td>Explanations are somewhat vague or rely too heavily on everyday language instead of math concepts.</td>
-                    <td>Explanations are confusing, lack logical flow, or are missing.</td>
+                    <td><strong>Inquiry (I)</strong></td>
+                    <td>Q2</td>
+                    <td>Correctly applies Rule of 72 and makes a specific, insightful connection: e.g. "the $X I lose to depreciation could double to $Y by the time I am Z years old."</td>
+                    <td>Applies Rule of 72 correctly and makes a logical connection to their financial situation.</td>
+                    <td>Calculates Rule of 72 but the explanation of what the result means in real life is vague.</td>
+                    <td>Does not correctly apply the Rule of 72 or makes no connection to real life.</td>
                 </tr>
                 <tr>
-                    <td><strong>Application (Q1, Q3)</strong></td>
-                    <td>Calculates depreciation loss and the "Price of Procrastination" with perfect accuracy and applies it directly to the real-world scenario.</td>
-                    <td>Successfully calculates the real-world applications with minor errors.</td>
-                    <td>Performs calculations but fails to interpret what the final numbers mean in reality.</td>
-                    <td>Unable to apply mathematical results to the real-world car/investment scenario.</td>
+                    <td><strong>Communication (C)</strong></td>
+                    <td>Q4, Q5</td>
+                    <td>Written explanations are clear and persuasive; uses math vocabulary (J-Curve, decay factor, compounding, asymptote) naturally and correctly to support their real-life argument.</td>
+                    <td>Explanations are clear and use math terms correctly.</td>
+                    <td>Explanations are understandable but rely mostly on everyday language with little math vocabulary.</td>
+                    <td>Explanations are unclear, illogical, or missing entirely.</td>
                 </tr>
             </tbody>
         </table>
     </div>
     </main>
 
-<div class="version-tag">v3.16 (Ultimate Hyper-Expanded Randomization & 10 Pools)</div>
+<div class="version-tag">v4.0 (Graph Reading · Half-Life · Print Fix · Answer Lock · Rubric Fix)</div>
 
 <script>
     /* --- UTILS --- */
@@ -679,7 +755,35 @@
     }
 
     function printLesson(btn) {
-        window.print();
+        const panel = btn.parentElement;
+        const accBtn = panel.previousElementSibling;
+        const accTitle = accBtn ? accBtn.textContent.replace('+','').replace('−','').trim() : 'Lesson';
+
+        const pw = window.open('', '_blank');
+        pw.document.write(`<!DOCTYPE html><html><head>
+            <title>MBF3C – ${accTitle}</title>
+            <style>
+                body{font-family:'Segoe UI',sans-serif;margin:40px;color:#333;line-height:1.7;}
+                h2{color:#2c3e50;border-bottom:2px solid #3498db;padding-bottom:6px;}
+                h3{color:#2c3e50;}
+                .example-box{background:#f0f3f4;border-left:4px solid #3498db;padding:15px;margin:15px 0;border-radius:4px;}
+                .example-title{font-weight:bold;color:#2c3e50;display:block;margin-bottom:5px;}
+                .money-box{background:#fff5e6;border:2px solid #d35400;border-radius:8px;padding:15px;margin:20px 0;}
+                .money-header{color:#d35400;font-weight:bold;font-size:1.1rem;margin-bottom:10px;}
+                .graph-box{background:#e8f8f5;border:2px solid #27ae60;border-radius:8px;padding:15px;margin:20px 0;}
+                .graph-header{color:#1a8a4a;font-weight:bold;font-size:1.1rem;margin-bottom:10px;}
+                .math-text{font-family:'Times New Roman',serif;font-size:1.15rem;font-style:italic;}
+                sup{font-size:0.8em;vertical-align:super;}
+                button{display:none!important;}
+                ul{padding-left:20px;} li{margin-bottom:5px;}
+            </style>
+        </head><body>
+            <h2>MBF3C Unit 3 — ${accTitle}</h2>
+            ${panel.innerHTML}
+        </body></html>`);
+        pw.document.close();
+        pw.focus();
+        setTimeout(() => { pw.print(); }, 300);
     }
 
     // --- Scoring Logic ---
@@ -1370,10 +1474,51 @@
             let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
+        } else if (kica === "HL") {
+            // Half-life: y = a(0.5)^x  where x = number of half-life periods
+            const hlScenarios = [
+                { substance: "painkiller", unit: "mg", timeUnit: "hours" },
+                { substance: "antibiotic", unit: "mg", timeUnit: "hours" },
+                { substance: "caffeine", unit: "mg", timeUnit: "hours" },
+                { substance: "sleep medication", unit: "mg", timeUnit: "hours" },
+                { substance: "antidepressant", unit: "mg", timeUnit: "hours" },
+                { substance: "radioactive tracer dye", unit: "g", timeUnit: "years" },
+                { substance: "carbon-14 isotope", unit: "g", timeUnit: "thousand years" },
+                { substance: "hospital sedative", unit: "mg", timeUnit: "hours" },
+            ];
+            const scene = randChoice(hlScenarios);
+            const periods = randInt(2, 4);
+            const divisor = Math.pow(2, periods);
+            // Only use starting amounts that divide cleanly by 2^periods
+            const allAmts = [100, 200, 400, 800, 160, 320, 640, 1024, 512, 256, 1000, 1280];
+            const validAmts = allAmts.filter(a => a % divisor === 0);
+            const startAmt = randChoice(validAmts.length > 0 ? validAmts : [1024]);
+            const halfLife = randInt(2, 8) * randChoice([1, 2]);
+            const totalTime = halfLife * periods;
+            const ans = startAmt / Math.pow(2, periods);
+
+            const asks = [
+                `<p>A patient receives a <strong>${startAmt}${scene.unit}</strong> dose of ${scene.substance}.</p>
+                 <p>The drug has a half-life of <strong>${halfLife} ${scene.timeUnit}</strong>.</p>
+                 <p>How many ${scene.unit} remain in the body after <strong>${totalTime} ${scene.timeUnit}</strong>?</p>
+                 <p><small>Hint: First find how many half-life periods fit into ${totalTime} ${scene.timeUnit}, then apply <em>y = ${startAmt}(0.5)<sup>x</sup></em>.</small></p>`,
+
+                `<p>Formula: <span class="math-text">y = a(0.5)<sup>x</sup></span> where x = number of half-life periods.</p>
+                 <p>Starting amount: <strong>${startAmt}${scene.unit}</strong>. Half-life: <strong>${halfLife} ${scene.timeUnit}</strong>. Time elapsed: <strong>${totalTime} ${scene.timeUnit}</strong>.</p>
+                 <p>Calculate the remaining amount of ${scene.substance}.</p>`,
+
+                `<p>A <strong>${startAmt}${scene.unit}</strong> sample of ${scene.substance} decays with a half-life of <strong>${halfLife} ${scene.timeUnit}</strong>.</p>
+                 <p>After <strong>${periods} half-lives</strong> (${totalTime} ${scene.timeUnit} total), what amount remains?</p>`,
+
+                `<p>A doctor administers <strong>${startAmt}${scene.unit}</strong> of ${scene.substance} to a patient.</p>
+                 <p>The drug halves in concentration every <strong>${halfLife} ${scene.timeUnit}</strong>.</p>
+                 <p>How much ${scene.substance} is still in the patient's body after <strong>${totalTime} ${scene.timeUnit}</strong>?</p>`,
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Enter the exact amount in ${scene.unit})</small></p>`;
+            setupInput(ans);
         }
     }
 
-    // --- Answer Checking Logic ---
     function setupInput(correctAnswer) {
         currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
         document.getElementById('input-area').style.display = 'block';
@@ -1389,7 +1534,8 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = opt.text; 
+            btn.innerHTML = opt.text;
+            btn.dataset.correct = opt.correct;
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
@@ -1428,9 +1574,22 @@
     function checkMCAnswer(isCorrect, btn) {
         if (isQuestionSolved) return;
         
-        // Highlight chosen button
+        // Mark clicked button
         btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
         btn.style.color = 'white';
+        
+        // Disable ALL buttons immediately
+        const mcArea = document.getElementById('mc-area');
+        mcArea.querySelectorAll('.option-btn').forEach(b => {
+            b.disabled = true;
+            b.style.cursor = 'not-allowed';
+            // On wrong answer, reveal the correct one in green
+            if (!isCorrect && b.dataset.correct === 'true') {
+                b.style.backgroundColor = 'var(--success-color)';
+                b.style.color = 'white';
+                b.style.border = '3px solid #1a7a3a';
+            }
+        });
         
         displayFeedback(isCorrect);
     }
@@ -1438,13 +1597,14 @@
     function displayFeedback(isCorrect) {
         let feedback = document.getElementById('feedback-area');
         if (isCorrect) {
-            feedback.innerHTML = "✅ Correct! Great job applying exponential relations.";
+            feedback.innerHTML = "✅ Correct! Click <strong>'Generate Random Question'</strong> to continue.";
             feedback.className = "correct";
-            isQuestionSolved = true; 
+            isQuestionSolved = true;
             saveScore(true);
         } else {
-            feedback.innerHTML = "❌ Incorrect. Try again or check your calculations.";
+            feedback.innerHTML = "❌ Incorrect — the correct answer is highlighted in <strong style='color:var(--success-color)'>green</strong>. Click <strong>'Generate Random Question'</strong> to move on.";
             feedback.className = "incorrect";
+            isQuestionSolved = true;
             saveScore(false);
         }
     }
