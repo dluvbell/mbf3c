@@ -307,19 +307,11 @@
 
 <main>
     <div id="tab-calculator" class="tab-content active">
-        <h2>Compound Interest Calculator (Growth)</h2>
-        <p>Use this calculator to see how money grows over time (The 8th Wonder of the World).</p>
-        <button class="btn-primary" onclick="window.open('https://www.calculator.net/interest-calculator.html', '_blank')">Open Calculator in New Tab</button>
+        <h2>Exponential Growth & Decay Calculator</h2>
+        <p>Use this tool to deeply explore and visualize how exponential relations work over time. It handles both growth (investing) and decay (depreciation).</p>
+        <button class="btn-primary" onclick="window.open('https://ai.aaps.space/tools/exponential-growth', '_blank')">Open Calculator in New Tab</button>
         <br><br>
-        <iframe src="https://www.calculator.net/interest-calculator.html?cstartingprinciple=1000&cannualaddition=100&cmonthlyaddition=0&cadditionat1=beginning&cinterestrate=7&ccompound=annually&cyears=10&ctaxtrate=0&cinflationrate=0&printit=0&x=115&y=22" width="100%" height="600" frameborder="0"></iframe>
-
-        <hr style="margin: 40px 0; border: 1px solid #bdc3c7;">
-
-        <h2>Depreciation Calculator (Decay)</h2>
-        <p>Use this calculator for Unit 3.4 (Decay) to find out exactly how much a car or asset loses value over time due to exponential decay.</p>
-        <button class="btn-primary" style="background-color: #e67e22;" onclick="window.open('https://www.calculator.net/depreciation-calculator.html', '_blank')">Open Depreciation Calculator in New Tab</button>
-        <br><br>
-        <iframe src="https://www.calculator.net/depreciation-calculator.html" width="100%" height="600" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
+        <iframe src="https://ai.aaps.space/tools/exponential-growth" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
     </div>
 
     <div id="tab-lessons" class="tab-content">
@@ -546,7 +538,6 @@
 
         <div id="feedback-area"></div>
     </div>
-
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 3 Assignment: The Wealth Formula</h2>
         <p><strong>Scenario:</strong> Instead of solving a generic textbook problem, you will apply the math to <strong>Your Own Life</strong>. You will research a real-world depreciating asset (a car) and compare it against the power of compounding investments. Because every student chooses their own parameters, your mathematical equations and final dollar amounts will be entirely unique to you.</p>
@@ -637,9 +628,9 @@
             </tbody>
         </table>
     </div>
-</main>
+    </main>
 
-<div class="version-tag">v3.15 (Numeric Scaling & 2 Decimal Rounding Standardized)</div>
+<div class="version-tag">v3.16 (Scale Cap, Calculator Fix, Robust Math Checking)</div>
 
 <script>
     /* --- UTILS --- */
@@ -654,7 +645,7 @@
     
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
-    let isQuestionSolved = false; 
+    let isQuestionSolved = false; // Anti-Spam flag
     
     // --- Navigation ---
     function openTab(evt, tabId) {
@@ -756,7 +747,7 @@
         let v = randChoice(['x', 'y', 'm', 'n', 'a', 'b', 'p', 'q']);
         let n1 = randInt(3, 15);
         let n2 = randInt(2, 9);
-        let n3 = randInt(1, 2); // Keeps negative exponent simple so it's 1-2 decimal places
+        let n3 = randInt(1, 2); 
 
         if (kica === "K") {
             let formats = [
@@ -782,8 +773,8 @@
                 { qText: `<span class="math-text">(${base}<sup>${p1}</sup>)<sup>${p2}</sup></span>`, a: Math.pow(base, p1 * p2) },
                 { qText: `<span class="math-text">${base}<sup>${p1 + p2}</sup> &div; ${base}<sup>${p1}</sup></span>`, a: Math.pow(base, p2) },
                 { qText: `<span class="math-text">(${base}<sup>${p1}</sup> &times; ${base}<sup>${p2}</sup>)<sup>0</sup></span>`, a: 1 },
-                { qText: `<span class="math-text">${base}<sup>${p1}</sup> &times; ${base}<sup>-${p1}</sup></span>`, a: 1 }, // b^0
-                { qText: `<span class="math-text">(${base}<sup>2</sup>)<sup>2</sup> &div; ${base}<sup>3</sup></span>`, a: base }, // b^1
+                { qText: `<span class="math-text">${base}<sup>${p1}</sup> &times; ${base}<sup>-${p1}</sup></span>`, a: 1 }, 
+                { qText: `<span class="math-text">(${base}<sup>2</sup>)<sup>2</sup> &div; ${base}<sup>3</sup></span>`, a: base }, 
                 { qText: `<span class="math-text">${base}<sup>${p2}</sup> &times; 1</span>`, a: Math.pow(base, p2) }
             ];
             let picked = randChoice(formats);
@@ -920,11 +911,11 @@
         }
     }
 
-    // --- Section 3.2: Exponential Growth (FULLY DYNAMIC) ---
+    // --- Section 3.2: Exponential Growth (FULLY DYNAMIC - SCALED DOWN) ---
     function gen3_2(kica, qArea) {
-        let rRate = randInt(4, 25);
+        let rRate = randInt(3, 12); 
         let bVal = (1 + (rRate/100)).toFixed(2);
-        let rStart = randInt(2, 9) * 100; // 200 - 900
+        let rStart = randInt(5, 50) * 100; // 500 to 5000
         
         if (kica === "K") {
             let asks = [
@@ -937,17 +928,17 @@
                 {q: `Write the decimal 'b' value for an asset growing at exactly <strong>${randInt(2,9)}%</strong>. (Hint: 1 + percentage)`, ans: (1 + randInt(2,9)/100).toFixed(2)}
             ];
             let selected = randChoice(asks);
-            qArea.innerHTML = `<p>${selected.q}</p>`;
-            setupInput(selected.ans.toString());
+            qArea.innerHTML = `<p>${selected.q}</p><p><small>(Round to 2 decimal places if applicable)</small></p>`;
+            setupInput(Number(selected.ans).toFixed(2).replace(/\.00$/, '')); // Clean UI output
             
         } else if (kica === "A") {
-            let time = randInt(3, 6); // Kept small to prevent massive exponential answers
+            let time = randInt(5, 12); // Shorter duration keeps answer scale under 1,000,000
             let scenarios = [
                 { text: `A virus starts with <strong>${rStart}</strong> cells and <strong>doubles</strong> every hour. Calculate the cells after <strong>${time} hours</strong>.`, ans: rStart * Math.pow(2, time) },
-                { text: `A social media post has <strong>${rStart}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${time} days</strong>?`, ans: rStart * Math.pow(3, time) },
+                { text: `A social media post has <strong>${rStart}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${randInt(3,6)} days</strong>?`, ans: rStart * Math.pow(3, randInt(3,6)) },
                 { text: `A vintage watch is worth <strong>$${rStart}</strong>. It grows in value by <strong>${rRate}%</strong> per year. Value after <strong>${time} years</strong>?`, ans: rStart * Math.pow(bVal, time) },
-                { text: `A town has <strong>${rStart * 10}</strong> people. It grows by <strong>${rRate}%</strong> annually. Population after <strong>${time} years</strong>?`, ans: (rStart * 10) * Math.pow(bVal, time) },
-                { text: `You invest <strong>$${rStart * 5}</strong> in a stock returning <strong>${rRate}%</strong> per year. Balance after <strong>${time} years</strong>?`, ans: (rStart * 5) * Math.pow(bVal, time) },
+                { text: `A town has <strong>${rStart * 2}</strong> people. It grows by <strong>${rRate}%</strong> annually. Population after <strong>${time} years</strong>?`, ans: (rStart * 2) * Math.pow(bVal, time) },
+                { text: `You invest <strong>$${rStart}</strong> in a stock returning <strong>${rRate}%</strong> per year. Balance after <strong>${time} years</strong>?`, ans: rStart * Math.pow(bVal, time) },
                 { text: `A weed patch covers <strong>${rStart}</strong> sq ft. It <strong>doubles</strong> in size every week. Area after <strong>${time} weeks</strong>?`, ans: rStart * Math.pow(2, time) },
                 { text: `A collectible comic starts at <strong>$${rStart}</strong> and goes up <strong>${rRate}%</strong> every decade. Value after <strong>${time} decades</strong>?`, ans: rStart * Math.pow(bVal, time) }
             ];
@@ -1039,12 +1030,12 @@
         }
     }
 
-    // --- Section 3.3: Compound Interest (FULLY DYNAMIC) ---
+    // --- Section 3.3: Compound Interest (FULLY DYNAMIC - SCALED DOWN) ---
     function gen3_3(kica, qArea) {
         let stName = randChoice(names);
-        let P = randInt(1, 9) * 1000; // 1,000 to 9,000 to keep numbers 4-digits for generic Qs
-        let rate = randInt(4, 14);
-        let n = randInt(5, 15); // Shorter duration keeps answer scale reasonable
+        let P = randInt(1, 15) * 1000; // 1,000 to 15,000 to keep answers 4-6 digits max
+        let rate = randInt(3, 10);
+        let n = randInt(5, 20); 
         let i = rate / 100;
 
         if (kica === "K") {
@@ -1062,8 +1053,8 @@
             setupInput(ans.toFixed(2));
             
         } else if (kica === "A") {
-            let yearsA = randInt(15, 25);
-            let yearsB = randInt(5, 10);
+            let yearsA = randInt(15, 30);
+            let yearsB = randInt(5, 12);
             let ansA = P * Math.pow(1 + i, yearsA);
             let ansB = P * Math.pow(1 + i, yearsB);
             let diff = ansA - ansB;
@@ -1190,7 +1181,7 @@
             setupInput(b.toFixed(2));
             
         } else if (kica === "A") {
-            const P = randInt(15, 60) * 1000; // Keep large for realistic Car/Boat prices
+            const P = randInt(15, 60) * 1000;
             const years = randInt(2, 8);
             const decRate = randInt(12, 25);
             const bFact = 1 - (decRate/100);
@@ -1314,26 +1305,34 @@
     function checkAnswer() {
         if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
-        // Strip out $ and commas
+        // Strip out $ and commas and spaces
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
         let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         
         // Try parsing for math tolerance
         let userNum = parseFloat(cleanUser);
-        let ansNum = parseFloat(currentQuestion.answer);
         
+        // Handle fractions (e.g., "1/8") gracefully
+        if (cleanUser.includes('/')) {
+            let parts = cleanUser.split('/');
+            if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                userNum = parseFloat(parts[0]) / parseFloat(parts[1]);
+            }
+        }
+
+        let ansNum = parseFloat(currentQuestion.answer);
         let isCorrect = false;
 
         const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1 && currentQuestion.answer.toString().indexOf(':') === -1;
 
         if (isPureNumber && !isNaN(userNum)) {
-             // Financial Math Tolerance (0.01)
-             if (Math.abs(userNum - ansNum) <= 0.011) {
+             // Expanded Tolerance for rounding to prevent false negatives (0.02)
+             if (Math.abs(userNum - ansNum) <= 0.021) {
                  isCorrect = true;
              }
         } else {
             // String fallback (Odds, expressions)
-            if (cleanUser === currentQuestion.answer) {
+            if (cleanUser === currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '')) {
                 isCorrect = true;
             }
         }
@@ -1363,6 +1362,25 @@
             feedback.className = "incorrect";
             saveScore(false);
         }
+    }
+
+    // --- Accordion Initialization & Bug Fix ---
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-acc");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                panel.style.paddingTop = null;
+                panel.style.paddingBottom = null;
+            } else {
+                panel.style.display = "block"; // Force display block to measure if nested
+                panel.style.maxHeight = (panel.scrollHeight + 1000) + "px"; // 1000px safety buffer
+                panel.style.paddingTop = "15px";
+                panel.style.paddingBottom = "15px";
+            }
+        });
     }
 
 </script>
