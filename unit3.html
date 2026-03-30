@@ -630,7 +630,7 @@
     </div>
     </main>
 
-<div class="version-tag">v3.16 (Scale Cap, Calculator Fix, Robust Math Checking)</div>
+<div class="version-tag">v3.17 (Accordion Fixed - Reverted to Original Logic)</div>
 
 <script>
     /* --- UTILS --- */
@@ -645,7 +645,7 @@
     
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
-    let isQuestionSolved = false; // Anti-Spam flag
+    let isQuestionSolved = false; 
     
     // --- Navigation ---
     function openTab(evt, tabId) {
@@ -1177,11 +1177,11 @@
                 `<p>A population shrinks by <strong>${drop}%</strong> annually. Find the decay factor.</p>`,
                 `<p>Convert a <strong>${drop}%</strong> loss into the exponential 'b' variable.</p>`
             ];
-            qArea.innerHTML = randChoice(asks) + `<p><small>(Enter as a decimal)</small></p>`;
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Enter as a decimal to 2 places)</small></p>`;
             setupInput(b.toFixed(2));
             
         } else if (kica === "A") {
-            const P = randInt(15, 60) * 1000;
+            const P = randInt(15, 60) * 1000; // Keep large for realistic Car/Boat prices
             const years = randInt(2, 8);
             const decRate = randInt(12, 25);
             const bFact = 1 - (decRate/100);
@@ -1372,13 +1372,8 @@
             var panel = this.nextElementSibling;
             if (panel.style.maxHeight) {
                 panel.style.maxHeight = null;
-                panel.style.paddingTop = null;
-                panel.style.paddingBottom = null;
             } else {
-                panel.style.display = "block"; // Force display block to measure if nested
-                panel.style.maxHeight = (panel.scrollHeight + 1000) + "px"; // 1000px safety buffer
-                panel.style.paddingTop = "15px";
-                panel.style.paddingBottom = "15px";
+                panel.style.maxHeight = panel.scrollHeight + "px";
             }
         });
     }
