@@ -295,6 +295,17 @@
             margin-bottom: 5px;
             display: block;
         }
+        
+        /* Comparison Table for Cars */
+        .compare-table {
+            width: 100%;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+        .compare-table th { background-color: #34495e; text-align: center; }
+        .compare-table td { padding: 12px; vertical-align: top; }
+        .pro-list { color: var(--success-color); padding-left: 20px; margin: 5px 0; }
+        .con-list { color: var(--error-color); padding-left: 20px; margin: 5px 0; }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
@@ -378,38 +389,91 @@
             </div>
         </div>
 
-        <button class="accordion">4.2 Buying a Car (The Real Cost)</button>
+        <button class="accordion">4.2 Buying a Car: Options & The Real Cost</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
-            <h3>Concept Overview</h3>
-            <p><strong>Total Cost of Borrowing (C.O.B.):</strong> The difference between the Cash Price and what you actually pay.</p>
+            <h3>Concept Overview: The Cost of Borrowing</h3>
+            <p><strong>Total Cost of Borrowing (C.O.B.):</strong> The difference between the Cash Price and what you actually pay over the life of the loan.</p>
             <p>Formula: <span class="math-text">Total Paid = (Monthly Payment &times; Months) + Down Payment</span></p>
             
-            <h3>4 Examples</h3>
-            <div class="example-box">
-                <span class="example-title">Ex 1: The "Low" Monthly Payment Trap</span>
-                Car Price: $30,000. Loan: $500/month for 84 months (7 years).<br>
-                Total Paid: <span class="math-text">500 &times; 84 = $42,000</span>.<br>
-                <strong>Cost of Borrowing:</strong> $42,000 - $30,000 = <strong>$12,000 Extra!</strong>
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 2: Shorter Term = Less Interest</span>
-                Same Car ($30k). Loan: $800/month for 48 months (4 years).<br>
-                Total Paid: <span class="math-text">800 &times; 48 = $38,400</span>.<br>
-                <strong>Savings:</strong> You save $3,600 by paying it off faster.
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 3: Depreciation vs Payments</span>
-                By the time you finish paying off the 7-year loan (Ex 1), the $30,000 car might only be worth $10,000. You paid $42,000 for a $10,000 asset.
-            </div>
-            <div class="example-box">
-                <span class="example-title">Ex 4: 0% Financing?</span>
-                Dealers sometimes offer 0% interest but increase the car price by $3,000. Always ask for the "Cash Price" to compare.
-            </div>
+            <h3>Financing vs Leasing</h3>
+            <p>When you get a car, you don't just "buy" it. You choose <em>how</em> to pay for it.</p>
+            <table class="compare-table">
+                <tr>
+                    <th>Financing (Buying)</th>
+                    <th>Leasing (Renting)</th>
+                </tr>
+                <tr>
+                    <td>You are taking a loan to buy the entire car. When the payments end, you <strong>own</strong> the car.</td>
+                    <td>You are paying only for the <strong>depreciation</strong> (the value the car loses) while you drive it for 2-4 years. Then you return it.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>You build equity (you own an asset you can sell later).</li>
+                            <li>No mileage limits or wear-and-tear penalties.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>Higher monthly payments than leasing.</li>
+                            <li>You are responsible for all repairs after the warranty ends.</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>Lower monthly payments.</li>
+                            <li>Always driving a new car under warranty (no repair bills).</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>You build <strong>zero equity</strong>. You rent the car and own nothing at the end.</li>
+                            <li>Strict mileage limits (e.g., 20,000 km/year). Expensive penalties if you go over or scratch the car.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+            <h3>New vs Used Cars</h3>
+            <table class="compare-table">
+                <tr>
+                    <th>New Cars</th>
+                    <th>Used Cars (e.g., 3-4 years old)</th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>Latest technology and safety features.</li>
+                            <li>Full manufacturer warranty.</li>
+                            <li>Often lower interest rates from the dealer.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li><strong>Massive Depreciation:</strong> Loses 15-20% of its value the second you drive it off the lot.</li>
+                            <li>Higher insurance costs.</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li><strong>Someone else paid the depreciation:</strong> You buy the car after its biggest price drop.</li>
+                            <li>Cheaper insurance and lower overall cost.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>Higher interest rates on used car loans.</li>
+                            <li>Potential for expensive repair bills (no warranty).</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
 
             <div class="money-box">
-                <div class="money-header">💸 Money Connection: The 1/10th Rule</div>
-                <p>Financial experts say your car expenses (gas, insurance, payment) should not exceed 10-15% of your monthly income. If you make $3000/month, your car budget is $300-$450 max.</p>
+                <div class="money-header">💸 Money Connection: The 1/10th Rule & Negative Equity</div>
+                <p>Financial experts say your car expenses (gas, insurance, payment) should not exceed 10-15% of your monthly income.</p>
+                <p><strong>Warning - Negative Equity:</strong> If you take an 84-month (7 year) loan on a new car, the car depreciates faster than you pay off the principal. By year 4, you might owe the bank $15,000 on a car that is only worth $10,000. You are "underwater".</p>
             </div>
         </div>
 
@@ -463,11 +527,11 @@
                     <option value="4.1-C">Comm: Explain the Growth</option>
                 </optgroup>
 
-                <optgroup label="4.2 Buying a Car">
+                <optgroup label="4.2 Buying a Car (Finance & Lease)">
                     <option value="4.2-K">Knowledge: Total Amount Paid</option>
                     <option value="4.2-A">Application: Cost of Borrowing</option>
-                    <option value="4.2-I">Inquiry: Loan Traps & Terms</option>
-                    <option value="4.2-C">Comm: Dealership Tactics</option>
+                    <option value="4.2-I">Inquiry: Loan Traps & Lease Terms</option>
+                    <option value="4.2-C">Comm: New vs Used & Finance vs Lease</option>
                 </optgroup>
 
                 <optgroup label="4.3 Credit Cards">
@@ -501,7 +565,7 @@
 
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 4 Assignment: "The Reality Check" Project</h2>
-        <p><strong>Objective:</strong> You will apply the financial concepts from this unit to make a realistic plan for purchasing and maintaining a vehicle based on a future career scenario, and demonstrate an understanding of credit card mechanics.</p>
+        <p><strong>Objective:</strong> You will apply the financial concepts from this unit to make a realistic plan for purchasing and maintaining a vehicle based on a future career scenario, and demonstrate an understanding of credit card mechanics and car buying options.</p>
         <p><strong>Instructions:</strong> Complete the following sections in a separate document. You may use the Calculator Tab to help you. Submit your final report to your teacher.</p>
 
         <div class="money-box">
@@ -513,7 +577,7 @@
             <span class="task-step">Part A: The Income (Inquiry)</span>
             <p>1. Choose a career you are interested in (e.g., Electrician, Nurse, Graphic Designer).</p>
             <p>2. Find the average <strong>entry-level annual salary</strong> for this job in Ontario. (Cite your source).</p>
-            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). Calculate and deduct a realistic tax rate from your gross salary.</p>
+            <p>3. Calculate your estimated <strong>Monthly Net Income</strong> (Take-home pay). First, deduct a realistic tax rate (e.g., 25%) from your annual gross salary, <strong>then be sure to divide that final number by 12</strong> to find your monthly pay.</p>
         </div>
 
         <div class="task-box">
@@ -522,9 +586,9 @@
             <p>2. Record the <strong>Cash Price</strong>, Year, Make, and Model. (Include the link).</p>
             <p>3. Use the Calculator Tab to calculate the <strong>Monthly Finance Payment</strong>.</p>
             <ul>
-                <li>Assume a <strong>Interest Rate of 7.99%</strong> (Standard used car rate).</li>
+                <li>Assume an <strong>Interest Rate of 7.99%</strong> (Standard used car rate).</li>
                 <li>Assume a <strong>Term of 60 Months</strong> (5 Years).</li>
-                <li>Assume <strong>13% HST</strong> is added to the price.</li>
+                <li>Assume <strong>13% HST</strong> is added to the price. (You can either multiply your car price by 1.13 manually, OR enter 13 into the 'Sales Tax' box on the calculator).</li>
             </ul>
         </div>
 
@@ -553,8 +617,20 @@
         <div class="task-box" style="border-left-color: #c0392b;">
             <span class="task-step" style="color: #c0392b;">Part E: The Credit Card Trap (Application & Communication)</span>
             <p>A few months after buying your car, it requires an unexpected <strong>$1,500 repair</strong>. You do not have emergency savings, so you pay for the repair using a standard credit card with a <strong>19.99% annual interest rate</strong>.</p>
-            <p>1. <strong>Calculate:</strong> Find the exact amount of interest the credit card company will charge you for the very first month.</p>
+            <p>1. <strong>Calculate:</strong> Find the exact amount of interest the credit card company will charge you for the very first month. (Hint: Use <span class="math-text">I = Prt</span> where time 't' is 1/12 of a year).</p>
             <p>2. <strong>Explain:</strong> Write a short paragraph explaining the mathematical danger of only paying the "Minimum Payment" every month. In your answer, clearly explain how <strong>Compound Interest</strong> works against you in this scenario, contrasting it with how Simple Interest would behave.</p>
+        </div>
+
+        <div class="task-box" style="border-left-color: #8e44ad;">
+            <span class="task-step" style="color: #8e44ad;">Part F: The Car Dealer's Dilemma (Inquiry & Communication)</span>
+            <p>You are now a Financial Advisor. Two clients come to you for advice on getting a car. Read their profiles and give them specific recommendations based on what you learned in Unit 4.2.</p>
+            <ul>
+                <li><strong>Client 1 (Sarah):</strong> "I like to have the newest technology and safety features. I drive about 12,000 km a year. I hate dealing with mechanics and unexpected repair bills, and I want a low monthly payment. I don't care about owning the car long-term."</li>
+                <li><strong>Client 2 (David):</strong> "I drive a lot for my job, easily over 30,000 km a year. I want to build equity and eventually have no monthly car payments at all. I don't mind driving an older car as long as it saves me money on depreciation."</li>
+            </ul>
+            <p><strong>Your Task:</strong></p>
+            <p>1. Recommend whether <strong>Sarah</strong> should buy <strong>New or Used</strong>, and whether she should <strong>Lease or Finance</strong>. Justify your answer using at least two Pros/Cons from the lesson.</p>
+            <p>2. Recommend whether <strong>David</strong> should buy <strong>New or Used</strong>, and whether he should <strong>Lease or Finance</strong>. Justify your answer using at least two Pros/Cons from the lesson.</p>
         </div>
 
         <h3>Assessment Rubric (Growing Success)</h3>
@@ -578,10 +654,10 @@
                 </tr>
                 <tr>
                     <td><strong>Inquiry</strong></td>
-                    <td>Data gathered (Job, Car) is missing or unrealistic. Sources not cited.</td>
-                    <td>Data gathered is somewhat realistic. Sources verified.</td>
-                    <td>Data gathered is realistic and relevant to the scenario.</td>
-                    <td>Data gathered is highly realistic, specific, and fully sourced.</td>
+                    <td>Data gathered is unrealistic. Client profiles in Part F are misunderstood.</td>
+                    <td>Data gathered is somewhat realistic. Basic understanding of client profiles.</td>
+                    <td>Data gathered is realistic. Correctly connects client profiles to appropriate car options.</td>
+                    <td>Data gathered is highly realistic. Deeply analyzes client profiles to provide expert vehicle recommendations.</td>
                 </tr>
                 <tr>
                     <td><strong>Application</strong></td>
@@ -592,17 +668,17 @@
                 </tr>
                 <tr>
                     <td><strong>Communication</strong></td>
-                    <td>Conclusions are missing or do not follow from the data.</td>
-                    <td>Conclusions are stated but justification is weak.</td>
-                    <td>Conclusions are clear and justified by the calculations.</td>
-                    <td>Conclusions are persuasive, deeply detailed, and demonstrate high financial literacy.</td>
+                    <td>Conclusions are missing. Car recommendations lack justification.</td>
+                    <td>Conclusions are stated. Recommendations have weak justification.</td>
+                    <td>Conclusions are clear. Recommendations clearly state Pros/Cons.</td>
+                    <td>Conclusions are persuasive and highly detailed. Demonstrates high financial literacy regarding depreciation, equity, and debt.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
 
-<div class="version-tag">v4.4 (Full Dynamic Randomization & Assignment Part E Added)</div>
+<div class="version-tag">v4.6 (Added New/Used & Lease/Finance to Lessons, Practice & Assignment)</div>
 
 <script>
     /* --- UTILS --- */
@@ -851,7 +927,7 @@
         }
     }
 
-    // --- Section 4.2: Buying a Car (Deep Randomization) ---
+    // --- Section 4.2: Buying a Car (Deep Randomization + Lease/Finance) ---
     function gen4_2(kica, qArea) {
         let car = randChoice(cars);
         let stName = randChoice(names);
@@ -903,16 +979,12 @@
                     opts: [ {text: `No, the $${diff} difference is essentially hidden interest baked directly into the inflated finance price.`, correct: true}, {text: "Yes, because the contract legally says 0%.", correct: false}, {text: "Yes, dealerships are required to lose money on these deals.", correct: false} ]
                 },
                 {
-                    q: `<p>What is the primary mathematical benefit of making a massive Down Payment on a car?</p>`,
-                    opts: [ {text: "It directly reduces the Principal (P), which severely reduces the compound interest charged against you over the entire term.", correct: true}, {text: "It lowers the actual interest rate percentage.", correct: false}, {text: "It increases the car's future trade-in value.", correct: false} ]
-                },
-                {
-                    q: `<p>If you switch your car loan from Monthly payments to Accelerated Bi-Weekly payments, what happens?</p>`,
-                    opts: [ {text: "You end up making one extra full payment a year, attacking the principal faster and saving thousands in interest over the term.", correct: true}, {text: "The total interest paid increases.", correct: false}, {text: "Nothing changes mathematically.", correct: false} ]
-                },
-                {
                     q: `<p>Why is leasing a new ${car} generally considered the most expensive way to operate a vehicle long-term?</p>`,
-                    opts: [ {text: "Because you are purely paying for the steepest part of the depreciation curve (first 3 years) and build exactly zero equity.", correct: true}, {text: "Because leases always have 20% interest rates.", correct: false}, {text: "Because you have to buy premium gas for leased cars.", correct: false} ]
+                    opts: [ {text: "Because you are purely paying for the steepest part of the depreciation curve (first 3 years) and build exactly zero equity. You rent it and own nothing.", correct: true}, {text: "Because leases always have 20% interest rates.", correct: false}, {text: "Because you have to buy premium gas for leased cars.", correct: false} ]
+                },
+                {
+                    q: `<p>${stName} drives 35,000 km a year for work. Why is Leasing a terrible financial decision for them?</p>`,
+                    opts: [ {text: "Leases have strict mileage limits (e.g., 20,000 km/year). Going over results in massive financial penalties at the end of the term.", correct: true}, {text: "Because leased cars break down faster.", correct: false}, {text: "It isn't a bad idea, leasing is great for heavy drivers.", correct: false} ]
                 },
                 {
                     q: `<p>You buy a $40,000 ${car} on a 7-year loan. In year 3, it is totalled. Insurance pays you $20,000 (market value), but you owe the bank $28,000. What happens?</p>`,
@@ -925,28 +997,24 @@
             
         } else if (kica === "C") {
             let pct = randChoice([10, 15]);
-            let age = randInt(2, 4);
+            let age = randInt(3, 4);
             
             let pool = [
                 {
-                    q: `<p>Explain why Car Salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>`,
-                    opts: [{text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate mentally."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
+                    q: `<p>How do you explain the difference between Financing and Leasing to a client?</p>`,
+                    opts: [{text: `"Financing means you take a loan to eventually own the car. Leasing means you are just paying the depreciation cost to rent the car for a few years, but you own nothing at the end."`, correct: true}, {text: `"Financing is for used cars, Leasing is for new cars."`, correct: false}, {text: `"There is no difference, both are just monthly payments."`, correct: false} ]
                 },
                 {
-                    q: `<p>How do you explain the "${pct}% Rule" to ${stName} who is buying their first car?</p>`,
-                    opts: [{text: `"Your total car costs (Loan + Gas + Insurance) should never exceed ${pct}% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly ${pct}% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above ${pct}%."`, correct: false} ]
+                    q: `<p>Why is buying a ${age}-year-old used car considered a financial 'hack' compared to buying new?</p>`,
+                    opts: [{text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve. You buy it after the big price drop."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because ${age}-year-old cars have 0% interest rates."`, correct: false} ]
                 },
                 {
                     q: `<p>${stName} says, "A car is a great investment!" How do you correct them using mathematical terms?</p>`,
                     opts: [{text: `"A car is a depreciating liability, not an investment. Exponential decay means it loses value rapidly every single year."`, correct: true}, {text: `"They are investments because you can sleep in them."`, correct: false}, {text: `"Actually, cars appreciate in value due to compound interest."`, correct: false} ]
                 },
                 {
-                    q: `<p>Why is buying a ${age}-year-old used car considered a financial 'hack' compared to buying new?</p>`,
-                    opts: [{text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because ${age}-year-old cars have 0% interest rates."`, correct: false} ]
-                },
-                {
-                    q: `<p>Explain "Cost of Borrowing" to someone who has never taken a loan.</p>`,
-                    opts: [{text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what actually leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean and prepare the car."`, correct: false}, {text: `"It is the combined cost of gas and insurance."`, correct: false} ]
+                    q: `<p>How do you explain the "${pct}% Rule" to ${stName} who is buying their first car?</p>`,
+                    opts: [{text: `"Your total car costs (Loan + Gas + Insurance) should never exceed ${pct}% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly ${pct}% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above ${pct}%."`, correct: false} ]
                 },
                 {
                     q: `<p>Why do financial advisors strongly recommend keeping car loans to 48 months (4 years) maximum?</p>`,
@@ -983,7 +1051,7 @@
             setupInput(ans.toFixed(2));
             
         } else if (kica === "A") {
-            let minPay = Math.max(10, Math.floor(bal * 0.03)); 
+            let minPay = Math.max(10, Math.floor(bal * 0.03)); // Standard 3% min payment
             let monthInt = (bal * (rate/100)) / 12;
             let principalPaid = minPay - monthInt;
             
