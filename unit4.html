@@ -470,7 +470,7 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p>When values drop by a percentage. The curve falls fast then flattens, never reaching zero (Asymptote).<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
@@ -503,7 +503,7 @@
             </div>
         </div>
 
-        <button class="accordion">3.5 Simple vs. Compound Interest (Finance Application)</button>
+        <button class="accordion">3.5 Simple vs. Compound Interest</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Head-to-Head Comparison</h3>
@@ -529,6 +529,12 @@
                 <hr>
                 <p><strong>Difference:</strong> Because of compounding, the real debt is <strong>DOUBLE</strong> what simple interest would be.</p>
             </div>
+            
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The "Rule of 72"</div>
+                <p>Want to know when your debt doubles? Divide 72 by the interest rate.<br>
+                At 20% interest (Credit Card), <span class="math-text">72 &div; 20 = 3.6</span> years. Your debt doubles every 3.6 years if you don't pay it!</p>
+            </div>
         </div>
 
         <button class="accordion">3.6 Buying a Car: Options & The Real Cost</button>
@@ -540,73 +546,34 @@
             
             <h3>Financing vs Leasing</h3>
             <table class="compare-table">
-                <tr>
-                    <th>Financing (Buying)</th>
-                    <th>Leasing (Renting)</th>
-                </tr>
+                <tr><th>Financing (Buying)</th><th>Leasing (Renting)</th></tr>
                 <tr>
                     <td>You are taking a loan to buy the entire car. When the payments end, you <strong>own</strong> the car.</td>
                     <td>You are paying only for the <strong>depreciation</strong> (the value the car loses) while you drive it for 2-4 years. Then you return it.</td>
                 </tr>
                 <tr>
                     <td>
-                        <strong>Pros:</strong>
-                        <ul class="pro-list">
-                            <li>You build equity (you own an asset you can sell later).</li>
-                            <li>No mileage limits or wear-and-tear penalties.</li>
-                        </ul>
-                        <strong>Cons:</strong>
-                        <ul class="con-list">
-                            <li>Higher monthly payments than leasing.</li>
-                            <li>You are responsible for all repairs after the warranty ends.</li>
-                        </ul>
+                        <ul class="pro-list"><li>Builds equity (you own an asset you can sell later).</li><li>No mileage limits.</li></ul>
+                        <ul class="con-list"><li>Higher monthly payments.</li><li>Responsible for repairs after warranty ends.</li></ul>
                     </td>
                     <td>
-                        <strong>Pros:</strong>
-                        <ul class="pro-list">
-                            <li>Lower monthly payments.</li>
-                            <li>Always driving a new car under warranty (no repair bills).</li>
-                        </ul>
-                        <strong>Cons:</strong>
-                        <ul class="con-list">
-                            <li>You build <strong>zero equity</strong>. You rent the car and own nothing at the end.</li>
-                            <li>Strict mileage limits (e.g., 20,000 km/year). Expensive penalties if you go over or scratch the car.</li>
-                        </ul>
+                        <ul class="pro-list"><li>Lower monthly payments.</li><li>Always driving a new car under warranty.</li></ul>
+                        <ul class="con-list"><li><strong>Zero equity</strong>. You own nothing at the end.</li><li>Strict mileage penalties.</li></ul>
                     </td>
                 </tr>
             </table>
 
             <h3>New vs Used Cars</h3>
             <table class="compare-table">
-                <tr>
-                    <th>New Cars</th>
-                    <th>Used Cars (e.g., 3-4 years old)</th>
-                </tr>
+                <tr><th>New Cars</th><th>Used Cars (3-4 years old)</th></tr>
                 <tr>
                     <td>
-                        <strong>Pros:</strong>
-                        <ul class="pro-list">
-                            <li>Latest technology and safety features.</li>
-                            <li>Full manufacturer warranty.</li>
-                            <li>Often lower interest rates from the dealer.</li>
-                        </ul>
-                        <strong>Cons:</strong>
-                        <ul class="con-list">
-                            <li><strong>Massive Depreciation:</strong> Loses 15-20% of its value the second you drive it off the lot.</li>
-                            <li>Higher insurance costs.</li>
-                        </ul>
+                        <ul class="pro-list"><li>Latest tech & full warranty.</li></ul>
+                        <ul class="con-list"><li><strong>Massive Depreciation:</strong> Loses 15-20% immediately.</li></ul>
                     </td>
                     <td>
-                        <strong>Pros:</strong>
-                        <ul class="pro-list">
-                            <li><strong>Someone else paid the depreciation:</strong> You buy the car after its biggest price drop.</li>
-                            <li>Cheaper insurance and lower overall cost.</li>
-                        </ul>
-                        <strong>Cons:</strong>
-                        <ul class="con-list">
-                            <li>Higher interest rates on used car loans.</li>
-                            <li>Potential for expensive repair bills (no warranty).</li>
-                        </ul>
+                        <ul class="pro-list"><li><strong>Someone else paid the depreciation.</strong></li></ul>
+                        <ul class="con-list"><li>Higher loan interest rates.</li></ul>
                     </td>
                 </tr>
             </table>
@@ -621,15 +588,14 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>Credit Cards use <strong>Compound Interest</strong> calculated daily. The average rate is <strong>19.99%</strong>.</p>
-            
+            <p>Credit Cards use <strong>Compound Interest</strong> calculated daily. Average rate is <strong>19.99%</strong>.</p>
             <div class="example-box">
                 <span class="example-title">The Minimum Payment Trap</span>
                 You owe $5,000. Min payment is $100. If you only pay $100/month, almost all of it goes to exponential interest. It will take over <strong>20 years</strong> to pay off.
             </div>
             <div class="example-box">
                 <span class="example-title">The Grace Period</span>
-                If you pay your <strong>Full Statement Balance</strong> by the due date, interest is $0. This is the only smart way to use a credit card.
+                If you pay your <strong>Full Statement Balance</strong> by the due date, interest is $0.
             </div>
             <div class="example-box">
                 <span class="example-title">Cash Advances</span>
@@ -794,17 +760,18 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-</main>
 
-<div class="version-tag">v3.18 (Master Unified Build: Open-Response Continuous Assignment - Original Formatting Restored)</div>
+    </div>
+    </main>
+
+<div class="version-tag">v3.19 (Master Unified Build: JavaScript Rollback & Full Integration)</div>
 
 <script>
     /* --- UTILS --- */
     const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // Core Dictionaries for dynamic string injection
+    // Dictionaries for deep randomization
     const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie"];
     const invItems = ["mutual fund", "ETF", "savings account", "GIC", "index fund", "stock portfolio"];
     const decItems = ["car", "laptop", "smartphone", "tablet", "smartwatch", "desktop computer", "TV"];
@@ -814,7 +781,7 @@
     const debtTypes = ["Credit Card", "Payday Loan", "Personal Loan", "Overdraft"];
 
     // --- State Management ---
-    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_master')) || {};
     let isQuestionSolved = false; 
     
     // --- Navigation ---
@@ -827,11 +794,29 @@
         evt.currentTarget.classList.add('active');
     }
 
+    // --- Specific Print Logic (Bug Fix for full screen printing) ---
     function printLesson(btn) {
-        window.print();
+        let panel = btn.parentElement;
+        let title = panel.previousElementSibling.innerText;
+        let content = panel.innerHTML;
+        
+        let printWindow = window.open('', '', 'height=600,width=800');
+        printWindow.document.write('<html><head><title>' + title + '</title>');
+        printWindow.document.write('<style>body{font-family:sans-serif; line-height:1.6; padding:20px;} .example-box{background:#f0f3f4; border-left:4px solid #3498db; padding:15px; margin:15px 0;} .money-box{background:#fff5e6; border:2px solid #d35400; border-radius:8px; padding:15px; margin:20px 0;} .print-btn{display:none;} .math-text{font-family:serif; font-size:1.1rem; font-style:italic;} sup{font-size:0.8em; vertical-align:super;} .compare-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.95rem; } .compare-table th { background-color: #34495e; color: white; text-align: center; padding: 8px;} .compare-table td { border: 1px solid #ddd; padding: 12px; vertical-align: top; } .pro-list { color: #27ae60; padding-left: 20px; margin: 5px 0; } .con-list { color: #c0392b; padding-left: 20px; margin: 5px 0; }</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<h2>' + title + '</h2>');
+        printWindow.document.write(content);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.focus();
+        
+        setTimeout(function() {
+            printWindow.print();
+            printWindow.close();
+        }, 250);
     }
 
-    // --- Accordion Bug Fix ---
+    // --- Accordion Initialization (Rollback to Safe Version) ---
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function() {
@@ -839,13 +824,8 @@
             var panel = this.nextElementSibling;
             if (panel.style.maxHeight) {
                 panel.style.maxHeight = null;
-                panel.style.paddingTop = null;
-                panel.style.paddingBottom = null;
             } else {
-                panel.style.display = "block"; 
-                panel.style.maxHeight = (panel.scrollHeight + 1000) + "px"; 
-                panel.style.paddingTop = "15px";
-                panel.style.paddingBottom = "15px";
+                panel.style.maxHeight = panel.scrollHeight + 1000 + "px"; // Safe buffer for dynamic content
             }
         });
     }
@@ -873,14 +853,14 @@
         practiceData[type].total++;
         if(isCorrect) practiceData[type].correct++;
         
-        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit3_master', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
     function resetPracticeScore() {
         let type = document.getElementById('practice-selector').value || 'default';
         practiceData[type] = { correct: 0, total: 0 };
-        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit3_master', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
