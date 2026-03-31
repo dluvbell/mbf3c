@@ -527,24 +527,48 @@
             </div>
 
             <div class="example-box">
-                <span class="example-title">Ex 2 (Application): The Real Dollar Difference</span>
+                <span class="example-title">Ex 2 (Knowledge): Identifying the Growth Pattern</span>
+                <p><strong>Problem:</strong> How can you tell if an investment uses simple or compound interest just by looking at the yearly profit?</p>
+                <p><strong>Solution:</strong> If the account earns exactly $100 every single year, it is Simple Interest (linear). If the account earns $100 the first year, $105 the next year, and $110 the next, it is Compound Interest (exponential).</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 3 (Application): The Real Dollar Difference (Debt)</span>
                 <p><strong>Problem:</strong> You owe $5,000 on a credit card at 20% interest and don't pay it for 10 years. What is the difference in total debt between Simple and Compound calculation?</p>
                 <p><strong>Simple (if it existed):</strong> You would owe $15,000 total.</p>
                 <p><strong>Compound (reality):</strong> You owe $30,958.68.</p>
                 <p><strong>The Difference:</strong> Because banks use compound interest on debt, you owe <strong>$15,958.68 MORE</strong> than you would with simple interest.</p>
             </div>
 
+            <div class="example-box">
+                <span class="example-title">Ex 4 (Application): Long-Term vs Short-Term Impact</span>
+                <p><strong>Problem:</strong> Compare investing $5,000 at 8% for 5 years versus 40 years using the calculator.</p>
+                <p><strong>Solution:</strong> In the short term (5 years), the difference is small. But at 40 years, Simple Interest yields $21,000, while Compound Interest explodes to <strong>$108,622</strong>. Compound interest requires <strong>Time (n)</strong> to show its true power.</p>
+            </div>
+
             <h3>Inquiry & Communication Examples</h3>
             <div class="example-box">
-                <span class="example-title">Ex 3 (Inquiry): Visualizing the Curve</span>
-                <p><strong>Problem:</strong> If you graph both on the same chart over 40 years, how do they look?</p>
+                <span class="example-title">Ex 5 (Inquiry): Visualizing the Curve</span>
+                <p><strong>Problem:</strong> If you graph both on the same chart over 40 years, how do they physically look?</p>
                 <p><strong>Analysis:</strong> Simple interest is a perfectly straight ramp. Compound interest starts out looking similar for the first few years, but eventually shoots vertically into a massive J-Curve, leaving the simple interest line far behind.</p>
             </div>
 
             <div class="example-box">
-                <span class="example-title">Ex 4 (Communication): "Interest on Interest"</span>
-                <p><strong>Problem:</strong> Explain to a friend why Compound Interest is better for retirement accounts than Simple Interest.</p>
+                <span class="example-title">Ex 6 (Inquiry): Compounding Frequency</span>
+                <p><strong>Problem:</strong> Why does a mortgage that compounds "Daily" cost you more than one that compounds "Annually"?</p>
+                <p><strong>Analysis:</strong> Compounding daily means the bank calculates today's interest and adds it to your total debt immediately. Tomorrow, you are charged interest on a slightly larger debt. The faster the frequency, the faster the exponential curve grows.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 7 (Communication): "Interest on Interest"</span>
+                <p><strong>Problem:</strong> Explain to a friend why Compound Interest is better for retirement accounts than Simple Interest without using math formulas.</p>
                 <p><strong>Explanation:</strong> "With Simple Interest, only your original money works for you. But with Compound Interest, the interest you earned last year gets added to the pile, and now that new, bigger pile earns even MORE interest this year. It's like your money is making babies, and those babies are making babies."</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 8 (Communication): Explaining to a Saver</span>
+                <p><strong>Problem:</strong> A friend says they just keep their cash hidden in a drawer because it's "safe". Advise them.</p>
+                <p><strong>Explanation:</strong> "Cash in a drawer actually loses value every year due to inflation (Exponential Decay). To protect your buying power, you must put it in an investment that uses Compound Growth to outpace the rate of inflation."</p>
             </div>
             
             <div class="money-box">
@@ -880,7 +904,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.22 (Banzai Calc Added, Formulas Removed, 3.6 Examples Expanded)</div>
+<div class="version-tag">v3.23 (Added Examples for 3.5 without refactoring core logic)</div>
 
 <script>
     /* --- UTILS --- */
@@ -1576,7 +1600,7 @@
         }
     }
 
-    // --- Section 3.5: Simple vs Compound (Old 4.1) ---
+    // --- Section 3.5: Simple vs Compound ---
     function gen3_5(kica, qArea) {
         let P = randInt(10, 95) * 100;
         let r = randInt(3, 15);
