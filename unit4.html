@@ -478,7 +478,7 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p>When values drop by a percentage. The curve falls fast then flattens, never reaching zero (Asymptote).<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
@@ -634,10 +634,54 @@
                     </td>
                 </tr>
             </table>
+
+            <h3>Knowledge & Application Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 1 (Knowledge): Total Amount Paid (Financing)</span>
+                <p><strong>Problem:</strong> You finance a Honda Civic. You put $2,000 down and pay $400/month for 60 months. What is the Total Amount Paid?</p>
+                <p><strong>Solution:</strong> Total Paid = ($400 &times; 60) + $2,000 = $24,000 + $2,000 = <strong>$26,000</strong>.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 2 (Knowledge): Total Amount Paid (Leasing)</span>
+                <p><strong>Problem:</strong> You lease a car for $350/month for 48 months with a $1,000 down payment. At the end, you return the car. Total Amount Paid?</p>
+                <p><strong>Solution:</strong> Total Paid = ($350 &times; 48) + $1,000 = $16,800 + $1,000 = <strong>$17,800</strong>. (And you own nothing at the end).</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 3 (Application): Cost of Borrowing</span>
+                <p><strong>Problem:</strong> The cash price of a car is $22,000. You finance it and your Total Amount Paid is $26,000. What is the Cost of Borrowing?</p>
+                <p><strong>Solution:</strong> Cost of Borrowing = Total Paid - Cash Price = $26,000 - $22,000 = <strong>$4,000</strong>. This is the penalty for not paying cash.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 4 (Application): Loan Term Comparison</span>
+                <p><strong>Problem:</strong> A $30,000 car. Option A: 48 months @ $700/mo. Option B: 84 months @ $450/mo. Which costs more in the end?</p>
+                <p><strong>Solution:</strong> Option A = $700 &times; 48 = $33,600. Option B = $450 &times; 84 = $37,800. Option B has a lower monthly payment, but costs <strong>$4,200 MORE</strong> overall!</p>
+            </div>
+
+            <h3>Inquiry & Communication Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 5 (Inquiry): The 0% Financing Illusion</span>
+                <p><strong>Problem:</strong> A dealer offers 0% financing, but the car costs $35,000. If you pay cash, they give a "$4,000 cash discount" (price becomes $31,000). Is the loan truly 0% interest?</p>
+                <p><strong>Analysis:</strong> No! The $4,000 difference is hidden interest baked directly into the finance price. You are paying $4,000 to "borrow" the money.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 6 (Inquiry): Negative Equity</span>
+                <p><strong>Problem:</strong> What does it mean to be "underwater" (have negative equity) on a car loan?</p>
+                <p><strong>Analysis:</strong> Cars depreciate exponentially (steeply at first), while loan payments reduce the principal linearly (slowly). If you take a long 84-month loan, by year 3 your car might be worth $12,000, but you still owe the bank $18,000.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 7 (Communication): The Salesman's Trap</span>
+                <p><strong>Problem:</strong> Why do car salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>
+                <p><strong>Explanation:</strong> "By focusing on a low monthly payment, they can secretly stretch the loan term to 72 or 84 months. This maximizes the bank's interest profit and hides the massive Total Cost of Borrowing from the buyer."</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 8 (Communication): The 3-Year-Old Hack</span>
+                <p><strong>Problem:</strong> Explain why buying a 3-year-old used car is considered a massive financial advantage over buying brand new.</p>
+                <p><strong>Explanation:</strong> "Because of exponential decay, a new car loses the largest chunk of its value (up to 40%) in the first 3 years. By buying a 3-year-old car, the original owner has already paid for the most brutal part of the depreciation curve for you."</p>
+            </div>
+
             <div class="money-box">
                 <div class="money-header">💸 The 15% Rule & Negative Equity</div>
                 <p>Your total car expenses (loan + gas + insurance) should not exceed 15% of your Net Monthly Income.</p>
-                <p><strong>Warning - Negative Equity:</strong> If you take an 84-month (7 year) loan on a new car, the car depreciates faster than you pay off the principal. By year 4, you might owe the bank $15,000 on a car that is only worth $10,000. You are "underwater".</p>
             </div>
         </div>
 
@@ -776,7 +820,7 @@
 
         <div class="task-box">
             <span class="task-step">Question 6: The Credit Card Trap [Sections 3.5 & 3.7]</span>
-            <p>Your car needs a $1,500 repair and you put it on a 19.99% credit card. Find the exact amount of interest the credit card company will charge you for the very first month (Hint: Use <span class="math-text">I = Prt</span> where t = 1/12). Then, write a paragraph explaining the mathematical danger of only paying the "Minimum Payment" every month. Contrast how <strong>Compound Interest</strong> works against you here compared to Simple Interest.</p>
+            <p>Your car needs a $1,500 repair and you put it on a 19.99% credit card. Find the exact amount of interest the credit card company will charge you for the very first month (Hint: Use the calculator or formula where t = 1/12). Then, write a paragraph explaining the mathematical danger of only paying the "Minimum Payment" every month. Contrast how <strong>Compound Interest</strong> works against you here compared to Simple Interest.</p>
         </div>
 
         <div class="task-box" style="border-left-color: #8e44ad;">
@@ -836,7 +880,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.21 (Calculators added, Formulas removed, Lessons Expanded)</div>
+<div class="version-tag">v3.22 (Banzai Calc Added, Formulas Removed, 3.6 Examples Expanded)</div>
 
 <script>
     /* --- UTILS --- */
