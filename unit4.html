@@ -503,7 +503,7 @@
             </div>
         </div>
 
-        <button class="accordion">3.5 Simple vs. Compound Interest</button>
+        <button class="accordion">3.5 Simple vs. Compound Interest (Finance Application)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Head-to-Head Comparison</h3>
@@ -545,35 +545,75 @@
             <p>Formula: <span class="math-text">Total Paid = (Monthly Payment &times; Months) + Down Payment</span></p>
             
             <h3>Financing vs Leasing</h3>
+            <p>When you get a car, you don't just "buy" it. You choose <em>how</em> to pay for it.</p>
             <table class="compare-table">
-                <tr><th>Financing (Buying)</th><th>Leasing (Renting)</th></tr>
+                <tr>
+                    <th>Financing (Buying)</th>
+                    <th>Leasing (Renting)</th>
+                </tr>
                 <tr>
                     <td>You are taking a loan to buy the entire car. When the payments end, you <strong>own</strong> the car.</td>
                     <td>You are paying only for the <strong>depreciation</strong> (the value the car loses) while you drive it for 2-4 years. Then you return it.</td>
                 </tr>
                 <tr>
                     <td>
-                        <ul class="pro-list"><li>Builds equity (you own an asset you can sell later).</li><li>No mileage limits.</li></ul>
-                        <ul class="con-list"><li>Higher monthly payments.</li><li>Responsible for repairs after warranty ends.</li></ul>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>You build equity (you own an asset you can sell later).</li>
+                            <li>No mileage limits or wear-and-tear penalties.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>Higher monthly payments than leasing.</li>
+                            <li>You are responsible for all repairs after the warranty ends.</li>
+                        </ul>
                     </td>
                     <td>
-                        <ul class="pro-list"><li>Lower monthly payments.</li><li>Always driving a new car under warranty.</li></ul>
-                        <ul class="con-list"><li><strong>Zero equity</strong>. You own nothing at the end.</li><li>Strict mileage penalties.</li></ul>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>Lower monthly payments.</li>
+                            <li>Always driving a new car under warranty (no repair bills).</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>You build <strong>zero equity</strong>. You rent the car and own nothing at the end.</li>
+                            <li>Strict mileage limits (e.g., 20,000 km/year). Expensive penalties if you go over or scratch the car.</li>
+                        </ul>
                     </td>
                 </tr>
             </table>
 
             <h3>New vs Used Cars</h3>
             <table class="compare-table">
-                <tr><th>New Cars</th><th>Used Cars (3-4 years old)</th></tr>
+                <tr>
+                    <th>New Cars</th>
+                    <th>Used Cars (e.g., 3-4 years old)</th>
+                </tr>
                 <tr>
                     <td>
-                        <ul class="pro-list"><li>Latest tech & full warranty.</li></ul>
-                        <ul class="con-list"><li><strong>Massive Depreciation:</strong> Loses 15-20% immediately.</li></ul>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>Latest technology and safety features.</li>
+                            <li>Full manufacturer warranty.</li>
+                            <li>Often lower interest rates from the dealer.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li><strong>Massive Depreciation:</strong> Loses 15-20% of its value the second you drive it off the lot.</li>
+                            <li>Higher insurance costs.</li>
+                        </ul>
                     </td>
                     <td>
-                        <ul class="pro-list"><li><strong>Someone else paid the depreciation.</strong></li></ul>
-                        <ul class="con-list"><li>Higher loan interest rates.</li></ul>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li><strong>Someone else paid the depreciation:</strong> You buy the car after its biggest price drop.</li>
+                            <li>Cheaper insurance and lower overall cost.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>Higher interest rates on used car loans.</li>
+                            <li>Potential for expensive repair bills (no warranty).</li>
+                        </ul>
                     </td>
                 </tr>
             </table>
@@ -588,14 +628,15 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>Credit Cards use <strong>Compound Interest</strong> calculated daily. Average rate is <strong>19.99%</strong>.</p>
+            <p>Credit Cards use <strong>Compound Interest</strong> calculated daily. The average rate is <strong>19.99%</strong>.</p>
+            
             <div class="example-box">
                 <span class="example-title">The Minimum Payment Trap</span>
                 You owe $5,000. Min payment is $100. If you only pay $100/month, almost all of it goes to exponential interest. It will take over <strong>20 years</strong> to pay off.
             </div>
             <div class="example-box">
                 <span class="example-title">The Grace Period</span>
-                If you pay your <strong>Full Statement Balance</strong> by the due date, interest is $0.
+                If you pay your <strong>Full Statement Balance</strong> by the due date, interest is $0. This is the only smart way to use a credit card.
             </div>
             <div class="example-box">
                 <span class="example-title">Cash Advances</span>
@@ -613,38 +654,53 @@
             <select id="practice-selector" onchange="resetPracticeUI()">
                 <option value="" disabled selected>-- Choose a Training Module --</option>
                 
-                <optgroup label="Phase 1: Exponents">
-                    <option value="3.1-K">3.1 K: Simplify Expressions</option>
-                    <option value="3.1-A">3.1 A: Evaluate to a Number</option>
-                    <option value="3.1-I">3.1 I: Exponent Rules & Patterns</option>
-                    <option value="3.1-C">3.1 C: Exponential Logic</option>
-                    <option value="3.2-K">3.2 K: Identify 'a' and 'b'</option>
-                    <option value="3.2-A">3.2 A: Calculate Future Growth</option>
-                    <option value="3.2-I">3.2 I: Linear vs Exponential</option>
-                    <option value="3.2-C">3.2 C: Rule of 72 Advice</option>
-                    <option value="3.3-K">3.3 K: Calculate A = P(1+i)^n</option>
-                    <option value="3.3-A">3.3 A: Cost of Waiting</option>
-                    <option value="3.3-I">3.3 I: The Power of Time ('n')</option>
-                    <option value="3.3-C">3.3 C: Financial Investing Advice</option>
-                    <option value="3.4-K">3.4 K: Find the Decay Factor ('b')</option>
-                    <option value="3.4-A">3.4 A: Calculate Depreciation</option>
-                    <option value="3.4-I">3.4 I: Asymptotes & Decay</option>
-                    <option value="3.4-C">3.4 C: Real-World Decay Traps</option>
+                <optgroup label="Lesson 3.1: Exponent Laws">
+                    <option value="3.1-K">Knowledge: Simplify Expressions</option>
+                    <option value="3.1-A">Application: Evaluate to a Number</option>
+                    <option value="3.1-I">Inquiry: Exponent Rules & Patterns</option>
+                    <option value="3.1-C">Communication: Exponential Logic</option>
                 </optgroup>
 
-                <optgroup label="Phase 2: Personal Finance">
-                    <option value="3.5-K">3.5 K: Simple vs Compound Calc</option>
-                    <option value="3.5-A">3.5 A: Compare Interest Difference</option>
-                    <option value="3.5-I">3.5 I: Interest Mechanics</option>
-                    <option value="3.5-C">3.5 C: Explain the Debt Trap</option>
-                    <option value="3.6-K">3.6 K: Total Amount Paid (Car)</option>
-                    <option value="3.6-A">3.6 A: Cost of Borrowing</option>
-                    <option value="3.6-I">3.6 I: Loan & Lease Terms</option>
-                    <option value="3.6-C">3.6 C: New/Used & Finance/Lease</option>
-                    <option value="3.7-K">3.7 K: Monthly Credit Card Interest</option>
-                    <option value="3.7-A">3.7 A: Principal Paid vs Min Payment</option>
-                    <option value="3.7-I">3.7 I: Grace Periods & Advances</option>
-                    <option value="3.7-C">3.7 C: Avoiding the Debt Spiral</option>
+                <optgroup label="Lesson 3.2: Exponential Growth">
+                    <option value="3.2-K">Knowledge: Identify 'a' and 'b'</option>
+                    <option value="3.2-A">Application: Calculate Future Growth</option>
+                    <option value="3.2-I">Inquiry: Linear vs Exponential</option>
+                    <option value="3.2-C">Communication: Rule of 72 Advice</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.3: Compound Interest">
+                    <option value="3.3-K">Knowledge: Calculate A = P(1+i)^n</option>
+                    <option value="3.3-A">Application: Cost of Waiting</option>
+                    <option value="3.3-I">Inquiry: The Power of Time ('n')</option>
+                    <option value="3.3-C">Communication: Financial Investing Advice</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.4: Exponential Decay">
+                    <option value="3.4-K">Knowledge: Find the Decay Factor ('b')</option>
+                    <option value="3.4-A">Application: Calculate Depreciation</option>
+                    <option value="3.4-I">Inquiry: Asymptotes & Decay</option>
+                    <option value="3.4-C">Communication: Real-World Decay Traps</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.5: Simple vs Compound Interest">
+                    <option value="3.5-K">Knowledge: Calculate I or A</option>
+                    <option value="3.5-A">Application: Compare Interest Difference</option>
+                    <option value="3.5-I">Inquiry: Interest Mechanics</option>
+                    <option value="3.5-C">Communication: Explain the Debt Trap</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.6: Buying a Car (Finance & Lease)">
+                    <option value="3.6-K">Knowledge: Total Amount Paid (Car)</option>
+                    <option value="3.6-A">Application: Cost of Borrowing</option>
+                    <option value="3.6-I">Inquiry: Loan & Lease Terms</option>
+                    <option value="3.6-C">Communication: New/Used & Finance/Lease</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.7: Credit Cards">
+                    <option value="3.7-K">Knowledge: Monthly Credit Card Interest</option>
+                    <option value="3.7-A">Application: Principal Paid vs Min Payment</option>
+                    <option value="3.7-I">Inquiry: Grace Periods & Advances</option>
+                    <option value="3.7-C">Communication: Avoiding the Debt Spiral</option>
                 </optgroup>
             </select>
 
@@ -760,18 +816,17 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
-    </main>
+</main>
 
-<div class="version-tag">v3.19 (Master Unified Build: JavaScript Rollback & Full Integration)</div>
+<div class="version-tag">v3.20 (Practice Dropdown Headers Updated)</div>
 
 <script>
     /* --- UTILS --- */
     const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // Dictionaries for deep randomization
+    // Core Dictionaries for dynamic string injection
     const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie"];
     const invItems = ["mutual fund", "ETF", "savings account", "GIC", "index fund", "stock portfolio"];
     const decItems = ["car", "laptop", "smartphone", "tablet", "smartwatch", "desktop computer", "TV"];
@@ -781,7 +836,7 @@
     const debtTypes = ["Credit Card", "Payday Loan", "Personal Loan", "Overdraft"];
 
     // --- State Management ---
-    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_master')) || {};
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
     let isQuestionSolved = false; 
     
     // --- Navigation ---
@@ -816,7 +871,7 @@
         }, 250);
     }
 
-    // --- Accordion Initialization (Rollback to Safe Version) ---
+    // --- Accordion Initialization ---
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function() {
