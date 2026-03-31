@@ -336,6 +336,14 @@
         <button class="btn-primary" style="background-color: #e67e22;" onclick="window.open('https://www.calculator.net/auto-loan-calculator.html', '_blank')">Open Auto Loan Calc in New Tab</button>
         <br><br>
         <iframe src="https://www.calculator.net/auto-loan-calculator.html?csaleprice=30000&cmonths=60&cinterestrate=5.5&cdownpayment=2000&ctradeinvalue=0&cstate=ON&csaletax=13&ctitlereg=100&printit=0&ctype=standard&x=64&y=16" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
+
+        <hr style="margin: 40px 0; border: 1px solid #bdc3c7;">
+
+        <h2>3. Simple vs Compound Interest Calculator</h2>
+        <p>Use this tool for Section 3.5 to visually compare how Simple Interest and Compound Interest grow differently over time.</p>
+        <button class="btn-primary" style="background-color: #8e44ad;" onclick="window.open('https://banzai.org/wellness/resources/simple-vs-compound-interest-calculator', '_blank')">Open Interest Comparison Calc in New Tab</button>
+        <br><br>
+        <iframe src="https://banzai.org/wellness/resources/simple-vs-compound-interest-calculator" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px; background: white;"></iframe>
     </div>
 
     <div id="tab-lessons" class="tab-content">
@@ -470,7 +478,7 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens, never reaching zero (Asymptote).<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
@@ -506,33 +514,42 @@
         <button class="accordion">3.5 Simple vs. Compound Interest (Finance Application)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
-            <h3>Head-to-Head Comparison</h3>
-            <p><strong>Simple Interest:</strong> <span class="math-text">I = Prt</span>. Interest is linear. You only earn on the Principal.</p>
-            <p><strong>Compound Interest:</strong> <span class="math-text">A = P(1 + i)<sup>n</sup></span>. Interest is exponential. You earn "interest on interest".</p>
+            <h3>Concept Overview</h3>
+            <p><strong>Simple Interest:</strong> Interest is linear. You only earn interest on the original Principal amount. It is a flat, steady line.</p>
+            <p><strong>Compound Interest:</strong> Interest is exponential. You earn "interest on interest". It forms a J-Curve that accelerates upwards over time.</p>
+            
+            <h3>Knowledge & Application Examples</h3>
             <div class="example-box">
-                <span class="example-title">Scenario: Invest $10,000 at 5% for 20 years.</span>
-                <p><strong>Simple:</strong> I = 10,000 &times; 0.05 &times; 20 = $10,000. Total = <strong>$20,000</strong></p>
-                <p><strong>Compound:</strong> A = 10,000(1.05)<sup>20</sup> = <strong>$26,532.98</strong></p>
-                <hr>
-                <p><strong>Difference:</strong> Compound Interest earned you an extra <strong>$6,532</strong> for doing nothing differently.</p>
+                <span class="example-title">Ex 1 (Knowledge): Calculate the Basics</span>
+                <p><strong>Problem:</strong> Use the Simple vs Compound Calculator to find the final amounts for $10,000 invested at 5% for 20 years.</p>
+                <p><strong>Simple Output:</strong> $20,000 (It grew by exactly $500 every single year).</p>
+                <p><strong>Compound Output:</strong> $26,532.98 (The growth amount increased every year because the pile got bigger).</p>
             </div>
 
             <div class="example-box">
-                <span class="example-title">Scenario: Debt (The Danger Zone)</span>
-                <p><strong>Scenario:</strong> You owe <strong>$5,000</strong> on a Credit Card at <strong>20%</strong>. You don't pay it for <strong>10 years</strong>.</p>
-                <hr>
-                <p><strong>Simple Interest (If it existed):</strong><br>
-                <span class="math-text">I = 5,000 &times; 0.20 &times; 10 = $10,000</span><br>
-                Total Owed: $15,000</p>
-                <p><strong>Compound Interest (Reality):</strong><br>
-                <span class="math-text">A = 5,000(1.20)<sup>10</sup> = $30,958.68</span></p>
-                <hr>
-                <p><strong>Difference:</strong> Because of compounding, the real debt is <strong>DOUBLE</strong> what simple interest would be.</p>
+                <span class="example-title">Ex 2 (Application): The Real Dollar Difference</span>
+                <p><strong>Problem:</strong> You owe $5,000 on a credit card at 20% interest and don't pay it for 10 years. What is the difference in total debt between Simple and Compound calculation?</p>
+                <p><strong>Simple (if it existed):</strong> You would owe $15,000 total.</p>
+                <p><strong>Compound (reality):</strong> You owe $30,958.68.</p>
+                <p><strong>The Difference:</strong> Because banks use compound interest on debt, you owe <strong>$15,958.68 MORE</strong> than you would with simple interest.</p>
+            </div>
+
+            <h3>Inquiry & Communication Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 3 (Inquiry): Visualizing the Curve</span>
+                <p><strong>Problem:</strong> If you graph both on the same chart over 40 years, how do they look?</p>
+                <p><strong>Analysis:</strong> Simple interest is a perfectly straight ramp. Compound interest starts out looking similar for the first few years, but eventually shoots vertically into a massive J-Curve, leaving the simple interest line far behind.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 4 (Communication): "Interest on Interest"</span>
+                <p><strong>Problem:</strong> Explain to a friend why Compound Interest is better for retirement accounts than Simple Interest.</p>
+                <p><strong>Explanation:</strong> "With Simple Interest, only your original money works for you. But with Compound Interest, the interest you earned last year gets added to the pile, and now that new, bigger pile earns even MORE interest this year. It's like your money is making babies, and those babies are making babies."</p>
             </div>
             
             <div class="money-box">
                 <div class="money-header">💸 Money Connection: The "Rule of 72"</div>
-                <p>Want to know when your debt doubles? Divide 72 by the interest rate.<br>
+                <p>Want to know when your compound debt (or investment) doubles? Divide 72 by the interest rate.<br>
                 At 20% interest (Credit Card), <span class="math-text">72 &div; 20 = 3.6</span> years. Your debt doubles every 3.6 years if you don't pay it!</p>
             </div>
         </div>
@@ -542,7 +559,7 @@
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>The Cost of Borrowing</h3>
             <p><strong>Total Cost of Borrowing (C.O.B.):</strong> The difference between the Cash Price and what you actually pay over the life of the loan.</p>
-            <p>Formula: <span class="math-text">Total Paid = (Monthly Payment &times; Months) + Down Payment</span></p>
+            <p>Calculation: <span class="math-text">Total Paid = (Monthly Payment &times; Months) + Down Payment</span></p>
             
             <h3>Financing vs Leasing</h3>
             <p>When you get a car, you don't just "buy" it. You choose <em>how</em> to pay for it.</p>
@@ -669,7 +686,7 @@
                 </optgroup>
 
                 <optgroup label="Lesson 3.3: Compound Interest">
-                    <option value="3.3-K">Knowledge: Calculate A = P(1+i)^n</option>
+                    <option value="3.3-K">Knowledge: Calculate Future Value</option>
                     <option value="3.3-A">Application: Cost of Waiting</option>
                     <option value="3.3-I">Inquiry: The Power of Time ('n')</option>
                     <option value="3.3-C">Communication: Financial Investing Advice</option>
@@ -722,7 +739,7 @@
 
     <div id="tab-assignment" class="tab-content">
         <h2>Unit 3 Master Assignment: The Ultimate Financial Blueprint</h2>
-        <p><strong>Scenario:</strong> You will apply both exponential mathematics and financial literacy to your own future life. Answer the following open-response questions in a separate document. Show all calculations and justify your answers based on the lessons.</p>
+        <p><strong>Scenario:</strong> You will apply both exponential mathematics and financial literacy to your own future life. Answer the following open-response questions in a separate document. Use the Calculators on the first tab to help you, and justify your answers based on the lessons.</p>
 
         <div class="money-box">
             <div class="money-header">💼 Mission Setup (Your Data)</div>
@@ -734,17 +751,17 @@
 
         <div class="task-box">
             <span class="task-step">Question 1: The Depreciating Asset [Section 3.4]</span>
-            <p>Write the official exponential decay equation <span class="math-text">y = a(b)<sup>x</sup></span> using your gadget's price and decay rate. Calculate exactly what this gadget will be worth in <strong>4 years</strong>. How much total money "evaporated" (was lost to depreciation) over those 4 years?</p>
+            <p>Using the appropriate calculator, find exactly what this gadget will be worth in <strong>4 years</strong>. How much total money "evaporated" (was lost to depreciation) over those 4 years?</p>
         </div>
 
         <div class="task-box">
             <span class="task-step">Question 2: The Opportunity Cost [Section 3.3]</span>
-            <p>Imagine you invested the original cost of that gadget into your chosen ETF instead. Using the formula <span class="math-text">A = P(1+i)<sup>n</sup></span> (or the Exponential Growth Calculator), calculate the exact value of this investment after <strong>10 years</strong>.</p>
+            <p>Imagine you invested the original cost of that gadget into your chosen ETF instead. Using the appropriate calculator, calculate the exact value of this investment after <strong>10 years</strong>.</p>
         </div>
 
         <div class="task-box">
             <span class="task-step">Question 3: The Cost of Procrastination [Section 3.3]</span>
-            <p>Assume your retirement age is 65. Calculate the final value of your investment if you invest your gadget's cost <strong>today</strong>. Then, calculate the final value if you wait until you are <strong>30 years old</strong> to invest that exact same starting amount. Subtract the two to find your "Price of Procrastination" and explain why the gap is so massive.</p>
+            <p>Assume your retirement age is 65. Calculate the final value of your investment if you invest your gadget's cost <strong>today</strong> using the calculator. Then, calculate the final value if you wait until you are <strong>30 years old</strong> to invest that exact same starting amount. Subtract the two to find your "Price of Procrastination" and explain why the gap is so massive.</p>
         </div>
 
         <div class="task-box">
@@ -788,10 +805,10 @@
             <tbody>
                 <tr>
                     <td><strong>Knowledge (Q1, Q2, Q4)</strong></td>
-                    <td>Flawlessly sets up both the exponential decay and compound interest equations using personal data without hints. Accurate net income.</td>
-                    <td>Sets up equations correctly but makes a minor mathematical or rounding error.</td>
-                    <td>Equations are partially set up but struggles with the correct formulas or decimal conversions.</td>
-                    <td>Cannot set up the decay, compound interest, or income equations.</td>
+                    <td>Flawlessly uses calculators to find depreciation and compound interest using personal data without hints. Accurate net income.</td>
+                    <td>Uses calculators correctly but makes a minor mathematical or rounding error.</td>
+                    <td>Calculations are partially correct but struggles with decimals or inputting data into tools.</td>
+                    <td>Cannot find the decay, compound interest, or income values.</td>
                 </tr>
                 <tr>
                     <td><strong>Inquiry (Q3, Q7)</strong></td>
@@ -819,7 +836,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.20 (Practice Dropdown Headers Updated)</div>
+<div class="version-tag">v3.21 (Calculators added, Formulas removed, Lessons Expanded)</div>
 
 <script>
     /* --- UTILS --- */
@@ -908,14 +925,14 @@
         practiceData[type].total++;
         if(isCorrect) practiceData[type].correct++;
         
-        localStorage.setItem('mbf3c_unit3_master', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
     function resetPracticeScore() {
         let type = document.getElementById('practice-selector').value || 'default';
         practiceData[type] = { correct: 0, total: 0 };
-        localStorage.setItem('mbf3c_unit3_master', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit3_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
@@ -1179,7 +1196,7 @@
                 { text: `A collectible comic starts at <strong>$${rStart}</strong> and goes up <strong>${rRate}%</strong> every decade. Value after <strong>${time} decades</strong>?`, ans: rStart * Math.pow(bVal, time) }
             ];
             let sel = randChoice(scenarios);
-            qArea.innerHTML = `<p>${sel.text}</p><p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = `<p>${sel.text}</p><p><small>(Using the appropriate calculator, round to 2 decimal places)</small></p>`;
             setupInput(sel.ans.toFixed(2));
             
         } else if (kica === "I") {
@@ -1279,13 +1296,12 @@
         if (kica === "K") {
             let ans = P * Math.pow(1 + i, n);
             let asks = [
-                `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i} (${rate}% per year), and n = ${n}, calculate the final Amount <strong>A</strong>.</p>`,
-                `<p>You deposit $${P} into an account paying ${rate}% per year annually.</p><p>Using <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the exact balance after ${n} years.</p>`,
-                `<p>Calculate the future value of a $${P} investment growing at ${rate}% annually for ${n} years.</p>`,
-                `<p>Using the compound interest formula, find 'A' when Principal is $${P}, rate is ${rate}%, and time is ${n} years.</p>`,
+                `<p>Using the calculator, if Principal = $${P}, rate = ${rate}% per year, and time = ${n} years, calculate the final Amount <strong>A</strong>.</p>`,
+                `<p>You deposit $${P} into an account paying ${rate}% per year annually.</p><p>Using the calculator, find the exact balance after ${n} years.</p>`,
+                `<p>Calculate the future value of a $${P} investment growing at ${rate}% annually for ${n} years using the calculator.</p>`,
+                `<p>Using the compound interest calculator, find the final total when Principal is $${P}, rate is ${rate}%, and time is ${n} years.</p>`,
                 `<p>${stName} locks $${P} in a GIC at ${rate}% per year. What is it worth in ${n} years?</p>`,
-                `<p>Find the compounded amount of $${P} at ${rate}% annual interest after ${n} years.</p>`,
-                `<p>If P=$${P}, r=${rate}%, t=${n} years. Calculate A (Assume annual compounding).</p>`
+                `<p>Find the compounded amount of $${P} at ${rate}% annual interest after ${n} years.</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
@@ -1298,13 +1314,11 @@
             let diff = ansA - ansB;
             
             let asks = [
-                `<p>You invest <strong>$${P}</strong> at <strong>${rate}% per year</strong>.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p>`,
-                `<p>The "Cost of Waiting": Investing $${P} at ${rate}% per year.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth.</p>`,
+                `<p>You invest <strong>$${P}</strong> at <strong>${rate}% per year</strong>.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B using the calculator)</p>`,
+                `<p>The "Cost of Waiting": Investing $${P} at ${rate}% per year.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth using the calculator.</p>`,
                 `<p>${stName} and you both invest $${P} at ${rate}%. You leave it for ${yearsA} years, ${stName} leaves it for ${yearsB} years. Calculate the gap in your balances.</p>`,
-                `<p>Analyze the power of time. Principal: $${P}, Rate: ${rate}%. Calculate the difference in value between a ${yearsA}-year term and a ${yearsB}-year term.</p>`,
-                `<p>What is the financial penalty of procrastinating? Compare $${P} at ${rate}% for ${yearsA} years vs ${yearsB} years. (Find the difference).</p>`,
-                `<p>Calculate (Amount at ${yearsA} years) minus (Amount at ${yearsB} years) for a $${P} principal at ${rate}%.</p>`,
-                `<p>If you start at 20 (invest for ${yearsA} yrs) vs starting at 35 (invest for ${yearsB} yrs) with $${P} at ${rate}%. How much do you lose by waiting?</p>`
+                `<p>Analyze the power of time. Principal: $${P}, Rate: ${rate}%. Use the calculator to find the difference in value between a ${yearsA}-year term and a ${yearsB}-year term.</p>`,
+                `<p>What is the financial penalty of procrastinating? Compare $${P} at ${rate}% for ${yearsA} years vs ${yearsB} years. (Find the difference).</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
@@ -1327,7 +1341,7 @@
                         [ {text: `It gets smaller because interest is calculated less often, delaying the "interest on interest" effect.`, correct: true}, {text: `It grows larger because the annual rate goes up.`, correct: false}, {text: `It stays exactly the same.`, correct: false} ]
                 },
                 {
-                    q: `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the absolute most powerful mathematical variable?</p>`,
+                    q: `<p>Why is 'n' (time) considered the absolute most powerful mathematical variable in compound interest?</p>`,
                     opts: [ {text: "Because it acts as an exponent. The money compounds on itself, multiplying the pile drastically and curving upward in later years.", correct: true}, {text: "Because it gets multiplied by the interest rate directly.", correct: false}, {text: "Because more time stops the bank from taking fees.", correct: false} ]
                 },
                 {
@@ -1407,8 +1421,8 @@
 
         if (kica === "K") {
             let asks = [
-                `<p>A ${decItem}'s value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) used in the equation <span class="math-text">y = a(b)<sup>x</sup></span>?</p>`,
-                `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value goes inside the brackets for 'b'?</p>`,
+                `<p>A ${decItem}'s value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) you would use in the calculator?</p>`,
+                `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value represents the multiplier 'b'?</p>`,
                 `<p>Inflation reduces buying power by <strong>${drop}%</strong>. Calculate the multiplier (b).</p>`,
                 `<p>If an asset retains <strong>${100-drop}%</strong> of its value each year, what is the 'b' factor?</p>`,
                 `<p>Write the decimal 'b' value for a chemical decaying at <strong>${drop}%</strong> per minute.</p>`,
@@ -1426,12 +1440,12 @@
             const ans = P * Math.pow(bFact, years);
             
             let asks = [
-                `<p>You buy a new car for <strong>$${P}</strong>. It depreciates at ${decRate}% per year (b = ${bFact}).</p><p>Calculate its value after <strong>${years} years</strong>.</p>`,
-                `<p>A boat costs <strong>$${P}</strong> and loses ${decRate}% of its value annually.</p><p>Use <span class="math-text">y = a(b)<sup>x</sup></span> to find its worth in <strong>${years} years</strong>.</p>`,
+                `<p>You buy a new car for <strong>$${P}</strong>. It depreciates at ${decRate}% per year.</p><p>Using the calculator, find its value after <strong>${years} years</strong>.</p>`,
+                `<p>A boat costs <strong>$${P}</strong> and loses ${decRate}% of its value annually.</p><p>Use the calculator to find its worth in <strong>${years} years</strong>.</p>`,
                 `<p>A factory machine worth <strong>$${P}</strong> depreciates ${decRate}% a year.</p><p>What is its book value after <strong>${years} years</strong>?</p>`,
                 `<p>A <strong>$${P}</strong> server farm loses ${decRate}% of its value each year. Find the value at year ${years}.</p>`,
                 `<p>${stName} buys a <strong>$${P}</strong> RV. Depreciation is ${decRate}%. Calculate value in ${years} years.</p>`,
-                `<p>Initial cost: $${P}. Decay rate: ${decRate}%. Time: ${years} years. Calculate Final Value.</p>`,
+                `<p>Initial cost: $${P}. Decay rate: ${decRate}%. Time: ${years} years. Calculate Final Value using the tool.</p>`,
                 `<p>Calculate the depreciated value of a <strong>$${P}</strong> asset losing ${decRate}% yearly for ${years} years.</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
@@ -1450,7 +1464,7 @@
                         [ {text: `The later years (e.g., Year 10). The ${dropRate}% is calculated on a much smaller, already depreciated base price.`, correct: true}, {text: `Year 1. The car is newest so it loses the least.`, correct: false}, {text: `It loses the exact same dollar amount every year.`, correct: false} ]
                 },
                 {
-                    q: `<p>In an exponential decay graph (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets incredibly large?</p>`,
+                    q: `<p>In an exponential decay graph, what happens to the curve as x gets incredibly large?</p>`,
                     opts: [ {text: "It approaches zero endlessly, but mathematically never actually touches it (forming an Asymptote).", correct: true}, {text: "It eventually hits exactly zero and stops.", correct: false}, {text: "It crosses the axis into negative numbers.", correct: false} ]
                 },
                 {
@@ -1531,18 +1545,18 @@
             if (isSimple) {
                 let ans = P * (r/100) * t;
                 let asks = [
-                    `<p>Calculate the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
+                    `<p>Using the calculator, find the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
                     `<p>${stName} puts $${P} in a flat simple interest account at ${r}% per year. How much total interest is earned after ${t} years?</p>`,
-                    `<p>Find the Simple Interest generated by a $${P} loan at ${r}% over ${t} years.</p>`
+                    `<p>Find the Simple Interest generated by a $${P} loan at ${r}% over ${t} years using the tool.</p>`
                 ];
                 qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
                 setupInput(ans.toFixed(2));
             } else {
                 let ans = P * Math.pow(1 + r/100, t);
                 let asks = [
-                    `<p>Calculate the <strong>Final Amount (A)</strong> using Compound Interest (Compounded Annually).</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
+                    `<p>Using the calculator, find the <strong>Final Amount (A)</strong> using Compound Interest (Compounded Annually).</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
                     `<p>${stName} invests $${P} in a ${inv} that compounds annually at ${r}%. What is the balance after ${t} years?</p>`,
-                    `<p>Using the formula <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the final total for $${P} at ${r}% for ${t} years.</p>`
+                    `<p>Using the calculator, find the final total for $${P} at ${r}% for ${t} years.</p>`
                 ];
                 qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
                 setupInput(ans.toFixed(2));
@@ -1553,7 +1567,7 @@
             let diff = compA - simpleA;
             
             let asks = [
-                `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest?</p>`,
+                `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest? (Use the calculator)</p>`,
                 `<p>Bank A offers ${r}% Simple Interest. Bank B offers ${r}% Compounded Annually. You have $${P} to deposit for ${t} years.</p><p>Calculate the exact dollar difference between the two banks.</p>`,
                 `<p>Compare the final amounts of a $${P} investment at ${r}% over ${t} years. Subtract the Simple Interest total from the Compound Interest total.</p>`
             ];
@@ -1578,7 +1592,7 @@
                     opts: [ {text: "The final amount increases because interest is calculated and added to the pile more often, accelerating the curve.", correct: true}, {text: "The final amount decreases due to the bank charging daily fees.", correct: false}, {text: "Nothing, the overall annual rate stays exactly the same.", correct: false} ]
                 },
                 {
-                    q: `<p>Which specific variable is the most mathematically powerful in the compound interest formula <span class="math-text">A = P(1+i)<sup>n</sup></span>?</p>`,
+                    q: `<p>Which specific variable is the most mathematically powerful in compound interest?</p>`,
                     opts: [ {text: "Time (n), because it acts as an exponent, forcing explosive repeated multiplication of the base.", correct: true}, {text: "Principal (P), because you need money to make money.", correct: false}, {text: "Interest rate (i), because percentages dictate everything.", correct: false} ]
                 },
                 {
