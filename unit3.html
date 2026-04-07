@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBF3C - Unit 3: Exponents & Personal Finance</title>
+    <title>MBF3C - Unit 3 & 4: Exponents & Personal Finance</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -813,7 +813,7 @@
             <div class="money-header">💼 Mission Setup (Your Data)</div>
             <p>1. <strong>The Gadget:</strong> Find a high-end Tech Gadget (e.g., MacBook, Gaming PC). Price: $________. Est. Annual Decay Rate (e.g., 25%): ________%</p>
             <p>2. <strong>The Investment:</strong> Find a specific Index Fund/ETF (e.g., S&P 500). 10-year Average Growth Rate: ________%</p>
-            <p>3. <strong>The Career:</strong> Your future entry-level job salary in Ontario: $________. (Find monthly net income assuming 25% tax).</p>
+            <p>3. <strong>The Career:</strong> Your future entry-level job salary in Ontario: $________.</p>
             <p>4. <strong>The Car:</strong> Find a car on AutoTrader.ca you'd realistically buy. Cash Price: $________.</p>
         </div>
 
@@ -906,7 +906,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.24 (Assignment Restructured: Q1-Q8 Open Response, Calculate -> Find)</div>
+<div class="version-tag">v3.25 (Expanded Examples for Section 3.5 & Banzai Calc Added)</div>
 
 <script>
     /* --- UTILS --- */
@@ -1182,7 +1182,7 @@
                     ]);
                 } else {
                     setupMC([
-                        {text: `Because 'n' is only ${days}, the exponential curve hasn't hit its steep vertical climb yet, so the total amount is still very small.`, correct: true},
+                        {text: `Because 'n' is only ${days}, the exponential curve hasnt hit its steep vertical climb yet, so the total amount is still very small.`, correct: true},
                         {text: `It results in millions of dollars because exponential growth is instantly huge on day 1.`, correct: false},
                         {text: `It equals ${days} coins because you add a coin ${days} times.`, correct: false}
                     ]);
@@ -1278,7 +1278,7 @@
                 {
                     q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for <strong>${days} days</strong>, which is mathematically superior?</p>`,
                     opts: days === 5 ? 
-                        [ {text: `Job A. Over a tiny period like ${days} days, exponential growth hasnt hit its vertical spike, so the high flat rate wins easily.`, correct: true}, {text: `Job B. Exponential growth always wins from day 1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ] :
+                        [ {text: `Job A. Over a tiny period like ${days} days, exponential growth hasn't hit its vertical spike, so the high flat rate wins easily.`, correct: true}, {text: `Job B. Exponential growth always wins from day 1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ] :
                         [ {text: `Job B. Over a long period like ${days} days, the doubling effect explodes in a J-Curve, destroying the linear flat rate.`, correct: true}, {text: `Job A, because $${wage} is much bigger than $1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ]
                 },
                 {
@@ -1708,7 +1708,7 @@
                 },
                 {
                     q: `<p>A client is angry that their 40-year compound interest graph looks "flat and useless" for the first 15 years. Explain this.</p>`,
-                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough 'babies' (interest) to trigger the vertical explosion in the later years."`, correct: true}, {text: `"It means the stock market was crashing during those 15 years."`, correct: false}, {text: `"It's a glitch in the graph software. It should be a straight line."`, correct: false} ]
+                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough interest base to trigger the vertical explosion in the later years."`, correct: true}, {text: `"It means the stock market was crashing during those 15 years."`, correct: false}, {text: `"It's a glitch in the graph software. It should be a straight line."`, correct: false} ]
                 },
                 {
                     q: `<p>How do you persuade parents to open a college fund the week their baby is born?</p>`,
