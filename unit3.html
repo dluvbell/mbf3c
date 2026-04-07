@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBF3C - Unit 3: Exponential Relations</title>
+    <title>MBF3C - Unit 3 & 4: Exponents & Personal Finance</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -264,21 +264,37 @@
         .correct { color: var(--success-color); }
         .incorrect { color: var(--error-color); }
 
-        /* Print Button */
+        /* Print Button & Assignment Tasks */
         .print-btn { background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; float: right; }
         
-        /* Assignment Table */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: var(--primary-color); color: white; }
+
+        .task-box {
+            border-left: 5px solid var(--accent-color);
+            background: #fdfdfd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .task-step {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .compare-table { width: 100%; margin: 15px 0; font-size: 0.95rem; }
+        .compare-table th { background-color: #34495e; text-align: center; }
+        .compare-table td { padding: 12px; vertical-align: top; }
+        .pro-list { color: var(--success-color); padding-left: 20px; margin: 5px 0; }
+        .con-list { color: var(--error-color); padding-left: 20px; margin: 5px 0; }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
@@ -293,13 +309,13 @@
 <body>
 
 <header>
-    <h1>MBF3C Unit 3: Exponential Relations</h1>
-    <p>Ontario Curriculum | College Preparation</p>
+    <h1>MBF3C Unit 3: Exponents & Personal Finance</h1>
+    <p>Ontario Curriculum | College Preparation (Master Unit)</p>
 </header>
 
 <nav>
     <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button class="active" onclick="openTab(event, 'tab-calculator')">Calculator</button>
+    <button class="active" onclick="openTab(event, 'tab-calculator')">Calculators</button>
     <button onclick="openTab(event, 'tab-lessons')">Lessons</button>
     <button onclick="openTab(event, 'tab-practice')">Practice</button>
     <button onclick="openTab(event, 'tab-assignment')">Assignment</button>
@@ -307,16 +323,32 @@
 
 <main>
     <div id="tab-calculator" class="tab-content active">
-        <h2>Exponential Growth & Decay Calculator</h2>
-        <p>Use this tool to deeply explore and visualize how exponential relations work over time. It handles both growth (investing) and decay (depreciation).</p>
-        <button class="btn-primary" onclick="window.open('https://ai.aaps.space/tools/exponential-growth', '_blank')">Open Calculator in New Tab</button>
+        <h2>1. Exponential Growth & Decay Calculator</h2>
+        <p>Use this tool to explore exponential relations over time (Growth & Depreciation).</p>
+        <button class="btn-primary" onclick="window.open('https://ai.aaps.space/tools/exponential-growth', '_blank')">Open Exponent Calc in New Tab</button>
         <br><br>
-        <iframe src="https://ai.aaps.space/tools/exponential-growth" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
+        <iframe src="https://ai.aaps.space/tools/exponential-growth" width="100%" height="600" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
+        
+        <hr style="margin: 40px 0; border: 1px solid #bdc3c7;">
+
+        <h2>2. Car Loan & Finance Calculator</h2>
+        <p>Use this tool to calculate monthly payments and total cost of borrowing for vehicles.</p>
+        <button class="btn-primary" style="background-color: #e67e22;" onclick="window.open('https://www.calculator.net/auto-loan-calculator.html', '_blank')">Open Auto Loan Calc in New Tab</button>
+        <br><br>
+        <iframe src="https://www.calculator.net/auto-loan-calculator.html?csaleprice=30000&cmonths=60&cinterestrate=5.5&cdownpayment=2000&ctradeinvalue=0&cstate=ON&csaletax=13&ctitlereg=100&printit=0&ctype=standard&x=64&y=16" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;"></iframe>
+
+        <hr style="margin: 40px 0; border: 1px solid #bdc3c7;">
+
+        <h2>3. Simple vs Compound Interest Calculator</h2>
+        <p>Use this tool for Section 3.5 to visually compare how Simple Interest and Compound Interest grow differently over time.</p>
+        <button class="btn-primary" style="background-color: #8e44ad;" onclick="window.open('https://banzai.org/wellness/resources/simple-vs-compound-interest-calculator', '_blank')">Open Interest Comparison Calc in New Tab</button>
+        <br><br>
+        <iframe src="https://banzai.org/wellness/resources/simple-vs-compound-interest-calculator" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px; background: white;"></iframe>
     </div>
 
     <div id="tab-lessons" class="tab-content">
-        <h2>Unit 3 Lessons</h2>
-        <p>Understand how viruses spread, populations grow, and most importantly, how <strong>Money</strong> multiplies.</p>
+        <h2>Unit 3 Lessons: Math & Money</h2>
+        <p>Learn how the mathematical rules of exponents govern populations, viruses, and your bank account.</p>
 
         <button class="accordion">3.1 Exponent Laws (The Basics)</button>
         <div class="panel">
@@ -398,7 +430,7 @@
             </div>
         </div>
 
-        <button class="accordion">3.3 Compound Interest (Making Money)</button>
+        <button class="accordion">3.3 Compound Interest (The Money Formula)</button>
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
@@ -446,7 +478,7 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p>When values drop by a percentage. The curve falls fast then flattens, never reaching zero (Asymptote).<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
@@ -478,6 +510,224 @@
                 <p>Cars are depreciating assets. A new car loses ~15% value the moment you drive it off the lot. Smart financial planning involves buying used cars to let someone else pay for that steep initial decay.</p>
             </div>
         </div>
+
+        <button class="accordion">3.5 Simple vs. Compound Interest (Finance Application)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p><strong>Simple Interest:</strong> Interest is linear. You only earn interest on the original Principal amount. It is a flat, steady line.</p>
+            <p><strong>Compound Interest:</strong> Interest is exponential. You earn "interest on interest". It forms a J-Curve that accelerates upwards over time.</p>
+            
+            <h3>Knowledge & Application Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 1 (Knowledge): Calculate the Basics</span>
+                <p><strong>Problem:</strong> Use the Simple vs Compound Calculator to find the final amounts for $10,000 invested at 5% for 20 years.</p>
+                <p><strong>Simple Output:</strong> $20,000 (It grew by exactly $500 every single year).</p>
+                <p><strong>Compound Output:</strong> $26,532.98 (The growth amount increased every year because the pile got bigger).</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 2 (Knowledge): Identifying the Growth Pattern</span>
+                <p><strong>Problem:</strong> How can you tell if an investment uses simple or compound interest just by looking at the yearly profit?</p>
+                <p><strong>Solution:</strong> If the account earns exactly $100 every single year, it is Simple Interest (linear). If the account earns $100 the first year, $105 the next year, and $110 the next, it is Compound Interest (exponential).</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 3 (Application): The Real Dollar Difference (Debt)</span>
+                <p><strong>Problem:</strong> You owe $5,000 on a credit card at 20% interest and don't pay it for 10 years. What is the difference in total debt between Simple and Compound calculation?</p>
+                <p><strong>Simple (if it existed):</strong> You would owe $15,000 total.</p>
+                <p><strong>Compound (reality):</strong> You owe $30,958.68.</p>
+                <p><strong>The Difference:</strong> Because banks use compound interest on debt, you owe <strong>$15,958.68 MORE</strong> than you would with simple interest.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 4 (Application): Long-Term vs Short-Term Impact</span>
+                <p><strong>Problem:</strong> Compare investing $5,000 at 8% for 5 years versus 40 years using the calculator.</p>
+                <p><strong>Solution:</strong> In the short term (5 years), the difference is small. But at 40 years, Simple Interest yields $21,000, while Compound Interest explodes to <strong>$108,622</strong>. Compound interest requires <strong>Time (n)</strong> to show its true power.</p>
+            </div>
+
+            <h3>Inquiry & Communication Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 5 (Inquiry): Visualizing the Curve</span>
+                <p><strong>Problem:</strong> If you graph both on the same chart over 40 years, how do they physically look?</p>
+                <p><strong>Analysis:</strong> Simple interest is a perfectly straight ramp. Compound interest starts out looking similar for the first few years, but eventually shoots vertically into a massive J-Curve, leaving the simple interest line far behind.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 6 (Inquiry): Compounding Frequency</span>
+                <p><strong>Problem:</strong> Why does a mortgage that compounds "Daily" cost you more than one that compounds "Annually"?</p>
+                <p><strong>Analysis:</strong> Compounding daily means the bank calculates today's interest and adds it to your total debt immediately. Tomorrow, you are charged interest on a slightly larger debt. The faster the frequency, the faster the exponential curve grows.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 7 (Communication): "Interest on Interest"</span>
+                <p><strong>Problem:</strong> Explain to a friend why Compound Interest is better for retirement accounts than Simple Interest without using math formulas.</p>
+                <p><strong>Explanation:</strong> "With Simple Interest, only your original money works for you. But with Compound Interest, the interest you earned last year gets added to the pile, and now that new, bigger pile earns even MORE interest this year. It's like your money is making babies, and those babies are making babies."</p>
+            </div>
+
+            <div class="example-box">
+                <span class="example-title">Ex 8 (Communication): Explaining to a Saver</span>
+                <p><strong>Problem:</strong> A friend says they just keep their cash hidden in a drawer because it's "safe". Advise them.</p>
+                <p><strong>Explanation:</strong> "Cash in a drawer actually loses value every year due to inflation (Exponential Decay). To protect your buying power, you must put it in an investment that uses Compound Growth to outpace the rate of inflation."</p>
+            </div>
+            
+            <div class="money-box">
+                <div class="money-header">💸 Money Connection: The "Rule of 72"</div>
+                <p>Want to know when your compound debt (or investment) doubles? Divide 72 by the interest rate.<br>
+                At 20% interest (Credit Card), <span class="math-text">72 &div; 20 = 3.6</span> years. Your debt doubles every 3.6 years if you don't pay it!</p>
+            </div>
+        </div>
+
+        <button class="accordion">3.6 Buying a Car: Options & The Real Cost</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>The Cost of Borrowing</h3>
+            <p><strong>Total Cost of Borrowing (C.O.B.):</strong> The difference between the Cash Price and what you actually pay over the life of the loan.</p>
+            <p>Calculation: <span class="math-text">Total Paid = (Monthly Payment &times; Months) + Down Payment</span></p>
+            
+            <h3>Financing vs Leasing</h3>
+            <p>When you get a car, you don't just "buy" it. You choose <em>how</em> to pay for it.</p>
+            <table class="compare-table">
+                <tr>
+                    <th>Financing (Buying)</th>
+                    <th>Leasing (Renting)</th>
+                </tr>
+                <tr>
+                    <td>You are taking a loan to buy the entire car. When the payments end, you <strong>own</strong> the car.</td>
+                    <td>You are paying only for the <strong>depreciation</strong> (the value the car loses) while you drive it for 2-4 years. Then you return it.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>You build equity (you own an asset you can sell later).</li>
+                            <li>No mileage limits or wear-and-tear penalties.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>Higher monthly payments than leasing.</li>
+                            <li>You are responsible for all repairs after the warranty ends.</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>Lower monthly payments.</li>
+                            <li>Always driving a new car under warranty (no repair bills).</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>You build <strong>zero equity</strong>. You rent the car and own nothing at the end.</li>
+                            <li>Strict mileage limits (e.g., 20,000 km/year). Expensive penalties if you go over or scratch the car.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+            <h3>New vs Used Cars</h3>
+            <table class="compare-table">
+                <tr>
+                    <th>New Cars</th>
+                    <th>Used Cars (e.g., 3-4 years old)</th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li>Latest technology and safety features.</li>
+                            <li>Full manufacturer warranty.</li>
+                            <li>Often lower interest rates from the dealer.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li><strong>Massive Depreciation:</strong> Loses 15-20% of its value the second you drive it off the lot.</li>
+                            <li>Higher insurance costs.</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <strong>Pros:</strong>
+                        <ul class="pro-list">
+                            <li><strong>Someone else paid the depreciation:</strong> You buy the car after its biggest price drop.</li>
+                            <li>Cheaper insurance and lower overall cost.</li>
+                        </ul>
+                        <strong>Cons:</strong>
+                        <ul class="con-list">
+                            <li>Higher interest rates on used car loans.</li>
+                            <li>Potential for expensive repair bills (no warranty).</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Knowledge & Application Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 1 (Knowledge): Total Amount Paid (Financing)</span>
+                <p><strong>Problem:</strong> You finance a Honda Civic. You put $2,000 down and pay $400/month for 60 months. What is the Total Amount Paid?</p>
+                <p><strong>Solution:</strong> Total Paid = ($400 &times; 60) + $2,000 = $24,000 + $2,000 = <strong>$26,000</strong>.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 2 (Knowledge): Total Amount Paid (Leasing)</span>
+                <p><strong>Problem:</strong> You lease a car for $350/month for 48 months with a $1,000 down payment. At the end, you return the car. Total Amount Paid?</p>
+                <p><strong>Solution:</strong> Total Paid = ($350 &times; 48) + $1,000 = $16,800 + $1,000 = <strong>$17,800</strong>. (And you own nothing at the end).</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 3 (Application): Cost of Borrowing</span>
+                <p><strong>Problem:</strong> The cash price of a car is $22,000. You finance it and your Total Amount Paid is $26,000. What is the Cost of Borrowing?</p>
+                <p><strong>Solution:</strong> Cost of Borrowing = Total Paid - Cash Price = $26,000 - $22,000 = <strong>$4,000</strong>. This is the penalty for not paying cash.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 4 (Application): Loan Term Comparison</span>
+                <p><strong>Problem:</strong> A $30,000 car. Option A: 48 months @ $700/mo. Option B: 84 months @ $450/mo. Which costs more in the end?</p>
+                <p><strong>Solution:</strong> Option A = $700 &times; 48 = $33,600. Option B = $450 &times; 84 = $37,800. Option B has a lower monthly payment, but costs <strong>$4,200 MORE</strong> overall!</p>
+            </div>
+
+            <h3>Inquiry & Communication Examples</h3>
+            <div class="example-box">
+                <span class="example-title">Ex 5 (Inquiry): The 0% Financing Illusion</span>
+                <p><strong>Problem:</strong> A dealer offers 0% financing, but the car costs $35,000. If you pay cash, they give a "$4,000 cash discount" (price becomes $31,000). Is the loan truly 0% interest?</p>
+                <p><strong>Analysis:</strong> No! The $4,000 difference is hidden interest baked directly into the finance price. You are paying $4,000 to "borrow" the money.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 6 (Inquiry): Negative Equity</span>
+                <p><strong>Problem:</strong> What does it mean to be "underwater" (have negative equity) on a car loan?</p>
+                <p><strong>Analysis:</strong> Cars depreciate exponentially (steeply at first), while loan payments reduce the principal linearly (slowly). If you take a long 84-month loan, by year 3 your car might be worth $12,000, but you still owe the bank $18,000.</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 7 (Communication): The Salesman's Trap</span>
+                <p><strong>Problem:</strong> Why do car salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>
+                <p><strong>Explanation:</strong> "By focusing on a low monthly payment, they can secretly stretch the loan term to 72 or 84 months. This maximizes the bank's interest profit and hides the massive Total Cost of Borrowing from the buyer."</p>
+            </div>
+            <div class="example-box">
+                <span class="example-title">Ex 8 (Communication): The 3-Year-Old Hack</span>
+                <p><strong>Problem:</strong> Explain why buying a 3-year-old used car is considered a massive financial advantage over buying brand new.</p>
+                <p><strong>Explanation:</strong> "Because of exponential decay, a new car loses the largest chunk of its value (up to 40%) in the first 3 years. By buying a 3-year-old car, the original owner has already paid for the most brutal part of the depreciation curve for you."</p>
+            </div>
+
+            <div class="money-box">
+                <div class="money-header">💸 The 15% Rule & Negative Equity</div>
+                <p>Your total car expenses (loan + gas + insurance) should not exceed 15% of your Net Monthly Income.</p>
+            </div>
+        </div>
+
+        <button class="accordion">3.7 Credit Cards (The Debt Trap)</button>
+        <div class="panel">
+            <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
+            <h3>Concept Overview</h3>
+            <p>Credit Cards use <strong>Compound Interest</strong> calculated daily. The average rate is <strong>19.99%</strong>.</p>
+            
+            <div class="example-box">
+                <span class="example-title">The Minimum Payment Trap</span>
+                You owe $5,000. Min payment is $100. If you only pay $100/month, almost all of it goes to exponential interest. It will take over <strong>20 years</strong> to pay off.
+            </div>
+            <div class="example-box">
+                <span class="example-title">The Grace Period</span>
+                If you pay your <strong>Full Statement Balance</strong> by the due date, interest is $0. This is the only smart way to use a credit card.
+            </div>
+            <div class="example-box">
+                <span class="example-title">Cash Advances</span>
+                Taking cash out of an ATM with a credit card has NO grace period. Interest starts immediately, often at 22%+. Never do this.
+            </div>
+        </div>
     </div>
 
     <div id="tab-practice" class="tab-content">
@@ -489,32 +739,53 @@
             <select id="practice-selector" onchange="resetPracticeUI()">
                 <option value="" disabled selected>-- Choose a Training Module --</option>
                 
-                <optgroup label="3.1 Exponent Laws">
+                <optgroup label="Lesson 3.1: Exponent Laws">
                     <option value="3.1-K">Knowledge: Simplify Expressions</option>
                     <option value="3.1-A">Application: Evaluate to a Number</option>
                     <option value="3.1-I">Inquiry: Exponent Rules & Patterns</option>
-                    <option value="3.1-C">Comm: Exponential Logic</option>
+                    <option value="3.1-C">Communication: Exponential Logic</option>
                 </optgroup>
 
-                <optgroup label="3.2 Exponential Growth">
+                <optgroup label="Lesson 3.2: Exponential Growth">
                     <option value="3.2-K">Knowledge: Identify 'a' and 'b'</option>
-                    <option value="3.2-A">Application: Finance Compounding Scenarios</option>
+                    <option value="3.2-A">Application: Calculate Future Growth</option>
                     <option value="3.2-I">Inquiry: Linear vs Exponential</option>
-                    <option value="3.2-C">Comm: Growth Concepts</option>
+                    <option value="3.2-C">Communication: Rule of 72 Advice</option>
                 </optgroup>
 
-                <optgroup label="3.3 Compound Interest">
-                    <option value="3.3-K">Knowledge: Calculate A = P(1+i)^n</option>
-                    <option value="3.3-A">Application: Cost of Waiting (Compare)</option>
-                    <option value="3.3-I">Inquiry: The Power of Time</option>
-                    <option value="3.3-C">Comm: Financial Advice</option>
+                <optgroup label="Lesson 3.3: Compound Interest">
+                    <option value="3.3-K">Knowledge: Calculate Future Value</option>
+                    <option value="3.3-A">Application: Cost of Waiting</option>
+                    <option value="3.3-I">Inquiry: The Power of Time ('n')</option>
+                    <option value="3.3-C">Communication: Financial Investing Advice</option>
                 </optgroup>
 
-                <optgroup label="3.4 Exponential Decay">
+                <optgroup label="Lesson 3.4: Exponential Decay">
                     <option value="3.4-K">Knowledge: Find the Decay Factor ('b')</option>
                     <option value="3.4-A">Application: Calculate Depreciation</option>
                     <option value="3.4-I">Inquiry: Asymptotes & Decay</option>
-                    <option value="3.4-C">Comm: Real-World Decay Traps</option>
+                    <option value="3.4-C">Communication: Real-World Decay Traps</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.5: Simple vs Compound Interest">
+                    <option value="3.5-K">Knowledge: Calculate I or A</option>
+                    <option value="3.5-A">Application: Compare Interest Difference</option>
+                    <option value="3.5-I">Inquiry: Interest Mechanics</option>
+                    <option value="3.5-C">Communication: Explain the Debt Trap</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.6: Buying a Car (Finance & Lease)">
+                    <option value="3.6-K">Knowledge: Total Amount Paid (Car)</option>
+                    <option value="3.6-A">Application: Cost of Borrowing</option>
+                    <option value="3.6-I">Inquiry: Loan & Lease Terms</option>
+                    <option value="3.6-C">Communication: New/Used & Finance/Lease</option>
+                </optgroup>
+
+                <optgroup label="Lesson 3.7: Credit Cards">
+                    <option value="3.7-K">Knowledge: Monthly Credit Card Interest</option>
+                    <option value="3.7-A">Application: Principal Paid vs Min Payment</option>
+                    <option value="3.7-I">Inquiry: Grace Periods & Advances</option>
+                    <option value="3.7-C">Communication: Avoiding the Debt Spiral</option>
                 </optgroup>
             </select>
 
@@ -525,67 +796,72 @@
             </div>
         </div>
 
-        <div id="question-area">
-            <p>Please select a module from the dropdown above to begin.</p>
-        </div>
-
+        <div id="question-area"><p>Please select a module from the dropdown above to begin.</p></div>
         <div id="input-area" style="text-align: center; margin-top: 20px; display:none;">
             <input type="text" id="user-answer" placeholder="Enter answer (numbers only)">
             <button class="btn-primary" onclick="checkAnswer()">Check Answer</button>
         </div>
-        
         <div id="mc-area" class="option-grid" style="display:none;"></div>
-
         <div id="feedback-area"></div>
     </div>
+
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 3 Assignment: The Wealth Formula</h2>
-        <p><strong>Scenario:</strong> Instead of solving a generic textbook problem, you will apply the math to <strong>Your Own Life</strong>. You will research a real-world depreciating asset (a car) and compare it against the power of compounding investments. Because every student chooses their own parameters, your mathematical equations and final dollar amounts will be entirely unique to you.</p>
-        
+        <h2>Unit 3 Master Assignment: The Ultimate Financial Blueprint</h2>
+        <p><strong>Scenario:</strong> You will apply both exponential mathematics and financial literacy to your own future life. Answer the following open-response questions in a separate document. Use the Calculators on the first tab to help you, and justify your answers based on the lessons.</p>
+
         <div class="money-box">
-            <div class="money-header">💼 Your Mission Setup (Personal Data)</div>
-            <p>1. <strong>The Car:</strong> Go to AutoTrader.ca and find a "Dream Car" you want to buy. Record its price (P<sub>car</sub>): $________</p>
-            <p>2. <strong>The Decay:</strong> Research or estimate a realistic annual depreciation rate for that specific car brand (usually between 10% and 25%): ________%</p>
-            <p>3. <strong>The Investment:</strong> Determine a realistic amount of money you could invest today (P<sub>invest</sub>): $________</p>
-            <p>4. <strong>The Fund:</strong> Choose a specific Index Fund or ETF (e.g., S&P 500, QQQ, XQQ) and research its 10-year average annual return. Growth Rate (i): ________%</p>
-            <p>5. <strong>The Timeline:</strong> Write down your current age: _______. Write down your target retirement age: _______.</p>
+            <div class="money-header">💼 Mission Setup (Your Data)</div>
+            <p>1. <strong>The Gadget:</strong> Find a high-end Tech Gadget (e.g., MacBook, Gaming PC). Price: $________. Est. Annual Decay Rate (e.g., 25%): ________%</p>
+            <p>2. <strong>The Investment:</strong> Find a specific Index Fund/ETF (e.g., S&P 500). 10-year Average Growth Rate: ________%</p>
+            <p>3. <strong>The Career:</strong> Your future entry-level job salary in Ontario: $________. (Find monthly net income assuming 25% tax).</p>
+            <p>4. <strong>The Car:</strong> Find a car on AutoTrader.ca you'd realistically buy. Cash Price: $________.</p>
         </div>
 
-        <h3>Question 1: The Depreciating Asset (3.4 Decay - Application & Knowledge)</h3>
-        <p>Assume your dream car depreciates at the rate you researched in Step 2.</p>
-        <ul>
-            <li><strong>Calculate:</strong> Determine your specific decay factor (b). Write your official exponential decay equation <span class="math-text">y = a(b)<sup>x</sup></span> using your car's starting price. Calculate exactly what this car will be worth in <strong>5 years</strong>.</li>
-            <li><strong>Evaluate:</strong> Subtract the future value from the original price. Exactly how much money "evaporated" (was lost to depreciation) over those 5 years?</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 1: The Depreciating Asset [Section 3.4]</span>
+            <p>Write the official exponential decay equation <span class="math-text">y = a(b)<sup>x</sup></span> using your gadget's price and decay rate. Find exactly what this gadget will be worth in <strong>4 years</strong>. How much total money "evaporated" (was lost to depreciation) over those 4 years?</p>
+        </div>
 
-        <h3>Question 2: The Rule of 72 Reality Check (3.2 Growth - Inquiry)</h3>
-        <p>Imagine you took that "evaporated" money from Question 1 and invested it in your chosen ETF/Fund.</p>
-        <ul>
-            <li><strong>Calculate & Explain:</strong> Using the <strong>Rule of 72</strong> and your chosen fund's Growth Rate, calculate how many years it would take for that lost money to double in the stock market. Explain what this means for your future buying power.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 2: The Opportunity Cost [Section 3.3]</span>
+            <p>Imagine you invested the original cost of that gadget into your chosen ETF instead. Using the appropriate calculator, find the exact value of this investment after <strong>10 years</strong>.</p>
+        </div>
 
-        <h3>Question 3: The Cost of Waiting (3.3 Compound Interest - Application)</h3>
-        <p>Let's look at your starting investment (P<sub>invest</sub>) and your chosen ETF's Growth Rate.</p>
-        <ul>
-            <li><strong>Scenario A (Start Now):</strong> Calculate the final value of your investment when you reach your chosen retirement age using <span class="math-text">A = P(1 + i)<sup>n</sup></span>. (Note: 'n' is the difference between your retirement age and your current age).</li>
-            <li><strong>Scenario B (Procrastinate):</strong> Assume you wait until you are <strong>30 years old</strong> to invest that exact same starting amount. Calculate the final value at your retirement age.</li>
-            <li><strong>Evaluate:</strong> Subtract Scenario B from Scenario A to calculate your <strong>"Price of Procrastination"</strong>. (The "Price of Procrastination" represents the exact mathematical penalty and the massive amount of lost wealth caused simply by waiting to invest, demonstrating how missing out on the final years of compounding drastically reduces your final amount).</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 3: The Cost of Procrastination [Section 3.3]</span>
+            <p>Assume your retirement age is 65. Find the final value of your investment if you invest your gadget's cost <strong>today</strong> using the calculator. Then, find the final value if you wait until you are <strong>30 years old</strong> to invest that exact same starting amount. Based on these two values, explain the financial danger of procrastinating and why starting early is critical.</p>
+        </div>
 
-        <h3>Question 4: The Power of 'n' (3.1 Exponent Laws - Communication)</h3>
-        <p>Look at the massive dollar difference you calculated in Question 3.</p>
-        <ul>
-            <li><strong>Explain:</strong> Use the <strong>Product Rule of exponents</strong> (<span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span>) to mathematically explain to a friend exactly why the "Price of Procrastination" is so large. Discuss how an exponent like 'n' functions in a compound interest equation to create a J-Curve.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 4: Real-World Income [Section 3.6]</span>
+            <p>Using your chosen career's annual salary, deduct a realistic tax rate (25%) from your gross salary. Find your estimated <strong>Monthly Net Income</strong> (Take-home pay).</p>
+        </div>
 
-        <h3>Question 5: The Ultimate Financial Advice (Synthesis)</h3>
-        <ul>
-            <li><strong>Explain:</strong> Write a short email to your 10-year-older self. Using your mathematical calculations from Q1 (the massive dollar drop in year 1) and Q3 (the magic of compound growth over time), advise yourself on how to properly balance buying depreciating assets vs. investing early in funds like your chosen ETF.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 5: The Car Reality Check [Section 3.6]</span>
+            <p>a) Use the Auto Loan Calculator (60 months, 7.99% interest, 13% HST) with your chosen car's price to find your <strong>Monthly Payment</strong>.</p>
+            <p>b) Add $200 for gas and $250 for insurance to find your <strong>Total Monthly Car Budget</strong>.</p>
+            <p>c) Find what percentage of your Monthly Net Income this budget consumes. Does it pass the <strong>15% Rule</strong>? Explain if you can truly afford this car.</p>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Question 6: The Credit Card Trap [Sections 3.5 & 3.7]</span>
+            <p>Your car needs a $1,500 repair and you put it on a 19.99% credit card. Find the exact amount of interest the credit card company will charge you for the very first month. Then, write a paragraph explaining the mathematical danger of only paying the "Minimum Payment" every month. Contrast how <strong>Compound Interest</strong> works against you here compared to Simple Interest.</p>
+        </div>
+
+        <div class="task-box" style="border-left-color: #8e44ad;">
+            <span class="task-step" style="color: #8e44ad;">Question 7: The Dealer's Dilemma [Section 3.6]</span>
+            <p>Create two realistic but completely different profiles for people buying a car (for example, a travelling salesperson who drives 40,000 km a year vs. a remote worker who only drives short distances on weekends). Describe their specific needs. Then, for <strong>each profile you created</strong>, recommend whether they should buy <strong>New or Used</strong> AND whether they should <strong>Lease or Finance</strong>. Justify your advice with specific Pros and Cons from the lessons.</p>
+        </div>
+
+        <div class="task-box" style="border-left-color: #27ae60;">
+            <span class="task-step" style="color: #27ae60;">Question 8: The Ultimate Advice [Synthesis]</span>
+            <p>Write an email (approximately 10 to 20 sentences) to your 10-year-older self. Using your mathematical findings from Question 1 (the gadget's decay) and Question 3 (the compound growth over time), advise yourself on how to properly balance buying depreciating assets versus investing early.</p>
+        </div>
 
         <hr>
 
-        <h3>Grading Rubric (KICA)</h3>
+        <h3>Assessment Rubric (Growing Success)</h3>
         <table>
             <thead>
                 <tr>
@@ -598,39 +874,39 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Knowledge (Q1, Q3)</strong></td>
-                    <td>Flawlessly sets up both the exponential decay and compound interest equations using personal data without given hints.</td>
-                    <td>Sets up equations correctly but makes a minor mathematical or rounding error.</td>
-                    <td>Equations are partially set up but struggles with the correct formulas or decimal conversions.</td>
-                    <td>Cannot set up the decay or compound interest equations.</td>
+                    <td><strong>Knowledge (Q1, Q2, Q4)</strong></td>
+                    <td>Flawlessly uses calculators to find depreciation and compound interest using personal data without hints. Accurate net income.</td>
+                    <td>Uses calculators correctly but makes a minor mathematical or rounding error.</td>
+                    <td>Calculations are partially correct but struggles with decimals or inputting data into tools.</td>
+                    <td>Cannot find the decay, compound interest, or income values.</td>
                 </tr>
                 <tr>
-                    <td><strong>Inquiry (Q2, Q5)</strong></td>
-                    <td>Insightfully applies the Rule of 72 and connects mathematical results to deep, realistic financial planning.</td>
-                    <td>Applies Rule of 72 correctly and makes logical connections to financial planning.</td>
-                    <td>Calculates Rule of 72 but struggles to explain the deeper meaning or synthesis.</td>
-                    <td>Fails to apply the Rule of 72 or synthesize the information.</td>
+                    <td><strong>Inquiry (Q3, Q7)</strong></td>
+                    <td>Insightfully explains the cost of procrastination and perfectly matches client profiles to car/lease options with strong justification.</td>
+                    <td>Determines procrastination cost and matches client profiles with basic justification.</td>
+                    <td>Finds the cost but struggles to explain the deeper meaning, or gives weak advice for Q7.</td>
+                    <td>Fails to analyze the cost of waiting or misunderstands lease/finance concepts.</td>
                 </tr>
                 <tr>
-                    <td><strong>Communication (Q4, Q5)</strong></td>
-                    <td>The explanation of exponent laws and the email to the future self are exceptionally clear, persuasive, and use precise mathematical vocabulary (J-Curve, Decay, Compounding).</td>
+                    <td><strong>Communication (Q6, Q8)</strong></td>
+                    <td>The explanation of the credit card trap and the email to the future self are exceptionally clear, persuasive, and use precise mathematical vocabulary (J-Curve, Decay, Compounding).</td>
                     <td>Explanations and email are clear and use appropriate math terms.</td>
                     <td>Explanations are somewhat vague or rely too heavily on everyday language instead of math concepts.</td>
                     <td>Explanations are confusing, lack logical flow, or are missing.</td>
                 </tr>
                 <tr>
-                    <td><strong>Application (Q1, Q3)</strong></td>
-                    <td>Calculates depreciation loss and the "Price of Procrastination" with perfect accuracy and applies it directly to the real-world scenario.</td>
-                    <td>Successfully calculates the real-world applications with minor errors.</td>
-                    <td>Performs calculations but fails to interpret what the final numbers mean in reality.</td>
-                    <td>Unable to apply mathematical results to the real-world car/investment scenario.</td>
+                    <td><strong>Application (Q1, Q5, Q6)</strong></td>
+                    <td>Finds depreciation loss, the 15% car rule, and credit card interest with perfect accuracy and applies them directly to the real-world scenario.</td>
+                    <td>Successfully finds the real-world applications with minor errors.</td>
+                    <td>Finds numerical values but fails to interpret what the final numbers mean in reality (e.g. car affordability).</td>
+                    <td>Unable to apply mathematical results to the real-world car, gadget, or debt scenario.</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    </main>
+</main>
 
-<div class="version-tag">v3.17 (Accordion Fixed - Reverted to Original Logic)</div>
+<div class="version-tag">v3.24 (Assignment Restructured: Q1-Q8 Open Response, Calculate -> Find)</div>
 
 <script>
     /* --- UTILS --- */
@@ -642,7 +918,10 @@
     const invItems = ["mutual fund", "ETF", "savings account", "GIC", "index fund", "stock portfolio"];
     const decItems = ["car", "laptop", "smartphone", "tablet", "smartwatch", "desktop computer", "TV"];
     const verbs_says = ["claims", "argues", "believes", "thinks", "suggests", "insists", "states"];
-    
+    const cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Tesla Model 3", "Mazda 3", "Subaru CX-5", "Jeep Wrangler"];
+    const investTypes = ["Mutual Fund", "ETF", "GIC", "Stock Portfolio", "Index Fund", "Bonds"];
+    const debtTypes = ["Credit Card", "Payday Loan", "Personal Loan", "Overdraft"];
+
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
     let isQuestionSolved = false; 
@@ -657,8 +936,40 @@
         evt.currentTarget.classList.add('active');
     }
 
+    // --- Specific Print Logic (Bug Fix for full screen printing) ---
     function printLesson(btn) {
-        window.print();
+        let panel = btn.parentElement;
+        let title = panel.previousElementSibling.innerText;
+        let content = panel.innerHTML;
+        
+        let printWindow = window.open('', '', 'height=600,width=800');
+        printWindow.document.write('<html><head><title>' + title + '</title>');
+        printWindow.document.write('<style>body{font-family:sans-serif; line-height:1.6; padding:20px;} .example-box{background:#f0f3f4; border-left:4px solid #3498db; padding:15px; margin:15px 0;} .money-box{background:#fff5e6; border:2px solid #d35400; border-radius:8px; padding:15px; margin:20px 0;} .print-btn{display:none;} .math-text{font-family:serif; font-size:1.1rem; font-style:italic;} sup{font-size:0.8em; vertical-align:super;} .compare-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.95rem; } .compare-table th { background-color: #34495e; color: white; text-align: center; padding: 8px;} .compare-table td { border: 1px solid #ddd; padding: 12px; vertical-align: top; } .pro-list { color: #27ae60; padding-left: 20px; margin: 5px 0; } .con-list { color: #c0392b; padding-left: 20px; margin: 5px 0; }</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<h2>' + title + '</h2>');
+        printWindow.document.write(content);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.focus();
+        
+        setTimeout(function() {
+            printWindow.print();
+            printWindow.close();
+        }, 250);
+    }
+
+    // --- Accordion Initialization ---
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-acc");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + 1000 + "px"; // Safe buffer for dynamic content
+            }
+        });
     }
 
     // --- Scoring Logic ---
@@ -723,7 +1034,8 @@
         const feedback = document.getElementById('feedback-area');
 
         // Reset UI
-        feedback.innerText = ""; feedback.className = "";
+        feedback.innerText = ""; 
+        feedback.className = "";
         document.getElementById('user-answer').value = "";
         inputArea.style.display = 'none';
         mcArea.style.display = 'none';
@@ -736,13 +1048,24 @@
         let section = parts[0];
         let kica = parts[1];
 
-        if (section === "3.1") gen3_1(kica, qArea);
-        else if (section === "3.2") gen3_2(kica, qArea);
-        else if (section === "3.3") gen3_3(kica, qArea);
-        else if (section === "3.4") gen3_4(kica, qArea);
+        if (section === "3.1") {
+            gen3_1(kica, qArea);
+        } else if (section === "3.2") {
+            gen3_2(kica, qArea);
+        } else if (section === "3.3") {
+            gen3_3(kica, qArea);
+        } else if (section === "3.4") {
+            gen3_4(kica, qArea);
+        } else if (section === "3.5") {
+            gen3_5(kica, qArea);
+        } else if (section === "3.6") {
+            gen3_6(kica, qArea);
+        } else if (section === "3.7") {
+            gen3_7(kica, qArea);
+        }
     }
 
-    // --- Section 3.1: Exponent Laws (FULLY DYNAMIC) ---
+    // --- Section 3.1: Exponent Laws ---
     function gen3_1(kica, qArea) {
         let v = randChoice(['x', 'y', 'm', 'n', 'a', 'b', 'p', 'q']);
         let n1 = randInt(3, 15);
@@ -911,11 +1234,11 @@
         }
     }
 
-    // --- Section 3.2: Exponential Growth (FULLY DYNAMIC - SCALED DOWN) ---
+    // --- Section 3.2: Exponential Growth ---
     function gen3_2(kica, qArea) {
         let rRate = randInt(3, 12); 
         let bVal = (1 + (rRate/100)).toFixed(2);
-        let rStart = randInt(5, 50) * 100; // 500 to 5000
+        let rStart = randInt(5, 50) * 100; 
         
         if (kica === "K") {
             let asks = [
@@ -929,10 +1252,10 @@
             ];
             let selected = randChoice(asks);
             qArea.innerHTML = `<p>${selected.q}</p><p><small>(Round to 2 decimal places if applicable)</small></p>`;
-            setupInput(Number(selected.ans).toFixed(2).replace(/\.00$/, '')); // Clean UI output
+            setupInput(Number(selected.ans).toFixed(2).replace(/\.00$/, '')); 
             
         } else if (kica === "A") {
-            let time = randInt(5, 12); // Shorter duration keeps answer scale under 1,000,000
+            let time = randInt(5, 12); 
             let scenarios = [
                 { text: `A virus starts with <strong>${rStart}</strong> cells and <strong>doubles</strong> every hour. Calculate the cells after <strong>${time} hours</strong>.`, ans: rStart * Math.pow(2, time) },
                 { text: `A social media post has <strong>${rStart}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${randInt(3,6)} days</strong>?`, ans: rStart * Math.pow(3, randInt(3,6)) },
@@ -943,7 +1266,7 @@
                 { text: `A collectible comic starts at <strong>$${rStart}</strong> and goes up <strong>${rRate}%</strong> every decade. Value after <strong>${time} decades</strong>?`, ans: rStart * Math.pow(bVal, time) }
             ];
             let sel = randChoice(scenarios);
-            qArea.innerHTML = `<p>${sel.text}</p><p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = `<p>${sel.text}</p><p><small>(Using the appropriate calculator, round to 2 decimal places)</small></p>`;
             setupInput(sel.ans.toFixed(2));
             
         } else if (kica === "I") {
@@ -955,7 +1278,7 @@
                 {
                     q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for <strong>${days} days</strong>, which is mathematically superior?</p>`,
                     opts: days === 5 ? 
-                        [ {text: `Job A. Over a tiny period like ${days} days, exponential growth hasn't hit its vertical spike, so the high flat rate wins easily.`, correct: true}, {text: `Job B. Exponential growth always wins from day 1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ] :
+                        [ {text: `Job A. Over a tiny period like ${days} days, exponential growth hasnt hit its vertical spike, so the high flat rate wins easily.`, correct: true}, {text: `Job B. Exponential growth always wins from day 1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ] :
                         [ {text: `Job B. Over a long period like ${days} days, the doubling effect explodes in a J-Curve, destroying the linear flat rate.`, correct: true}, {text: `Job A, because $${wage} is much bigger than $1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ]
                 },
                 {
@@ -1024,16 +1347,18 @@
                 }
             ];
             let sel = randChoice(pool);
-            if (sel === pool[0] && !isFindTime) sel = pool[1]; // Handle the 72 split
+            if (sel === pool[0] && !isFindTime) {
+                sel = pool[1];
+            }
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.3: Compound Interest (FULLY DYNAMIC - SCALED DOWN) ---
+    // --- Section 3.3: Compound Interest ---
     function gen3_3(kica, qArea) {
         let stName = randChoice(names);
-        let P = randInt(1, 15) * 1000; // 1,000 to 15,000 to keep answers 4-6 digits max
+        let P = randInt(1, 15) * 1000; 
         let rate = randInt(3, 10);
         let n = randInt(5, 20); 
         let i = rate / 100;
@@ -1041,13 +1366,12 @@
         if (kica === "K") {
             let ans = P * Math.pow(1 + i, n);
             let asks = [
-                `<p>Formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>If P = $${P}, i = ${i} (${rate}% per year), and n = ${n}, calculate the final Amount <strong>A</strong>.</p>`,
-                `<p>You deposit $${P} into an account paying ${rate}% per year annually.</p><p>Using <span class="math-text">A = P(1+i)<sup>n</sup></span>, find the exact balance after ${n} years.</p>`,
-                `<p>Calculate the future value of a $${P} investment growing at ${rate}% annually for ${n} years.</p>`,
-                `<p>Using the compound interest formula, find 'A' when Principal is $${P}, rate is ${rate}%, and time is ${n} years.</p>`,
+                `<p>Using the calculator, if Principal = $${P}, rate = ${rate}% per year, and time = ${n} years, calculate the final Amount <strong>A</strong>.</p>`,
+                `<p>You deposit $${P} into an account paying ${rate}% per year annually.</p><p>Using the calculator, find the exact balance after ${n} years.</p>`,
+                `<p>Calculate the future value of a $${P} investment growing at ${rate}% annually for ${n} years using the calculator.</p>`,
+                `<p>Using the compound interest calculator, find the final total when Principal is $${P}, rate is ${rate}%, and time is ${n} years.</p>`,
                 `<p>${stName} locks $${P} in a GIC at ${rate}% per year. What is it worth in ${n} years?</p>`,
-                `<p>Find the compounded amount of $${P} at ${rate}% annual interest after ${n} years.</p>`,
-                `<p>If P=$${P}, r=${rate}%, t=${n} years. Calculate A (Assume annual compounding).</p>`
+                `<p>Find the compounded amount of $${P} at ${rate}% annual interest after ${n} years.</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
@@ -1060,13 +1384,11 @@
             let diff = ansA - ansB;
             
             let asks = [
-                `<p>You invest <strong>$${P}</strong> at <strong>${rate}% per year</strong>.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B)</p>`,
-                `<p>The "Cost of Waiting": Investing $${P} at ${rate}% per year.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth.</p>`,
+                `<p>You invest <strong>$${P}</strong> at <strong>${rate}% per year</strong>.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B using the calculator)</p>`,
+                `<p>The "Cost of Waiting": Investing $${P} at ${rate}% per year.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth using the calculator.</p>`,
                 `<p>${stName} and you both invest $${P} at ${rate}%. You leave it for ${yearsA} years, ${stName} leaves it for ${yearsB} years. Calculate the gap in your balances.</p>`,
-                `<p>Analyze the power of time. Principal: $${P}, Rate: ${rate}%. Calculate the difference in value between a ${yearsA}-year term and a ${yearsB}-year term.</p>`,
-                `<p>What is the financial penalty of procrastinating? Compare $${P} at ${rate}% for ${yearsA} years vs ${yearsB} years. (Find the difference).</p>`,
-                `<p>Calculate (Amount at ${yearsA} years) minus (Amount at ${yearsB} years) for a $${P} principal at ${rate}%.</p>`,
-                `<p>If you start at 20 (invest for ${yearsA} yrs) vs starting at 35 (invest for ${yearsB} yrs) with $${P} at ${rate}%. How much do you lose by waiting?</p>`
+                `<p>Analyze the power of time. Principal: $${P}, Rate: ${rate}%. Use the calculator to find the difference in value between a ${yearsA}-year term and a ${yearsB}-year term.</p>`,
+                `<p>What is the financial penalty of procrastinating? Compare $${P} at ${rate}% for ${yearsA} years vs ${yearsB} years. (Find the difference).</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
@@ -1089,7 +1411,7 @@
                         [ {text: `It gets smaller because interest is calculated less often, delaying the "interest on interest" effect.`, correct: true}, {text: `It grows larger because the annual rate goes up.`, correct: false}, {text: `It stays exactly the same.`, correct: false} ]
                 },
                 {
-                    q: `<p>Look at the formula: <span class="math-text">A = P(1+i)<sup>n</sup></span></p><p>Why is 'n' (time) considered the absolute most powerful mathematical variable?</p>`,
+                    q: `<p>Why is 'n' (time) considered the absolute most powerful mathematical variable in compound interest?</p>`,
                     opts: [ {text: "Because it acts as an exponent. The money compounds on itself, multiplying the pile drastically and curving upward in later years.", correct: true}, {text: "Because it gets multiplied by the interest rate directly.", correct: false}, {text: "Because more time stops the bank from taking fees.", correct: false} ]
                 },
                 {
@@ -1160,7 +1482,7 @@
         }
     }
 
-    // --- Section 3.4: Exponential Decay (FULLY DYNAMIC) ---
+    // --- Section 3.4: Exponential Decay ---
     function gen3_4(kica, qArea) {
         let drop = randInt(8, 35);
         let b = (100 - drop) / 100;
@@ -1169,31 +1491,31 @@
 
         if (kica === "K") {
             let asks = [
-                `<p>A ${decItem}'s value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) used in the equation <span class="math-text">y = a(b)<sup>x</sup></span>?</p>`,
-                `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value goes inside the brackets for 'b'?</p>`,
+                `<p>A ${decItem}'s value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) you would use in the calculator?</p>`,
+                `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value represents the multiplier 'b'?</p>`,
                 `<p>Inflation reduces buying power by <strong>${drop}%</strong>. Calculate the multiplier (b).</p>`,
                 `<p>If an asset retains <strong>${100-drop}%</strong> of its value each year, what is the 'b' factor?</p>`,
                 `<p>Write the decimal 'b' value for a chemical decaying at <strong>${drop}%</strong> per minute.</p>`,
                 `<p>A population shrinks by <strong>${drop}%</strong> annually. Find the decay factor.</p>`,
                 `<p>Convert a <strong>${drop}%</strong> loss into the exponential 'b' variable.</p>`
             ];
-            qArea.innerHTML = randChoice(asks) + `<p><small>(Enter as a decimal to 2 places)</small></p>`;
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Enter as a decimal)</small></p>`;
             setupInput(b.toFixed(2));
             
         } else if (kica === "A") {
-            const P = randInt(15, 60) * 1000; // Keep large for realistic Car/Boat prices
+            const P = randInt(15, 60) * 1000; 
             const years = randInt(2, 8);
             const decRate = randInt(12, 25);
             const bFact = 1 - (decRate/100);
             const ans = P * Math.pow(bFact, years);
             
             let asks = [
-                `<p>You buy a new car for <strong>$${P}</strong>. It depreciates at ${decRate}% per year (b = ${bFact}).</p><p>Calculate its value after <strong>${years} years</strong>.</p>`,
-                `<p>A boat costs <strong>$${P}</strong> and loses ${decRate}% of its value annually.</p><p>Use <span class="math-text">y = a(b)<sup>x</sup></span> to find its worth in <strong>${years} years</strong>.</p>`,
+                `<p>You buy a new car for <strong>$${P}</strong>. It depreciates at ${decRate}% per year.</p><p>Using the calculator, find its value after <strong>${years} years</strong>.</p>`,
+                `<p>A boat costs <strong>$${P}</strong> and loses ${decRate}% of its value annually.</p><p>Use the calculator to find its worth in <strong>${years} years</strong>.</p>`,
                 `<p>A factory machine worth <strong>$${P}</strong> depreciates ${decRate}% a year.</p><p>What is its book value after <strong>${years} years</strong>?</p>`,
                 `<p>A <strong>$${P}</strong> server farm loses ${decRate}% of its value each year. Find the value at year ${years}.</p>`,
                 `<p>${stName} buys a <strong>$${P}</strong> RV. Depreciation is ${decRate}%. Calculate value in ${years} years.</p>`,
-                `<p>Initial cost: $${P}. Decay rate: ${decRate}%. Time: ${years} years. Calculate Final Value.</p>`,
+                `<p>Initial cost: $${P}. Decay rate: ${decRate}%. Time: ${years} years. Calculate Final Value using the tool.</p>`,
                 `<p>Calculate the depreciated value of a <strong>$${P}</strong> asset losing ${decRate}% yearly for ${years} years.</p>`
             ];
             qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
@@ -1212,7 +1534,7 @@
                         [ {text: `The later years (e.g., Year 10). The ${dropRate}% is calculated on a much smaller, already depreciated base price.`, correct: true}, {text: `Year 1. The car is newest so it loses the least.`, correct: false}, {text: `It loses the exact same dollar amount every year.`, correct: false} ]
                 },
                 {
-                    q: `<p>In an exponential decay graph (like <span class="math-text">y = 100(0.5)<sup>x</sup></span>), what happens to the curve as x gets incredibly large?</p>`,
+                    q: `<p>In an exponential decay graph, what happens to the curve as x gets incredibly large?</p>`,
                     opts: [ {text: "It approaches zero endlessly, but mathematically never actually touches it (forming an Asymptote).", correct: true}, {text: "It eventually hits exactly zero and stops.", correct: false}, {text: "It crosses the axis into negative numbers.", correct: false} ]
                 },
                 {
@@ -1280,6 +1602,349 @@
         }
     }
 
+    // --- Section 3.5: Simple vs Compound ---
+    function gen3_5(kica, qArea) {
+        let P = randInt(10, 95) * 100;
+        let r = randInt(3, 15);
+        let t = randInt(2, 12);
+        let stName = randChoice(names);
+        let inv = randChoice(investTypes);
+
+        if (kica === "K") {
+            let isSimple = Math.random() > 0.5;
+            if (isSimple) {
+                let ans = P * (r/100) * t;
+                let asks = [
+                    `<p>Using the calculator, find the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
+                    `<p>${stName} puts $${P} in a flat simple interest account at ${r}% per year. How much total interest is earned after ${t} years?</p>`,
+                    `<p>Find the Simple Interest generated by a $${P} loan at ${r}% over ${t} years using the tool.</p>`
+                ];
+                qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
+                setupInput(ans.toFixed(2));
+            } else {
+                let ans = P * Math.pow(1 + r/100, t);
+                let asks = [
+                    `<p>Using the calculator, find the <strong>Final Amount (A)</strong> using Compound Interest (Compounded Annually).</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
+                    `<p>${stName} invests $${P} in a ${inv} that compounds annually at ${r}%. What is the balance after ${t} years?</p>`,
+                    `<p>Using the calculator, find the final total for $${P} at ${r}% for ${t} years.</p>`
+                ];
+                qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
+                setupInput(ans.toFixed(2));
+            }
+        } else if (kica === "A") {
+            let simpleA = P + (P * (r/100) * t);
+            let compA = P * Math.pow(1 + r/100, t);
+            let diff = compA - simpleA;
+            
+            let asks = [
+                `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest? (Use the calculator)</p>`,
+                `<p>Bank A offers ${r}% Simple Interest. Bank B offers ${r}% Compounded Annually. You have $${P} to deposit for ${t} years.</p><p>Calculate the exact dollar difference between the two banks.</p>`,
+                `<p>Compare the final amounts of a $${P} investment at ${r}% over ${t} years. Subtract the Simple Interest total from the Compound Interest total.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(diff.toFixed(2));
+            
+        } else if (kica === "I") {
+            let yr = randInt(20, 40);
+            let r2 = randInt(5, 12);
+            let inf = randInt(2, 4);
+            let pool = [
+                {
+                    q: `<p>If you graph Simple Interest and Compound Interest over ${yr} years, how do the shapes physically compare?</p>`,
+                    opts: [ {text: "Simple is a straight linear line. Compound is an exponential J-Curve that shoots vertically upward.", correct: true}, {text: "Both are straight lines, but Compound is steeper.", correct: false}, {text: "Simple curves up, Compound goes down.", correct: false} ]
+                },
+                {
+                    q: `<p>According to the Rule of 72, if you invest in a ${inv} with a ${r2}% interest rate, how long does it take to double your money?</p>`,
+                    opts: [ {text: `Exactly ${(72/r2).toFixed(1)} years (72 &div; ${r2}).`, correct: true}, {text: `Exactly ${r2} years.`, correct: false}, {text: `It depends entirely on how much you invest initially.`, correct: false} ]
+                },
+                {
+                    q: `<p>What happens mathematically if you increase a bank account's compounding frequency from 'Annually' to 'Daily'?</p>`,
+                    opts: [ {text: "The final amount increases because interest is calculated and added to the pile more often, accelerating the curve.", correct: true}, {text: "The final amount decreases due to the bank charging daily fees.", correct: false}, {text: "Nothing, the overall annual rate stays exactly the same.", correct: false} ]
+                },
+                {
+                    q: `<p>Which specific variable is the most mathematically powerful in compound interest?</p>`,
+                    opts: [ {text: "Time (n), because it acts as an exponent, forcing explosive repeated multiplication of the base.", correct: true}, {text: "Principal (P), because you need money to make money.", correct: false}, {text: "Interest rate (i), because percentages dictate everything.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is Simple Interest rarely used in real-world wealth building like retirement accounts?</p>`,
+                    opts: [ {text: "Because it fundamentally prevents your earned interest from generating its own interest, severely crippling long-term growth.", correct: true}, {text: "Because it is illegal for Canadian banks to use it.", correct: false}, {text: "Because it is mathematically too difficult for computers to calculate.", correct: false} ]
+                },
+                {
+                    q: `<p>If inflation is ${inf}% and your ${inv} pays 1% Simple Interest, what is mathematically happening to your wealth?</p>`,
+                    opts: [ {text: `Your actual buying power is decaying exponentially by roughly ${inf-1}%. You are losing money in real terms.`, correct: true}, {text: `You are making a ${inf+1}% total return.`, correct: false}, {text: `Your money is completely safe and holding its value.`, correct: false} ]
+                },
+                {
+                    q: `<p>If you have the choice to Double your Principal (P) OR Double your Time (n) in a compound interest account, which yields more?</p>`,
+                    opts: [ {text: "Doubling Time (n) yields drastically more because it extends the explosive exponential phase of the curve.", correct: true}, {text: "Doubling Principal (P) always yields more money.", correct: false}, {text: "They yield the exact same amount.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let age1 = randInt(18, 22);
+            let age2 = randInt(35, 40);
+            let pool = [
+                {
+                    q: `<p>Explain the concept of "Interest on Interest" to someone without using math formulas.</p>`,
+                    opts: [ {text: `"Your money makes babies, and then those babies make more babies. The pile grows faster every year without you working."`, correct: true}, {text: `"The bank gives you a flat linear bonus every year for being loyal."`, correct: false}, {text: `"Your interest rate automatically doubles every few years."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain the "Cost of Waiting" to a ${age1}-year-old who wants to delay investing until age ${age2}?</p>`,
+                    opts: [ {text: `"By waiting, you chop off the final ${age2-age1} years of the exponential curve, which is where 90% of the massive wealth explosion happens."`, correct: true}, {text: `"Waiting is smart because you will have a higher salary at ${age2}."`, correct: false}, {text: `"It just means you have to invest exactly double the money later to catch up."`, correct: false} ]
+                },
+                {
+                    q: `<p>A friend says "Compound interest is always a good thing." In what specific situation is it a terrible thing?</p>`,
+                    opts: [ {text: `"When you owe money, like on a credit card. The debt explodes upwards against you, trapping you in a cycle of paying interest on interest."`, correct: true}, {text: `"When you invest in the stock market, because stocks can crash."`, correct: false}, {text: `"It is never a bad thing, it's just pure mathematics."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why does a $10,000 credit card debt take over 20 years to pay off if you only make the minimum payment?</p>`,
+                    opts: [ {text: `"Because almost all of your minimum payment goes just to cover the new interest generated that month, barely touching the actual principal debt."`, correct: true}, {text: `"Because credit card companies physically freeze your account if you only pay the minimum."`, correct: false}, {text: `"Because the principal is legally required to increase every month."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain why a 2% management fee on a ${invItems[0]} is a massive financial drain over 30 years.</p>`,
+                    opts: [ {text: `"Because it acts as exponential decay. You aren't just losing 2% once, you are losing the compounded growth of that 2% over decades."`, correct: true}, {text: `"It isn't a big deal, 2% is a very small number."`, correct: false}, {text: `"Because the fee is added directly to your starting principal."`, correct: false} ]
+                },
+                {
+                    q: `<p>A client is angry that their 40-year compound interest graph looks "flat and useless" for the first 15 years. Explain this.</p>`,
+                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough 'babies' (interest) to trigger the vertical explosion in the later years."`, correct: true}, {text: `"It means the stock market was crashing during those 15 years."`, correct: false}, {text: `"It's a glitch in the graph software. It should be a straight line."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you persuade parents to open a college fund the week their baby is born?</p>`,
+                    opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The time exponent ('n=18') will do all the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you get a special interest rate for babies."`, correct: false}, {text: `"Because college tuition grows linearly."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    // --- Section 3.6: Buying a Car ---
+    function gen3_6(kica, qArea) {
+        let car = randChoice(cars);
+        let stName = randChoice(names);
+        
+        if (kica === "K") {
+            let monthly = randInt(300, 900);
+            let months = randChoice([48, 60, 72, 84]);
+            let down = randChoice([0, 1000, 2500, 5000, 10000]);
+            let ans = (monthly * months) + down;
+            
+            let asks = [
+                `<p>You buy a <strong>${car}</strong>.</p><p>Monthly Payment: $${monthly}<br>Term: ${months} months<br>Down Payment: $${down}</p><p>Calculate the <strong>Total Amount Paid</strong>.</p>`,
+                `<p>${stName} finances a ${car}. They put $${down} down and pay $${monthly}/mo for ${months} months.</p><p>What is the absolute total amount of money that leaves their bank account?</p>`
+            ];
+            qArea.innerHTML = randChoice(asks);
+            setupInput(ans.toString());
+            
+        } else if (kica === "A") {
+            let cash = randInt(20, 55) * 1000;
+            let monthly = Math.floor(cash / 60) + randInt(80, 250); 
+            let months = randChoice([72, 84]);
+            let down = randInt(1, 5) * 1000;
+            let total = (monthly * months) + down;
+            let cob = total - cash;
+            
+            let asks = [
+                `<p>The cash price of a ${car} is <strong>$${cash}</strong>.</p><p>You finance it with $${down} down and $${monthly}/month for ${months} months.</p><p>What is the <strong>Cost of Borrowing</strong> (the extra money lost to interest)?</p>`,
+                `<p>${stName} wants a ${car} listed at $${cash}. They choose an ${months}-month loan at $${monthly}/mo with a $${down} down payment.</p><p>Calculate the total penalty fee (Cost of Borrowing) they pay the bank.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks);
+            setupInput(cob.toString());
+            
+        } else if (kica === "I") {
+            let term1 = randChoice([36, 48]);
+            let term2 = randChoice([72, 84]);
+            let diff = randInt(3000, 6000);
+            
+            let pool = [
+                {
+                    q: `<p>You are offered a ${term1}-month loan and an ${term2}-month loan. Which one has the LOWER Monthly Payment, and which has the LOWER Total Cost of Borrowing?</p>`,
+                    opts: [ {text: `${term2}-month has lower monthly payment. ${term1}-month has lower total cost of borrowing.`, correct: true}, {text: `${term1}-month is lower for both.`, correct: false}, {text: `${term2}-month is lower for both.`, correct: false} ]
+                },
+                {
+                    q: `<p>What does it mathematically mean to have "Negative Equity" (being underwater) on a car loan?</p>`,
+                    opts: [ {text: "The car depreciated exponentially faster than your linear loan payments, meaning you owe the bank more money than the car is actually worth.", correct: true}, {text: "It means the bank owes you money.", correct: false}, {text: "It means your interest rate is negative.", correct: false} ]
+                },
+                {
+                    q: `<p>A dealership offers "0% Financing" on a ${car}, but the price is $35,000. If you pay cash, it is $${35000-diff}.</p><p>Is this actually 0% interest?</p>`,
+                    opts: [ {text: `No, the $${diff} difference is essentially hidden interest baked directly into the inflated finance price.`, correct: true}, {text: "Yes, because the contract legally says 0%.", correct: false}, {text: "Yes, dealerships are required to lose money on these deals.", correct: false} ]
+                },
+                {
+                    q: `<p>What is the primary mathematical benefit of making a massive Down Payment on a car?</p>`,
+                    opts: [ {text: "It directly reduces the Principal (P), which severely reduces the compound interest charged against you over the entire term.", correct: true}, {text: "It lowers the actual interest rate percentage.", correct: false}, {text: "It increases the car's future trade-in value.", correct: false} ]
+                },
+                {
+                    q: `<p>If you switch your car loan from Monthly payments to Accelerated Bi-Weekly payments, what happens?</p>`,
+                    opts: [ {text: "You end up making one extra full payment a year, attacking the principal faster and saving thousands in interest over the term.", correct: true}, {text: "The total interest paid increases.", correct: false}, {text: "Nothing changes mathematically.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is leasing a new ${car} generally considered the most expensive way to operate a vehicle long-term?</p>`,
+                    opts: [ {text: "Because you are purely paying for the steepest part of the depreciation curve (first 3 years) and build exactly zero equity. You rent it and own nothing.", correct: true}, {text: "Because leases always have 20% interest rates.", correct: false}, {text: "Because you have to buy premium gas for leased cars.", correct: false} ]
+                },
+                {
+                    q: `<p>You buy a $40,000 ${car} on a 7-year loan. In year 3, it is totalled. Insurance pays you $20,000 (market value), but you owe the bank $28,000. What happens?</p>`,
+                    opts: [ {text: "You must pay the bank the remaining $8,000 out of your own pocket for a car that no longer exists.", correct: true}, {text: "The bank forgives the remaining debt.", correct: false}, {text: "The dealership replaces the car for free.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let pct = randChoice([10, 15]);
+            let age = randInt(2, 4);
+            
+            let pool = [
+                {
+                    q: `<p>Explain why Car Salesmen always ask "What monthly payment are you looking for?" instead of "What is your total budget?"</p>`,
+                    opts: [{text: `"By focusing on a low monthly payment, they can secretly stretch the loan to 84 months, maximizing the bank's interest and the total cost of the car."`, correct: true}, {text: `"Because it's easier for the customer to calculate mentally."`, correct: false}, {text: `"Because they want to make sure you can afford the insurance."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain the "${pct}% Rule" to ${stName} who is buying their first car?</p>`,
+                    opts: [{text: `"Your total car costs (Loan + Gas + Insurance) should never exceed ${pct}% of your monthly take-home pay, otherwise you will be 'car poor' and unable to afford life."`, correct: true}, {text: `"You must put exactly ${pct}% down as a down payment."`, correct: false}, {text: `"Your interest rate should never be above ${pct}%."`, correct: false} ]
+                },
+                {
+                    q: `<p>${stName} says, "A car is a great investment!" How do you correct them using mathematical terms?</p>`,
+                    opts: [{text: `"A car is a depreciating liability, not an investment. Exponential decay means it loses value rapidly every single year."`, correct: true}, {text: `"They are investments because you can sleep in them."`, correct: false}, {text: `"Actually, cars appreciate in value due to compound interest."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why is buying a ${age}-year-old used car considered a financial 'hack' compared to buying new?</p>`,
+                    opts: [{text: `"Because the original owner already paid for the steepest, most brutal part of the exponential depreciation curve."`, correct: true}, {text: `"Because used cars don't need insurance."`, correct: false}, {text: `"Because ${age}-year-old cars have 0% interest rates."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain "Cost of Borrowing" to someone who has never taken a loan.</p>`,
+                    opts: [{text: `"It's the penalty fee you pay the bank for not having the cash today. It's the difference between the sticker price and what actually leaves your bank account over 5 years."`, correct: true}, {text: `"It is the fee the dealership charges to clean and prepare the car."`, correct: false}, {text: `"It is the combined cost of gas and insurance."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why do financial advisors strongly recommend keeping car loans to 48 months (4 years) maximum?</p>`,
+                    opts: [{text: `"If a loan goes longer than 4 years, the car's value usually drops faster than you are paying off the principal, leaving you trapped in negative equity."`, correct: true}, {text: `"Because banks refuse to give loans longer than 4 years."`, correct: false}, {text: `"Because cars physically break down completely after exactly 4 years."`, correct: false} ]
+                },
+                {
+                    q: `<p>A dealership offers to 'roll over' your old $5,000 debt into a brand new car loan. Why is this toxic?</p>`,
+                    opts: [{text: `"You are now paying compound interest on a dead car while also paying for the new one. You instantly start the new loan with massive negative equity."`, correct: true},
+                    {text: `"It's actually a great deal because it combines your payments into one."`, correct: false},
+                    {text: `"Because the $5,000 is taxed twice."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    // --- Section 3.7: Credit Cards ---
+    function gen3_7(kica, qArea) {
+        let bal = randInt(15, 65) * 100;
+        let rate = randChoice([19.99, 20.99, 22.99, 24.99]);
+        let stName = randChoice(names);
+        let debtType = randChoice(debtTypes);
+
+        if (kica === "K") {
+            let ans = (bal * (rate/100)) / 12;
+            let asks = [
+                `<p>Credit card balance: <strong>$${bal}</strong>.</p><p>Annual interest rate: <strong>${rate}%</strong>.</p><p>Calculate the approximate interest charge for <strong>one month</strong>.</p>`,
+                `<p>${stName} owes $${bal} on a card with ${rate}% annual interest.</p><p>How much interest is added to their statement this month?</p>`,
+                `<p>Find the 1-month interest penalty for carrying a $${bal} balance at ${rate}%.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(ans.toFixed(2));
+            
+        } else if (kica === "A") {
+            let minPay = Math.max(10, Math.floor(bal * 0.03)); 
+            let monthInt = (bal * (rate/100)) / 12;
+            let principalPaid = minPay - monthInt;
+            
+            let asks = [
+                `<p>Balance: <strong>$${bal}</strong> at ${rate}% annual interest.</p><p>You make the minimum payment of <strong>$${minPay}</strong>.</p><p>After the bank takes their monthly interest, exactly how much <strong>Principal</strong> did you actually pay off?</p>`,
+                `<p>${stName} has a $${bal} balance (${rate}%) and pays the $${minPay} minimum.</p><p>Calculate the actual debt reduction (Principal Paid) for that month.</p>`
+            ];
+            qArea.innerHTML = randChoice(asks) + `<p><small>(Round to 2 decimal places)</small></p>`;
+            setupInput(principalPaid.toFixed(2));
+            
+        } else if (kica === "I") {
+            let adv = randInt(2, 6) * 100;
+            let limit = randInt(1, 5) * 1000;
+            
+            let pool = [
+                {
+                    q: `<p>What exactly is a Credit Card "Grace Period"?</p>`,
+                    opts: [ {text: "The 21-day window where you are charged exactly 0% interest, IF you pay your full statement balance before the due date.", correct: true}, {text: "A period where you can miss a payment without hurting your credit score.", correct: false}, {text: "The time it takes for a refund to process.", correct: false} ]
+                },
+                {
+                    q: `<p>You use your credit card at an ATM to withdraw $${adv} cash (Cash Advance). What happens to the Grace Period?</p>`,
+                    opts: [ {text: "The grace period is instantly voided. You are charged high interest daily from the exact second the cash leaves the machine.", correct: true}, {text: "You have 21 days to pay it back interest-free.", correct: false}, {text: "You only pay a flat $5 ATM fee.", correct: false} ]
+                },
+                {
+                    q: `<p>Why does making only the "Minimum Payment" trap people in debt for decades?</p>`,
+                    opts: [ {text: "Because the minimum payment is mathematically designed to mostly cover that month's interest, reducing the actual principal by only a few dollars.", correct: true}, {text: "Because minimum payments trigger penalty fees.", correct: false}, {text: "Because the interest rate doubles if you only pay the minimum.", correct: false} ]
+                },
+                {
+                    q: `<p>Credit cards compound interest DAILY. What does this mean mathematically for someone in debt?</p>`,
+                    opts: [ {text: "Every single day, yesterday's interest is added to your principal, and today's interest is calculated on that new, slightly larger pile.", correct: true}, {text: "You have to pay your bill every single day.", correct: false}, {text: "The bank changes your interest rate percentage every day.", correct: false} ]
+                },
+                {
+                    q: `<p>What is "Credit Utilization" and how does it affect your Credit Score?</p>`,
+                    opts: [ {text: "It is the percentage of your limit you are using. Maxing out your card (100% utilization) destroys your credit score, even if you make payments.", correct: true}, {text: "It is how many times you swipe the card per month.", correct: false}, {text: "It is the reward points you utilize.", correct: false} ]
+                },
+                {
+                    q: `<p>If you have a $${limit} limit, what is the recommended maximum balance you should carry to keep a high credit score?</p>`,
+                    opts: [ {text: `$${limit * 0.3} (Under 30% utilization).`, correct: true}, {text: `$${limit - 1} (As long as you don't go over).`, correct: false}, {text: `$${limit * 0.05} (Under 5%).`, correct: false} ]
+                },
+                {
+                    q: `<p>What happens if you miss a credit card payment by 30 days?</p>`,
+                    opts: [ {text: "It is reported to the credit bureau, violently dropping your credit score and potentially ruining your chance to get a mortgage for up to 7 years.", correct: true}, {text: "The bank just charges you a $10 late fee and nothing else happens.", correct: false}, {text: "Your card is instantly cancelled permanently.", correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+            
+        } else if (kica === "C") {
+            let fee = randInt(100, 150);
+            let spend = randInt(1, 3) * 1000;
+            let save = randInt(4, 8) * 1000;
+            
+            let pool = [
+                {
+                    q: `<p>What is the ONLY mathematically smart way to use a credit card?</p>`,
+                    opts: [{text: `"Treat it exactly like a debit card. Only spend money you already have in your checking account, and pay the entire balance in full every month."`, correct: true}, {text: `"Max it out to build your credit score quickly."`, correct: false}, {text: `"Always pay exactly the minimum payment on time."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain the difference between a Debit Card and a Credit Card.</p>`,
+                    opts: [{text: `"Debit removes your own cash directly from your bank. Credit is a high-interest short-term loan from the bank's money."`, correct: true}, {text: `"Debit cards have higher interest rates than credit cards."`, correct: false}, {text: `"There is no difference, they both buy things."`, correct: false} ]
+                },
+                {
+                    q: `<p>${stName} wants a card with a $${fee} annual fee because it offers "2% cash back". They spend $${spend} a year on it. Advise them.</p>`,
+                    opts: [{text: `"It's a terrible deal. 2% of $${spend} is only $${spend*0.02}. You are paying the bank $${fee} to give you $${spend*0.02} back."`, correct: true},
+                    {text: `"It's a great deal, cash back is free money."`, correct: false},
+                    {text: `"You should get it but use cash advances to get the rewards faster."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain why transferring a credit card balance to a 'Line of Credit' is usually a good idea.</p>`,
+                    opts: [{text: `"Lines of Credit usually charge 7-10% simple interest, compared to a credit card's brutal 20% daily compounding rate. It stops the bleeding."`, correct: true}, {text: `"Because lines of credit don't require you to pay them back."`, correct: false}, {text: `"It isn't a good idea, they are the exact same thing."`, correct: false} ]
+                },
+                {
+                    q: `<p>${stName} has $${save} in savings earning 2%, but owes $${save} on a credit card at 20%. They want to "keep their savings safe". Advise them.</p>`,
+                    opts: [{text: `"The math is killing you. You earn tiny interest in savings but lose massive compound interest to the card. Use the savings to instantly kill the debt."`, correct: true}, {text: `"Keep the savings. It's always better to have cash in the bank."`, correct: false}, {text: `"Invest the $${save} in the stock market to beat the 20%."`, correct: false} ]
+                },
+                {
+                    q: `<p>Why do credit card companies happily offer "Increase your limit!" buttons on their apps?</p>`,
+                    opts: [{text: `"Psychologically, people spend more when their limit is higher. The bank wants you to overspend and get trapped paying 20% interest."`, correct: true}, {text: `"Because it's a legal requirement to reward good customers."`, correct: false}, {text: `"Because they want to lower your credit score."`, correct: false} ]
+                },
+                {
+                    q: `<p>How do you explain to a teenager why a Credit Score dictates their entire adult life?</p>`,
+                    opts: [{text: `"It is your 'Adult GPA'. A low score means landlords won't rent to you, banks will deny your car loan, and you'll be blocked from buying a house."`, correct: true}, {text: `"It actually doesn't matter unless you want to be an investment banker."`, correct: false}, {text: `"It only matters if you plan to get a credit card."`, correct: false} ]
+                }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
     // --- Answer Checking Logic ---
     function setupInput(correctAnswer) {
         currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
@@ -1296,7 +1961,7 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = opt.text; 
+            btn.innerHTML = opt.text;
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
@@ -1305,14 +1970,13 @@
     function checkAnswer() {
         if (isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
         
-        // Strip out $ and commas and spaces
+        // Strip out $ and commas
         let userRaw = document.getElementById('user-answer').value.replace(/[\$,]/g, '').trim();
         let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         
         // Try parsing for math tolerance
         let userNum = parseFloat(cleanUser);
         
-        // Handle fractions (e.g., "1/8") gracefully
         if (cleanUser.includes('/')) {
             let parts = cleanUser.split('/');
             if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
@@ -1331,7 +1995,7 @@
                  isCorrect = true;
              }
         } else {
-            // String fallback (Odds, expressions)
+            // String fallback
             if (cleanUser === currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '')) {
                 isCorrect = true;
             }
@@ -1362,20 +2026,6 @@
             feedback.className = "incorrect";
             saveScore(false);
         }
-    }
-
-    // --- Accordion Initialization & Bug Fix ---
-    const acc = document.getElementsByClassName("accordion");
-    for (let i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active-acc");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-        });
     }
 
 </script>
