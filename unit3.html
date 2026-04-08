@@ -889,57 +889,12 @@
             <span class="task-step" style="color: #27ae60;">Question 8: The Ultimate Advice [Synthesis]</span>
             <p>Write an email (approximately 10 to 20 sentences) to your 10-year-older self. Using your mathematical findings from Question 1 (the gadget's decay) and Question 3 (the compound growth over time), advise yourself on how to properly balance buying depreciating assets versus investing early.</p>
         </div>
-
-        <div id="print-area"></div>
-
-        <hr>
-
-        <h3>Assessment Rubric (Growing Success)</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Level 4 (80-100%)</th>
-                    <th>Level 3 (70-79%)</th>
-                    <th>Level 2 (60-69%)</th>
-                    <th>Level 1 (50-59%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Knowledge (Q1, Q2, Q4)</strong></td>
-                    <td>Flawlessly uses calculators to find depreciation and compound interest using personal data without hints. Accurate net income.</td>
-                    <td>Uses calculators correctly but makes a minor mathematical or rounding error.</td>
-                    <td>Calculations are partially correct but struggles with decimals or inputting data into tools.</td>
-                    <td>Cannot find the decay, compound interest, or income values.</td>
-                </tr>
-                <tr>
-                    <td><strong>Inquiry (Q3, Q7)</strong></td>
-                    <td>Insightfully explains the cost of procrastination and perfectly matches client profiles to car/lease options with strong justification.</td>
-                    <td>Determines procrastination cost and matches client profiles with basic justification.</td>
-                    <td>Finds the cost but struggles to explain the deeper meaning, or gives weak advice for Q7.</td>
-                    <td>Fails to analyze the cost of waiting or misunderstands lease/finance concepts.</td>
-                </tr>
-                <tr>
-                    <td><strong>Communication (Q6, Q8)</strong></td>
-                    <td>The explanation of the credit card trap and the email to the future self are exceptionally clear, persuasive, and use precise mathematical vocabulary (J-Curve, Decay, Compounding).</td>
-                    <td>Explanations and email are clear and use appropriate math terms.</td>
-                    <td>Explanations are somewhat vague or rely too heavily on everyday language instead of math concepts.</td>
-                    <td>Explanations are confusing, lack logical flow, or are missing.</td>
-                </tr>
-                <tr>
-                    <td><strong>Application (Q1, Q5, Q6)</strong></td>
-                    <td>Finds depreciation loss, the 15% car rule, and credit card interest with perfect accuracy and applies them directly to the real-world scenario.</td>
-                    <td>Successfully finds the real-world applications with minor errors.</td>
-                    <td>Finds numerical values but fails to interpret what the final numbers mean in reality (e.g. car affordability).</td>
-                    <td>Unable to apply mathematical results to the real-world car, gadget, or debt scenario.</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </main>
 
-<div class="version-tag">v3.29 (Mobile Print Fix + Assignment Open Response Update)</div>
+<div id="print-area"></div>
+
+<div class="version-tag">v3.31 (Print Bug Fixes Applied)</div>
 
 <script>
     /* --- UTILS --- */
@@ -969,20 +924,28 @@
         evt.currentTarget.classList.add('active');
     }
 
-    // --- Mobile-Native Print Logic (Bug Fix for Galaxy Tab S9 Ultra) ---
+    // --- Mobile-Native Print Logic ---
     function printLesson(btn) {
         let panel = btn.parentElement;
-        let title = panel.previousElementSibling.innerText;
-        let content = panel.innerHTML;
+        
+        // Clean up title (remove +/- signs from accordion pseudo-elements)
+        let title = panel.previousElementSibling.innerText.replace(/[+−\-]$/, '').trim();
+        
+        // Clone panel content and remove print buttons to avoid messy print outputs
+        let tempDiv = document.createElement('div');
+        tempDiv.innerHTML = panel.innerHTML;
+        tempDiv.querySelectorAll('.print-btn').forEach(b => b.remove());
+        let content = tempDiv.innerHTML;
         
         let printArea = document.getElementById('print-area');
         
-        // Inject the content into the hidden print area
+        // Inject the cleaned content into the hidden print area
         printArea.innerHTML = '<h2>' + title + '</h2>' + content;
         
         // Call native browser print
-        // The @media print CSS will handle hiding <main> and showing #print-area
-        window.print();
+        setTimeout(function() {
+            window.print();
+        }, 250);
     }
 
     // --- Accordion Initialization ---
