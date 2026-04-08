@@ -344,6 +344,14 @@
         <button class="btn-primary" style="background-color: #8e44ad;" onclick="window.open('https://banzai.org/wellness/resources/simple-vs-compound-interest-calculator', '_blank')">Open Interest Comparison Calc in New Tab</button>
         <br><br>
         <iframe src="https://banzai.org/wellness/resources/simple-vs-compound-interest-calculator" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px; background: white;"></iframe>
+
+        <hr style="margin: 40px 0; border: 1px solid #bdc3c7;">
+
+        <h2>4. ClearTax Interest Calculator</h2>
+        <p>An alternative tool to quickly calculate and compare Simple and Compound Interest.</p>
+        <button class="btn-primary" style="background-color: #16a085;" onclick="window.open('https://cleartax.in/s/simple-compound-interest-calculator', '_blank')">Open ClearTax Calc in New Tab</button>
+        <br><br>
+        <iframe src="https://cleartax.in/s/simple-compound-interest-calculator" width="100%" height="800" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px; background: white;"></iframe>
     </div>
 
     <div id="tab-lessons" class="tab-content">
@@ -478,7 +486,7 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>When values drop by a percentage. The curve falls fast then flattens, never reaching zero (Asymptote).<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
+            <p>When values drop by a percentage. The curve falls fast then flattens. It gets closer and closer to zero, but mathematically never actually touches it. This invisible floor is called an <strong>Asymptote</strong>.<br>Formula: <span class="math-text">y = a(b)<sup>x</sup></span> (where 0 < b < 1)</p>
             
             <h3>4 Examples</h3>
             <div class="example-box">
@@ -906,7 +914,7 @@
     </div>
 </main>
 
-<div class="version-tag">v3.25 (Expanded Examples for Section 3.5 & Banzai Calc Added)</div>
+<div class="version-tag">v3.26 (ClearTax Calculator added to Calculator Tab)</div>
 
 <script>
     /* --- UTILS --- */
@@ -1182,7 +1190,7 @@
                     ]);
                 } else {
                     setupMC([
-                        {text: `Because 'n' is only ${days}, the exponential curve hasnt hit its steep vertical climb yet, so the total amount is still very small.`, correct: true},
+                        {text: `Because 'n' is only ${days}, the exponential curve hasn't hit its steep vertical climb yet, so the total amount is still very small.`, correct: true},
                         {text: `It results in millions of dollars because exponential growth is instantly huge on day 1.`, correct: false},
                         {text: `It equals ${days} coins because you add a coin ${days} times.`, correct: false}
                     ]);
