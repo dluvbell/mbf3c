@@ -901,6 +901,8 @@
             <p>Write an email (approximately 10 to 20 sentences) to your 10-year-older self. Using your mathematical findings from Question 1 (the car's decay) and Question 5 (the compound growth of transit savings over time), advise yourself on how to properly balance buying depreciating assets versus investing early.</p>
         </div>
 
+        <div id="print-area"></div>
+
         <hr>
 
         <h3>Assessment Rubric (Growing Success)</h3>
@@ -953,9 +955,7 @@
     </div>
 </main>
 
-<div id="print-area"></div>
-
-<div class="version-tag">v3.37 (5-Level Rubric with Level R Added)</div>
+<div class="version-tag">v3.38 (Fixed specific math bugs and logic from review)</div>
 
 <script>
     /* --- UTILS --- */
@@ -974,6 +974,7 @@
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
     let isQuestionSolved = false; 
+    let currentSection = ""; 
     
     // --- Navigation ---
     function openTab(evt, tabId) {
@@ -1099,6 +1100,8 @@
         let section = parts[0];
         let kica = parts[1];
 
+        currentSection = section;
+
         if (section === "3.1") {
             gen3_1(kica, qArea);
         } else if (section === "3.2") {
@@ -1121,7 +1124,7 @@
         let n2 = randInt(2, 8);
         let n1 = n2 + randInt(1, 7);
         let n3 = randInt(1, 2); 
-        let v = names[randChoice(names)]; // Fix variable to avoid issues
+        let v = names[randChoice(names)]; 
 
         if (kica === "K") {
             let formats = [
@@ -1292,7 +1295,7 @@
         let rStart = randInt(5, 50) * 100; 
         
         if (kica === "K") {
-            let randPct = randInt(2,9);
+            let pct = randInt(2,9);
             let asks = [
                 {q: `Equation: <strong>y = ${rStart}(${bVal})<sup>x</sup></strong><br>What is the <strong>Initial Value (a)</strong>?`, ans: rStart},
                 {q: `Equation: <strong>P = ${rStart}(${bVal})<sup>t</sup></strong><br>What is the <strong>Growth Factor (b)</strong>?`, ans: bVal},
@@ -1300,7 +1303,7 @@
                 {q: `A population starts at <strong>${rStart}</strong> and doubles every year. What is the 'b' value?`, ans: 2},
                 {q: `If the growth factor 'b' is <strong>1.${randInt(10,99)}</strong>, what is the Initial Value 'a' in <strong>y = ${rStart}(b)<sup>x</sup></strong>?`, ans: rStart},
                 {q: `A video gets ${rStart} views. It triples daily. What is the base 'b' of the exponent?`, ans: 3},
-                {q: `Write the decimal 'b' value for an asset growing at exactly <strong>${randPct}%</strong>. (Hint: 1 + percentage)`, ans: (1 + randPct/100).toFixed(2)}
+                {q: `Write the decimal 'b' value for an asset growing at exactly <strong>${pct}%</strong>. (Hint: 1 + percentage)`, ans: (1 + pct/100).toFixed(2)}
             ];
             let selected = asks[randChoice(asks)];
             qArea.innerHTML = `<p>${selected.q}</p><p><small>(Round to 2 decimal places if applicable)</small></p>`;
@@ -2045,6 +2048,10 @@
         if (isPureNumber && !isNaN(userNum)) {
              // Expanded Tolerance for rounding to prevent false negatives (0.02)
              if (Math.abs(userNum - ansNum) <= 0.021) {
+                 isCorrect = true;
+             }
+             // 3.7 (및 금융 파트) 계산기/소수점 반올림 차이 보정: 정수 부분이 맞으면 정답 처리
+             else if (["3.3", "3.5", "3.6", "3.7"].includes(currentSection) && (Math.floor(userNum) === Math.floor(ansNum) || Math.round(userNum) === Math.round(ansNum) || Math.abs(userNum - ansNum) <= 1.5)) {
                  isCorrect = true;
              }
         } else {
