@@ -266,7 +266,7 @@
         /* Print Button */
         .print-btn { background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; float: right; }
         
-        /* Assignment Table */
+        /* Assignment Table & Tasks */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -276,8 +276,24 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            font-size: 0.95rem;
         }
-        th { background-color: var(--primary-color); color: white; }
+        th { background-color: var(--primary-color); color: white; text-align: center; }
+
+        .task-box {
+            border-left: 5px solid var(--accent-color);
+            background: #fdfdfd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .task-step {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
@@ -292,7 +308,7 @@
 <body>
 
 <header>
-    <h1>MBF3C Unit 5: Statistics & Data</h1>
+    <h1>MBF3C Unit 4: Statistics & Data</h1>
     <p>Ontario Curriculum | College Preparation</p>
 </header>
 
@@ -314,7 +330,7 @@
     </div>
 
     <div id="tab-lessons" class="tab-content">
-        <h2>Unit 5 Lessons</h2>
+        <h2>Unit 4 Lessons</h2>
         <p>Learn how to collect data, analyze it, and spot when people are using statistics to lie.</p>
 
         <button class="accordion">5.1 Sampling Techniques (Collecting Data)</button>
@@ -491,91 +507,117 @@
     </div>
 
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 5 Assignment: The Data Detective</h2>
-        <p><strong>Scenario:</strong> You are a financial analyst. People often use "averages" to trick consumers. Your job is to collect real-world data and prove why the Mean can be a massive lie, and why the Median is the truth.</p>
+        <h2>Unit 4 Master Assignment: The Data Detective (Car Market Edition)</h2>
+        <p><strong>Scenario:</strong> You are a financial data analyst. In the car market, sellers often use statistics to manipulate consumers. Your job is to use real-world data from AutoTrader.ca to prove how statistics can be used to trick buyers.</p>
         
         <div class="money-box">
-            <div class="money-header">💼 Your Mission Setup (Real Data)</div>
-            <p>1. Go to AutoTrader.ca or Realtor.ca.</p>
-            <p>2. Pick a specific item (e.g., 2018 Honda Civics, or 2-Bedroom Condos in Toronto).</p>
-            <p>3. Find the prices of <strong>10 normal listings</strong>. Write them down.</p>
-            <p>4. Find <strong>1 extreme Outlier</strong> (e.g., a heavily damaged car that is incredibly cheap, or a luxury penthouse that is massively expensive). Add this as your 11th number.</p>
+            <div class="money-header">🚗 Your Mission Setup (Real-Time Data)</div>
+            <p>1. Go to <strong>AutoTrader.ca</strong> and pick a specific car model (e.g., Toyota Corolla, Honda Civic, Ford F-150).</p>
+            <p>2. <strong>Use the given Google Sheet in order to record the link as well as car prices.</strong></p>
+            <p>3. Find the prices and URLs of <strong>15 normal listings</strong> from the first page and record them in your Sheet.</p>
+            <p>4. Find <strong>1 extreme Outlier</strong> (e.g., a "rebuilt title" car that is suspiciously cheap, or a brand new luxury trim that is twice the price). Add this as your 16th data point in the Sheet.</p>
         </div>
 
-        <h3>Question 1: The Calculations (Knowledge & Application)</h3>
-        <p>Using your 11 real-world data points:</p>
-        <ul>
-            <li><strong>Mean:</strong> Calculate the Mean price of your items. Show your addition and division.</li>
-            <li><strong>Median:</strong> Order the 11 items from cheapest to most expensive and identify the exact Median.</li>
-            <li><strong>Range:</strong> Calculate the Range (Maximum - Minimum) of your 11 items.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 1: Sampling Strategies [Section 5.1]</span>
+            <p><strong>a)</strong> In your own words, briefly define <em>Convenience Sampling</em> and <em>Systematic Sampling</em>.</p>
+            <p><strong>b)</strong> Look at the 15 cars you recorded in your Google Sheet. Which of the two methods above does your search process most closely resemble? Explain exactly how you searched and clicked your cars to justify your answer.</p>
+            <p><strong>c)</strong> If a car dealership deliberately uses Convenience Sampling to collect data for an advertisement, mathematically explain why this creates a "Bias" that tricks consumers.</p>
+        </div>
 
-        <h3>Question 2: The Outlier Effect (Inquiry)</h3>
-        <ul>
-            <li><strong>Explain:</strong> Look at your Mean and your Median. Which one is higher/lower? Explain mathematically exactly how the 1 extreme Outlier you chose managed to "pull" the Mean away from the real normal prices.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 2: The Data Snapshot [Sections 5.2 & 5.3]</span>
+            <p>Enter your 16 data points into the Statistics Calculator. Record the exact results below (You do not need to show manual addition, just the final accurate numbers):</p>
+            <ul>
+                <li><strong>Mean (Average):</strong> ___________</li>
+                <li><strong>Median (Middle):</strong> ___________</li>
+                <li><strong>Range (Spread):</strong> ___________</li>
+            </ul>
+        </div>
 
-        <h3>Question 3: The Sales Pitch (Communication)</h3>
-        <p>Imagine you work for an advertising agency trying to sell these items.</p>
-        <ul>
-            <li><strong>Explain:</strong> Write a 3-sentence advertisement. Deliberately use the misleading measure (either the Mean or Median, depending on what makes your item look better to a buyer) to make the prices seem much cheaper or much higher than they actually are. Explain to me why you chose that specific number to trick the buyer.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 3: The Outlier Hijack [Section 5.2]</span>
+            <p>Compare your Mean and Median. Which number did your specific Outlier pull more towards itself? Explain mathematically why the Median remained "stubborn" and stable, while the Mean was easily "kidnapped" by the outlier's extreme price.</p>
+        </div>
 
-        <h3>Question 4: Spotting Bias (Inquiry & Communication)</h3>
-        <p>A dealership sends out a survey to its customers saying: <em>"Don't you agree that our premium car prices are perfectly fair given our world-class, award-winning service?"</em></p>
-        <ul>
-            <li><strong>Analyze:</strong> Identify the specific type of bias in this question (Sampling, Non-response, or Response bias).</li>
-            <li><strong>Fix It:</strong> Rewrite the survey question so it is 100% neutral and will gather honest data.</li>
-        </ul>
+        <div class="task-box">
+            <span class="task-step">Question 4: Ad Deconstruction [Section 5.4]</span>
+            <p>Use your phone to find a real car advertisement (Instagram, Facebook, or a dealer website) that uses phrases like <em>"Starting from..."</em> or <em>"Average Savings..."</em>.</p>
+            <ul>
+                <li><strong>Link or Slogan:</strong> Paste it here.</li>
+                <li><strong>Analyze:</strong> Why did the seller choose that <em>specific</em> statistical number instead of the others? How does this marketing deliberately trick a buyer who doesn't understand math?</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Question 5: Volatility & Budgeting [Section 5.3]</span>
+            <p>Based on the <strong>Range</strong> you calculated in Question 2, is the pricing for your chosen car model highly volatile (unpredictable) or safe (consistent)? Explain how a large vs. small spread affects a buyer trying to stick to a strict budget.</p>
+        </div>
+
+        <div class="task-box">
+            <span class="task-step">Question 6: The Review Trap [Section 5.4]</span>
+            <p>You are choosing between two dealerships: Dealer A has 4.9 Stars (only 5 reviews), and Dealer B has 4.2 Stars (500 reviews).</p>
+            <p>Using the specific statistical concept of <strong>"Non-Response Bias"</strong>, explain why Dealer A's near-perfect score is mathematically dangerous to trust. <em>(Hint: Think about what type of customer usually takes the time to leave an unsolicited online review).</em></p>
+        </div>
 
         <hr>
 
-        <h3>Grading Rubric (KICA)</h3>
+        <h3>Assessment Rubric (Growing Success Framework)</h3>
         <table>
             <thead>
                 <tr>
                     <th>Category</th>
+                    <th>Questions</th>
                     <th>Level 4 (80-100%)</th>
                     <th>Level 3 (70-79%)</th>
                     <th>Level 2 (60-69%)</th>
                     <th>Level 1 (50-59%)</th>
+                    <th>R (Below 50%)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Knowledge (Q1)</strong></td>
-                    <td>Flawlessly calculates Mean, Median, and Range with real-world data.</td>
-                    <td>Calculates correctly but makes a minor addition or rounding error.</td>
-                    <td>Struggles with the formulas (e.g., forgets to order numbers before finding Median).</td>
-                    <td>Cannot calculate the measures of central tendency.</td>
+                    <td><strong>Knowledge & Understanding (K/U)</strong></td>
+                    <td>Q1a, Q2</td>
+                    <td>Definitions are completely accurate in own words; digital tools used flawlessly to find all stats.</td>
+                    <td>Definitions are mostly accurate; finds stats with minor input/rounding errors.</td>
+                    <td>Definitions are vague or copied; struggles to use the tool correctly or misses data points.</td>
+                    <td>Definitions are incorrect; stats are largely missing or completely wrong.</td>
+                    <td>No definitions provided; completely fails to use the digital tool or record any stats.</td>
                 </tr>
                 <tr>
-                    <td><strong>Inquiry (Q2, Q4)</strong></td>
-                    <td>Insightfully explains exactly how the outlier skews the mean, and perfectly diagnoses the survey bias.</td>
-                    <td>Explains outlier effect and identifies bias correctly.</td>
-                    <td>Identifies the outlier or bias, but struggles to explain *why* it ruins the data.</td>
-                    <td>Fails to understand outliers or bias.</td>
+                    <td><strong>Application (A)</strong></td>
+                    <td>Q1b, Q5</td>
+                    <td>Flawlessly links their unique Google Sheet search process to sampling types; perfectly applies spread concepts to budgeting.</td>
+                    <td>Successfully applies concepts to their data and budgeting with minor logical gaps.</td>
+                    <td>Describes search process or budgeting but fails to properly connect them to statistical terms.</td>
+                    <td>Unable to apply math concepts to their collected dataset or personal decisions.</td>
+                    <td>Fails to collect valid data or makes no attempt to connect data to the scenario.</td>
                 </tr>
                 <tr>
-                    <td><strong>Communication (Q3, Q4)</strong></td>
-                    <td>The "trick" advertisement is clever and proves a deep understanding of statistical manipulation. The rewritten survey is perfectly neutral.</td>
-                    <td>Advertisement and rewritten survey are clear and use appropriate terms.</td>
-                    <td>Explanations are somewhat vague or rely too heavily on everyday language.</td>
-                    <td>Explanations are confusing or missing.</td>
+                    <td><strong>Thinking & Inquiry (T/I)</strong></td>
+                    <td>Q1c, Q3, Q4, Q6</td>
+                    <td>Insightfully and deeply explains how outliers hijack data, why ads manipulate numbers, and fully diagnoses review bias.</td>
+                    <td>Correctly explains outlier effects, ad manipulation, and identifies bias types accurately.</td>
+                    <td>Identifies concepts but struggles to explain the mathematical or logical "why" behind them.</td>
+                    <td>Shows very limited understanding of how statistical manipulation applies to real life.</td>
+                    <td>No evidence of critical thinking; fails to analyze outliers, bias, or ad manipulation.</td>
                 </tr>
                 <tr>
-                    <td><strong>Application (Q1-Q4)</strong></td>
-                    <td>Applies statistical tools perfectly to real-world AutoTrader/Realtor data, drawing valid conclusions.</td>
-                    <td>Successfully applies tools to real-world data.</td>
-                    <td>Collects data but struggles to connect the math results to the real-world meaning.</td>
-                    <td>Unable to apply math to the data.</td>
+                    <td><strong>Communication (C)</strong></td>
+                    <td>Q3, Q4, Q6</td>
+                    <td>Deconstructs ads and explains biases with exceptional clarity, using proper statistical vocabulary throughout.</td>
+                    <td>Analyzes and explains concepts clearly using appropriate statistical terms.</td>
+                    <td>Explanations are somewhat vague or rely too heavily on everyday language instead of math vocabulary.</td>
+                    <td>Analysis lacks logical flow; explanations are confusing or missing key elements.</td>
+                    <td>No explanations provided, or responses are completely incomprehensible.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
 
-<div class="version-tag">v5.2 (Deep Randomization & KICA System)</div>
+<div class="version-tag">v4.7 (Final Code with Separated Rubric & Google Sheet Setup)</div>
 
 <script>
     /* --- UTILS & DICTIONARIES --- */
@@ -595,8 +637,9 @@
     }
     
     // --- State Management ---
-    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit5_data')) || {};
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit4_data')) || {};
     let isQuestionSolved = false; 
+    let currentSection = ""; 
     
     // --- Navigation ---
     function openTab(evt, tabId) {
@@ -612,7 +655,7 @@
         window.print();
     }
 
-    // --- Accordion Bug Fix ---
+    // --- Accordion Logic ---
     const acc = document.getElementsByClassName("accordion");
     for (let i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function() {
@@ -620,13 +663,8 @@
             var panel = this.nextElementSibling;
             if (panel.style.maxHeight) {
                 panel.style.maxHeight = null;
-                panel.style.paddingTop = null;
-                panel.style.paddingBottom = null;
             } else {
-                panel.style.display = "block"; 
-                panel.style.maxHeight = (panel.scrollHeight + 1000) + "px"; 
-                panel.style.paddingTop = "15px";
-                panel.style.paddingBottom = "15px";
+                panel.style.maxHeight = panel.scrollHeight + 1000 + "px"; 
             }
         });
     }
@@ -654,14 +692,14 @@
         practiceData[type].total++;
         if(isCorrect) practiceData[type].correct++;
         
-        localStorage.setItem('mbf3c_unit5_data', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit4_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
     function resetPracticeScore() {
         let type = document.getElementById('practice-selector').value || 'default';
         practiceData[type] = { correct: 0, total: 0 };
-        localStorage.setItem('mbf3c_unit5_data', JSON.stringify(practiceData));
+        localStorage.setItem('mbf3c_unit4_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
@@ -706,13 +744,15 @@
         let section = parts[0];
         let kica = parts[1];
 
+        currentSection = section;
+
         if (section === "5.1") gen5_1(kica, qArea);
         else if (section === "5.2") gen5_2(kica, qArea);
         else if (section === "5.3") gen5_3(kica, qArea);
         else if (section === "5.4") gen5_4(kica, qArea);
     }
 
-    // --- 5.1 Sampling Techniques (Deep Randomization) ---
+    // --- 5.1 Sampling Techniques ---
     function gen5_1(kica, qArea) {
         let comp = randChoice(companies);
         let job = randChoice(jobs);
@@ -793,7 +833,7 @@
         }
     }
 
-    // --- 5.2 Central Tendency (Deep Randomization) ---
+    // --- 5.2 Central Tendency ---
     function gen5_2(kica, qArea) {
         let stName = randChoice(names);
         let job = randChoice(jobs);
@@ -813,7 +853,7 @@
             let s2 = baseSal + randInt(-5000, 5000);
             let s3 = baseSal + randInt(-5000, 5000);
             let s4 = baseSal + randInt(-5000, 5000);
-            let boss = randInt(25, 60) * 10000; // Massive outlier
+            let boss = randInt(25, 60) * 10000;
             let arr = [s1, s2, s3, s4, boss];
             
             let type = randChoice(["Mean", "Median"]);
@@ -862,7 +902,7 @@
         }
     }
 
-    // --- 5.3 Spread (Deep Randomization) ---
+    // --- 5.3 Spread ---
     function gen5_3(kica, qArea) {
         if (kica === "K") {
             let arr = [];
@@ -878,12 +918,11 @@
             let pA_min = randInt(2, 5); let pA_max = randInt(6, 12);
             let pB_min = randInt(-25, -10); let pB_max = randInt(20, 50);
             let askRisk = Math.random() > 0.5;
-            let iName = randChoice(investTypes);
 
-            qArea.innerHTML = `<p>${iName} A returns between ${pA_min}% and ${pA_max}% per year.</p><p>${iName} B returns between ${pB_min}% and ${pB_max}% per year.</p><p>Which asset is mathematically considered <strong>${askRisk ? "HIGHER Risk (More Volatile)" : "LOWER Risk (Safer)"}</strong>?</p>`;
+            qArea.innerHTML = `<p>Asset A returns between ${pA_min}% and ${pA_max}% per year.</p><p>Asset B returns between ${pB_min}% and ${pB_max}% per year.</p><p>Which asset is mathematically considered <strong>${askRisk ? "HIGHER Risk (More Volatile)" : "LOWER Risk (Safer)"}</strong>?</p>`;
             setupMC([
-                {text: `${iName} A`, correct: !askRisk},
-                {text: `${iName} B`, correct: askRisk}
+                {text: `Asset A`, correct: !askRisk},
+                {text: `Asset B`, correct: askRisk}
             ]);
 
         } else if (kica === "I") {
@@ -931,7 +970,7 @@
         }
     }
 
-    // --- 5.4 Bias (Deep Randomization) ---
+    // --- 5.4 Bias ---
     function gen5_4(kica, qArea) {
         let adj = randChoice(adjs);
         let comp = randChoice(companies);
@@ -1044,18 +1083,28 @@
         let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         
         let userNum = parseFloat(cleanUser);
-        let ansNum = parseFloat(currentQuestion.answer);
         
+        if (cleanUser.includes('/')) {
+            let parts = cleanUser.split('/');
+            if (parts.length === 2 && !isNaN(parseFloat(parts[0])) && !isNaN(parseFloat(parts[1]))) {
+                userNum = parseFloat(parts[0]) / parseFloat(parts[1]);
+            }
+        }
+
+        let ansNum = parseFloat(currentQuestion.answer);
         let isCorrect = false;
 
-        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1;
+        const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf('^') === -1 && currentQuestion.answer.toString().indexOf(':') === -1;
 
         if (isPureNumber && !isNaN(userNum)) {
-             if (Math.abs(userNum - ansNum) <= 0.011) {
+             if (Math.abs(userNum - ansNum) <= 0.021) {
+                 isCorrect = true;
+             }
+             else if (["5.1", "5.2", "5.3", "5.4"].includes(currentSection) && (Math.floor(userNum) === Math.floor(ansNum) || Math.round(userNum) === Math.round(ansNum) || Math.abs(userNum - ansNum) <= 1.5)) {
                  isCorrect = true;
              }
         } else {
-            if (cleanUser === currentQuestion.answer) {
+            if (cleanUser === currentQuestion.answer.toString().toLowerCase().replace(/\s/g, '')) {
                 isCorrect = true;
             }
         }
