@@ -424,20 +424,35 @@
         <div class="panel">
             <button class="print-btn" onclick="printLesson(this)">📄 Print</button>
             <h3>Concept Overview</h3>
-            <p>Bias happens when a survey is flawed in a way that artificially pushes the results in one direction.</p>
+            <p>Bias happens when a survey is flawed in a way that artificially pushes the results in one direction. People use this to lie with numbers.</p>
             
             <h3>3 Types of Bias</h3>
             <div class="example-box">
                 <span class="example-title">1. Sampling Bias</span>
-                Your sample doesn't represent the population. Example: Trying to find the most popular sport in Canada by only surveying people inside a hockey arena.
+                <p>Your sample doesn't represent the true population. You asked the wrong group of people.</p>
+                <ul>
+                    <li><strong>Example A (Sports):</strong> Trying to find the most popular sport in Canada by only surveying people inside a hockey arena.</li>
+                    <li><strong>Example B (Money):</strong> A luxury car brand surveying only their current owners to prove that "95% of drivers think $80,000 is a normal, reasonable price for a car."</li>
+                    <li><strong>Example C (Time):</strong> A news station conducts a phone poll at 2:00 PM on a Wednesday. They only get answers from retirees or people at home, completely missing the entire working-class population.</li>
+                </ul>
             </div>
             <div class="example-box">
                 <span class="example-title">2. Non-Response Bias</span>
-                When a specific group of people refuse to answer your survey, ruining the data. Example: A restaurant emails a survey. Only extremely angry customers take the time to reply. The data looks like 100% of people hate the food.
+                <p>When a specific group of people refuse to answer your survey, ruining the data because their voices are missing.</p>
+                <ul>
+                    <li><strong>Example A (Restaurant):</strong> A restaurant emails a survey. Neutral or happy people ignore it. Only extremely angry customers take the time to reply. The data looks like 100% of people hate the food.</li>
+                    <li><strong>Example B (Workplace):</strong> A company sends a massive 50-page survey about workplace stress. The severely overworked employees don't have time to finish it, so only the relaxed employees answer. The boss concludes, "No one is stressed!"</li>
+                    <li><strong>Example C (Technology):</strong> A website pop-up asks, "Do you care about your internet privacy?" People who care deeply about privacy use ad-blockers and never even see the pop-up, so the survey concludes "Nobody cares."</li>
+                </ul>
             </div>
             <div class="example-box">
                 <span class="example-title">3. Response Bias (Leading Questions)</span>
-                When the question itself forces people to answer a certain way. Example: "Do you agree that our heroic, hard-working mayor deserves a raise?"
+                <p>When the wording of the question, or the person asking it, pressures people to answer a certain way.</p>
+                <ul>
+                    <li><strong>Example A (Politics):</strong> "Do you agree that our heroic, hard-working mayor deserves a raise?" The emotional words force a 'yes'.</li>
+                    <li><strong>Example B (Intimidation):</strong> A strict boss asks their employees face-to-face, "You all love working unpaid overtime, right?" Employees say "Yes" out of fear of getting fired, making the data 100% fake.</li>
+                    <li><strong>Example C (Fear-mongering):</strong> A survey asks, "Given the terrifying and dangerous rise in city crime, should we increase the police budget?" The terrifying wording scares people into voting yes.</li>
+                </ul>
             </div>
 
             <div class="money-box">
@@ -617,17 +632,19 @@
     </div>
 </main>
 
-<div class="version-tag">v4.7 (Final Code with Separated Rubric & Google Sheet Setup)</div>
+<div class="version-tag">v4.9 (Massive Expansion of Practice Scenarios & Distractors)</div>
 
 <script>
     /* --- UTILS & DICTIONARIES --- */
     const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie"];
-    const jobs = ["developers", "teachers", "nurses", "accountants", "factory workers", "sales reps", "managers"];
-    const companies = ["TechCorp", "GlobalBank", "MediCare", "EduTech", "BuildIt Inc", "AutoMakers"];
-    const adjs = ["heroic", "greedy", "lazy", "brilliant", "corrupt", "world-class"];
+    // Deeply expanded dictionaries for variation
+    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie", "Chris", "Pat", "Drew", "Avery", "Cameron", "Dakota"];
+    const jobs = ["developers", "teachers", "nurses", "accountants", "factory workers", "sales reps", "managers", "engineers", "architects", "designers"];
+    const companies = ["TechCorp", "GlobalBank", "MediCare", "EduTech", "BuildIt Inc", "AutoMakers", "FreshFoods", "QuickShip", "SkyAirlines", "GreenEnergy"];
+    const adjs = ["heroic", "greedy", "lazy", "brilliant", "corrupt", "world-class", "dangerous", "overpriced", "toxic"];
+    const products = ["smartphones", "energy drinks", "running shoes", "software subscriptions", "laptops", "electric cars", "smartwatches"];
     
     function calcMean(arr) { return arr.reduce((a,b)=>a+b,0) / arr.length; }
     function calcMedian(arr) {
@@ -752,19 +769,32 @@
         else if (section === "5.4") gen5_4(kica, qArea);
     }
 
-    // --- 5.1 Sampling Techniques ---
+    // --- 5.1 Sampling Techniques (DEEP RANDOMIZATION) ---
     function gen5_1(kica, qArea) {
         let comp = randChoice(companies);
         let job = randChoice(jobs);
+        let prod = randChoice(products);
         let n = randInt(3, 15);
         let pct = randInt(10, 25);
         
         if (kica === "K") {
             let pool = [
+                // Stratified
                 {q: `You divide ${comp} by department, then randomly pick ${pct}% of the employees from each department.`, a: "Stratified"},
+                {q: `A school divides students by grade level (9, 10, 11, 12), then selects exactly ${n} students randomly from each grade.`, a: "Stratified"},
+                {q: `A city divides its voters into income brackets, randomly surveying 50 people from each bracket to ensure fair representation.`, a: "Stratified"},
+                // Systematic
                 {q: `You stand at the entrance of ${comp} and ask every ${n}th person who walks in.`, a: "Systematic"},
+                {q: `A quality control robot pulls every ${n*10}th ${prod} off the assembly line for testing.`, a: "Systematic"},
+                {q: `A toll booth operator surveys every ${n}th car that passes through the gate.`, a: "Systematic"},
+                // Convenience
                 {q: `You just ask your ${n} closest friends sitting at your lunch table.`, a: "Convenience"},
-                {q: `You put all ${n*100} employee IDs into a computer and it randomly draws ${n*10} names.`, a: "Simple Random"}
+                {q: `A YouTube creator wants to know the world's favorite hobby, so they just poll their own subscribers.`, a: "Convenience"},
+                {q: `You need to survey adults, so you just ask your parents and their friends who are visiting your house.`, a: "Convenience"},
+                // Simple Random
+                {q: `You put all ${n*100} employee IDs into a computer and it randomly draws ${n*10} names.`, a: "Simple Random"},
+                {q: `A teacher puts all student names in a hat, mixes them thoroughly, and draws ${n} names blindfolded.`, a: "Simple Random"},
+                {q: `A software program assigns a unique number to every citizen and uses a random number generator to select 1,000 participants.`, a: "Simple Random"}
             ];
             let selected = randChoice(pool);
             qArea.innerHTML = `<p><strong>Scenario:</strong> ${selected.q}</p><p>What exact type of sampling is this?</p>`;
@@ -778,15 +808,19 @@
             let pool = [
                 {
                     q: `<p>A hospital wants to test a new policy fairly. They pull the file of every ${n}th patient automatically.</p><p>What method is being applied?</p>`,
-                    opts: [ {text: "Systematic Sampling", correct: true}, {text: "Convenience Sampling", correct: false}, {text: "Stratified Sampling", correct: false} ]
+                    opts: [ {text: "Systematic Sampling", correct: true}, {text: "Convenience Sampling", correct: false}, {text: "Stratified Sampling", correct: false}, {text: "Voluntary Response", correct: false} ]
                 },
                 {
-                    q: `<p>A game developer wants to test a bug. Instead of surveying random players, they just ask the ${n} developers sitting in their immediate office.</p>`,
-                    opts: [ {text: "Convenience Sampling", correct: true}, {text: "Simple Random Sampling", correct: false}, {text: "Systematic Sampling", correct: false} ]
+                    q: `<p>A game developer wants to test a bug. Instead of surveying random players globally, they just ask the ${n} developers sitting in their immediate office.</p>`,
+                    opts: [ {text: "Convenience Sampling", correct: true}, {text: "Simple Random Sampling", correct: false}, {text: "Systematic Sampling", correct: false}, {text: "Stratified Sampling", correct: false} ]
                 },
                 {
                     q: `<p>To find out what students want for lunch, you survey exactly ${n} freshmen, ${n} sophomores, ${n} juniors, and ${n} seniors to keep it perfectly proportional.</p>`,
-                    opts: [ {text: "Stratified Sampling", correct: true}, {text: "Convenience Sampling", correct: false}, {text: "Systematic Sampling", correct: false} ]
+                    opts: [ {text: "Stratified Sampling", correct: true}, {text: "Convenience Sampling", correct: false}, {text: "Systematic Sampling", correct: false}, {text: "Simple Random Sampling", correct: false} ]
+                },
+                {
+                    q: `<p>The government assigns a number to every registered business. A computer randomly selects 500 of those numbers for a tax audit.</p>`,
+                    opts: [ {text: "Simple Random Sampling", correct: true}, {text: "Systematic Sampling", correct: false}, {text: "Convenience Sampling", correct: false}, {text: "Stratified Sampling", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -796,15 +830,19 @@
             let pool = [
                 {
                     q: `<p>Why is "Convenience Sampling" almost always rejected by professional statisticians?</p>`,
-                    opts: [ {text: "Because people near you (like friends) usually share similar traits or opinions, completely destroying the randomness needed for accurate data.", correct: true}, {text: "Because it takes way too much time to do.", correct: false}, {text: "Because it is mathematically too difficult to calculate the mean.", correct: false} ]
+                    opts: [ {text: "Because people near you (like friends) usually share similar traits or opinions, completely destroying the randomness needed for accurate data.", correct: true}, {text: "Because it takes way too much time and money to conduct.", correct: false}, {text: "Because it is mathematically too difficult to calculate the mean of friends.", correct: false}, {text: "Because it relies on complex computer algorithms.", correct: false} ]
                 },
                 {
-                    q: `<p>A survey about ending the 'wealth tax' is done by randomly calling numbers in ONLY the absolute wealthiest zip code. Why does this sample fail?</p>`,
-                    opts: [ {text: "It suffers from extreme Sampling Bias. It systematically excludes the middle and lower classes from the data pool.", correct: true}, {text: "It is a Systematic Sample, which is always mathematically bad.", correct: false}, {text: "It actually doesn't fail; calling people randomly is always perfectly fair.", correct: false} ]
+                    q: `<p>A survey about ending the 'wealth tax' is done by randomly calling numbers in ONLY the absolute wealthiest zip code in the country. Why does this sample fail?</p>`,
+                    opts: [ {text: "It suffers from extreme Sampling Bias. It systematically excludes the middle and lower classes from the data pool, representing only the rich.", correct: true}, {text: "It is a Systematic Sample, which is always mathematically bad.", correct: false}, {text: "It actually doesn't fail; calling people randomly is always perfectly fair.", correct: false}, {text: "Because wealthy people don't answer the phone.", correct: false} ]
                 },
                 {
                     q: `<p>If a population is 80% female and 20% male, why might a Simple Random Sample be slightly risky compared to Stratified?</p>`,
-                    opts: [ {text: "Pure random chance might accidentally pick mostly males, skewing the data. Stratified FORCES the final sample to maintain the 80/20 split.", correct: true}, {text: "Simple Random is illegal in this scenario.", correct: false}, {text: "Stratified sampling is actually riskier.", correct: false} ]
+                    opts: [ {text: "Pure random chance might accidentally pick mostly males, skewing the data. Stratified FORCES the final sample to maintain the true 80/20 split.", correct: true}, {text: "Simple Random is illegal in demographic scenarios.", correct: false}, {text: "Stratified sampling is actually riskier because it relies on convenience.", correct: false}, {text: "Because males and females cannot be separated mathematically.", correct: false} ]
+                },
+                {
+                    q: `<p>A music streaming service only surveys people who listen to heavy metal about what new features to add. What is the fundamental problem?</p>`,
+                    opts: [ {text: "Sampling Bias. They are entirely ignoring pop, rap, and classical fans, meaning the new features will only appeal to a tiny fraction of their users.", correct: true}, {text: "Non-Response Bias. Heavy metal fans won't reply.", correct: false}, {text: "Response Bias. The questions are too aggressive.", correct: false}, {text: "There is no problem, this is Stratified sampling.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -813,18 +851,23 @@
         } else if (kica === "C") {
             let wkrs = randInt(7, 9) * 100;
             let mgrs = 1000 - wkrs;
+            let stName = randChoice(names);
             let pool = [
                 {
                     q: `<p>Explain to a CEO why "Stratified Sampling" is better than "Simple Random" when surveying a company with ${wkrs} factory workers and ${mgrs} managers.</p>`,
-                    opts: [ {text: `"Simple random might accidentally pick mostly managers. Stratified forces the sample to maintain the ratio, guaranteeing the factory workers' voices are accurately represented."`, correct: true}, {text: `"Stratified is faster because you just ask whoever is closest to you in the office."`, correct: false}, {text: `"Simple Random is actually better. You should never use Stratified in business."`, correct: false} ]
+                    opts: [ {text: `"Simple random might accidentally pick mostly managers by chance. Stratified forces the sample to maintain the true ratio, guaranteeing the massive factory worker base is accurately represented."`, correct: true}, {text: `"Stratified is faster because you just ask whoever is closest to you in the office."`, correct: false}, {text: `"Simple Random is actually better. You should never use Stratified in business."`, correct: false}, {text: `"Stratified sampling guarantees that everyone gives a positive 5-star review."`, correct: false} ]
                 },
                 {
-                    q: `<p>A politician brags, "I surveyed 50,000 of my followers on social media, and 99% love my new law!" How do you explain the statistical flaw?</p>`,
-                    opts: [ {text: `"The sample size is huge, but the source is heavily biased. Followers already like you. A small, truly random sample of 1,000 everyday citizens would yield far more accurate data."`, correct: true}, {text: `"You didn't ask enough people. 50,000 is too small for a good sample."`, correct: false}, {text: `"There is no flaw. 50,000 people is enough to prove any statistic as a mathematical fact."`, correct: false} ]
+                    q: `<p>A politician brags, "I surveyed 50,000 of my followers on social media, and 99% love my new law!" How do you explain the statistical flaw to them?</p>`,
+                    opts: [ {text: `"The sample size is huge, but the source is heavily biased. Followers already like you. A small, truly random sample of 1,000 everyday citizens would yield far more accurate, truthful data."`, correct: true}, {text: `"You didn't ask enough people. 50,000 is too small for a good sample, you need 1 million."`, correct: false}, {text: `"There is no flaw. 50,000 people is enough to prove any statistic as a mathematical fact."`, correct: false}, {text: `"You used Systematic sampling, which always produces fake numbers."`, correct: false} ]
                 },
                 {
                     q: `<p>A client wants to survey people at a mall. Explain why "Systematic" is better than just asking people who look friendly.</p>`,
-                    opts: [ {text: `"Asking friendly people is Convenience Sampling, which is biased. Systematic (e.g., asking every 5th person) removes your personal bias from the selection process."`, correct: true}, {text: `"Systematic guarantees that you only talk to rich people."`, correct: false}, {text: `"Actually, asking friendly people is considered a Stratified method."`, correct: false} ]
+                    opts: [ {text: `"Asking friendly people is Convenience Sampling, which is biased (you might only pick younger people, etc). Systematic (e.g., asking every 5th person) removes your personal bias from the selection process."`, correct: true}, {text: `"Systematic guarantees that you only talk to rich people who buy things."`, correct: false}, {text: `"Actually, asking friendly people is considered a highly accurate Stratified method."`, correct: false}, {text: `"Systematic is the only method allowed by mall security."`, correct: false} ]
+                },
+                {
+                    q: `<p>${stName} wants to find out the most popular restaurant in town by standing outside McDonald's and asking people walking out. Correct their approach.</p>`,
+                    opts: [ {text: `"That is extreme Sampling Bias. You are only asking people who already chose to eat at McDonald's today. You need to survey people at a neutral location, like a grocery store or downtown intersection."`, correct: true}, {text: `"You should stand outside a different fast food place instead."`, correct: false}, {text: `"That is actually a perfect Simple Random sample."`, correct: false}, {text: `"You need to ask every 5th person walking out to make it accurate."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -833,48 +876,80 @@
         }
     }
 
-    // --- 5.2 Central Tendency ---
+    // --- 5.2 Central Tendency (DEEP RANDOMIZATION) ---
     function gen5_2(kica, qArea) {
         let stName = randChoice(names);
         let job = randChoice(jobs);
 
         if (kica === "K") {
+            // Provide varied contexts for the basic calculation
+            let contexts = [
+                "Test scores out of 30:",
+                "Ages of people in a coffee shop:",
+                "Wait times (in minutes) at a clinic:",
+                "Prices of sandwiches in dollars:"
+            ];
+            let ctx = randChoice(contexts);
             let arr = [];
             for(let i=0; i<5; i++) arr.push(randInt(2, 25));
             let type = randChoice(["Mean", "Median"]);
             let ans = type === "Mean" ? calcMean(arr) : calcMedian(arr);
             
-            qArea.innerHTML = `<p>Data Set:</p><div class="data-array">${arr.join(", ")}</div><p>Calculate the <strong>${type}</strong>.</p><p><small>(If a decimal, round to 1 decimal place)</small></p>`;
+            qArea.innerHTML = `<p>${ctx}</p><div class="data-array">${arr.join(", ")}</div><p>Calculate the <strong>${type}</strong>.</p><p><small>(If a decimal, round to 1 decimal place)</small></p>`;
             setupInput(ans.toFixed(1).replace(/\.0$/, '')); 
             
         } else if (kica === "A") {
-            let baseSal = randInt(4, 7) * 10000;
-            let s1 = baseSal + randInt(-5000, 5000);
-            let s2 = baseSal + randInt(-5000, 5000);
-            let s3 = baseSal + randInt(-5000, 5000);
-            let s4 = baseSal + randInt(-5000, 5000);
-            let boss = randInt(25, 60) * 10000;
-            let arr = [s1, s2, s3, s4, boss];
-            
             let type = randChoice(["Mean", "Median"]);
-            let ans = type === "Mean" ? calcMean(arr) : calcMedian(arr);
+            let pool = [];
 
-            qArea.innerHTML = `<p>Five salaries for ${job} at a startup:</p><div class="data-array">$${s1}, $${s2}, $${s3}, $${s4}, $${boss}</div><p>Calculate the exactly accurate <strong>${type}</strong> salary.</p>`;
-            setupInput(ans.toString());
+            // Scenario A: Salaries
+            let baseSal = randInt(4, 7) * 10000;
+            let arrA = [baseSal + randInt(-5000, 5000), baseSal + randInt(-5000, 5000), baseSal + randInt(-5000, 5000), baseSal + randInt(-5000, 5000), randInt(25, 60) * 10000];
+            let ansA = type === "Mean" ? calcMean(arrA) : calcMedian(arrA);
+            pool.push({
+                q: `<p>Five salaries for ${job} at a startup:</p><div class="data-array">$${arrA[0]}, $${arrA[1]}, $${arrA[2]}, $${arrA[3]}, $${arrA[4]}</div><p>Calculate the exactly accurate <strong>${type}</strong> salary.</p>`,
+                a: ansA.toString()
+            });
+
+            // Scenario B: House Prices
+            let baseH = randInt(4, 8) * 100000;
+            let arrB = [baseH, baseH+20000, baseH-10000, baseH+50000, randInt(3, 8)*1000000];
+            let ansB = type === "Mean" ? calcMean(arrB) : calcMedian(arrB);
+            pool.push({
+                q: `<p>Five house prices on a street. One is a massive mansion:</p><div class="data-array">$${arrB[0]}, $${arrB[1]}, $${arrB[2]}, $${arrB[3]}, $${arrB[4]}</div><p>Calculate the exactly accurate <strong>${type}</strong> house price.</p>`,
+                a: ansB.toString()
+            });
+
+            // Scenario C: Used Car Mileages
+            let baseM = randInt(50, 90) * 1000;
+            let arrC = [baseM, baseM+5000, baseM-2000, baseM+8000, randInt(300, 500)*1000];
+            let ansC = type === "Mean" ? calcMean(arrC) : calcMedian(arrC);
+            pool.push({
+                q: `<p>Five used cars for sale. One was a taxi driven constantly:</p><div class="data-array">${arrC[0]}km, ${arrC[1]}km, ${arrC[2]}km, ${arrC[3]}km, ${arrC[4]}km</div><p>Calculate the exactly accurate <strong>${type}</strong> mileage.</p>`,
+                a: ansC.toString()
+            });
+
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupInput(sel.a);
 
         } else if (kica === "I") {
             let pool = [
                 {
                     q: `<p>A dataset of 10 normal house prices has a massive Outlier added to it (a $15 Million mansion).</p><p>Which measure of central tendency is violently pulled upwards the most?</p>`,
-                    opts: [ {text: "The Mean. It physically adds all values together, so the massive outlier heavily distorts the final average.", correct: true}, {text: "The Median. The middle number changes completely.", correct: false}, {text: "The Mode.", correct: false} ]
+                    opts: [ {text: "The Mean. It physically adds all values together, so the massive outlier heavily distorts the final average.", correct: true}, {text: "The Median. The middle number changes completely.", correct: false}, {text: "The Mode.", correct: false}, {text: "They are all pulled equally.", correct: false} ]
                 },
                 {
-                    q: `<p>If data is perfectly symmetrical (like a perfect bell curve with no outliers), what is the relationship between the Mean and the Median?</p>`,
-                    opts: [ {text: "They are exactly the same number.", correct: true}, {text: "The Mean is always higher.", correct: false}, {text: "The Median is always higher.", correct: false} ]
+                    q: `<p>If data is perfectly symmetrical (like a perfect bell curve with absolutely no outliers), what is the mathematical relationship between the Mean and the Median?</p>`,
+                    opts: [ {text: "They are exactly the same number. The true middle and the calculated average perfectly align.", correct: true}, {text: "The Mean is always higher.", correct: false}, {text: "The Median is always higher.", correct: false}, {text: "The Mode becomes zero.", correct: false} ]
                 },
                 {
-                    q: `<p>Why is the "Mode" totally useless if every single person in a room has a completely different exact salary?</p>`,
-                    opts: [ {text: "Because the Mode looks for the most repeated number. If no numbers repeat, there is no Mode.", correct: true}, {text: "Because the Mode only works on small numbers.", correct: false}, {text: "The Mode is never useless.", correct: false} ]
+                    q: `<p>Why is the "Mode" totally useless if every single person in a room has a completely different exact salary (e.g., $50,112 vs $50,113)?</p>`,
+                    opts: [ {text: "Because the Mode looks for the exact most repeated number. If no numbers repeat, there is simply no Mode.", correct: true}, {text: "Because the Mode only works on small single-digit numbers.", correct: false}, {text: "The Mode is never useless; it just averages them all.", correct: false}, {text: "Because salaries are always calculated using Medians.", correct: false} ]
+                },
+                {
+                    q: `<p>A billionaire walks into a small coffee shop containing 10 average people. What happens to the Median Net Worth of the room?</p>`,
+                    opts: [ {text: "It barely moves. The Median is 'stubborn' because it only shifts one physical position in the sorted list, entirely ignoring the billionaire's extreme wealth.", correct: true}, {text: "It explodes upwards by millions of dollars.", correct: false}, {text: "It drops to zero.", correct: false}, {text: "It becomes perfectly equal to the Mean.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -885,15 +960,19 @@
             let pool = [
                 {
                     q: `<p>Why do financial news articles always report the "Median House Price" in Toronto instead of the "Mean House Price"?</p>`,
-                    opts: [ {text: `"Because a few ultra-rich $20 million mansions will artificially drag the Mean upwards. The Median ignores those extremes and shows what a normal person is actually paying."`, correct: true}, {text: `"Because the Median is much easier to calculate on a computer than the Mean."`, correct: false}, {text: `"Because the Mean is only used in science, not money."`, correct: false} ]
+                    opts: [ {text: `"Because a few ultra-rich $20 million mansions will artificially drag the Mean upwards. The Median ignores those extremes and shows what a normal, average person is actually paying."`, correct: true}, {text: `"Because the Median is much easier to calculate on a computer than the Mean."`, correct: false}, {text: `"Because the Mean is only used in science, not in financial reporting."`, correct: false}, {text: `"Because the government bans the use of Mean for real estate."`, correct: false} ]
                 },
                 {
-                    q: `<p>Your boss says, "Our average (mean) customer is 45 years old." But your data is entirely made of 20-year-olds and 70-year-olds. How do you explain the flaw?</p>`,
-                    opts: [ {text: `"The Mean is 45 because the young and old age groups average out exactly in the middle. But nobody who is actually 45 buys our product. We should look at the Mode."`, correct: true}, {text: `"The Mean is mathematically correct, we should start marketing to 45-year-olds immediately."`, correct: false}, {text: `"The Median is the only way to solve this."`, correct: false} ]
+                    q: `<p>Your boss says, "Our average (Mean) customer is 45 years old." But your data is entirely made of 20-year-olds and 70-year-olds. How do you explain the flaw?</p>`,
+                    opts: [ {text: `"The Mean is 45 because the young and old age groups average out exactly in the middle. But nobody who is actually 45 buys our product. We should look at the Mode (most frequent) instead."`, correct: true}, {text: `"The Mean is mathematically correct, we should start marketing to 45-year-olds immediately."`, correct: false}, {text: `"The Median is the only way to solve this age problem."`, correct: false}, {text: `"The data must have been collected using Convenience Sampling."`, correct: false} ]
                 },
                 {
                     q: `<p>${stName} looks at the average (Mean) income of their city and feels poor. How do you comfort them using statistics?</p>`,
-                    opts: [ {text: `"The Mean income is heavily skewed by billionaires. Look at the Median income instead; you are probably much closer to the true middle than you think."`, correct: true}, {text: `"You should move to a city with a lower Mean."`, correct: false}, {text: `"The Mean is a perfect representation of everyone."`, correct: false} ]
+                    opts: [ {text: `"The Mean income is heavily skewed upward by a few billionaires. Look at the Median income instead; you are probably much closer to the true middle of the population than you think."`, correct: true}, {text: `"You should move to a city with a lower Mean to feel richer."`, correct: false}, {text: `"The Mean is a perfect representation of everyone, you just need to work harder."`, correct: false}, {text: `"Income is actually measured using the Range, not the Mean."`, correct: false} ]
+                },
+                {
+                    q: `<p>A college advertises: "Our graduates make an average (Mean) of $150,000!" You find out one graduate from last year is an NBA superstar making $20 Million. What do you warn your friends?</p>`,
+                    opts: [ {text: `"That one NBA player is a massive outlier dragging the Mean upwards. The Median salary of the other 999 normal graduates is likely closer to $50,000. Don't trust the Mean."`, correct: true}, {text: `"That means if we go there, we are mathematically guaranteed to make $150,000."`, correct: false}, {text: `"The college is committing blatant tax fraud."`, correct: false}, {text: `"We should look at the Range, which will tell us exactly what we will earn."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -902,28 +981,56 @@
         }
     }
 
-    // --- 5.3 Spread ---
+    // --- 5.3 Spread (DEEP RANDOMIZATION) ---
     function gen5_3(kica, qArea) {
         if (kica === "K") {
+            let contexts = [
+                "Test scores in a class:",
+                "Daily high temperatures (F) in a month:",
+                "Number of customers per day:",
+                "Stock prices over a week ($):"
+            ];
+            let ctx = randChoice(contexts);
             let arr = [];
             for(let i=0; i<6; i++) arr.push(randInt(5, 120));
             let max = Math.max(...arr);
             let min = Math.min(...arr);
             let ans = max - min;
             
-            qArea.innerHTML = `<p>Data Set:</p><div class="data-array">${arr.join(", ")}</div><p>Calculate the <strong>Range</strong> of this data.</p>`;
+            qArea.innerHTML = `<p>${ctx}</p><div class="data-array">${arr.join(", ")}</div><p>Calculate the <strong>Range</strong> of this data.</p>`;
             setupInput(ans.toString());
 
         } else if (kica === "A") {
+            let askRisk = Math.random() > 0.5;
+            let scenarios = [];
+
+            // Asset comparison
             let pA_min = randInt(2, 5); let pA_max = randInt(6, 12);
             let pB_min = randInt(-25, -10); let pB_max = randInt(20, 50);
-            let askRisk = Math.random() > 0.5;
+            scenarios.push({
+                q: `<p>Asset A returns between ${pA_min}% and ${pA_max}% per year.</p><p>Asset B returns between ${pB_min}% and ${pB_max}% per year.</p><p>Which asset is mathematically considered <strong>${askRisk ? "HIGHER Risk (More Volatile)" : "LOWER Risk (Safer/More Consistent)"}</strong>?</p>`,
+                opts: [ {text: `Asset A`, correct: !askRisk}, {text: `Asset B`, correct: askRisk} ]
+            });
 
-            qArea.innerHTML = `<p>Asset A returns between ${pA_min}% and ${pA_max}% per year.</p><p>Asset B returns between ${pB_min}% and ${pB_max}% per year.</p><p>Which asset is mathematically considered <strong>${askRisk ? "HIGHER Risk (More Volatile)" : "LOWER Risk (Safer)"}</strong>?</p>`;
-            setupMC([
-                {text: `Asset A`, correct: !askRisk},
-                {text: `Asset B`, correct: askRisk}
-            ]);
+            // Player comparison
+            let sA_min = randInt(15, 20); let sA_max = randInt(22, 25);
+            let sB_min = randInt(5, 10); let sB_max = randInt(35, 45);
+            scenarios.push({
+                q: `<p>Player A scores between ${sA_min} and ${sA_max} points per game.</p><p>Player B scores between ${sB_min} and ${sB_max} points per game.</p><p>Which player is considered <strong>${askRisk ? "MORE Volatile (Unpredictable)" : "MORE Consistent (Reliable)"}</strong>?</p>`,
+                opts: [ {text: `Player A`, correct: !askRisk}, {text: `Player B`, correct: askRisk} ]
+            });
+
+            // Temperature
+            let tA_min = randInt(60, 65); let tA_max = randInt(70, 75);
+            let tB_min = randInt(30, 40); let tB_max = randInt(90, 100);
+            scenarios.push({
+                q: `<p>City A temperatures range from ${tA_min}&deg; to ${tA_max}&deg;.</p><p>City B temperatures range from ${tB_min}&deg; to ${tB_max}&deg;.</p><p>Which city has a <strong>${askRisk ? "WIDER Spread (More Extreme Weather)" : "TIGHTER Spread (More Stable Weather)"}</strong>?</p>`,
+                opts: [ {text: `City A`, correct: !askRisk}, {text: `City B`, correct: askRisk} ]
+            });
+
+            let sel = randChoice(scenarios);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
 
         } else if (kica === "I") {
             let pct1 = randChoice([70, 75, 80]);
@@ -933,15 +1040,19 @@
             let pool = [
                 {
                     q: `<p>Two classes take a math test. Both have a Mean of ${pct1}%. Class A has a Range of ${r1}%. Class B has a Range of ${r2}%.</p><p>What can you infer about Class B?</p>`,
-                    opts: [ {text: "The students' abilities are wildly scattered. Some did extremely well, while others failed miserably.", correct: true}, {text: `Every student in Class B got exactly ${pct1}%.`, correct: false}, {text: "Class B is much smarter overall than Class A.", correct: false} ]
+                    opts: [ {text: "The students' abilities are wildly scattered. Some did extremely well, while others failed miserably.", correct: true}, {text: `Every student in Class B got exactly ${pct1}%.`, correct: false}, {text: "Class B is much smarter overall than Class A.", correct: false}, {text: "The teacher in Class B graded unfairly.", correct: false} ]
                 },
                 {
                     q: `<p>What happens to the standard deviation/spread of a dataset if all the numbers are perfectly identical (e.g., 5, 5, 5, 5, 5)?</p>`,
-                    opts: [ {text: "The spread is exactly zero, because there is absolutely no variation or distance from the mean.", correct: true}, {text: "The spread is 5.", correct: false}, {text: "The spread cannot be calculated on identical numbers.", correct: false} ]
+                    opts: [ {text: "The spread is exactly zero, because there is absolutely no variation or distance from the mean.", correct: true}, {text: "The spread is 5.", correct: false}, {text: "The spread cannot be calculated on identical numbers.", correct: false}, {text: "The spread becomes infinite.", correct: false} ]
                 },
                 {
-                    q: `<p>A factory produces metal pipes. If the 'Spread' of the pipe lengths gets larger, what is happening on the factory floor?</p>`,
-                    opts: [ {text: "The machines are losing precision. Some pipes are coming out way too long, and others way too short.", correct: true}, {text: "The machines are getting more accurate.", correct: false}, {text: "They are producing pipes much faster.", correct: false} ]
+                    q: `<p>A factory produces metal pipes. If the 'Spread' (Standard Deviation) of the pipe lengths gets larger over time, what is happening on the factory floor?</p>`,
+                    opts: [ {text: "The machines are losing precision. Some pipes are coming out way too long, and others way too short, leading to major quality issues.", correct: true}, {text: "The machines are getting more accurate.", correct: false}, {text: "They are producing pipes much faster than before.", correct: false}, {text: "The mean length of the pipes is shrinking.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is a small Standard Deviation highly desired in medical equipment manufacturing?</p>`,
+                    opts: [ {text: "A small standard deviation guarantees extreme consistency. Every single piece of equipment behaves almost exactly the same, which is critical for patient safety.", correct: true}, {text: "It means the equipment is very cheap to produce.", correct: false}, {text: "A small spread means the equipment is highly unpredictable.", correct: false}, {text: "Because small numbers are mathematically easier to calculate.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -953,15 +1064,19 @@
             let pool = [
                 {
                     q: `<p>How do you explain the concept of "Spread" (Standard Deviation) to ${stName} who is picking mutual funds for retirement?</p>`,
-                    opts: [ {text: `"Spread is the 'rollercoaster' factor. A large spread means your account value will violently jump up and down. A small spread means slow, predictable movement."`, correct: true}, {text: `"Spread tells us the exact average amount of money you will make."`, correct: false}, {text: `"Spread is the difference between the stock price and the bank's fee."`, correct: false} ]
+                    opts: [ {text: `"Spread is the 'rollercoaster' factor. A large spread means your account value will violently jump up and down. A small spread means slow, predictable, safe movement."`, correct: true}, {text: `"Spread tells us the exact average amount of money you will make."`, correct: false}, {text: `"Spread is the difference between the stock price and the bank's fee."`, correct: false}, {text: `"Spread guarantees you will not lose your original investment."`, correct: false} ]
                 },
                 {
-                    q: `<p>Why is reporting only the "Mean" dangerous without also reporting the "Spread"?</p>`,
-                    opts: [ {text: `"Because a Mean of 50 could come from perfectly steady data (49, 50, 51) OR highly erratic data (0, 50, 100). Spread tells you if you can actually trust the Mean to be normal."`, correct: true}, {text: `"Because the Mean is usually calculated wrong."`, correct: false}, {text: `"It isn't dangerous. The Mean mathematically tells you everything you need to know."`, correct: false} ]
+                    q: `<p>Why is reporting only the "Mean" absolutely dangerous without also reporting the "Spread"?</p>`,
+                    opts: [ {text: `"Because a Mean of 50 could come from perfectly steady data (49, 50, 51) OR highly erratic data (0, 50, 100). Spread tells you if you can actually trust the Mean to be a normal representation."`, correct: true}, {text: `"Because the Mean is usually calculated wrong by computers."`, correct: false}, {text: `"It isn't dangerous. The Mean mathematically tells you everything you need to know."`, correct: false}, {text: `"Because Spread tells you the Mode."`, correct: false} ]
                 },
                 {
                     q: `<p>${stName} wants to buy a stock because it went up 50% last year. You notice its Spread/Range over 5 years is massive. What do you warn them?</p>`,
-                    opts: [ {text: `"High spread means high volatility. It went up 50% last year, but that massive range means it could easily drop 50% next year. It is highly unpredictable."`, correct: true}, {text: `"High spread means it will keep going up."`, correct: false}, {text: `"Spread doesn't apply to the stock market."`, correct: false} ]
+                    opts: [ {text: `"High spread means extreme volatility. It went up 50% last year, but that massive range means it could easily drop 60% next year. It is a highly unpredictable gamble."`, correct: true}, {text: `"High spread means it will keep going up exponentially."`, correct: false}, {text: `"Spread doesn't apply to the stock market, only to science."`, correct: false}, {text: `"A massive spread means the government guarantees the stock."`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain to a baker why they want a "Low Spread" in the oven temperatures.</p>`,
+                    opts: [ {text: `"A low spread means the temperature stays tightly locked near 350 degrees. A high spread means it fluctuates wildly from 300 to 400, which will ruin the cakes."`, correct: true}, {text: `"A low spread means the oven uses less electricity."`, correct: false}, {text: `"A high spread is actually better because it cooks faster."`, correct: false}, {text: `"Spread only applies to ingredients, not temperatures."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -970,63 +1085,119 @@
         }
     }
 
-    // --- 5.4 Bias ---
+    // --- 5.4 Bias (DEEP RANDOMIZATION) ---
     function gen5_4(kica, qArea) {
         let adj = randChoice(adjs);
         let comp = randChoice(companies);
+        let prod = randChoice(products);
         
         if (kica === "K") {
             let pool = [
+                // Non-Response
                 {q: "People refuse to return the survey, so you only get extremely angry reviews.", a: "Non-Response Bias"},
+                {q: "A massive email survey is sent out, but only 1% of people take the time to reply.", a: "Non-Response Bias"},
+                {q: "A website asks about privacy, but people who care about privacy use ad-blockers and never see the pop-up.", a: "Non-Response Bias"},
+                // Response
                 {q: `The question says: 'Don't you agree the city is wasting our money on this ${adj} project?'`, a: "Response Bias"},
-                {q: "Surveying ONLY gym members about whether the city should build more gyms.", a: "Sampling Bias"}
+                {q: `A terrifying picture of a car crash is shown right before asking if speed limits should be lowered.`, a: "Response Bias"},
+                {q: `Your strict boss asks you face-to-face: 'You don't mind working the weekend, right?'`, a: "Response Bias"},
+                // Sampling
+                {q: "Surveying ONLY gym members about whether the city should build more gyms.", a: "Sampling Bias"},
+                {q: "Calling landline phones at 2:00 PM to ask about the struggles of the working class.", a: "Sampling Bias"},
+                {q: `A luxury brand asking only their own customers if $80,000 is a fair price for a car.`, a: "Sampling Bias"}
             ];
             let sel = randChoice(pool);
             qArea.innerHTML = `<p><strong>Scenario:</strong> ${sel.q}</p><p>Identify the specific type of Bias.</p>`;
             setupMC([
                 {text: "Non-Response Bias", correct: sel.a === "Non-Response Bias"},
-                {text: "Response Bias (Leading Question)", correct: sel.a === "Response Bias"},
+                {text: "Response Bias (Leading Format)", correct: sel.a === "Response Bias"},
                 {text: "Sampling Bias", correct: sel.a === "Sampling Bias"}
             ]);
 
         } else if (kica === "A") {
             let bType = randChoice(["Sampling", "Response", "NonResponse"]);
+            let scenarios = [];
+            
             if (bType === "Sampling") {
-                qArea.innerHTML = `<p>A principal wants to know if the math homework is too hard. She exclusively asks the students in the Advanced AP Math class.</p><p>Why is this data mathematically flawed?</p>`;
-                setupMC([
-                    {text: "Sampling Bias. She systematically excluded the regular and struggling students, guaranteeing an artificially positive result.", correct: true},
-                    {text: "Response Bias. She forced them to answer a certain way.", correct: false},
-                    {text: "It isn't flawed. AP students take math, so they are a perfectly valid sample.", correct: false}
-                ]);
+                scenarios.push({
+                    q: `<p>A principal wants to know if the math homework is too hard. She exclusively asks the students in the Advanced AP Math class.</p><p>Why is this data mathematically flawed?</p>`,
+                    opts: [
+                        {text: "Sampling Bias. She systematically excluded the regular and struggling students, guaranteeing an artificially positive result.", correct: true},
+                        {text: "Response Bias. She forced them to answer a certain way.", correct: false},
+                        {text: "Non-Response bias. AP students don't answer surveys.", correct: false},
+                        {text: "It isn't flawed. AP students take math, so they are a perfectly valid sample.", correct: false}
+                    ]
+                });
+                scenarios.push({
+                    q: `<p>To find out the most popular music genre, a radio station polls people leaving a Country Music festival.</p><p>Why is this flawed?</p>`,
+                    opts: [
+                        {text: "Sampling Bias. You are only asking people who already paid to listen to Country music, entirely missing rap, pop, and rock fans.", correct: true},
+                        {text: "Response Bias. The question is too confusing.", correct: false},
+                        {text: "Non-Response bias. People leaving festivals don't talk.", correct: false},
+                        {text: "It isn't flawed, festivals have large crowds.", correct: false}
+                    ]
+                });
             } else if (bType === "Response") {
-                qArea.innerHTML = `<p>A survey asks: "Should the ${adj} government raise taxes to punish hard workers?"</p><p>Why is this data flawed?</p>`;
-                setupMC([
-                    {text: `Response Bias. The emotional words '${adj}' and 'punish' pressure people into saying 'No', completely destroying the neutrality.`, correct: true},
-                    {text: "Sampling Bias. They didn't ask enough people.", correct: false},
-                    {text: "Non-Response bias. No one will answer that.", correct: false}
-                ]);
+                scenarios.push({
+                    q: `<p>A survey asks: "Should the ${adj} government raise taxes to punish hard workers?"</p><p>Why is this data flawed?</p>`,
+                    opts: [
+                        {text: `Response Bias. The emotional words '${adj}' and 'punish' pressure people into saying 'No', completely destroying the neutrality.`, correct: true},
+                        {text: "Sampling Bias. They didn't ask enough people.", correct: false},
+                        {text: "Non-Response bias. No one will answer that.", correct: false},
+                        {text: "It isn't flawed, politics is always emotional.", correct: false}
+                    ]
+                });
+                scenarios.push({
+                    q: `<p>A survey asks: "Given the terrifying and dangerous rise in city crime, do you support the police?"</p><p>Why is this flawed?</p>`,
+                    opts: [
+                        {text: "Response Bias. The leading phrase 'terrifying and dangerous' scares the participant into answering 'Yes' out of fear.", correct: true},
+                        {text: "Sampling Bias. They only asked police officers.", correct: false},
+                        {text: "Non-Response Bias. Criminals won't answer.", correct: false},
+                        {text: "There is no bias here.", correct: false}
+                    ]
+                });
             } else {
-                qArea.innerHTML = `<p>${comp} sends a mass email asking "How was your service?" Only 2% of people reply, and they are all furious.</p><p>Why is this data flawed?</p>`;
-                setupMC([
-                    {text: `Non-Response Bias. Neutral or happy customers usually ignore emails. Only the angriest people took the time to reply, making it look like 100% of people hate ${comp}.`, correct: true},
-                    {text: "Response Bias. The email forced them to be angry.", correct: false},
-                    {text: "Sampling Bias. They shouldn't have used email.", correct: false}
-                ]);
+                scenarios.push({
+                    q: `<p>${comp} sends a mass email asking "How was your service?" Only 2% of people reply, and they are all furious.</p><p>Why is this data flawed?</p>`,
+                    opts: [
+                        {text: `Non-Response Bias. Neutral or happy customers usually ignore emails. Only the angriest people took the time to reply, making it look like 100% of people hate ${comp}.`, correct: true},
+                        {text: "Response Bias. The email forced them to be angry.", correct: false},
+                        {text: "Sampling Bias. They shouldn't have used email.", correct: false},
+                        {text: "It isn't flawed. 2% is a mathematically perfect sample.", correct: false}
+                    ]
+                });
+                scenarios.push({
+                    q: `<p>A Twitter poll asks "Is social media ruining society?" The results are overwhelmingly "Yes".</p><p>Why is this flawed?</p>`,
+                    opts: [
+                        {text: "Non-Response Bias. Average users scroll past. Only the most passionate or angry users stop to vote, heavily skewing the data.", correct: true},
+                        {text: "Sampling Bias. Twitter users are all rich.", correct: false},
+                        {text: "Response Bias. The word 'society' is confusing.", correct: false},
+                        {text: "It is mathematically sound.", correct: false}
+                    ]
+                });
             }
+            
+            let sel = randChoice(scenarios);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
 
         } else if (kica === "I") {
             let pool = [
                 {
                     q: `<p>How do you successfully fix a "Leading Question" (Response Bias)?</p>`,
-                    opts: [ {text: "Remove all emotionally charged adjectives and present the options in a purely neutral, factual tone.", correct: true}, {text: "Ask more people the exact same question to balance it out.", correct: false}, {text: "Offer them a gift card if they answer.", correct: false} ]
+                    opts: [ {text: "Remove all emotionally charged adjectives and present the options in a purely neutral, factual tone.", correct: true}, {text: "Ask more people the exact same question to balance it out.", correct: false}, {text: "Offer them a gift card if they answer.", correct: false}, {text: "Change it to a Convenience Sample.", correct: false} ]
                 },
                 {
                     q: `<p>Why do voluntary internet polls (like Twitter/X polls) almost always suffer from extreme Non-Response Bias?</p>`,
-                    opts: [ {text: "Because neutral, average people usually just scroll past. Only the most furious or most passionate 1% take the time to click and vote, skewing the data heavily.", correct: true}, {text: "Because internet algorithms change the numbers automatically.", correct: false}, {text: "Because they are completely random.", correct: false} ]
+                    opts: [ {text: "Because neutral, average people usually just scroll past. Only the most furious or most passionate 1% take the time to click and vote, skewing the data heavily.", correct: true}, {text: "Because internet algorithms change the numbers automatically.", correct: false}, {text: "Because they are completely random.", correct: false}, {text: "Because bots answer all the questions.", correct: false} ]
                 },
                 {
                     q: `<p>If you conduct a survey by calling landline phones at 2:00 PM on a Wednesday, what bias are you creating?</p>`,
-                    opts: [ {text: "Sampling Bias. You are completely excluding anyone who works a normal day job or only uses a cell phone.", correct: true}, {text: "Response Bias. People hate phone calls.", correct: false}, {text: "There is no bias, landlines are very accurate.", correct: false} ]
+                    opts: [ {text: "Sampling Bias. You are completely excluding anyone who works a normal day job or only uses a cell phone.", correct: true}, {text: "Response Bias. People hate phone calls.", correct: false}, {text: "There is no bias, landlines are very accurate.", correct: false}, {text: "Non-Response bias. No one is home.", correct: false} ]
+                },
+                {
+                    q: `<p>Why is "Convenience Sampling" essentially a guaranteed way to introduce Sampling Bias?</p>`,
+                    opts: [ {text: "Because the easiest people to reach (your friends, family, or people in your immediate location) usually share similar demographics or opinions, ruining true randomness.", correct: true}, {text: "Because it takes too long to calculate.", correct: false}, {text: "Because Convenience Sampling is actually a type of Response Bias.", correct: false}, {text: "It isn't; Convenience Sampling is usually highly accurate.", correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -1036,16 +1207,20 @@
         } else if (kica === "C") {
             let pool = [
                 {
-                    q: `<p>Your marketing team shows you a survey proving "100% of people love our new product." You realize they only surveyed employees of ${comp}.</p><p>What do you say in your email rejecting the data?</p>`,
-                    opts: [ {text: `"This data is ruined by Sampling Bias. Employees are paid by ${comp}, so they are not an objective, random sample of real consumers."`, correct: true}, {text: `"This data has Response Bias because the question was too confusing."`, correct: false}, {text: `"The sample size was just too small. We need to ask more employees."`, correct: false} ]
+                    q: `<p>Your marketing team shows you a survey proving "100% of people love our new ${prod}." You realize they only surveyed employees of ${comp}.</p><p>What do you say in your email rejecting the data?</p>`,
+                    opts: [ {text: `"This data is ruined by Sampling Bias. Employees are paid by ${comp}, so they are not an objective, random sample of real consumers."`, correct: true}, {text: `"This data has Response Bias because the question was too confusing."`, correct: false}, {text: `"The sample size was just too small. We need to ask more employees."`, correct: false}, {text: `"This is Non-Response bias, we should email them again."`, correct: false} ]
                 },
                 {
                     q: `<p>How would you briefly explain to a client how 'Statistics can be used to lie'?</p>`,
-                    opts: [ {text: `"By deliberately changing how a sample is picked or how a question is worded, a company can mathematically force a 'fact' to support whatever agenda they want."`, correct: true}, {text: `"You can just invent fake numbers and put them in a pie chart."`, correct: false}, {text: `"Statistics never lie, only the people reading them misunderstand the numbers."`, correct: false} ]
+                    opts: [ {text: `"By deliberately changing how a sample is picked or how a question is worded, a company can mathematically force a 'fact' to support whatever agenda they want."`, correct: true}, {text: `"You can just invent fake numbers and put them in a pie chart."`, correct: false}, {text: `"Statistics never lie, only the people reading them misunderstand the numbers."`, correct: false}, {text: `"By using the Median instead of the Mean."`, correct: false} ]
                 },
                 {
                     q: `<p>A news station reports: "90% of our viewers voted that the referee was blind." Why should you instantly distrust this statistic?</p>`,
-                    opts: [ {text: `"Because it suffers from Non-Response bias (only angry fans voted) AND Sampling bias (only fans of that specific news station voted). It represents anger, not reality."`, correct: true}, {text: `"Because news stations always lie about sports."`, correct: false}, {text: `"Actually, 90% is a very high number so it must be statistically true."`, correct: false} ]
+                    opts: [ {text: `"Because it suffers from Non-Response bias (only angry fans voted) AND Sampling bias (only fans of that specific news station voted). It represents anger, not reality."`, correct: true}, {text: `"Because news stations always lie about sports."`, correct: false}, {text: `"Actually, 90% is a very high number so it must be statistically true."`, correct: false}, {text: `"Because they should have used the Mean."`, correct: false} ]
+                },
+                {
+                    q: `<p>A brand advertises "Dermatologist Recommended!" but the fine print says they only asked 4 doctors who were paid by the brand.</p><p>Explain the deception to a friend.</p>`,
+                    opts: [ {text: `"This is massive Sampling Bias and Conflict of Interest. The sample size of 4 is useless, and paying them destroys objectivity. It's a manufactured statistic."`, correct: true}, {text: `"This is a good statistic because doctors are smart."`, correct: false}, {text: `"This is Non-Response bias because other doctors didn't answer."`, correct: false}, {text: `"This is Systematic sampling, which is illegal."`, correct: false} ]
                 }
             ];
             let sel = randChoice(pool);
@@ -1070,7 +1245,7 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = opt.text; 
+            btn.innerHTML = opt.text;
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
