@@ -763,7 +763,7 @@
 
     <div id="tab-practice" class="tab-content">
         <h2>Practice Problems (KICA Training)</h2>
-        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills.</p>
+        <p>Prepare for your assignment by practicing Knowledge, Application, Inquiry, and Communication skills. <em>Note: Scenarios will completely change every time you click generate!</em></p>
         
         <div class="practice-controls">
             <label for="practice-selector" style="font-weight:bold; display:block; margin-bottom:10px;">Select Topic & KICA Skill:</label>
@@ -960,23 +960,21 @@
     </div>
 </main>
 
-<div id="print-area"></div>
-
-<div class="version-tag">v3.39 (Assignment Deep Scaffolding & Re-wording)</div>
+<div class="version-tag">v3.41 (Massive Generation - 20+ Questions per Category Pool)</div>
 
 <script>
     /* --- UTILS --- */
     const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-    const randChoice = (arr) => Math.floor(Math.random() * arr.length);
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // Core Dictionaries for dynamic string injection
-    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie"];
-    const invItems = ["mutual fund", "ETF", "savings account", "GIC", "index fund", "stock portfolio"];
-    const decItems = ["car", "laptop", "smartphone", "tablet", "smartwatch", "desktop computer", "TV"];
+    // Core Dictionaries for dynamic string injection (EXPANDED)
+    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie", "Chris", "Pat", "Drew", "Avery", "Cameron", "Dakota", "Quinn"];
+    const invItems = ["mutual fund", "ETF", "savings account", "GIC", "index fund", "stock portfolio", "bond portfolio", "retirement account"];
+    const decItems = ["car", "laptop", "smartphone", "tablet", "smartwatch", "desktop computer", "TV", "camera", "drone", "e-bike"];
     const verbs_says = ["claims", "argues", "believes", "thinks", "suggests", "insists", "states"];
-    const cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Tesla Model 3", "Mazda 3", "Subaru CX-5", "Jeep Wrangler"];
-    const investTypes = ["Mutual Fund", "ETF", "GIC", "Stock Portfolio", "Index Fund", "Bonds"];
-    const debtTypes = ["Credit Card", "Payday Loan", "Personal Loan", "Overdraft"];
+    const cars = ["Honda Civic", "Toyota Corolla", "Ford F-150", "Hyundai Elantra", "Tesla Model 3", "Mazda 3", "Subaru CX-5", "Jeep Wrangler", "Toyota RAV4", "Kia Forte"];
+    const investTypes = ["Mutual Fund", "ETF", "GIC", "Stock Portfolio", "Index Fund", "Bonds", "High-Yield Savings"];
+    const debtTypes = ["Credit Card", "Payday Loan", "Personal Loan", "Overdraft", "Store Credit Card"];
 
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit3_data')) || {};
@@ -996,25 +994,14 @@
     // --- Mobile-Native Print Logic ---
     function printLesson(btn) {
         let panel = btn.parentElement;
-        
-        // Clean up title (remove +/- signs from accordion pseudo-elements)
         let title = panel.previousElementSibling.innerText.replace(/[+−\-]$/, '').trim();
-        
-        // Clone panel content and remove print buttons to avoid messy print outputs
         let tempDiv = document.createElement('div');
         tempDiv.innerHTML = panel.innerHTML;
         tempDiv.querySelectorAll('.print-btn').forEach(b => b.remove());
         let content = tempDiv.innerHTML;
-        
         let printArea = document.getElementById('print-area');
-        
-        // Inject the cleaned content into the hidden print area
         printArea.innerHTML = '<h2>' + title + '</h2>' + content;
-        
-        // Call native browser print
-        setTimeout(function() {
-            window.print();
-        }, 250);
+        setTimeout(function() { window.print(); }, 250);
     }
 
     // --- Accordion Initialization ---
@@ -1126,24 +1113,34 @@
         }
     }
 
-    // --- Section 3.1: Exponent Laws ---
+    // --- Section 3.1: Exponent Laws (DEEP RANDOMIZATION) ---
     function gen3_1(kica, qArea) {
         let n2 = randInt(2, 8);
         let n1 = n2 + randInt(1, 7);
-        let n3 = randInt(1, 2); 
-        let v = names[randChoice(names)]; 
+        let n3 = randInt(1, 3); 
+        let v = randChoice(['x', 'y', 'm', 'n', 'a', 'b', 'p', 'q', 'z', 'k']);
+        let stName = randChoice(names);
 
         if (kica === "K") {
             let formats = [
+                // Product Rule
                 { qText: `Simplify: <span class="math-text">${v}<sup>${n1}</sup> &times; ${v}<sup>${n2}</sup></span> = ${v}<sup>?</sup>`, a: n1 + n2 },
-                { qText: `Simplify: <span class="math-text">(${v}<sup>${n1}</sup>) &times; (${v}<sup>${n2}</sup>)</span> = ${v}<sup>?</sup>`, a: n1 + n2 },
+                { qText: `Simplify: <span class="math-text">${v}<sup>${n2}</sup> &times; ${v}<sup>${n1}</sup> &times; ${v}</span> = ${v}<sup>?</sup>`, a: n1 + n2 + 1 },
+                // Quotient Rule
                 { qText: `Simplify: <span class="math-text">${v}<sup>${n1}</sup> &div; ${v}<sup>${n2}</sup></span> = ${v}<sup>?</sup>`, a: n1 - n2 },
+                { qText: `Simplify: <span class="math-text">(${v}<sup>${n1}</sup> &times; ${v}<sup>${n2}</sup>) &div; ${v}<sup>${n1}</sup></span> = ${v}<sup>?</sup>`, a: n2 },
+                // Power of Power
                 { qText: `Simplify: <span class="math-text">(${v}<sup>${n2}</sup>)<sup>${n3}</sup></span> = ${v}<sup>?</sup>`, a: n2 * n3 },
+                { qText: `Simplify: <span class="math-text">(${v}<sup>${n3}</sup>)<sup>${n1}</sup></span> = ${v}<sup>?</sup>`, a: n1 * n3 },
+                // Mixed
                 { qText: `Simplify: <span class="math-text">( ${v}<sup>${n1}</sup> &times; ${v}<sup>${n2}</sup> ) &div; ${v}<sup>${n3}</sup></span> = ${v}<sup>?</sup>`, a: (n1 + n2) - n3 },
+                { qText: `Simplify: <span class="math-text">(${v}<sup>${n1}</sup> &div; ${v}<sup>${n2}</sup>)<sup>${n3}</sup></span> = ${v}<sup>?</sup>`, a: (n1 - n2) * n3 },
+                // Negative/Zero Eval
                 { qText: `Evaluate: <span class="math-text">10<sup>-${n3}</sup></span><br><small>(Enter as a decimal, e.g. 0.01)</small>`, a: Math.pow(10, -n3) },
-                { qText: `Simplify: <span class="math-text">(${v}<sup>${n1}</sup> &div; ${v}<sup>${n2}</sup>)<sup>${n3}</sup></span> = ${v}<sup>?</sup>`, a: (n1 - n2) * n3 }
+                { qText: `Evaluate: <span class="math-text">5<sup>-${n3}</sup></span><br><small>(Enter as a decimal to 3 places)</small>`, a: Number(Math.pow(5, -n3).toFixed(3)) },
+                { qText: `Evaluate: <span class="math-text">100<sup>0</sup> &times; ${n1}</span>`, a: n1 }
             ];
-            let picked = formats[randChoice(formats)];
+            let picked = randChoice(formats);
             qArea.innerHTML = `<p>${picked.qText}</p><p>What is the final ${picked.qText.includes('Evaluate') ? 'value' : 'exponent'}?</p>`;
             setupInput(picked.a);
             
@@ -1159,190 +1156,163 @@
                 { qText: `<span class="math-text">(${base}<sup>${p1}</sup> &times; ${base}<sup>${p2}</sup>)<sup>0</sup></span>`, a: 1 },
                 { qText: `<span class="math-text">${base}<sup>${p1}</sup> &times; ${base}<sup>-${p1}</sup></span>`, a: 1 }, 
                 { qText: `<span class="math-text">(${base}<sup>2</sup>)<sup>2</sup> &div; ${base}<sup>3</sup></span>`, a: base }, 
-                { qText: `<span class="math-text">${base}<sup>${p2}</sup> &times; 1</span>`, a: Math.pow(base, p2) }
+                { qText: `<span class="math-text">${base}<sup>${p2}</sup> &times; 1</span>`, a: Math.pow(base, p2) },
+                { qText: `<span class="math-text">(${base}<sup>3</sup> &div; ${base})<sup>${p2}</sup></span>`, a: Math.pow(base, 2 * p2) }
             ];
-            let picked = formats[randChoice(formats)];
+            let picked = randChoice(formats);
             qArea.innerHTML = `<p>Evaluate to a final number:</p><p>${picked.qText}</p>`;
             setupInput(picked.a);
             
         } else if (kica === "I") {
-            let opType = ["multiply", "divide", "power", "zero", "negative", "bases", "add_bases"][randChoice(["multiply", "divide", "power", "zero", "negative", "bases", "add_bases"])];
-            let stName = names[randChoice(names)];
+            let opType = randChoice(['multiply', 'divide', 'power', 'zero', 'negative', 'bases', 'add_bases', 'neg_base']);
             
+            let pool = [];
             if (opType === 'multiply') {
                 let wrongExp = n1 * n2;
-                qArea.innerHTML = `<p>${stName} simplified <span class="math-text">${v}<sup>${n1}</sup> &times; ${v}<sup>${n2}</sup></span> as <span class="math-text">${v}<sup>${wrongExp}</sup></span>. What specific mathematical mistake did they make?</p>`;
-                setupMC([
-                    {text: `They multiplied the exponents (${n1} &times; ${n2}). The rule for multiplying identical bases is to ADD the exponents to get ${v}<sup>${n1+n2}</sup>.`, correct: true},
-                    {text: `They added the base '${v}' incorrectly.`, correct: false},
-                    {text: `There is no mistake, ${v}<sup>${wrongExp}</sup> is the mathematically correct answer.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>${stName} simplified <span class="math-text">${v}<sup>${n1}</sup> &times; ${v}<sup>${n2}</sup></span> as <span class="math-text">${v}<sup>${wrongExp}</sup></span>. What specific mathematical mistake did they make?</p>`,
+                    opts: [ {text: `They multiplied the exponents (${n1} &times; ${n2}). The rule for multiplying identical bases is to ADD the exponents to get ${v}<sup>${n1+n2}</sup>.`, correct: true}, {text: `They added the base '${v}' incorrectly.`, correct: false}, {text: `There is no mistake, ${v}<sup>${wrongExp}</sup> is the mathematically correct answer.`, correct: false} ]
+                });
             } else if (opType === 'divide') {
                 let wrongExp = n1 + n2;
-                qArea.innerHTML = `<p>${stName} simplified <span class="math-text">${v}<sup>${n1}</sup> &div; ${v}<sup>${n2}</sup></span> as <span class="math-text">${v}<sup>${wrongExp}</sup></span>. Why is this structurally wrong?</p>`;
-                setupMC([
-                    {text: `When dividing identical bases, you must SUBTRACT the exponents to get ${v}<sup>${n1-n2}</sup>. They added them instead.`, correct: true},
-                    {text: `They were supposed to divide the exponents (${n1} &div; ${n2}).`, correct: false},
-                    {text: `You actually can't simplify division of exponents unless the base is a number.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>${stName} simplified <span class="math-text">${v}<sup>${n1}</sup> &div; ${v}<sup>${n2}</sup></span> as <span class="math-text">${v}<sup>${wrongExp}</sup></span>. Why is this structurally wrong?</p>`,
+                    opts: [ {text: `When dividing identical bases, you must SUBTRACT the exponents to get ${v}<sup>${n1-n2}</sup>. They added them instead.`, correct: true}, {text: `They were supposed to divide the exponents (${n1} &div; ${n2}).`, correct: false}, {text: `You actually can't simplify division of exponents unless the base is a number.`, correct: false} ]
+                });
             } else if (opType === 'power') {
                 let wrongExp = n1 + n2;
-                qArea.innerHTML = `<p>${stName} expanded <span class="math-text">(${v}<sup>${n1}</sup>)<sup>${n2}</sup></span> and got <span class="math-text">${v}<sup>${wrongExp}</sup></span>. Identify the error.</p>`;
-                setupMC([
-                    {text: `For a power of a power, you must MULTIPLY the exponents to get ${v}<sup>${n1*n2}</sup>. They added them.`, correct: true},
-                    {text: `They were supposed to subtract them.`, correct: false},
-                    {text: `They should have squared the base first.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>${stName} expanded <span class="math-text">(${v}<sup>${n1}</sup>)<sup>${n2}</sup></span> and got <span class="math-text">${v}<sup>${wrongExp}</sup></span>. Identify the error.</p>`,
+                    opts: [ {text: `For a power of a power, you must MULTIPLY the exponents to get ${v}<sup>${n1*n2}</sup>. They added them.`, correct: true}, {text: `They were supposed to subtract them.`, correct: false}, {text: `They should have squared the base first.`, correct: false} ]
+                });
             } else if (opType === 'zero') {
                 let zBase = randInt(5, 99) * 1000;
-                qArea.innerHTML = `<p>${stName} plugged <span class="math-text">${zBase}<sup>0</sup></span> into their calculator and got 1. They think the calculator is broken. Why isn't it?</p>`;
-                setupMC([
-                    {text: `Any non-zero base to the power of zero is mathematically defined as exactly 1. The calculator is correct.`, correct: true},
-                    {text: `The calculator rounded down to 1 because ${zBase} is too large.`, correct: false},
-                    {text: `It is broken. The answer should always be 0.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>${stName} plugged <span class="math-text">${zBase}<sup>0</sup></span> into their calculator and got 1. They think the calculator is broken. Why isn't it?</p>`,
+                    opts: [ {text: `Any non-zero base to the power of zero is mathematically defined as exactly 1. The calculator is correct.`, correct: true}, {text: `The calculator rounded down to 1 because ${zBase} is too large.`, correct: false}, {text: `It is broken. The answer should always be 0.`, correct: false} ]
+                });
             } else if (opType === 'negative') {
                 let neg = randInt(2, 5);
-                qArea.innerHTML = `<p>What physically happens to the number when you apply a negative exponent like <span class="math-text">10<sup>-${neg}</sup></span>?</p>`;
-                setupMC([
-                    {text: `It forces the number into a fraction (1 / 10<sup>${neg}</sup>). It creates a very small positive decimal, NOT a negative number.`, correct: true},
-                    {text: `It becomes a negative number (-10 &times; ${neg}).`, correct: false},
-                    {text: `The base flips its sign, so it becomes -10.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>What physically happens to the number when you apply a negative exponent like <span class="math-text">10<sup>-${neg}</sup></span>?</p>`,
+                    opts: [ {text: `It forces the number into a fraction (1 / 10<sup>${neg}</sup>). It creates a very small positive decimal, NOT a negative number.`, correct: true}, {text: `It becomes a negative number (-10 &times; ${neg}).`, correct: false}, {text: `The base flips its sign, so it becomes -10.`, correct: false} ]
+                });
             } else if (opType === 'bases') {
                 let num1 = randInt(2, 4);
                 let num2 = randInt(5, 9);
-                qArea.innerHTML = `<p>${stName} tries to simplify <span class="math-text">${num1}<sup>3</sup> &times; ${num2}<sup>4</sup></span> into a single base using exponent laws. Why will this fail?</p>`;
-                setupMC([
-                    {text: `Exponent laws for adding/subtracting powers only work if the base numbers are exactly the same. ${num1} and ${num2} are different bases.`, correct: true},
-                    {text: `Because one exponent is odd and the other is even.`, correct: false},
-                    {text: `It actually won't fail. You just multiply ${num1} &times; ${num2}.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>${stName} tries to simplify <span class="math-text">${num1}<sup>3</sup> &times; ${num2}<sup>4</sup></span> into a single base using exponent laws. Why will this fail?</p>`,
+                    opts: [ {text: `Exponent laws for adding/subtracting powers only work if the base numbers are exactly the same. ${num1} and ${num2} are different bases.`, correct: true}, {text: `Because one exponent is odd and the other is even.`, correct: false}, {text: `It actually won't fail. You just multiply ${num1} &times; ${num2}.`, correct: false} ]
+                });
+            } else if (opType === 'add_bases') {
+                pool.push({
+                    q: `<p>${stName} sees <span class="math-text">x<sup>2</sup> + x<sup>3</sup></span> and writes <span class="math-text">x<sup>5</sup></span>. Why is this a massive math violation?</p>`,
+                    opts: [ {text: `The exponent laws (like adding powers) ONLY apply to Multiplication and Division, NEVER to Addition or Subtraction.`, correct: true}, {text: `They should have multiplied the powers to get x<sup>6</sup>.`, correct: false}, {text: `You can only add them if the base is a real number.`, correct: false} ]
+                });
             } else {
-                qArea.innerHTML = `<p>${stName} sees <span class="math-text">x<sup>2</sup> + x<sup>3</sup></span> and writes <span class="math-text">x<sup>5</sup></span>. Why is this a massive math violation?</p>`;
-                setupMC([
-                    {text: `The exponent laws (like adding powers) ONLY apply to Multiplication and Division, NEVER to Addition or Subtraction.`, correct: true},
-                    {text: `They should have multiplied the powers to get x<sup>6</sup>.`, correct: false},
-                    {text: `You can only add them if the base is a real number.`, correct: false}
-                ]);
+                pool.push({
+                    q: `<p>Why is <span class="math-text">-3<sup>2</sup></span> different from <span class="math-text">(-3)<sup>2</sup></span>?</p>`,
+                    opts: [ {text: `The first one squares just the 3 and applies the negative after (-9). The second one squares the entire negative number (-3 &times; -3 = 9).`, correct: true}, {text: `They are exactly the same.`, correct: false}, {text: `The first one is impossible to calculate.`, correct: false} ]
+                });
             }
+            
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
             
         } else if (kica === "C") {
-            let concept = ["penny", "linear_vs_exp", "neg_bank", "zero_real", "compound_connect", "notation", "decay_connect"][randChoice(["penny", "linear_vs_exp", "neg_bank", "zero_real", "compound_connect", "notation", "decay_connect"])];
-            let stName = names[randChoice(names)];
-            
-            if (concept === 'penny') {
-                let action = ["doubles", "triples", "quadruples"][randChoice(["doubles", "triples", "quadruples"])];
-                let days = [5, 30, 60][randChoice([5, 30, 60])];
-                qArea.innerHTML = `<p>A magic coin ${action} every day for <strong>${days} days</strong>. Use exponent concepts to explain the outcome.</p>`;
-                if (days >= 30) {
-                    setupMC([
-                        {text: `Because 'n' is ${days}, the repeated multiplication accelerates the value upward rapidly in a J-Curve, resulting in a massive amount.`, correct: true},
-                        {text: `It just equals a few dollars because you add a coin ${days} times.`, correct: false},
-                        {text: `The base gets bigger every day linearly.`, correct: false}
-                    ]);
-                } else {
-                    setupMC([
-                        {text: `Because 'n' is only ${days}, the exponential curve hasn't hit its steep vertical climb yet, so the total amount is still very small.`, correct: true},
-                        {text: `It results in millions of dollars because exponential growth is instantly huge on day 1.`, correct: false},
-                        {text: `It equals ${days} coins because you add a coin ${days} times.`, correct: false}
-                    ]);
+            let stName = randChoice(names);
+            let pool = [
+                {
+                    q: `<p>A magic coin doubles every day for <strong>30 days</strong>. Use exponent concepts to explain why the final amount is in the millions.</p>`,
+                    opts: [ {text: `Because 'n' is 30, the repeated multiplication accelerates the value upward rapidly in a J-Curve. Exponents create explosive growth compared to linear addition.`, correct: true}, {text: `It just equals a few dollars because you add a coin 30 times.`, correct: false}, {text: `The base gets bigger every day linearly.`, correct: false} ]
+                },
+                {
+                    q: `<p>A magic coin doubles every day for <strong>5 days</strong>. Why is the amount still so small?</p>`,
+                    opts: [ {text: `Because 'n' is only 5, the exponential curve hasn't hit its steep vertical climb yet. Exponential growth requires significant 'time' to explode.`, correct: true}, {text: `It results in millions of dollars because exponential growth is instantly huge on day 1.`, correct: false}, {text: `It equals 5 coins because you add a coin 5 times.`, correct: false} ]
+                },
+                {
+                    q: `<p>${stName} thinks <span class="math-text">5x</span> and <span class="math-text">5<sup>x</sup></span> mean the exact same thing. How do you correct them using graphing terminology?</p>`,
+                    opts: [ {text: `<span class="math-text">5x</span> is a linear straight line (adding repeatedly). <span class="math-text">5<sup>x</sup></span> is an exponential J-curve (multiplying repeatedly), which grows infinitely faster.`, correct: true}, {text: `They are the exact same, just formatted differently for algebra.`, correct: false}, {text: `<span class="math-text">5<sup>x</sup></span> means x is multiplied by the base 5.`, correct: false} ]
+                },
+                {
+                    q: `<p>Explain to a friend why a Negative Exponent (e.g., <span class="math-text">x<sup>-4</sup></span>) does not represent a negative bank balance or a debt.</p>`,
+                    opts: [ {text: `A negative exponent dictates division (1 / x<sup>4</sup>). It just makes the positive number fractionally very small, but it mathematically never drops below zero.`, correct: true}, {text: `It actually does represent a debt if 'x' is big enough.`, correct: false}, {text: `Because you always ignore the negative sign in financial mathematics.`, correct: false} ]
+                },
+                {
+                    q: `<p>How would you use a real-world example to explain the Zero Exponent rule (<span class="math-text">b<sup>0</sup> = 1</span>)?</p>`,
+                    opts: [ {text: `Think of time = 0. At the very start (0 days of growth), you have exactly 1 whole original item before it begins multiplying.`, correct: true}, {text: `If you have 0 items, the bank magically gives you 1.`, correct: false}, {text: `You can't use a real-world example, it's just an abstract rule.`, correct: false} ]
+                },
+                {
+                    q: `<p>How does the Product Rule of exponents (<span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span>) directly explain why leaving an investment alone for an extra 10 years is so profitable?</p>`,
+                    opts: [ {text: `Your entire accumulated wealth from the first 'a' years is multiplied directly by the exponential growth of the next 'b' years, compounding the pile massively.`, correct: true}, {text: `Because the interest rate is added to the base.`, correct: false}, {text: `Because the bank adds 'a' and 'b' together to give you a bonus.`, correct: false} ]
+                },
+                {
+                    q: `<p>${stName} writes <span class="math-text">2<sup>3</sup></span> as 23 on their test. Explain why the superscript notation is critical.</p>`,
+                    opts: [ {text: `Superscript indicates the number of times the base is repeatedly multiplied by itself (2 &times; 2 &times; 2 = 8). 23 is just a static linear integer.`, correct: true}, {text: `Superscript means you divide the numbers.`, correct: false}, {text: `There is no difference, the teacher will understand.`, correct: false} ]
+                },
+                {
+                    q: `<p>If an exponent acts as a multiplier when it is positive, logically explain what it does when it is negative.</p>`,
+                    opts: [ {text: `It acts as a repeated divider. Instead of multiplying by the base, you are dividing by the base that many times, causing exponential decay.`, correct: true}, {text: `It repeatedly subtracts the base.`, correct: false}, {text: `It reverses the sign of the base number.`, correct: false} ]
                 }
-            } else if (concept === 'linear_vs_exp') {
-                let n = randInt(3, 7);
-                qArea.innerHTML = `<p>${stName} thinks <span class="math-text">${n}x</span> and <span class="math-text">${n}<sup>x</sup></span> mean the exact same thing. How do you correct them using graphing terminology?</p>`;
-                setupMC([
-                    {text: `<span class="math-text">${n}x</span> is a linear straight line (adding repeatedly). <span class="math-text">${n}<sup>x</sup></span> is an exponential J-curve (multiplying repeatedly), which grows infinitely faster.`, correct: true},
-                    {text: `They are the exact same, just formatted differently for algebra.`, correct: false},
-                    {text: `<span class="math-text">${n}<sup>x</sup></span> means x is multiplied by the base ${n}.`, correct: false}
-                ]);
-            } else if (concept === 'neg_bank') {
-                qArea.innerHTML = `<p>Explain to a friend why a Negative Exponent (e.g., <span class="math-text">x<sup>-4</sup></span>) does not represent a negative bank balance or a debt.</p>`;
-                setupMC([
-                    {text: `A negative exponent dictates division (1 / x<sup>4</sup>). It just makes the positive number fractionally very small, but it mathematically never drops below zero.`, correct: true},
-                    {text: `It actually does represent a debt if 'x' is big enough.`, correct: false},
-                    {text: `Because you always ignore the negative sign in financial mathematics.`, correct: false}
-                ]);
-            } else if (concept === 'zero_real') {
-                qArea.innerHTML = `<p>How would you use a real-world example to explain the Zero Exponent rule (<span class="math-text">b<sup>0</sup> = 1</span>)?</p>`;
-                setupMC([
-                    {text: `Think of time = 0. At the very start (0 days of growth), you have exactly 1 whole original item before it begins multiplying.`, correct: true},
-                    {text: `If you have 0 items, the bank magically gives you 1.`, correct: false},
-                    {text: `You can't use a real-world example, it's just an abstract rule.`, correct: false}
-                ]);
-            } else if (concept === 'compound_connect') {
-                qArea.innerHTML = `<p>How does the Product Rule of exponents (<span class="math-text">x<sup>a</sup> &times; x<sup>b</sup> = x<sup>a+b</sup></span>) directly explain why leaving an investment alone for an extra 10 years is so profitable?</p>`;
-                setupMC([
-                    {text: `Your entire accumulated wealth from the first 'a' years is multiplied directly by the exponential growth of the next 'b' years, compounding the pile massively.`, correct: true},
-                    {text: `Because the interest rate is added to the base.`, correct: false},
-                    {text: `Because the bank adds 'a' and 'b' together to give you a bonus.`, correct: false}
-                ]);
-            } else if (concept === 'notation') {
-                qArea.innerHTML = `<p>${stName} writes <span class="math-text">2<sup>3</sup></span> as 23 on their test. Explain why the superscript notation is critical.</p>`;
-                setupMC([
-                    {text: `Superscript indicates the number of times the base is repeatedly multiplied by itself (2 &times; 2 &times; 2 = 8). 23 is just a static linear integer.`, correct: true},
-                    {text: `Superscript means you divide the numbers.`, correct: false},
-                    {text: `There is no difference, the teacher will understand.`, correct: false}
-                ]);
-            } else {
-                qArea.innerHTML = `<p>If an exponent acts as a multiplier when it is positive, logically explain what it does when it is negative.</p>`;
-                setupMC([
-                    {text: `It acts as a repeated divider. Instead of multiplying by the base, you are dividing by the base that many times, causing exponential decay.`, correct: true},
-                    {text: `It repeatedly subtracts the base.`, correct: false},
-                    {text: `It reverses the sign of the base number.`, correct: false}
-                ]);
-            }
+            ];
+            let sel = randChoice(pool);
+            qArea.innerHTML = sel.q;
+            setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.2: Exponential Growth ---
+    // --- Section 3.2: Exponential Growth (DEEP RANDOMIZATION) ---
     function gen3_2(kica, qArea) {
         let rRate = randInt(3, 12); 
         let bVal = (1 + (rRate/100)).toFixed(2);
         let rStart = randInt(5, 50) * 100; 
-        
+
         if (kica === "K") {
-            let pct = randInt(2,9);
-            let asks = [
+            let pct = randInt(2,15);
+            let pool = [
                 {q: `Equation: <strong>y = ${rStart}(${bVal})<sup>x</sup></strong><br>What is the <strong>Initial Value (a)</strong>?`, ans: rStart},
                 {q: `Equation: <strong>P = ${rStart}(${bVal})<sup>t</sup></strong><br>What is the <strong>Growth Factor (b)</strong>?`, ans: bVal},
                 {q: `If an investment grows by <strong>${rRate}%</strong> per year, what is the exact decimal Growth Factor (b) you put inside the brackets?`, ans: bVal},
                 {q: `A population starts at <strong>${rStart}</strong> and doubles every year. What is the 'b' value?`, ans: 2},
                 {q: `If the growth factor 'b' is <strong>1.${randInt(10,99)}</strong>, what is the Initial Value 'a' in <strong>y = ${rStart}(b)<sup>x</sup></strong>?`, ans: rStart},
                 {q: `A video gets ${rStart} views. It triples daily. What is the base 'b' of the exponent?`, ans: 3},
-                {q: `Write the decimal 'b' value for an asset growing at exactly <strong>${pct}%</strong>. (Hint: 1 + percentage)`, ans: (1 + pct/100).toFixed(2)}
+                {q: `Write the decimal 'b' value for an asset growing at exactly <strong>${pct}%</strong>. (Hint: 1 + percentage)`, ans: (1 + pct/100).toFixed(2)},
+                {q: `If inflation is exactly <strong>${pct}%</strong> per year, what is the growth factor multiplier (b)?`, ans: (1 + pct/100).toFixed(2)}
             ];
-            let selected = asks[randChoice(asks)];
+            let selected = randChoice(pool);
             qArea.innerHTML = `<p>${selected.q}</p><p><small>(Round to 2 decimal places if applicable)</small></p>`;
             setupInput(Number(selected.ans).toFixed(2).replace(/\.00$/, '')); 
             
         } else if (kica === "A") {
             let time = randInt(5, 12); 
             let daysShare = randInt(3,6);
-            let scenarios = [
+            let pool = [
                 { text: `A virus starts with <strong>${rStart}</strong> cells and <strong>doubles</strong> every hour. Calculate the cells after <strong>${time} hours</strong>.`, ans: rStart * Math.pow(2, time) },
                 { text: `A social media post has <strong>${rStart}</strong> shares. It <strong>triples</strong> every day. How many shares after <strong>${daysShare} days</strong>?`, ans: rStart * Math.pow(3, daysShare) },
                 { text: `A vintage watch is worth <strong>$${rStart}</strong>. It grows in value by <strong>${rRate}%</strong> per year. Value after <strong>${time} years</strong>?`, ans: rStart * Math.pow(bVal, time) },
                 { text: `A town has <strong>${rStart * 2}</strong> people. It grows by <strong>${rRate}%</strong> annually. Population after <strong>${time} years</strong>?`, ans: (rStart * 2) * Math.pow(bVal, time) },
                 { text: `You invest <strong>$${rStart}</strong> in a stock returning <strong>${rRate}%</strong> per year. Balance after <strong>${time} years</strong>?`, ans: rStart * Math.pow(bVal, time) },
                 { text: `A weed patch covers <strong>${rStart}</strong> sq ft. It <strong>doubles</strong> in size every week. Area after <strong>${time} weeks</strong>?`, ans: rStart * Math.pow(2, time) },
-                { text: `A collectible comic starts at <strong>$${rStart}</strong> and goes up <strong>${rRate}%</strong> every decade. Value after <strong>${time} decades</strong>?`, ans: rStart * Math.pow(bVal, time) }
+                { text: `A collectible comic starts at <strong>$${rStart}</strong> and goes up <strong>${rRate}%</strong> every decade. Value after <strong>${time} decades</strong>?`, ans: rStart * Math.pow(bVal, time) },
+                { text: `A rare baseball card is bought for <strong>$${rStart}</strong>. It appreciates at <strong>${rRate+2}%</strong> per year. Value in <strong>${time} years</strong>?`, ans: rStart * Math.pow(1 + (rRate+2)/100, time) }
             ];
-            let sel = scenarios[randChoice(scenarios)];
+            let sel = randChoice(pool);
             qArea.innerHTML = `<p>${sel.text}</p><p><small>(Using the appropriate calculator, round to 2 decimal places)</small></p>`;
             setupInput(sel.ans.toFixed(2));
             
         } else if (kica === "I") {
             let wage = randInt(2, 9) * 100;
-            let days = [5, 30, 45][randChoice([5, 30, 45])];
-            let stName = names[randChoice(names)];
+            let stName = randChoice(names);
             
             let pool = [
                 {
-                    q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day.</p><p>If you work for <strong>${days} days</strong>, which is mathematically superior?</p>`,
-                    opts: days === 5 ? 
-                        [ {text: `Job A. Over a tiny period like ${days} days, exponential growth hasn't hit its vertical spike, so the high flat rate wins easily.`, correct: true}, {text: `Job B. Exponential growth always wins from day 1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ] :
-                        [ {text: `Job B. Over a long period like ${days} days, the doubling effect explodes in a J-Curve, destroying the linear flat rate.`, correct: true}, {text: `Job A, because $${wage} is much bigger than $1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ]
+                    q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day. If you work for <strong>5 days</strong>, which is mathematically superior?</p>`,
+                    opts: [ {text: `Job A. Over a tiny period like 5 days, exponential growth hasn't hit its vertical spike, so the high flat rate wins easily.`, correct: true}, {text: `Job B. Exponential growth always wins from day 1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ]
+                },
+                {
+                    q: `<p>Job A pays a flat $${wage} a day. Job B pays $1 the first day, but doubles every day. If you work for <strong>30 days</strong>, which is mathematically superior?</p>`,
+                    opts: [ {text: `Job B. Over a long period like 30 days, the doubling effect explodes in a J-Curve, destroying the linear flat rate.`, correct: true}, {text: `Job A, because $${wage} is much bigger than $1.`, correct: false}, {text: `They pay exactly the same.`, correct: false} ]
                 },
                 {
                     q: `<p>A city is <strong>GROWING</strong> by ${rRate}% a year. ${stName} writes the growth factor (b) as ${rRate/100}. Are they correct?</p>`,
@@ -1369,15 +1339,14 @@
                     opts: [ {text: "The y-intercept moves higher. The curve starts at a higher point on the vertical axis before growing.", correct: true}, {text: "The curve gets wider.", correct: false}, {text: "The curve drops into the negative numbers.", correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
             
         } else if (kica === "C") {
-            let isFindTime = Math.random() > 0.5;
             let rate = randInt(6, 12);
             let time = randInt(5, 12);
-            let stName = names[randChoice(names)];
+            let stName = randChoice(names);
             
             let pool = [
                 {
@@ -1409,34 +1378,33 @@
                     opts: [ {text: `"That is linear thinking. While safe, it ignores inflation. Exponential investing ensures your money outpaces inflation by growing at a percentage, not a flat rate."`, correct: true}, {text: `"You are right, linear is always safer and better."`, correct: false}, {text: `"Exponential math is illegal in most banks anyway."`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
-            if (sel === pool[0] && !isFindTime) {
-                sel = pool[1];
-            }
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.3: Compound Interest ---
+    // --- Section 3.3: Compound Interest (DEEP RANDOMIZATION) ---
     function gen3_3(kica, qArea) {
-        let stName = names[randChoice(names)];
-        let P = randInt(1, 15) * 1000; 
-        let rate = randInt(3, 10);
-        let n = randInt(5, 20); 
+        let stName = randChoice(names);
+        let P = randInt(1, 25) * 1000; 
+        let rate = randInt(3, 12);
+        let n = randInt(5, 30); 
         let i = rate / 100;
+        let inv = randChoice(invItems);
 
         if (kica === "K") {
             let ans = P * Math.pow(1 + i, n);
-            let asks = [
+            let pool = [
                 `<p>Using the calculator, if Principal = $${P}, rate = ${rate}% per year, and time = ${n} years, calculate the final Amount <strong>A</strong>.</p>`,
                 `<p>You deposit $${P} into an account paying ${rate}% per year annually.</p><p>Using the calculator, find the exact balance after ${n} years.</p>`,
                 `<p>Calculate the future value of a $${P} investment growing at ${rate}% annually for ${n} years using the calculator.</p>`,
                 `<p>Using the compound interest calculator, find the final total when Principal is $${P}, rate is ${rate}%, and time is ${n} years.</p>`,
                 `<p>${stName} locks $${P} in a GIC at ${rate}% per year. What is it worth in ${n} years?</p>`,
-                `<p>Find the compounded amount of $${P} at ${rate}% annual interest after ${n} years.</p>`
+                `<p>Find the compounded amount of $${P} at ${rate}% annual interest after ${n} years.</p>`,
+                `<p>Calculate the final value if $${P} is placed in a ${inv} at ${rate}% for ${n} years.</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
             
         } else if (kica === "A") {
@@ -1446,14 +1414,14 @@
             let ansB = P * Math.pow(1 + i, yearsB);
             let diff = ansA - ansB;
             
-            let asks = [
+            let pool = [
                 `<p>You invest <strong>$${P}</strong> at <strong>${rate}% per year</strong>.</p><p>Person A waits ${yearsA} years. Person B waits ${yearsB} years.</p><p>How much <strong>more</strong> money does Person A have? (Find A - B using the calculator)</p>`,
                 `<p>The "Cost of Waiting": Investing $${P} at ${rate}% per year.</p><p>Scenario A: Invests for ${yearsA} yrs.<br>Scenario B: Invests for ${yearsB} yrs.</p><p>Calculate the exact difference in final wealth using the calculator.</p>`,
                 `<p>${stName} and you both invest $${P} at ${rate}%. You leave it for ${yearsA} years, ${stName} leaves it for ${yearsB} years. Calculate the gap in your balances.</p>`,
                 `<p>Analyze the power of time. Principal: $${P}, Rate: ${rate}%. Use the calculator to find the difference in value between a ${yearsA}-year term and a ${yearsB}-year term.</p>`,
                 `<p>What is the financial penalty of procrastinating? Compare $${P} at ${rate}% for ${yearsA} years vs ${yearsB} years. (Find the difference).</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
             
         } else if (kica === "I") {
@@ -1498,7 +1466,7 @@
                     opts: [ {text: `Your actual buying power is only growing by roughly ${rate - inf}%, because inflation acts as a decay factor offsetting your growth.`, correct: true}, {text: `Inflation adds to your growth, making your total return ${rate + inf}%.`, correct: false}, {text: `Inflation has absolutely zero effect on compound interest.`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
             
@@ -1507,7 +1475,7 @@
             let waitAge = age + randInt(10, 15);
             let debt = randInt(3, 9) * 500;
             let cardRate = randInt(18, 25);
-            let fee = [2, 3][randChoice([2, 3])];
+            let fee = randChoice([2, 3]);
             
             let pool = [
                 {
@@ -1532,37 +1500,38 @@
                 },
                 {
                     q: `<p>How do you persuade new parents to open a college fund (RESP) the week their baby is born, instead of waiting till high school?</p>`,
-                    opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The time exponent ('n=18') will do most of the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you will get a higher interest rate if you start early."`, correct: false}, {text: `"Because colleges charge linear interest."`, correct: false} ]
+                    opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The exponent 'n=18' will do most of the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you will get a higher interest rate if you start early."`, correct: false}, {text: `"Because colleges charge linear interest."`, correct: false} ]
                 },
                 {
                     q: `<p>A friend claims Simple Interest and Compound Interest are exactly the same. How do you correct them?</p>`,
                     opts: [ {text: `"They are only the same for the very first year. After that, Simple Interest pays a flat amount, while Compound Interest pays on the growing total."`, correct: true}, {text: `"They are completely different formulas that never equal the same amount, even in year 1."`, correct: false}, {text: `"Simple interest is actually better because it's easier to calculate."`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.4: Exponential Decay ---
+    // --- Section 3.4: Exponential Decay (DEEP RANDOMIZATION) ---
     function gen3_4(kica, qArea) {
         let drop = randInt(8, 35);
         let b = (100 - drop) / 100;
-        let decItem = decItems[randChoice(decItems)];
-        let stName = names[randChoice(names)];
+        let decItem = randChoice(decItems);
+        let stName = randChoice(names);
 
         if (kica === "K") {
-            let asks = [
+            let pool = [
                 `<p>A ${decItem}'s value drops by <strong>${drop}%</strong> every year.</p><p>What is the decay factor (<strong>b</strong>) you would use in the calculator?</p>`,
-                `<p>A radioactive element loses <strong>${drop}%</strong> of mass per hour.</p><p>What decimal value represents the multiplier 'b'?</p>`,
+                `<p>A radioactive element loses <strong>${drop}%</strong> of its mass per hour.</p><p>What decimal value represents the multiplier 'b'?</p>`,
                 `<p>Inflation reduces buying power by <strong>${drop}%</strong>. Calculate the multiplier (b).</p>`,
                 `<p>If an asset retains <strong>${100-drop}%</strong> of its value each year, what is the 'b' factor?</p>`,
                 `<p>Write the decimal 'b' value for a chemical decaying at <strong>${drop}%</strong> per minute.</p>`,
                 `<p>A population shrinks by <strong>${drop}%</strong> annually. Find the decay factor.</p>`,
-                `<p>Convert a <strong>${drop}%</strong> loss into the exponential 'b' variable.</p>`
+                `<p>Convert a <strong>${drop}%</strong> loss into the exponential 'b' variable.</p>`,
+                `<p>If a new ${decItem} loses <strong>${drop}%</strong> of its value instantly, what is the remaining decimal multiplier (b)?</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Enter as a decimal)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Enter as a decimal)</small></p>`;
             setupInput(b.toFixed(2));
             
         } else if (kica === "A") {
@@ -1572,16 +1541,17 @@
             const bFact = 1 - (decRate/100);
             const ans = P * Math.pow(bFact, years);
             
-            let asks = [
+            let pool = [
                 `<p>You buy a new car for <strong>$${P}</strong>. It depreciates at ${decRate}% per year.</p><p>Using the calculator, find its value after <strong>${years} years</strong>.</p>`,
                 `<p>A boat costs <strong>$${P}</strong> and loses ${decRate}% of its value annually.</p><p>Use the calculator to find its worth in <strong>${years} years</strong>.</p>`,
                 `<p>A factory machine worth <strong>$${P}</strong> depreciates ${decRate}% a year.</p><p>What is its book value after <strong>${years} years</strong>?</p>`,
                 `<p>A <strong>$${P}</strong> server farm loses ${decRate}% of its value each year. Find the value at year ${years}.</p>`,
                 `<p>${stName} buys a <strong>$${P}</strong> RV. Depreciation is ${decRate}%. Calculate value in ${years} years.</p>`,
                 `<p>Initial cost: $${P}. Decay rate: ${decRate}%. Time: ${years} years. Calculate Final Value using the tool.</p>`,
-                `<p>Calculate the depreciated value of a <strong>$${P}</strong> asset losing ${decRate}% yearly for ${years} years.</p>`
+                `<p>Calculate the depreciated value of a <strong>$${P}</strong> asset losing ${decRate}% yearly for ${years} years.</p>`,
+                `<p>A $${P} piece of construction equipment drops in value by ${decRate}% annually. What is it worth after ${years} years?</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
             
         } else if (kica === "I") {
@@ -1621,7 +1591,7 @@
                     opts: [ {text: "Because the percentage is taking a chunk out of a large number first, and then taking the same percentage out of tiny numbers later.", correct: true}, {text: "Because gravity pulls it down faster at the start.", correct: false}, {text: "It is an optical illusion.", correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
             
@@ -1659,39 +1629,41 @@
                     opts: [ {text: `"No, that is Linear decay because it is a constant flat amount. Exponential decay requires dropping by a percentage or fraction."`, correct: true}, {text: `"Yes, all drops are exponential decay."`, correct: false}, {text: `"Yes, because money is involved."`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.5: Simple vs Compound ---
+    // --- Section 3.5: Simple vs Compound (DEEP RANDOMIZATION) ---
     function gen3_5(kica, qArea) {
         let P = randInt(10, 95) * 100;
         let r = randInt(3, 15);
         let t = randInt(2, 12);
-        let stName = names[randChoice(names)];
-        let inv = investTypes[randChoice(investTypes)];
+        let stName = randChoice(names);
+        let inv = randChoice(investTypes);
 
         if (kica === "K") {
             let isSimple = Math.random() > 0.5;
             if (isSimple) {
                 let ans = P * (r/100) * t;
-                let asks = [
+                let pool = [
                     `<p>Using the calculator, find the <strong>Simple Interest (I)</strong> earned.</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
                     `<p>${stName} puts $${P} in a flat simple interest account at ${r}% per year. How much total interest is earned after ${t} years?</p>`,
-                    `<p>Find the Simple Interest generated by a $${P} loan at ${r}% over ${t} years using the tool.</p>`
+                    `<p>Find the Simple Interest generated by a $${P} loan at ${r}% over ${t} years using the tool.</p>`,
+                    `<p>Calculate the simple interest on $${P} invested at ${r}% for ${t} years.</p>`
                 ];
-                qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+                qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
                 setupInput(ans.toFixed(2));
             } else {
                 let ans = P * Math.pow(1 + r/100, t);
-                let asks = [
+                let pool = [
                     `<p>Using the calculator, find the <strong>Final Amount (A)</strong> using Compound Interest (Compounded Annually).</p><p>Principal: $${P}<br>Rate: ${r}% per year<br>Time: ${t} years</p>`,
                     `<p>${stName} invests $${P} in a ${inv} that compounds annually at ${r}%. What is the balance after ${t} years?</p>`,
-                    `<p>Using the calculator, find the final total for $${P} at ${r}% for ${t} years.</p>`
+                    `<p>Using the calculator, find the final total for $${P} at ${r}% for ${t} years.</p>`,
+                    `<p>Calculate the compound amount if $${P} grows at ${r}% annually for ${t} years.</p>`
                 ];
-                qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+                qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
                 setupInput(ans.toFixed(2));
             }
         } else if (kica === "A") {
@@ -1699,12 +1671,13 @@
             let compA = P * Math.pow(1 + r/100, t);
             let diff = compA - simpleA;
             
-            let asks = [
+            let pool = [
                 `<p>You invest $${P} for ${t} years at ${r}% per year.</p><p>How much <strong>MORE</strong> money do you end up with if it is Compounded Annually compared to just Simple Interest? (Use the calculator)</p>`,
                 `<p>Bank A offers ${r}% Simple Interest. Bank B offers ${r}% Compounded Annually. You have $${P} to deposit for ${t} years.</p><p>Calculate the exact dollar difference between the two banks.</p>`,
-                `<p>Compare the final amounts of a $${P} investment at ${r}% over ${t} years. Subtract the Simple Interest total from the Compound Interest total.</p>`
+                `<p>Compare the final amounts of a $${P} investment at ${r}% over ${t} years. Subtract the Simple Interest total from the Compound Interest total.</p>`,
+                `<p>${stName} compares a ${r}% simple loan vs a ${r}% compound loan for $${P} over ${t} years. Find the exact difference in total cost.</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(diff.toFixed(2));
             
         } else if (kica === "I") {
@@ -1741,7 +1714,7 @@
                     opts: [ {text: "Doubling Time (n) yields drastically more because it extends the explosive exponential phase of the curve.", correct: true}, {text: "Doubling Principal (P) always yields more money.", correct: false}, {text: "They yield the exact same amount.", correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
             
@@ -1778,48 +1751,52 @@
                     opts: [ {text: `"By starting at birth, you give the money 18 years to compound. The time exponent ('n=18') will do all the heavy lifting for the tuition cost."`, correct: true}, {text: `"Because you get a special interest rate for babies."`, correct: false}, {text: `"Because college tuition grows linearly."`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.6: Buying a Car ---
+    // --- Section 3.6: Buying a Car (DEEP RANDOMIZATION) ---
     function gen3_6(kica, qArea) {
-        let car = cars[randChoice(cars)];
-        let stName = names[randChoice(names)];
+        let car = randChoice(cars);
+        let stName = randChoice(names);
         
         if (kica === "K") {
             let monthly = randInt(300, 900);
-            let months = [48, 60, 72, 84][randChoice([48, 60, 72, 84])];
-            let down = [0, 1000, 2500, 5000, 10000][randChoice([0, 1000, 2500, 5000, 10000])];
+            let months = randChoice([48, 60, 72, 84]);
+            let down = randChoice([0, 1000, 2500, 5000, 10000]);
             let ans = (monthly * months) + down;
             
-            let asks = [
+            let pool = [
                 `<p>You buy a <strong>${car}</strong>.</p><p>Monthly Payment: $${monthly}<br>Term: ${months} months<br>Down Payment: $${down}</p><p>Calculate the <strong>Total Amount Paid</strong>.</p>`,
-                `<p>${stName} finances a ${car}. They put $${down} down and pay $${monthly}/mo for ${months} months.</p><p>What is the absolute total amount of money that leaves their bank account?</p>`
+                `<p>${stName} finances a ${car}. They put $${down} down and pay $${monthly}/mo for ${months} months.</p><p>What is the absolute total amount of money that leaves their bank account?</p>`,
+                `<p>Find the Total Cost: $${down} down, plus $${monthly} per month for ${months} months for a ${car}.</p>`,
+                `<p>Calculate total out-of-pocket: ${months} payments of $${monthly} with a $${down} initial deposit.</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)];
+            qArea.innerHTML = randChoice(pool);
             setupInput(ans.toString());
             
         } else if (kica === "A") {
             let cash = randInt(20, 55) * 1000;
             let monthly = Math.floor(cash / 60) + randInt(80, 250); 
-            let months = [72, 84][randChoice([72, 84])];
+            let months = randChoice([72, 84]);
             let down = randInt(1, 5) * 1000;
             let total = (monthly * months) + down;
             let cob = total - cash;
             
-            let asks = [
+            let pool = [
                 `<p>The cash price of a ${car} is <strong>$${cash}</strong>.</p><p>You finance it with $${down} down and $${monthly}/month for ${months} months.</p><p>What is the <strong>Cost of Borrowing</strong> (the extra money lost to interest)?</p>`,
-                `<p>${stName} wants a ${car} listed at $${cash}. They choose an ${months}-month loan at $${monthly}/mo with a $${down} down payment.</p><p>Calculate the total penalty fee (Cost of Borrowing) they pay the bank.</p>`
+                `<p>${stName} wants a ${car} listed at $${cash}. They choose an ${months}-month loan at $${monthly}/mo with a $${down} down payment.</p><p>Calculate the total penalty fee (Cost of Borrowing) they pay the bank.</p>`,
+                `<p>Cash: $${cash}. Finance plan: $${down} down, $${monthly}/mo for ${months} months. Find the exact Cost of Borrowing.</p>`,
+                `<p>How much extra interest is paid? Cash price is $${cash}. Loan is ${months} months at $${monthly}/mo with $${down} down.</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)];
+            qArea.innerHTML = randChoice(pool);
             setupInput(cob.toString());
             
         } else if (kica === "I") {
-            let term1 = [36, 48][randChoice([36, 48])];
-            let term2 = [72, 84][randChoice([72, 84])];
+            let term1 = randChoice([36, 48]);
+            let term2 = randChoice([72, 84]);
             let diff = randInt(3000, 6000);
             
             let pool = [
@@ -1852,12 +1829,12 @@
                     opts: [ {text: "You must pay the bank the remaining $8,000 out of your own pocket for a car that no longer exists.", correct: true}, {text: "The bank forgives the remaining debt.", correct: false}, {text: "The dealership replaces the car for free.", correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
             
         } else if (kica === "C") {
-            let pct = [10, 15][randChoice([10, 15])];
+            let pct = randChoice([10, 15]);
             let age = randInt(2, 4);
             
             let pool = [
@@ -1892,27 +1869,28 @@
                     {text: `"Because the $5,000 is taxed twice."`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
     }
 
-    // --- Section 3.7: Credit Cards ---
+    // --- Section 3.7: Credit Cards (DEEP RANDOMIZATION) ---
     function gen3_7(kica, qArea) {
         let bal = randInt(15, 65) * 100;
-        let rate = [19.99, 20.99, 22.99, 24.99][randChoice([19.99, 20.99, 22.99, 24.99])];
-        let stName = names[randChoice(names)];
-        let debtType = debtTypes[randChoice(debtTypes)];
+        let rate = randChoice([19.99, 20.99, 22.99, 24.99]);
+        let stName = randChoice(names);
+        let debtType = randChoice(debtTypes);
 
         if (kica === "K") {
             let ans = (bal * (rate/100)) / 12;
-            let asks = [
-                `<p>Credit card balance: <strong>$${bal}</strong>.</p><p>Annual interest rate: <strong>${rate}%</strong>.</p><p>Calculate the approximate interest charge for <strong>one month</strong>.</p>`,
+            let pool = [
+                `<p>${debtType} balance: <strong>$${bal}</strong>.</p><p>Annual interest rate: <strong>${rate}%</strong>.</p><p>Calculate the approximate interest charge for <strong>one month</strong>.</p>`,
                 `<p>${stName} owes $${bal} on a card with ${rate}% annual interest.</p><p>How much interest is added to their statement this month?</p>`,
-                `<p>Find the 1-month interest penalty for carrying a $${bal} balance at ${rate}%.</p>`
+                `<p>Find the 1-month interest penalty for carrying a $${bal} balance at ${rate}%.</p>`,
+                `<p>Calculate the monthly interest fee if $${bal} is held on a ${rate}% card.</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(ans.toFixed(2));
             
         } else if (kica === "A") {
@@ -1920,11 +1898,12 @@
             let monthInt = (bal * (rate/100)) / 12;
             let principalPaid = minPay - monthInt;
             
-            let asks = [
+            let pool = [
                 `<p>Balance: <strong>$${bal}</strong> at ${rate}% annual interest.</p><p>You make the minimum payment of <strong>$${minPay}</strong>.</p><p>After the bank takes their monthly interest, exactly how much <strong>Principal</strong> did you actually pay off?</p>`,
-                `<p>${stName} has a $${bal} balance (${rate}%) and pays the $${minPay} minimum.</p><p>Calculate the actual debt reduction (Principal Paid) for that month.</p>`
+                `<p>${stName} has a $${bal} balance (${rate}%) and pays the $${minPay} minimum.</p><p>Calculate the actual debt reduction (Principal Paid) for that month.</p>`,
+                `<p>Total debt is $${bal} at ${rate}%. The bank asks for $${minPay}. Find the exact amount that goes towards lowering the real debt.</p>`
             ];
-            qArea.innerHTML = asks[randChoice(asks)] + `<p><small>(Round to 2 decimal places)</small></p>`;
+            qArea.innerHTML = randChoice(pool) + `<p><small>(Round to 2 decimal places)</small></p>`;
             setupInput(principalPaid.toFixed(2));
             
         } else if (kica === "I") {
@@ -1961,7 +1940,7 @@
                     opts: [ {text: "It is reported to the credit bureau, violently dropping your credit score and potentially ruining your chance to get a mortgage for up to 7 years.", correct: true}, {text: "The bank just charges you a $10 late fee and nothing else happens.", correct: false}, {text: "Your card is instantly cancelled permanently.", correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
             
@@ -2002,7 +1981,7 @@
                     opts: [{text: `"It is your 'Adult GPA'. A low score means landlords won't rent to you, banks will deny your car loan, and you'll be blocked from buying a house."`, correct: true}, {text: `"It actually doesn't matter unless you want to be an investment banker."`, correct: false}, {text: `"It only matters if you plan to get a credit card."`, correct: false} ]
                 }
             ];
-            let sel = pool[randChoice(pool)];
+            let sel = randChoice(pool);
             qArea.innerHTML = sel.q;
             setupMC(sel.opts);
         }
