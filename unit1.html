@@ -64,6 +64,11 @@
         .correct { color: #27ae60; background: #eafaf1; border: 1px solid #27ae60; }
         .incorrect { color: #c0392b; background: #fdedec; border: 1px solid #c0392b; }
 
+        /* Multiple Choice Grid */
+        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 600px; margin: 20px auto; }
+        .option-btn { background: white; border: 2px solid #1abc9c; color: #1abc9c; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 1rem; }
+        .option-btn:hover { background: #1abc9c; color: white; }
+
         /* --- Assignment Styles --- */
         .assign-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
         .assign-title { color: #d35400; border-bottom: 2px solid #e67e22; padding-bottom: 5px; margin-bottom: 15px; }
@@ -90,6 +95,7 @@
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
             .container { padding: 15px; }
+            .option-grid { grid-template-columns: 1fr; }
         }
         
         .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
@@ -104,10 +110,10 @@
 
 <nav>
     <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button onclick="showTab('calc')">0. Calculator</button>
-    <button onclick="showTab('lesson')" class="active">1. Lessons</button>
-    <button onclick="showTab('practice')">2. Practice</button>
-    <button onclick="showTab('assignment')">3. Assignment</button>
+    <button onclick="showTab('calc')">Calculator</button>
+    <button onclick="showTab('lesson')" class="active">Lessons</button>
+    <button onclick="showTab('practice')">Practice</button>
+    <button onclick="showTab('assignment')">Assignment</button>
 </nav>
 
 <div id="calc" class="container">
@@ -149,6 +155,22 @@
                 <span class="given-text">Ex 4: Given Opp=8, Hyp=10. Find sin θ.</span>
                 <div class="math-line">sin θ <span class="op">=</span> <div class="fraction"><span class="top">8</span><span class="bottom">10</span></div> <span class="op">=</span> 0.8</div>
             </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: Given Adj=15, Hyp=17. Find cos θ.</span>
+                <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">15</span><span class="bottom">17</span></div> <span class="op">≈</span> 0.882</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: Given Opp=9, Adj=40. Find tan θ.</span>
+                <div class="math-line">tan θ <span class="op">=</span> <div class="fraction"><span class="top">9</span><span class="bottom">40</span></div> <span class="op">=</span> 0.225</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: Given Opp=7, Hyp=25. Find sin θ.</span>
+                <div class="math-line">sin θ <span class="op">=</span> <div class="fraction"><span class="top">7</span><span class="bottom">25</span></div> <span class="op">=</span> 0.28</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: Given Adj=11, Hyp=61. Find cos θ.</span>
+                <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">11</span><span class="bottom">61</span></div> <span class="op">≈</span> 0.180</div>
+            </div>
         </div>
     </div>
 
@@ -173,6 +195,22 @@
             <div class="example-box">
                 <span class="given-text">Ex 4: Given Opp=15, Hyp=20. Find θ.</span>
                 <div class="math-line">sin θ <span class="op">=</span> 0.75 <span class="op">→</span> θ <span class="op">=</span> sin⁻¹(0.75) <span class="op">≈</span> 48.6°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: Given cos θ = 0.5.</span>
+                <div class="math-line">θ <span class="op">=</span> cos⁻¹(0.5) <span class="op">=</span> 60°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: Given tan θ = 1.</span>
+                <div class="math-line">θ <span class="op">=</span> tan⁻¹(1) <span class="op">=</span> 45°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: Given Adj=12, Hyp=13. Find θ.</span>
+                <div class="math-line">cos θ <span class="op">≈</span> 0.923 <span class="op">→</span> θ <span class="op">=</span> cos⁻¹(0.923) <span class="op">≈</span> 22.6°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: Given Opp=100, Adj=50. Find θ.</span>
+                <div class="math-line">tan θ <span class="op">=</span> 2.0 <span class="op">→</span> θ <span class="op">=</span> tan⁻¹(2.0) <span class="op">≈</span> 63.4°</div>
             </div>
         </div>
     </div>
@@ -199,6 +237,22 @@
                 <span class="given-text">Ex 4: sin(50°) = 20 / x.</span>
                 <div class="math-line">x <span class="op">=</span> 20 <span class="op">÷</span> sin(50°) <span class="op">≈</span> 26.1</div>
             </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: cos(45°) = x / 14.</span>
+                <div class="math-line">x <span class="op">=</span> 14 <span class="op">×</span> cos(45°) <span class="op">≈</span> 9.9</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: tan(30°) = 15 / x.</span>
+                <div class="math-line">x <span class="op">=</span> 15 <span class="op">÷</span> tan(30°) <span class="op">≈</span> 26.0</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: sin(80°) = x / 100.</span>
+                <div class="math-line">x <span class="op">=</span> 100 <span class="op">×</span> sin(80°) <span class="op">≈</span> 98.5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: cos(25°) = 50 / x.</span>
+                <div class="math-line">x <span class="op">=</span> 50 <span class="op">÷</span> cos(25°) <span class="op">≈</span> 55.2</div>
+            </div>
         </div>
     </div>
 
@@ -223,6 +277,22 @@
             <div class="example-box">
                 <span class="given-text">Ex 4: A=100°, a=50, B=30°. Find b.</span>
                 <div class="math-line">b <span class="op">=</span> <div class="fraction"><span class="top">50 × sin 30°</span><span class="bottom">sin 100°</span></div> <span class="op">≈</span> 25.4</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: C=110°, c=30, B=25°. Find b.</span>
+                <div class="math-line">b <span class="op">=</span> <div class="fraction"><span class="top">30 × sin 25°</span><span class="bottom">sin 110°</span></div> <span class="op">≈</span> 13.5</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: A=65°, a=100, C=40°. Find c.</span>
+                <div class="math-line">c <span class="op">=</span> <div class="fraction"><span class="top">100 × sin 40°</span><span class="bottom">sin 65°</span></div> <span class="op">≈</span> 70.9</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: B=85°, b=12, A=15°. Find a.</span>
+                <div class="math-line">a <span class="op">=</span> <div class="fraction"><span class="top">12 × sin 15°</span><span class="bottom">sin 85°</span></div> <span class="op">≈</span> 3.1</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: C=130°, c=200, A=20°. Find a.</span>
+                <div class="math-line">a <span class="op">=</span> <div class="fraction"><span class="top">200 × sin 20°</span><span class="bottom">sin 130°</span></div> <span class="op">≈</span> 89.3</div>
             </div>
         </div>
     </div>
@@ -249,6 +319,22 @@
                 <span class="given-text">Ex 4: b=30, B=120°, c=15. Find C.</span>
                 <div class="math-line">sin C <span class="op">=</span> 0.433 <span class="op">→</span> C <span class="op">≈</span> 25.7°</div>
             </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: a=40, A=100°, b=25. Find B.</span>
+                <div class="math-line">sin B <span class="op">=</span> 0.615 <span class="op">→</span> B <span class="op">≈</span> 38.0°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: c=12, C=45°, a=14. Find A.</span>
+                <div class="math-line">sin A <span class="op">=</span> 0.825 <span class="op">→</span> A <span class="op">≈</span> 55.6°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: b=8, B=50°, c=10. Find C.</span>
+                <div class="math-line">sin C <span class="op">=</span> 0.957 <span class="op">→</span> C <span class="op">≈</span> 73.2°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: a=50, A=110°, c=20. Find C.</span>
+                <div class="math-line">sin C <span class="op">=</span> 0.375 <span class="op">→</span> C <span class="op">≈</span> 22.0°</div>
+            </div>
         </div>
     </div>
 
@@ -273,6 +359,22 @@
             <div class="example-box">
                 <span class="given-text">Ex 4: a=6, b=7, C=50°. Find c.</span>
                 <div class="math-line">c² <span class="op">≈</span> 31.0 <span class="op">→</span> c <span class="op">≈</span> 5.6</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: a=12, b=15, C=120°. Find c.</span>
+                <div class="math-line">c² <span class="op">=</span> 144 + 225 - 360(-0.5) <span class="op">=</span> 549 <span class="op">→</span> c <span class="op">≈</span> 23.4</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: a=20, b=25, C=85°. Find c.</span>
+                <div class="math-line">c² <span class="op">≈</span> 937.8 <span class="op">→</span> c <span class="op">≈</span> 30.6</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: a=8, b=11, C=35°. Find c.</span>
+                <div class="math-line">c² <span class="op">≈</span> 40.8 <span class="op">→</span> c <span class="op">≈</span> 6.4</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: a=40, b=50, C=140°. Find c.</span>
+                <div class="math-line">c² <span class="op">≈</span> 7164 <span class="op">→</span> c <span class="op">≈</span> 84.6</div>
             </div>
         </div>
     </div>
@@ -299,12 +401,28 @@
                 <span class="given-text">Ex 4: a=10, b=15, c=20. Find C.</span>
                 <div class="math-line">cos C <span class="op">=</span> -0.25 <span class="op">→</span> C <span class="op">≈</span> 104.5°</div>
             </div>
+            <div class="example-box">
+                <span class="given-text">Ex 5: a=7, b=8, c=12. Find C.</span>
+                <div class="math-line">cos C <span class="op">≈</span> -0.276 <span class="op">→</span> C <span class="op">≈</span> 106.1°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 6: a=14, b=14, c=10. Find C.</span>
+                <div class="math-line">cos C <span class="op">≈</span> 0.745 <span class="op">→</span> C <span class="op">≈</span> 41.8°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 7: a=20, b=21, c=29. Find C.</span>
+                <div class="math-line">cos C <span class="op">=</span> 0 <span class="op">→</span> C <span class="op">=</span> 90°</div>
+            </div>
+            <div class="example-box">
+                <span class="given-text">Ex 8: a=40, b=45, c=80. Find C.</span>
+                <div class="math-line">cos C <span class="op">≈</span> -0.771 <span class="op">→</span> C <span class="op">≈</span> 140.4°</div>
+            </div>
         </div>
     </div>
 </div>
 
 <div id="practice" class="container">
-    <h2>Practice Problems</h2>
+    <h2>Practice Problems (KICA Training)</h2>
     <div style="background:#2c3e50; color:white; padding:10px; border-radius:5px; display:flex; justify-content:space-between; align-items:center;">
         <span><strong>Score:</strong> <span id="p-score" style="color:#2ecc71">0</span> / <span id="p-total">0</span></span>
         <button onclick="resetPracticeScore()" style="background:transparent; border:1px solid #7f8c8d; color:#bdc3c7; cursor:pointer; font-size:0.8rem; padding:2px 5px;">Reset Score</button>
@@ -313,22 +431,23 @@
     <div class="input-group">
         <label><strong>Topic:</strong></label>
         <select id="p-topic" onchange="newPractice()" style="padding:8px; font-size:1rem; width:100%; max-width:350px; margin-top:5px;">
-            <optgroup label="Single Problem (Visual)">
-                <option value="1-1">1-1: Ratios (SOH CAH TOA)</option>
-                <option value="1-2">1-2: Finding Angle (Right Tri)</option>
-                <option value="1-3">1-3: Finding Side (Right Tri)</option>
-                <option value="2-1">2-1: Sine Law (Find Side)</option>
-                <option value="2-2">2-2: Sine Law (Find Angle)</option>
-                <option value="3-1">3-1: Cosine Law (Find Side)</option>
-                <option value="3-2">3-2: Cosine Law (Find Angle)</option>
+            <optgroup label="Lesson 1: Right Triangles">
+                <option value="1-K">Knowledge: SOH CAH TOA Calcs</option>
+                <option value="1-A">Application: Real-World Scenarios</option>
+                <option value="1-I">Inquiry: Trig Rules & Limits</option>
+                <option value="1-C">Comm: Explaining Ratios</option>
             </optgroup>
-            <optgroup label="Text Based">
-                <option value="adv">Advanced (Text Only)</option>
-                <option value="word">Word Problems</option>
+            <optgroup label="Lesson 2: Sine Law">
+                <option value="2-K">Knowledge: Sine Law Calcs</option>
+                <option value="2-A">Application: Sine Law Scenarios</option>
+                <option value="2-I">Inquiry: When to use Sine Law</option>
+                <option value="2-C">Comm: Explaining Sine Law</option>
             </optgroup>
-            <optgroup label="Multi-Problem Set (List)">
-                <option value="which-ratio">Which Ratio? (10 Questions)</option>
-                <option value="all-10">All in One (10 Questions)</option>
+            <optgroup label="Lesson 3: Cosine Law">
+                <option value="3-K">Knowledge: Cosine Law Calcs</option>
+                <option value="3-A">Application: Cosine Law Scenarios</option>
+                <option value="3-I">Inquiry: Cosine vs Pythagorean</option>
+                <option value="3-C">Comm: Explaining Cosine Law</option>
             </optgroup>
         </select>
         <br>
@@ -336,7 +455,7 @@
     </div>
 
     <div id="single-practice-wrapper">
-        <div id="prac-diagram-wrapper" class="diagram-container">
+        <div id="prac-diagram-wrapper" class="diagram-container" style="display:none;">
             <svg viewBox="0 0 400 280">
                 <polygon id="prac-poly" points="" fill="#fcfcfc" stroke="#2c3e50" stroke-width="2.5"></polygon>
                 <text x="40" y="260" font-weight="bold" fill="#95a5a6" id="txt-B-lbl">B</text>
@@ -357,11 +476,12 @@
 
         <div style="text-align:center; margin-top:20px;">
             <p id="question-text" style="font-size:1.2em; margin-bottom:15px; font-weight:500;"></p>
-            <div id="single-input-area" style="display:inline-block; background:#ecf0f1; padding:15px; border-radius:8px;">
+            <div id="single-input-area" style="display:inline-block; background:#ecf0f1; padding:15px; border-radius:8px; display:none;">
                 <label>Answer: </label>
                 <input type="number" id="p-input" step="0.1" style="width:100px; padding:5px; font-size:1.1em;">
                 <button class="action-btn" onclick="checkPractice()">Check</button>
             </div>
+            <div id="mc-area" class="option-grid" style="display:none;"></div>
             <div id="p-feed" class="feedback"></div>
         </div>
     </div>
@@ -471,20 +591,27 @@
     </div>
 </div>
 
-<div class="version-tag">v2.4 (Randomized Unknowns)</div>
+<div class="version-tag">v1.5 (Massive KICA Randomization Upgrade)</div>
 
 <script>
-    /* --- UTILS --- */
+    /* --- UTILS & DEEP RANDOMIZATION DICTIONARIES --- */
     const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const r2d = 180 / Math.PI;
     const d2r = Math.PI / 180;
     const round = (n) => Math.round(n * 10) / 10;
     const round2 = (n) => Math.round(n * 100) / 100;
+    const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie", "Chris", "Pat", "Drew", "Avery", "Cameron", "Dakota", "Quinn"];
+    const jobs = ["contractor", "engineer", "architect", "surveyor", "pilot", "captain", "builder", "carpenter", "landscaper", "designer"];
+    const buildings = ["skyscraper", "apartment building", "radio tower", "water tower", "monument", "lighthouse", "hospital", "stadium"];
+    const planes = ["airplane", "helicopter", "drone", "hot air balloon", "jet", "glider"];
+    const objects = ["ladder", "ramp", "slide", "escalator", "conveyor belt", "staircase", "bridge", "roof"];
 
     /* --- STATE MANAGEMENT --- */
-    // Flag to prevent double scoring
     let isQuestionSolved = false;
     let listSolvedState = {}; 
+    let pAns = 0; 
 
     /* --- NAVIGATION --- */
     function showTab(id) {
@@ -495,12 +622,9 @@
     }
     function toggleLesson(header) { header.nextElementSibling.classList.toggle('show'); }
 
-    /* --- PERSISTENCE (MODIFIED) --- */
-    // CHANGED: Load object for multiple keys instead of single score
+    /* --- PERSISTENCE --- */
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_prac_data')) || {};
-    // Not calling updateScoreDisplay() here because it's called in newPractice which runs on load or select
 
-    // CHANGED: Update score based on CURRENT topic selection
     function updateScoreDisplay() {
         let type = document.getElementById('p-topic').value;
         let data = practiceData[type] || { correct: 0, total: 0 };
@@ -508,21 +632,15 @@
         document.getElementById('p-total').innerText = data.total;
     }
 
-    // CHANGED: Save score to current topic key
     function saveScore(isCorrect) {
         let type = document.getElementById('p-topic').value;
-        if (!practiceData[type]) {
-            practiceData[type] = { total: 0, correct: 0 };
-        }
-        
+        if (!practiceData[type]) { practiceData[type] = { total: 0, correct: 0 }; }
         practiceData[type].total++;
         if(isCorrect) practiceData[type].correct++;
-        
         localStorage.setItem('mbf3c_prac_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
-    // CHANGED: Reset only current topic score
     function resetPracticeScore() {
         let type = document.getElementById('p-topic').value;
         practiceData[type] = { correct: 0, total: 0 };
@@ -530,415 +648,12 @@
         updateScoreDisplay();
     }
 
-    /* --- PRACTICE LOGIC --- */
-    let pAns = 0; 
-    let listAnswers = {}; 
-    let listType = ''; 
-
     const lbls = { A: 'lbl-A', B: 'lbl-B', C: 'lbl-C', a: 'lbl-a', b: 'lbl-b', c: 'lbl-c' };
-
     function hideLabels() {
         for(let k in lbls) document.getElementById(lbls[k]).style.display = 'none';
         document.getElementById('p-feed').innerText = '';
         document.getElementById('p-feed').className = 'feedback';
         document.getElementById('p-input').value = '';
-    }
-
-    // --- Data Generators (Infinite) ---
-    function generateProblemData(type) {
-        let data = { type: type, ans: 0, qTxt: '', svg: null, labels: {} };
-        
-        // --- SOH CAH TOA SECTIONS (Dynamic) ---
-        if(type === '1-1' || type === '1-2' || type === '1-3') {
-            data.svg = 'right';
-            
-            // 1. Generate Triangle Values
-            let s_bottom = rand(5, 12); // side 'a' in SVG
-            let s_left = rand(5, 12);   // side 'c' in SVG
-            
-            // FIX: We calculate exact hyp, but we MUST store the rounded version 
-            // in 'vals' if we expect the student to use it for calculations.
-            let exact_hyp = Math.sqrt(s_bottom*s_bottom + s_left*s_left);
-            let disp_hyp = round2(exact_hyp); 
-            
-            // 2. Pick a Reference Angle (A or C) - NOT B (90 deg)
-            let refAngle = (Math.random() > 0.5) ? 'A' : 'C';
-            
-            // 3. Map Relative Roles
-            let map = {};
-            if (refAngle === 'A') { map = { opp: 'a', adj: 'c', hyp: 'b' }; } 
-            else { map = { opp: 'c', adj: 'a', hyp: 'b' }; }
-            
-            // Values map
-            let vals = {};
-            vals[map.opp] = (refAngle === 'A') ? s_bottom : s_left;
-            vals[map.adj] = (refAngle === 'A') ? s_left : s_bottom;
-            
-            // FIX: Use the displayed (rounded) hypotenuse for calculations 
-            // in 1-1 and 1-2 to match student logic.
-            vals['b'] = disp_hyp; 
-
-            if(type === '1-1') {
-                // Ratios: Sin, Cos, or Tan
-                let rType = ['sin', 'cos', 'tan'][rand(0, 2)];
-                data.qTxt = `Calc ${rType} ${refAngle}`;
-                data.labels[refAngle] = 'θ';
-                
-                if (rType === 'sin') {
-                    data.labels[map.opp] = vals[map.opp];
-                    data.labels['b'] = vals['b'];
-                    data.ans = vals[map.opp] / vals['b'];
-                } else if (rType === 'cos') {
-                    data.labels[map.adj] = vals[map.adj];
-                    data.labels['b'] = vals['b'];
-                    data.ans = vals[map.adj] / vals['b'];
-                } else {
-                    data.labels[map.opp] = vals[map.opp];
-                    data.labels[map.adj] = vals[map.adj];
-                    data.ans = vals[map.opp] / vals[map.adj];
-                }
-            }
-            else if(type === '1-2') {
-                // Find Angle
-                data.qTxt = `Find angle ${refAngle}`;
-                data.labels[refAngle] = 'x';
-                let mode = rand(0, 2); 
-                
-                if (mode === 0) { // Sin
-                    data.labels[map.opp] = vals[map.opp];
-                    data.labels['b'] = vals['b'];
-                    data.ans = Math.asin(vals[map.opp] / vals['b']) * r2d;
-                } else if (mode === 1) { // Cos
-                    data.labels[map.adj] = vals[map.adj];
-                    data.labels['b'] = vals['b'];
-                    data.ans = Math.acos(vals[map.adj] / vals['b']) * r2d;
-                } else { // Tan
-                    data.labels[map.opp] = vals[map.opp];
-                    data.labels[map.adj] = vals[map.adj];
-                    data.ans = Math.atan(vals[map.opp] / vals[map.adj]) * r2d;
-                }
-            }
-            else if(type === '1-3') {
-                // Find Side
-                let angVal = rand(25, 65);
-                data.labels[refAngle] = angVal + '°';
-                let rad = angVal * d2r;
-                
-                let sides = ['opp', 'adj', 'hyp'];
-                let uIdx = rand(0, 2); 
-                let kIdx = rand(0, 2);
-                while(uIdx === kIdx) kIdx = rand(0, 2);
-                
-                let uRole = sides[uIdx]; // Unknown
-                let kRole = sides[kIdx]; // Known
-                
-                let uKey = (uRole === 'hyp') ? 'b' : map[uRole];
-                let kKey = (kRole === 'hyp') ? 'b' : map[kRole];
-                
-                data.labels[uKey] = 'x';
-                // Use exact val for generation logic here, but display is consistent
-                let kVal = vals[kKey]; 
-                data.labels[kKey] = kVal;
-                
-                data.qTxt = "Find side x";
-                
-                // Logic
-                if (uRole === 'hyp') {
-                    if (kRole === 'opp') data.ans = kVal / Math.sin(rad);
-                    else data.ans = kVal / Math.cos(rad);
-                }
-                else if (uRole === 'opp') {
-                    if (kRole === 'hyp') data.ans = kVal * Math.sin(rad);
-                    else data.ans = kVal * Math.tan(rad);
-                }
-                else {
-                    if (kRole === 'hyp') data.ans = kVal * Math.cos(rad);
-                    else data.ans = kVal / Math.tan(rad);
-                }
-            }
-            return data;
-        }
-        
-        // --- NON-RIGHT SECTIONS (RANDOMIZED) ---
-        else if(type === '2-1') {
-            // Sine Law: Find Side
-            // Need: Matching Pair (Angle A, Side a) + Angle B => Find Side b
-            const pairs = [['A','a'], ['B','b'], ['C','c']];
-            const kIdx = rand(0, 2); // Known pair
-            let uIdx = rand(0, 2);   // Unknown side pair
-            while(uIdx === kIdx) uIdx = rand(0, 2);
-
-            const [kAng, kSide] = pairs[kIdx];
-            const [uAng, uSide] = pairs[uIdx];
-
-            const valAng1 = rand(40, 60); // Known Angle
-            const valSide1 = rand(10, 20); // Known Side
-            const valAng2 = rand(40, 60); // Angle for unknown side
-
-            data.labels[kAng] = valAng1 + '°';
-            data.labels[kSide] = valSide1;
-            data.labels[uAng] = valAng2 + '°';
-            data.labels[uSide] = 'x';
-
-            data.ans = valSide1 * Math.sin(valAng2 * d2r) / Math.sin(valAng1 * d2r);
-            data.qTxt = "Sine Law: Find side x";
-            data.svg = 'acute';
-        }
-        else if(type === '2-2') {
-            // Sine Law: Find Angle
-            // Need: Matching Pair (Angle A, Side a) + Side b => Find Angle B
-            const pairs = [['A','a'], ['B','b'], ['C','c']];
-            const kIdx = rand(0, 2); // Known pair
-            let uIdx = rand(0, 2);   // Unknown angle pair
-            while(uIdx === kIdx) uIdx = rand(0, 2);
-
-            const [kAng, kSide] = pairs[kIdx];
-            const [uAng, uSide] = pairs[uIdx];
-
-            const valAng1 = rand(30, 50);
-            const valSide1 = rand(12, 20);
-            const valSide2 = rand(10, 15);
-
-            // Check validity
-            if(valSide2 * Math.sin(valAng1 * d2r) / valSide1 >= 1) return generateProblemData(type);
-
-            data.labels[kAng] = valAng1 + '°';
-            data.labels[kSide] = valSide1;
-            data.labels[uSide] = valSide2;
-            data.labels[uAng] = 'x';
-
-            data.ans = Math.asin(valSide2 * Math.sin(valAng1 * d2r) / valSide1) * r2d;
-            data.qTxt = "Sine Law: Find angle x";
-            data.svg = 'acute';
-        }
-        else if(type === '3-1') {
-            // Cosine Law: Find Side (SAS)
-            // Pick an angle (A, B, or C) to be the "included" angle.
-            // The unknown side is opposite to it.
-            const configs = [
-                { angle: 'A', s1: 'b', s2: 'c', opp: 'a' },
-                { angle: 'B', s1: 'a', s2: 'c', opp: 'b' },
-                { angle: 'C', s1: 'a', s2: 'b', opp: 'c' }
-            ];
-            const cfg = configs[rand(0, 2)];
-
-            const v1 = rand(10, 20);
-            const v2 = rand(10, 20);
-            const vAng = rand(40, 80);
-
-            data.labels[cfg.s1] = v1;
-            data.labels[cfg.s2] = v2;
-            data.labels[cfg.angle] = vAng + '°';
-            data.labels[cfg.opp] = 'x';
-
-            data.ans = Math.sqrt(v1*v1 + v2*v2 - 2*v1*v2*Math.cos(vAng * d2r));
-            data.qTxt = "Cosine Law: Find side x";
-            data.svg = 'acute';
-        }
-        else if(type === '3-2') {
-            // Cosine Law: Find Angle (SSS)
-            // Given a, b, c. Find A, B, or C.
-            const a = rand(10, 15), b = rand(10, 15), c = rand(10, 15);
-            // Triangle Inequality
-            if(a+b<=c || a+c<=b || b+c<=a) return generateProblemData(type);
-
-            data.labels['a'] = a;
-            data.labels['b'] = b;
-            data.labels['c'] = c;
-
-            const target = rand(0, 2); // 0=A, 1=B, 2=C
-            let numerator, denominator;
-
-            if(target === 0) { // Find A
-                data.labels['A'] = 'x';
-                numerator = b*b + c*c - a*a;
-                denominator = 2*b*c;
-            } else if(target === 1) { // Find B
-                data.labels['B'] = 'x';
-                numerator = a*a + c*c - b*b;
-                denominator = 2*a*c;
-            } else { // Find C
-                data.labels['C'] = 'x';
-                numerator = a*a + b*b - c*c;
-                denominator = 2*a*b;
-            }
-            
-            // Safety check for acos domain
-            if(Math.abs(numerator/denominator) >= 1) return generateProblemData(type);
-
-            data.ans = Math.acos(numerator / denominator) * r2d;
-            data.qTxt = "Cosine Law: Find angle x";
-            data.svg = 'acute';
-        }
-        return data;
-    }
-
-    // --- Infinite Text Generators ---
-    function generateTextProblem(type) {
-        let content = "";
-        let ans = 0;
-        
-        if (type === 'adv') {
-            const sub = rand(0, 5); 
-            if (sub === 0) {
-                const a = rand(5, 15), b = rand(5, 15);
-                content = `Right Triangle: Leg a = ${a}, Leg b = ${b}. Find the Hypotenuse.`;
-                ans = Math.sqrt(a*a + b*b);
-            } else if (sub === 1) {
-                const hyp = rand(20, 30), ang = rand(25, 65);
-                content = `Right Triangle: Hypotenuse = ${hyp}, Angle = ${ang}°. Find the Opposite side.`;
-                ans = hyp * Math.sin(ang * d2r);
-            } else if (sub === 2) {
-                const adj = rand(10, 20), ang = rand(20, 70);
-                content = `Right Triangle: Adjacent = ${adj}, Angle = ${ang}°. Find the Hypotenuse.`;
-                ans = adj / Math.cos(ang * d2r);
-            } else if (sub === 3) {
-                const A = rand(30, 50), B = rand(40, 60), b = rand(10, 25);
-                content = `Sine Law: Angle A=${A}°, Angle B=${B}°, side b=${b}. Find side a.`;
-                ans = b * Math.sin(A * d2r) / Math.sin(B * d2r);
-            } else if (sub === 4) {
-                const a = rand(10, 20), b = rand(10, 20), C = rand(80, 110);
-                content = `Cosine Law: Side a=${a}, Side b=${b}, Angle C=${C}°. Find side c.`;
-                ans = Math.sqrt(a*a + b*b - 2*a*b * Math.cos(C * d2r));
-            } else {
-                const a = rand(8, 15), c = rand(16, 30);
-                content = `Right Triangle: Opposite=${a}, Hypotenuse=${c}. Find the angle (sin⁻¹).`;
-                ans = Math.asin(a/c) * r2d;
-            }
-        } else {
-            // Word Problems
-            const sub = rand(0, 6); 
-            if (sub === 0) { // Ladder
-                const L = rand(5, 12), A = rand(60, 80);
-                content = `A ${L}m ladder leans against a wall at ${A}° to the ground. How high up the wall does it reach?`;
-                ans = L * Math.sin(A * d2r);
-            } else if (sub === 1) { // Shadow
-                const S = rand(10, 30), A = rand(30, 60);
-                content = `A tree casts a ${S}m shadow when the sun's angle of elevation is ${A}°. How tall is the tree?`;
-                ans = S * Math.tan(A * d2r);
-            } else if (sub === 2) { // Kite
-                const L = rand(30, 100), A = rand(20, 50);
-                content = `A kite string is ${L}m long. The angle with the ground is ${A}°. Find the kite's height.`;
-                ans = L * Math.sin(A * d2r);
-            } else if (sub === 3) { // Ramp
-                const D = rand(5, 15), H = rand(1, 3);
-                content = `A wheelchair ramp rises ${H}m over a horizontal distance of ${D}m. Find the angle of elevation.`;
-                ans = Math.atan(H/D) * r2d;
-            } else if (sub === 4) { // Ships (Cosine)
-                const D1 = rand(10, 50), D2 = rand(10, 50), A = rand(40, 120);
-                content = `Two ships leave a port. One goes ${D1}km, the other goes ${D2}km. Their paths diverge at ${A}°. How far apart are they?`;
-                ans = Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r));
-            } else if (sub === 5) { // Walkers (Cosine)
-                const A = rand(60, 100), D1 = rand(2, 6), D2 = rand(2, 6);
-                content = `Two paths diverge at ${A}°. Walker A walks ${D1}km, Walker B walks ${D2}km. Find the distance between them.`;
-                ans = Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r));
-            } else { // Bridge (Sine Law)
-                const D = rand(50, 200), A1 = rand(30, 60), A2 = rand(30, 60);
-                const C = 180 - A1 - A2;
-                content = `Surveyors measure a baseline AB of ${D}m along a river. A point C across the river makes angles ∠A=${A1}° and ∠B=${A2}°. Find distance AC.`;
-                ans = D * Math.sin(A2 * d2r) / Math.sin(C * d2r);
-            }
-        }
-        return { content: content, ans: ans };
-    }
-
-    // --- "Which Ratio" Generator ---
-    function generateRatioProblem() {
-        const r = rand(1, 5); 
-        let ans = '', qTxt = '', labels = {}, svg = 'right';
-        
-        if (r <= 3) {
-            const o=rand(3,10), a=rand(3,10), h=round(Math.sqrt(o*o+a*a));
-            svg = 'right';
-            if (r === 1) { // SOH
-                ans = 'SOH';
-                labels = { C:'90°', b:h, A:rand(30,60)+'°', a:'?' }; 
-                qTxt = "Given Angle & Hyp, need Opp.";
-            } else if (r === 2) { // CAH
-                ans = 'CAH';
-                labels = { C:'90°', b:h, A:rand(30,60)+'°', c:'?' };
-                qTxt = "Given Angle & Hyp, need Adj.";
-            } else { // TOA
-                ans = 'TOA';
-                labels = { C:'90°', a:o, c:a, A:'?' };
-                qTxt = "Given Opp & Adj, need Angle.";
-            }
-        } else if (r === 4) { // Sine Law
-            ans = 'Sine Law';
-            svg = 'acute';
-            labels = { A:rand(40,60)+'°', a:rand(10,20), B:rand(40,60)+'°', b:'?' };
-            qTxt = "Non-Right: Matching pair known.";
-        } else { // Cosine Law
-            ans = 'Cosine Law';
-            svg = 'acute';
-            if (rand(0,1)) { // SAS
-                labels = { a:rand(5,10), b:rand(5,10), C:rand(50,100)+'°', c:'?' };
-                qTxt = "Non-Right: SAS known, find side.";
-            } else { // SSS
-                labels = { a:10, b:10, c:15, C:'?' };
-                qTxt = "Non-Right: SSS known, find angle.";
-            }
-        }
-        return { type:'ratio', ans:ans, qTxt:qTxt, svg:svg, labels:labels };
-    }
-
-    // --- Main Controller ---
-    function newPractice() {
-        updateScoreDisplay(); // ADDED: Update score when topic changes
-        hideLabels();
-        const type = document.getElementById('p-topic').value;
-        const singleWrapper = document.getElementById('single-practice-wrapper');
-        const aioWrapper = document.getElementById('aio-wrapper');
-        const diagWrap = document.getElementById('prac-diagram-wrapper');
-        const txtBox = document.getElementById('text-problem-box');
-        const qText = document.getElementById('question-text');
-        const singleInput = document.getElementById('single-input-area');
-
-        // NEW: Reset solved state for single problem
-        isQuestionSolved = false;
-
-        // MODE SWITCHING
-        if(type === 'all-10' || type === 'which-ratio') {
-            singleWrapper.style.display = 'none';
-            aioWrapper.style.display = 'block';
-            if(type === 'all-10') generateAllInOne();
-            else generateWhichRatioSet();
-            return;
-        } else {
-            singleWrapper.style.display = 'block';
-            aioWrapper.style.display = 'none';
-        }
-
-        // SINGLE MODES
-        diagWrap.style.display = 'block';
-        txtBox.style.display = 'none';
-        qText.innerHTML = "";
-        singleInput.style.display = 'inline-block';
-
-        if(type === 'adv' || type === 'word') {
-            diagWrap.style.display = 'none';
-            txtBox.style.display = 'block';
-            
-            // New Infinite Text Generator Call
-            const prob = generateTextProblem(type);
-            pAns = prob.ans;
-            document.getElementById('text-problem-content').innerHTML = prob.content;
-        } 
-        else {
-            const data = generateProblemData(type);
-            pAns = data.ans;
-            qText.innerHTML = data.qTxt;
-            const poly = document.getElementById('prac-poly');
-            if(data.svg === 'right') {
-                poly.setAttribute('points', "40,40 40,240 360,240");
-                document.getElementById('txt-A-lbl').setAttribute('x', 40);
-                setLbl('B', '90°', 'right');
-            } else {
-                poly.setAttribute('points', "200,40 40,240 360,240");
-                document.getElementById('txt-A-lbl').setAttribute('x', 200);
-            }
-            for (const [key, val] of Object.entries(data.labels)) setLbl(key, val, data.svg);
-        }
     }
 
     function setLbl(k, txt, type) {
@@ -963,67 +678,332 @@
         }
     }
 
-    function checkPractice() {
-        // Stop if already solved
-        if(isQuestionSolved) return;
+    /* --- PRACTICE ROUTER --- */
+    function newPractice() {
+        updateScoreDisplay();
+        hideLabels();
+        const type = document.getElementById('p-topic').value;
+        const singleWrapper = document.getElementById('single-practice-wrapper');
+        const diagWrap = document.getElementById('prac-diagram-wrapper');
+        const txtBox = document.getElementById('text-problem-box');
+        const qText = document.getElementById('question-text');
+        const singleInput = document.getElementById('single-input-area');
+        const mcArea = document.getElementById('mc-area');
 
-        const u = parseFloat(document.getElementById('p-input').value);
-        const fb = document.getElementById('p-feed');
-        if(isNaN(u)) { fb.innerText = "Enter number"; return; }
-        
-        // FIX: Increased tolerance from 0.01 to 0.15 to handle student rounding
-        // (Students round to 1 decimal place, which can drift answer by ~0.05 - 0.1)
-        if(Math.abs(u - pAns) <= 0.15) {
-            fb.className = "feedback correct"; fb.innerText = "Correct!";
-            isQuestionSolved = true;
-            saveScore(true);
+        isQuestionSolved = false;
+        singleWrapper.style.display = 'block';
+        diagWrap.style.display = 'none'; 
+        txtBox.style.display = 'none';
+        qText.innerHTML = "";
+        singleInput.style.display = 'none';
+        if(mcArea) { mcArea.style.display = 'none'; mcArea.innerHTML = ""; }
+
+        let parts = type.split('-');
+        let section = parts[0];
+        let kica = parts[1];
+
+        if (section === '1') genUnit1(kica, qText, diagWrap, txtBox, singleInput);
+        else if (section === '2') genUnit2(kica, qText, diagWrap, txtBox, singleInput);
+        else if (section === '3') genUnit3(kica, qText, diagWrap, txtBox, singleInput);
+    }
+
+    /* --- UNIT 1 GENERATORS (RIGHT TRIANGLES) --- */
+    function genUnit1(kica, qText, diagWrap, txtBox, singleInput) {
+        if (kica === "K") {
+            diagWrap.style.display = 'block';
+            singleInput.style.display = 'inline-block';
+            let s_bottom = rand(5, 25);
+            let s_left = rand(5, 25);
+            let disp_hyp = round2(Math.sqrt(s_bottom*s_bottom + s_left*s_left));
+            let refAngle = (Math.random() > 0.5) ? 'A' : 'C';
+            let map = (refAngle === 'A') ? { opp: 'a', adj: 'c', hyp: 'b' } : { opp: 'c', adj: 'a', hyp: 'b' };
+            let vals = {};
+            vals[map.opp] = (refAngle === 'A') ? s_bottom : s_left;
+            vals[map.adj] = (refAngle === 'A') ? s_left : s_bottom;
+            vals['b'] = disp_hyp; 
+
+            let mode = rand(1, 6);
+            let labels = {};
+            let poly = document.getElementById('prac-poly');
+            poly.setAttribute('points', "40,40 40,240 360,240");
+            document.getElementById('txt-A-lbl').setAttribute('x', 40);
+            setLbl('B', '90°', 'right');
+
+            if (mode === 1 || mode === 2 || mode === 3) {
+                // Find Ratio
+                let rType = mode===1?'sin':(mode===2?'cos':'tan');
+                qText.innerHTML = `Calculate <strong>${rType} ${refAngle}</strong>. (Format: decimal to 3 places)`;
+                labels[refAngle] = 'θ';
+                if(rType==='sin') { labels[map.opp] = vals[map.opp]; labels['b'] = vals['b']; pAns = vals[map.opp]/vals['b']; }
+                if(rType==='cos') { labels[map.adj] = vals[map.adj]; labels['b'] = vals['b']; pAns = vals[map.adj]/vals['b']; }
+                if(rType==='tan') { labels[map.opp] = vals[map.opp]; labels[map.adj] = vals[map.adj]; pAns = vals[map.opp]/vals[map.adj]; }
+            } else if (mode === 4) {
+                // Find Side (Multiply)
+                let angVal = rand(25, 65);
+                labels[refAngle] = angVal + '°';
+                let rad = angVal * d2r;
+                let kKey = 'b'; labels[kKey] = disp_hyp;
+                let uKey = map.opp; labels[uKey] = 'x';
+                qText.innerHTML = `Find side x. (Round to 1 decimal)`;
+                pAns = disp_hyp * Math.sin(rad);
+            } else if (mode === 5) {
+                // Find Side (Divide)
+                let angVal = rand(25, 65);
+                labels[refAngle] = angVal + '°';
+                let rad = angVal * d2r;
+                let kKey = map.opp; labels[kKey] = vals[map.opp];
+                let uKey = 'b'; labels[uKey] = 'x';
+                qText.innerHTML = `Find side x. (Round to 1 decimal)`;
+                pAns = vals[map.opp] / Math.sin(rad);
+            } else {
+                // Find Angle
+                qText.innerHTML = `Find angle ${refAngle} (x). (Round to 1 decimal degree)`;
+                labels[refAngle] = 'x';
+                labels[map.opp] = vals[map.opp];
+                labels['b'] = vals['b'];
+                pAns = Math.asin(vals[map.opp] / vals['b']) * r2d;
+            }
+            for (let k in labels) setLbl(k, labels[k], 'right');
+
+        } else if (kica === "A") {
+            txtBox.style.display = 'block';
+            singleInput.style.display = 'inline-block';
+            let scenarios = [];
+            
+            // Generate 20+ varied word problems
+            for(let i=0; i<5; i++) {
+                let L = rand(5, 20), A = rand(40, 80);
+                scenarios.push({ q: `A ${L}m ${randChoice(objects)} leans against a wall at ${A}° to the ground. How high up the wall does it reach?`, ans: L * Math.sin(A*d2r) });
+            }
+            for(let i=0; i<5; i++) {
+                let S = rand(10, 50), A = rand(30, 60);
+                scenarios.push({ q: `A ${randChoice(buildings)} casts a ${S}m shadow when the sun's angle of elevation is ${A}°. How tall is the structure?`, ans: S * Math.tan(A*d2r) });
+            }
+            for(let i=0; i<5; i++) {
+                let L = rand(50, 500), A = rand(10, 40);
+                scenarios.push({ q: `A ${randChoice(planes)} climbs at a steady angle of ${A}° for a flight distance of ${L}m. What is its altitude?`, ans: L * Math.sin(A*d2r) });
+            }
+            for(let i=0; i<5; i++) {
+                let D = rand(5, 30), H = rand(1, 5);
+                scenarios.push({ q: `A ${randChoice(objects)} rises ${H}m over a horizontal distance of ${D}m. Find the angle of elevation in degrees.`, ans: Math.atan(H/D)*r2d });
+            }
+            for(let i=0; i<5; i++) {
+                let H = rand(100, 500), A = rand(20, 50);
+                scenarios.push({ q: `A ${randChoice(jobs)} looks down from a ${H}m cliff at an angle of depression of ${A}°. How far is the target horizontally from the base of the cliff?`, ans: H / Math.tan(A*d2r) });
+            }
+
+            let sel = randChoice(scenarios);
+            document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
+            pAns = sel.ans;
+
+        } else if (kica === "I") {
+            let pool = [
+                { q: "What physically happens to the value of Tangent (Opposite/Adjacent) as the angle approaches 90°?", opts: [ {text: "It approaches infinity, because the Adjacent side shrinks toward zero.", correct: true}, {text: "It becomes exactly 1.", correct: false}, {text: "It drops to zero.", correct: false}, {text: "It becomes negative.", correct: false} ] },
+                { q: "Why must the Sine and Cosine ratios of an acute right triangle ALWAYS be less than 1?", opts: [ {text: "Because the Hypotenuse is the denominator, and the Hypotenuse is mathematically always the longest side of a right triangle.", correct: true}, {text: "Because you are dividing by 90 degrees.", correct: false}, {text: "Because the calculator is programmed that way.", correct: false}, {text: "They are not always less than 1.", correct: false} ] },
+                { q: "If tan(θ) = 1, what does this tell you about the physical shape of the right triangle?", opts: [ {text: "The Opposite and Adjacent sides are exactly equal in length (an isosceles right triangle).", correct: true}, {text: "The Hypotenuse is 1.", correct: false}, {text: "The triangle has no area.", correct: false}, {text: "The angle is 90 degrees.", correct: false} ] },
+                { q: "In a right triangle, if you increase Angle A, what happens to the Opposite side assuming the Adjacent stays the same?", opts: [ {text: "The Opposite side gets much longer.", correct: true}, {text: "The Opposite side gets shorter.", correct: false}, {text: "The Opposite side stays exactly the same.", correct: false}, {text: "The Opposite side becomes the Hypotenuse.", correct: false} ] },
+                { q: "Why do we use the INVERSE trig functions (sin⁻¹, cos⁻¹, tan⁻¹) in our calculators?", opts: [ {text: "To 'undo' the ratio and extract the actual degree measurement of the Angle.", correct: true}, {text: "To find the length of the hypotenuse.", correct: false}, {text: "To turn degrees into radians.", correct: false}, {text: "To multiply the sides together.", correct: false} ] },
+                { q: "If a ramp has an angle of elevation of 45°, what is its slope?", opts: [ {text: "The slope is exactly 1, because tan(45°) = 1 (Rise and Run are identical).", correct: true}, {text: "The slope is 45.", correct: false}, {text: "The slope is 0.", correct: false}, {text: "The slope is infinite.", correct: false} ] },
+                { q: "Why is the Pythagorean theorem (a² + b² = c²) sometimes useless for right triangles?", opts: [ {text: "If you only know ONE side length and an angle, Pythagorean theorem cannot help you. You must use SOH CAH TOA.", correct: true}, {text: "It is never useless, it always works.", correct: false}, {text: "Because it only works for acute triangles.", correct: false}, {text: "Because the numbers get too large.", correct: false} ] },
+                { q: "If sin(A) = 0.5, what is the geometric meaning?", opts: [ {text: "The Opposite side is exactly half the length of the Hypotenuse.", correct: true}, {text: "The triangle is twice as large as normal.", correct: false}, {text: "The angle is 50 degrees.", correct: false}, {text: "The hypotenuse is 0.5 meters long.", correct: false} ] }
+            ];
+            // duplicate and shuffle to make a huge pool
+            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
+            
+            let sel = randChoice(pool);
+            qText.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let name = randChoice(names);
+            let job = randChoice(jobs);
+            let pool = [
+                { q: `Explain to a ${job} why the "Angle of Elevation" and "Angle of Depression" are mathematically identical in a sightline problem.`, opts: [ {text: "They are Alternate Interior Angles (the 'Z' pattern) between two parallel horizontal lines.", correct: true}, {text: "Because all angles in a right triangle equal 90 degrees.", correct: false}, {text: "They are not identical, one is always larger.", correct: false}, {text: "Because gravity affects them equally.", correct: false} ] },
+                { q: `${name} asks how to remember which sides to use for Tangent. What is the clearest explanation?`, opts: [ {text: "Use 'TOA' from SOH CAH TOA. Tangent = Opposite side divided by the Adjacent side.", correct: true}, {text: "Tangent is the Hypotenuse divided by the Opposite.", correct: false}, {text: "Tangent is the longest side divided by the shortest.", correct: false}, {text: "Tangent just means to add the two sides together.", correct: false} ] },
+                { q: `A ${job} asks why you need the "Hypotenuse" to use Sine. Explain.`, opts: [ {text: "Because Sine (SOH) is defined specifically as the ratio of the Opposite side to the Hypotenuse.", correct: true}, {text: "Because the Hypotenuse is the only side that changes length.", correct: false}, {text: "You actually don't need the Hypotenuse for Sine.", correct: false}, {text: "Because Sine is used to calculate area.", correct: false} ] },
+                { q: `${name} measured a wheelchair ramp and got sin(θ) = 1.5. How do you correct them?`, opts: [ {text: "That is mathematically impossible. Sine is Opposite/Hypotenuse, and the Opposite can never be longer than the Hypotenuse. The ratio must be under 1.", correct: true}, {text: "The angle is just 1.5 degrees, they didn't do anything wrong.", correct: false}, {text: "They should have used Cosine instead.", correct: false}, {text: "They forgot to multiply by 100.", correct: false} ] },
+                { q: `Explain to a client why an Angle of Elevation of 80° for a staircase is a terrible design.`, opts: [ {text: "An 80° angle is almost completely vertical (90° is straight up). It would be a ladder, not a staircase, making it incredibly dangerous.", correct: true}, {text: "An 80° angle is perfectly flat, so water would pool on it.", correct: false}, {text: "80° is totally safe, the client is wrong.", correct: false}, {text: "Because tangent of 80 is a negative number.", correct: false} ] }
+            ];
+            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
+            let sel = randChoice(pool);
+            qText.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    /* --- UNIT 2 GENERATORS (SINE LAW) --- */
+    function genUnit2(kica, qText, diagWrap, txtBox, singleInput) {
+        if (kica === "K") {
+            diagWrap.style.display = 'block';
+            singleInput.style.display = 'inline-block';
+            let isFindSide = Math.random() > 0.5;
+            let poly = document.getElementById('prac-poly');
+            poly.setAttribute('points', "200,40 40,240 360,240");
+            document.getElementById('txt-A-lbl').setAttribute('x', 200);
+
+            if(isFindSide) {
+                const valAng1 = rand(40, 60); const valSide1 = rand(10, 20); const valAng2 = rand(40, 60);
+                let labels = { A: valAng1+'°', a: valSide1, B: valAng2+'°', b: 'x' };
+                qText.innerHTML = `Sine Law: Find side x. (Round to 1 decimal)`;
+                pAns = valSide1 * Math.sin(valAng2 * d2r) / Math.sin(valAng1 * d2r);
+                for (let k in labels) setLbl(k, labels[k], 'acute');
+            } else {
+                const valAng1 = rand(30, 50); const valSide1 = rand(15, 25); const valSide2 = rand(10, 14);
+                let labels = { A: valAng1+'°', a: valSide1, b: valSide2, B: 'x' };
+                qText.innerHTML = `Sine Law: Find angle x. (Round to 1 decimal)`;
+                pAns = Math.asin(valSide2 * Math.sin(valAng1 * d2r) / valSide1) * r2d;
+                for (let k in labels) setLbl(k, labels[k], 'acute');
+            }
+        } else if (kica === "A") {
+            txtBox.style.display = 'block';
+            singleInput.style.display = 'inline-block';
+            let scenarios = [];
+            for(let i=0; i<10; i++) {
+                let D = rand(50, 200), A1 = rand(30, 60), A2 = rand(40, 70);
+                let C = 180 - A1 - A2;
+                scenarios.push({ q: `Two ${randChoice(buildings)}s (A and B) are ${D}m apart. They spot a target at C. Angle A is ${A1}° and Angle B is ${A2}°. How far is Tower A from the target?`, ans: D * Math.sin(A2 * d2r) / Math.sin(C * d2r) });
+            }
+            for(let i=0; i<10; i++) {
+                let L = rand(10, 30), A1 = rand(100, 130), A2 = rand(20, 30);
+                scenarios.push({ q: `A ${randChoice(objects)} is positioned. Side a = ${L}m, Angle A = ${A1}°, Angle B = ${A2}°. Find the length of Side b.`, ans: L * Math.sin(A2 * d2r) / Math.sin(A1 * d2r) });
+            }
+            for(let i=0; i<10; i++) {
+                let a = rand(30, 50), A = rand(40, 60), b = rand(15, 25);
+                scenarios.push({ q: `Two ships are tracked. Distance a = ${a}km, Angle A = ${A}°, Distance b = ${b}km. Find Angle B.`, ans: Math.asin(b * Math.sin(A * d2r) / a) * r2d });
+            }
+            let sel = randChoice(scenarios);
+            document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
+            pAns = sel.ans;
+
+        } else if (kica === "I") {
+            let pool = [
+                { q: "What is the absolute minimum requirement to use the Sine Law?", opts: [ {text: "You must have one complete 'Opposite Pair' (a known side AND its known opposite angle).", correct: true}, {text: "You must have a 90 degree angle.", correct: false}, {text: "You must know all three sides.", correct: false}, {text: "You must know the hypotenuse.", correct: false} ] },
+                { q: "Why does the Sine Law fail if you only have Side-Angle-Side (SAS)?", opts: [ {text: "Because SAS gives you an angle, but the opposite side is missing, so you can't create the complete ratio pair needed for the formula.", correct: true}, {text: "Because Sine only works on right triangles.", correct: false}, {text: "Because you need three angles.", correct: false}, {text: "It actually doesn't fail, SAS is perfect for Sine Law.", correct: false} ] },
+                { q: "If Angle A is larger than Angle B, what MUST be true about Side a and Side b?", opts: [ {text: "Side a MUST be longer than Side b. The longest side is always opposite the largest angle.", correct: true}, {text: "Side b must be longer.", correct: false}, {text: "They must be perfectly equal.", correct: false}, {text: "They must add up to 180.", correct: false} ] },
+                { q: "What happens if you try to use SOH CAH TOA on an obtuse triangle?", opts: [ {text: "It mathematically fails because SOH CAH TOA relies entirely on the existence of a 90° angle and a hypotenuse.", correct: true}, {text: "It works perfectly.", correct: false}, {text: "It gives you negative lengths.", correct: false}, {text: "It only works if you use Tangent.", correct: false} ] }
+            ];
+            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
+            let sel = randChoice(pool);
+            qText.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let job = randChoice(jobs);
+            let pool = [
+                { q: `Explain to a ${job} how to set up the Sine Law equation.`, opts: [ {text: `"Match the sides with the angles directly across from them. The ratio of Side A over Sine(Angle A) perfectly equals Side B over Sine(Angle B)."`, correct: true}, {text: `"Add all the angles and divide by the side."`, correct: false}, {text: `"Multiply the adjacent side by the hypotenuse."`, correct: false}, {text: `"Subtract the smallest angle from 180."`, correct: false} ] },
+                { q: `A client asks why you can't just use Pythagorean theorem for their property map. Explain.`, opts: [ {text: `"The Pythagorean theorem (a²+b²=c²) only works for perfect squares and 90-degree corners. Your property has angled corners, so we must use the Sine or Cosine laws."`, correct: true}, {text: `"Because your property is too large for regular math."`, correct: false}, {text: `"Because the theorem is outdated."`, correct: false}, {text: `"Because Pythagorean theorem only finds area."`, correct: false} ] }
+            ];
+            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
+            let sel = randChoice(pool);
+            qText.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    /* --- UNIT 3 GENERATORS (COSINE LAW) --- */
+    function genUnit3(kica, qText, diagWrap, txtBox, singleInput) {
+        if (kica === "K") {
+            diagWrap.style.display = 'block';
+            singleInput.style.display = 'inline-block';
+            let isFindSide = Math.random() > 0.5;
+            let poly = document.getElementById('prac-poly');
+            poly.setAttribute('points', "200,40 40,240 360,240");
+            document.getElementById('txt-A-lbl').setAttribute('x', 200);
+
+            if(isFindSide) { // SAS
+                const v1 = rand(10, 20); const v2 = rand(10, 20); const vAng = rand(40, 80);
+                let labels = { b: v1, c: v2, A: vAng+'°', a: 'x' };
+                qText.innerHTML = `Cosine Law: Find side x. (Round to 1 decimal)`;
+                pAns = Math.sqrt(v1*v1 + v2*v2 - 2*v1*v2*Math.cos(vAng * d2r));
+                for (let k in labels) setLbl(k, labels[k], 'acute');
+            } else { // SSS
+                const a = rand(12, 18), b = rand(12, 18), c = rand(12, 18);
+                let labels = { a: a, b: b, c: c, A: 'x' };
+                qText.innerHTML = `Cosine Law: Find angle x. (Round to 1 decimal)`;
+                let num = b*b + c*c - a*a; let den = 2*b*c;
+                pAns = Math.acos(num/den) * r2d;
+                for (let k in labels) setLbl(k, labels[k], 'acute');
+            }
+        } else if (kica === "A") {
+            txtBox.style.display = 'block';
+            singleInput.style.display = 'inline-block';
+            let scenarios = [];
+            for(let i=0; i<10; i++) { // SAS Word Problem
+                const D1 = rand(10, 50), D2 = rand(10, 50), A = rand(40, 120);
+                scenarios.push({ q: `Two ${randChoice(planes)}s leave an airport. One flies ${D1}km, the other flies ${D2}km. Their paths diverge at an angle of ${A}°. How far apart are they?`, ans: Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r)) });
+            }
+            for(let i=0; i<10; i++) { // SSS Word Problem
+                const a = rand(15, 25), b = rand(15, 25), c = rand(15, 25);
+                scenarios.push({ q: `A triangular piece of land has sides ${a}m, ${b}m, and ${c}m. What is the angle opposite to the ${a}m side?`, ans: Math.acos((b*b + c*c - a*a)/(2*b*c)) * r2d });
+            }
+            let sel = randChoice(scenarios);
+            document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
+            pAns = sel.ans;
+
+        } else if (kica === "I") {
+            let pool = [
+                { q: "Why is the Cosine Law (c² = a² + b² - 2ab cos C) considered an 'upgrade' to the Pythagorean Theorem?", opts: [ {text: "If Angle C is 90°, cos(90) is 0, so the entire '- 2ab cos C' part vanishes, leaving just a² + b² = c². It works for EVERY triangle.", correct: true}, {text: "It is exactly the same, just spelled differently.", correct: false}, {text: "Because it calculates area.", correct: false}, {text: "Because it only works for right triangles.", correct: false} ] },
+                { q: "If you know all three sides of a triangle (SSS), which law MUST you use first?", opts: [ {text: "The Cosine Law. You have no angles, so the Sine Law (which requires an opposite pair) is completely impossible to use.", correct: true}, {text: "The Sine Law.", correct: false}, {text: "SOH CAH TOA.", correct: false}, {text: "Pythagorean Theorem.", correct: false} ] },
+                { q: "What happens in the Cosine Law if the angle you use is Obtuse (greater than 90°)?", opts: [ {text: "The Cosine of the angle becomes negative, which turns the '- 2ab cos C' into a PLUS, making the opposite side correctly much longer.", correct: true}, {text: "The calculator crashes.", correct: false}, {text: "The side becomes negative.", correct: false}, {text: "It turns into a right triangle.", correct: false} ] }
+            ];
+            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
+            let sel = randChoice(pool);
+            qText.innerHTML = sel.q;
+            setupMC(sel.opts);
+        } else if (kica === "C") {
+            let job = randChoice(jobs);
+            let pool = [
+                { q: `Explain to a ${job} when they are forced to use the Cosine Law instead of the Sine Law.`, opts: [ {text: `"If you only have Side-Angle-Side (SAS) or Side-Side-Side (SSS), you don't have a complete Opposite Pair. You are forced to use Cosine."`, correct: true}, {text: `"You use Cosine Law when you have a 90 degree angle."`, correct: false}, {text: `"You use Cosine when measuring heights."`, correct: false}, {text: `"Sine Law is illegal in construction."`, correct: false} ] },
+                { q: `A client asks why the Cosine Law formula is so long compared to a² + b² = c². Explain.`, opts: [ {text: `"The standard Pythagorean theorem only works for perfect squares. The extra '- 2ab cos C' part acts as a correction factor to stretch or squish the math for angled corners."`, correct: true}, {text: `"Because mathematicians wanted it to look complicated."`, correct: false}, {text: `"It includes the area of the triangle."`, correct: false}, {text: `"Because it adds all three angles together."`, correct: false} ] }
+            ];
+            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
+            let sel = randChoice(pool);
+            qText.innerHTML = sel.q;
+            setupMC(sel.opts);
+        }
+    }
+
+    // --- Check Multiple Choice ---
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+        btn.style.color = 'white';
+        let fb = document.getElementById('p-feed');
+        if (isCorrect) {
+            fb.className = "feedback correct"; fb.innerText = "Correct! Great logic.";
+            isQuestionSolved = true; saveScore(true);
         } else {
             fb.className = "feedback incorrect"; fb.innerText = "Incorrect. Try again.";
             saveScore(false);
         }
     }
     
-    function checkAIO(idx) {
-        if(listSolvedState[idx]) return;
-
-        const el = document.getElementById(`aio-in-${idx}`);
-        const res = document.getElementById(`aio-res-${idx}`);
-        const ans = listAnswers[idx];
-        const val = el.value;
-
-        if(!val) return;
-
-        let correct = false;
-        if(listType === 'select') {
-             if(val === ans) correct = true;
-        } else {
-             // FIX: Increased tolerance here as well
-             if(Math.abs(parseFloat(val) - ans) <= 0.15) correct = true;
-        }
-
-        if(correct) {
-            res.innerHTML = "<span style='color:green; font-weight:bold;'>✓ Correct (+1)</span>";
-            listSolvedState[idx] = true;
-            saveScore(true);
-        } else {
-            res.innerHTML = `<span style='color:red; font-weight:bold;'>✗ Incorrect</span>`;
-            saveScore(false);
-        }
+    function setupMC(options) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
+        mcArea.innerHTML = '';
+        options.sort(() => Math.random() - 0.5);
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = opt.text;
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
     }
 
-    // --- PRINT LESSON LOGIC (Improved) ---
-    function printLesson(lessonId) {
-        const lessonElement = document.getElementById(lessonId);
-        let printArea = document.getElementById('print-area');
-        if (!printArea) {
-            printArea = document.createElement('div');
-            printArea.id = 'print-area';
-            printArea.className = 'printable-area';
-            document.body.appendChild(printArea);
+    // --- Check Input Answer ---
+    function checkPractice() {
+        if(isQuestionSolved) return;
+        const u = parseFloat(document.getElementById('p-input').value);
+        const fb = document.getElementById('p-feed');
+        if(isNaN(u)) { fb.innerText = "Enter number"; return; }
+        
+        if(Math.abs(u - pAns) <= 0.15) {
+            fb.className = "feedback correct"; fb.innerText = "Correct!";
+            isQuestionSolved = true; saveScore(true);
+        } else {
+            fb.className = "feedback incorrect"; fb.innerText = "Incorrect. Try again.";
+            saveScore(false);
         }
-        printArea.innerHTML = lessonElement.innerHTML;
-        window.print();
-        printArea.innerHTML = '';
     }
 </script>
 
