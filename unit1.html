@@ -78,15 +78,28 @@
         .rubric-table th { background-color: #2c3e50; color: white; }
         .rubric-table .category-col { text-align: left; background-color: #ecf0f1; font-weight: bold; width: 15%; }
         .rubric-table .criteria-col { text-align: left; width: 20%; }
-        
-        /* --- PRINT MEDIA QUERY (For PDF Export) --- */
+
+        /* --- Perfect Native Print Media Query (Updated from Unit 5) --- */
         @media print {
-            body * { visibility: hidden; }
-            .printable-area, .printable-area * { visibility: visible; }
-            .printable-area { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
-            .print-btn, nav, header { display: none !important; }
-            .container { box-shadow: none; border: none; margin: 0; width: 100%; max-width: 100%; }
-            .lesson-content { display: block !important; border: none; }
+            header, nav, .container, .version-tag { 
+                display: none !important; 
+            }
+            #print-area { 
+                display: block !important; 
+            }
+            .print-btn { 
+                display: none !important; 
+            }
+            body {
+                background-color: white;
+            }
+        }
+
+        #print-area {
+            display: none;
+            padding: 20px;
+            background: white;
+            color: black;
         }
 
         /* --- MOBILE OPTIMIZATION --- */
@@ -136,7 +149,7 @@
     <div class="lesson-group" id="L1-1">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 1.1: Trigonometric Ratios (SOH CAH TOA) <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L1-1')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 1.1: Trigonometric Ratios</h3>
             <p><strong>Goal:</strong> Identify SOH CAH TOA ratios from side lengths.</p>
             <div class="example-box">
@@ -177,7 +190,7 @@
     <div class="lesson-group" id="L1-2">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 1.2: Finding Missing Angles <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L1-2')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 1.2: Finding Missing Angles</h3>
             <p><strong>Goal:</strong> Use inverse trig functions (sin⁻¹, cos⁻¹, tan⁻¹) to find angles.</p>
             <div class="example-box">
@@ -218,7 +231,7 @@
     <div class="lesson-group" id="L1-3">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 1.3: Finding Missing Sides (Right Tri) <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L1-3')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 1.3: Finding Missing Sides</h3>
             <p><strong>Goal:</strong> Solve for side x using algebra.</p>
             <div class="example-box">
@@ -259,7 +272,7 @@
     <div class="lesson-group" id="L2-1">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 2.1: The Sine Law (Sides) <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L2-1')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 2.1: The Sine Law (Finding Sides)</h3>
             <p><strong>Formula:</strong> a/sinA = b/sinB</p>
             <div class="example-box">
@@ -300,7 +313,7 @@
     <div class="lesson-group" id="L2-2">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 2.2: The Sine Law (Angles) <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L2-2')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 2.2: The Sine Law (Finding Angles)</h3>
             <p><strong>Formula:</strong> sinA/a = sinB/b</p>
             <div class="example-box">
@@ -341,7 +354,7 @@
     <div class="lesson-group" id="L3-1">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 3.1: The Cosine Law (Sides) <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L3-1')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 3.1: The Cosine Law (Finding Sides)</h3>
             <p><strong>Formula:</strong> c² = a² + b² - 2ab cos C</p>
             <div class="example-box">
@@ -382,7 +395,7 @@
     <div class="lesson-group" id="L3-2">
         <div class="lesson-header" onclick="toggleLesson(this)">Lesson 3.2: The Cosine Law (Angles) <span>▼</span></div>
         <div class="lesson-content">
-            <button class="print-btn" onclick="printLesson('L3-2')">📄 Print / Save as PDF</button>
+            <button class="print-btn" onclick="printLesson(this)">📄 Print / Save as PDF</button>
             <h3>Lesson 3.2: The Cosine Law (Finding Angles)</h3>
             <p><strong>Formula:</strong> cos C = (a² + b² - c²) / 2ab</p>
             <div class="example-box">
@@ -609,6 +622,8 @@
     </div>
 </div>
 
+<div id="print-area"></div>
+
 <div class="version-tag">v1.6 (Deep Randomization & Detailed KICA Sections)</div>
 
 <script>
@@ -693,6 +708,19 @@
             if(k==='b') { el.style.top='130px'; el.style.left='280px'; } 
             if(k==='a') { el.style.top='250px'; el.style.left='190px'; } 
         }
+    }
+
+    /* --- PRINT LOGIC --- */
+    function printLesson(btn) {
+        let panel = btn.parentElement;
+        let title = panel.previousElementSibling.innerText.replace(/[+−\-▼]/g, '').trim();
+        let tempDiv = document.createElement('div');
+        tempDiv.innerHTML = panel.innerHTML;
+        tempDiv.querySelectorAll('.print-btn').forEach(b => b.remove());
+        let content = tempDiv.innerHTML;
+        let printArea = document.getElementById('print-area');
+        printArea.innerHTML = '<h2>' + title + '</h2>' + content;
+        setTimeout(function() { window.print(); }, 250);
     }
 
     /* --- PRACTICE ROUTER --- */
