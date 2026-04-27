@@ -281,6 +281,29 @@
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
         th { background-color: #ecf0f1; color: var(--primary-color); }
+
+        /* Perfect Native Print Media Query */
+        @media print {
+            header, nav, main, .version-tag { 
+                display: none !important; 
+            }
+            #print-area { 
+                display: block !important; 
+            }
+            .print-btn { 
+                display: none !important; 
+            }
+            body {
+                background-color: white;
+            }
+        }
+
+        #print-area {
+            display: none;
+            padding: 20px;
+            background: white;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -732,6 +755,19 @@
         const navBtns = document.querySelectorAll('nav button');
         navBtns.forEach(btn => btn.classList.remove('active'));
         event.currentTarget.classList.add('active');
+    }
+
+    // --- Print Logic ---
+    function printLesson(btn) {
+        let panel = btn.parentElement;
+        let title = panel.previousElementSibling.innerText.replace(/[+−\-]$/, '').trim();
+        let tempDiv = document.createElement('div');
+        tempDiv.innerHTML = panel.innerHTML;
+        tempDiv.querySelectorAll('.print-btn').forEach(b => b.remove());
+        let content = tempDiv.innerHTML;
+        let printArea = document.getElementById('print-area');
+        printArea.innerHTML = '<h2>' + title + '</h2>' + content;
+        setTimeout(function() { window.print(); }, 250);
     }
 
     // --- Accordion ---
