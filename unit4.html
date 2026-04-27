@@ -301,6 +301,29 @@
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
         }
+
+        /* Perfect Native Print Media Query */
+        @media print {
+            header, nav, main, .version-tag { 
+                display: none !important; 
+            }
+            #print-area { 
+                display: block !important; 
+            }
+            .print-btn { 
+                display: none !important; 
+            }
+            body {
+                background-color: white;
+            }
+        }
+
+        #print-area {
+            display: none;
+            padding: 20px;
+            background: white;
+            color: black;
+        }
         
         .version-tag { position: fixed; bottom: 5px; left: 5px; font-size: 0.7rem; color: #ccc; z-index: 9999; }
     </style>
@@ -632,6 +655,8 @@
     </div>
 </main>
 
+<div id="print-area"></div>
+
 <div class="version-tag">v4.11 (Massive Generation - 20+ Questions per Category Pool)</div>
 
 <script>
@@ -671,7 +696,15 @@
     }
 
     function printLesson(btn) {
-        window.print();
+        let panel = btn.parentElement;
+        let title = panel.previousElementSibling.innerText.replace(/[+−\-]$/, '').trim();
+        let tempDiv = document.createElement('div');
+        tempDiv.innerHTML = panel.innerHTML;
+        tempDiv.querySelectorAll('.print-btn').forEach(b => b.remove());
+        let content = tempDiv.innerHTML;
+        let printArea = document.getElementById('print-area');
+        printArea.innerHTML = '<h2>' + title + '</h2>' + content;
+        setTimeout(function() { window.print(); }, 250);
     }
 
     // --- Accordion Logic ---
