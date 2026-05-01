@@ -249,10 +249,11 @@
             transition: 0.2s;
             font-size: 1rem;
         }
-        .option-btn:hover {
+        .option-btn:hover:not(:disabled) {
             background: var(--accent-color);
             color: white;
         }
+        .option-btn:disabled { opacity: 0.8; }
 
         #feedback-area {
             font-weight: bold;
@@ -960,7 +961,7 @@
 
 <div id="print-area"></div>
 
-<div class="version-tag">v3.41 (Massive Generation - 20+ Questions per Category Pool)</div>
+<div class="version-tag">v3.41.1 (Single-Try Challenge Mod)</div>
 
 <script>
     /* --- UTILS --- */
@@ -1056,6 +1057,7 @@
         document.getElementById('feedback-area').innerHTML = "";
         document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
         document.getElementById('input-area').style.display = 'none';
+        document.getElementById('user-answer').disabled = false;
         
         const mcArea = document.getElementById('mc-area');
         if(mcArea) {
@@ -1083,6 +1085,7 @@
         feedback.innerText = ""; 
         feedback.className = "";
         document.getElementById('user-answer').value = "";
+        document.getElementById('user-answer').disabled = false;
         inputArea.style.display = 'none';
         mcArea.style.display = 'none';
         mcArea.innerHTML = "";
@@ -1743,8 +1746,8 @@
                     opts: [ {text: `"Because it acts as exponential decay. You aren't just losing 2% once, you are losing the compounded growth of that 2% over decades."`, correct: true}, {text: `"It isn't a big deal, 2% is a very small number."`, correct: false}, {text: `"Because the fee is added directly to your starting principal."`, correct: false} ]
                 },
                 {
-                    q: `<p>A client is angry that their 40-year compound interest graph looks "flat and useless" for the first 15 years. Explain this.</p>`,
-                    opts: [ {text: `"That flat period is the necessary foundation. It takes time to build enough 'babies' (interest) to trigger the vertical explosion seen in the last 10 years."`, correct: true}, {text: `"The stock market was just bad during those first 15 years."`, correct: false}, {text: `"It's a glitch in the graph software. It should be a straight line."`, correct: false} ]
+                    q: `<p>A client looks at a 40-year compound interest graph and complains that "nothing happens for the first 15 years". Explain this.</p>`,
+                    opts: [ {text: `"That flat beginning is the foundation. It takes time to build enough 'babies' (interest) to trigger the vertical explosion seen in the last 10 years."`, correct: true}, {text: `"The stock market was just bad during those first 15 years."`, correct: false}, {text: `"It's a glitch in the graph software. It should be a straight line."`, correct: false} ]
                 },
                 {
                     q: `<p>How do you persuade parents to open a college fund the week their baby is born?</p>`,
@@ -2003,7 +2006,8 @@
         options.forEach(opt => {
             let btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerHTML = opt.text;
+            btn.innerHTML = opt.text; 
+            btn.dataset.correct = opt.correct;
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
@@ -2047,31 +2051,55 @@
             }
         }
 
-        displayFeedback(isCorrect);
-    }
-
-    function checkMCAnswer(isCorrect, btn) {
-        if (isQuestionSolved) return;
-        
-        // Highlight chosen button
-        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
-        btn.style.color = 'white';
-        
-        displayFeedback(isCorrect);
-    }
-
-    function displayFeedback(isCorrect) {
         let feedback = document.getElementById('feedback-area');
+        let inputField = document.getElementById('user-answer');
+        
         if (isCorrect) {
             feedback.innerHTML = "✅ Correct! Great job applying the concepts.";
             feedback.className = "correct";
             isQuestionSolved = true; 
             saveScore(true);
+            inputField.disabled = true;
         } else {
-            feedback.innerHTML = "❌ Incorrect. Try again or check your calculations.";
+            feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Random Question' to try a new one.`;
             feedback.className = "incorrect";
+            isQuestionSolved = true; 
+            saveScore(false);
+            inputField.disabled = true;
+        }
+    }
+
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        let feedback = document.getElementById('feedback-area');
+        
+        if (isCorrect) {
+            btn.style.backgroundColor = '#27ae60';
+            btn.style.color = 'white';
+            feedback.innerHTML = "✅ Correct! Great job applying the concepts.";
+            feedback.className = "correct";
+            isQuestionSolved = true; 
+            saveScore(true);
+        } else {
+            btn.style.backgroundColor = '#c0392b';
+            btn.style.color = 'white';
+            feedback.innerHTML = "❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Random Question' to try a new one.";
+            feedback.className = "incorrect";
+            isQuestionSolved = true; 
             saveScore(false);
         }
+
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => {
+            if (b.dataset.correct === "true") {
+                b.style.backgroundColor = '#27ae60';
+                b.style.color = 'white';
+                b.style.borderColor = '#27ae60';
+            }
+            b.style.cursor = 'not-allowed';
+            b.disabled = true;
+        });
     }
 
 </script>
