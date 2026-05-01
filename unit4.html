@@ -248,10 +248,11 @@
             transition: 0.2s;
             font-size: 1rem;
         }
-        .option-btn:hover {
+        .option-btn:hover:not(:disabled) {
             background: var(--accent-color);
             color: white;
         }
+        .option-btn:disabled { opacity: 0.8; }
 
         #feedback-area {
             font-weight: bold;
@@ -411,7 +412,7 @@
 
             <div class="money-box">
                 <div class="money-header">💸 Money Connection: The "Average" Trap</div>
-                <p>Imagine 9 teachers earn $50k, and the principal earns $500k. The <strong>Mean</strong> salary is $95k. If you apply for a job there thinking you'll make $95k, you are being tricked by the Mean!</p>
+                <p>Imagine 9 teachers earn $50k, and the principal earn $500k. The <strong>Mean</strong> salary is $95k. If you apply for a job there thinking you'll make $95k, you are being tricked by the Mean!</p>
                 <p>The <strong>Median</strong> salary is $50k. For money (like house prices or salaries), the <strong>Median</strong> is always the most honest number because it ignores crazy extremes (outliers).</p>
             </div>
         </div>
@@ -657,7 +658,7 @@
 
 <div id="print-area"></div>
 
-<div class="version-tag">v4.11 (Massive Generation - 20+ Questions per Category Pool)</div>
+<div class="version-tag">v4.11.1 (Single-Try Challenge Mod)</div>
 
 <script>
     /* --- UTILS & DICTIONARIES --- */
@@ -668,7 +669,7 @@
     const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie", "Chris", "Pat", "Drew", "Avery", "Cameron", "Dakota", "Quinn", "Skyler", "Reese", "Rowan", "Hayden", "Parker", "Blake", "Emerson", "Finley"];
     const jobs = ["developers", "teachers", "nurses", "accountants", "factory workers", "sales reps", "managers", "engineers", "architects", "designers", "mechanics", "chefs", "pilots", "farmers", "artists", "plumbers", "lawyers", "scientists", "musicians"];
     const companies = ["TechCorp", "GlobalBank", "MediCare", "EduTech", "BuildIt Inc", "AutoMakers", "FreshFoods", "QuickShip", "SkyAirlines", "GreenEnergy", "CityTransit", "NextGen", "PrimeRetail", "FutureMed", "ApexLogistics", "SmartHome", "EcoFarms"];
-    const adjs = ["heroic", "greedy", "lazy", "brilliant", "corrupt", "world-class", "dangerous", "overpriced", "toxic", "innovative", "revolutionary", "incompetent", "inspiring", "reckless", "visionary", "wasteful"];
+    const adjs = ["heroic", "greedy", "lazy", "brilliant", "corrupt", "world-class", "dangerous", "overpriced", "toxic", "innovative", "revolutionary", "incompetent", "inspiring", "reckless", "wasteful"];
     const products = ["smartphones", "energy drinks", "running shoes", "software subscriptions", "laptops", "electric cars", "smartwatches", "organic snacks", "fitness trackers", "headphones", "bicycles", "coffee machines", "sunglasses", "backpacks", "televisions", "office chairs"];
     const vehicles = ["trucks", "sedans", "SUVs", "minivans", "sports cars", "motorcycles", "bicycles", "delivery vans", "buses", "scooters", "electric bikes"];
     const cities = ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa", "Edmonton", "Winnipeg", "Halifax", "Victoria", "London", "New York", "Chicago"];
@@ -759,6 +760,7 @@
         document.getElementById('feedback-area').innerHTML = "";
         document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
         document.getElementById('input-area').style.display = 'none';
+        document.getElementById('user-answer').disabled = false;
         
         const mcArea = document.getElementById('mc-area');
         if(mcArea) {
@@ -785,6 +787,7 @@
         // Reset UI
         feedback.innerText = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
+        document.getElementById('user-answer').disabled = false;
         inputArea.style.display = 'none';
         mcArea.style.display = 'none';
         mcArea.innerHTML = "";
@@ -1552,6 +1555,7 @@
             let btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerHTML = opt.text;
+            btn.dataset.correct = opt.correct;
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
@@ -1590,30 +1594,55 @@
             }
         }
 
-        displayFeedback(isCorrect);
-    }
-
-    function checkMCAnswer(isCorrect, btn) {
-        if (isQuestionSolved) return;
-        
-        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
-        btn.style.color = 'white';
-        
-        displayFeedback(isCorrect);
-    }
-
-    function displayFeedback(isCorrect) {
         let feedback = document.getElementById('feedback-area');
+        let inputField = document.getElementById('user-answer');
+        
         if (isCorrect) {
             feedback.innerHTML = "✅ Correct! Excellent logic.";
             feedback.className = "correct";
             isQuestionSolved = true; 
             saveScore(true);
+            inputField.disabled = true;
         } else {
-            feedback.innerHTML = "❌ Incorrect. Try again or review the lesson.";
+            feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Random Question' to try a new one.`;
             feedback.className = "incorrect";
+            isQuestionSolved = true; 
+            saveScore(false);
+            inputField.disabled = true;
+        }
+    }
+
+    function checkMCAnswer(isCorrect, btn) {
+        if (isQuestionSolved) return;
+        
+        let feedback = document.getElementById('feedback-area');
+        
+        if (isCorrect) {
+            btn.style.backgroundColor = '#27ae60';
+            btn.style.color = 'white';
+            feedback.innerHTML = "✅ Correct! Excellent logic.";
+            feedback.className = "correct";
+            isQuestionSolved = true; 
+            saveScore(true);
+        } else {
+            btn.style.backgroundColor = '#c0392b';
+            btn.style.color = 'white';
+            feedback.innerHTML = "❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Random Question' to try a new one.";
+            feedback.className = "incorrect";
+            isQuestionSolved = true; 
             saveScore(false);
         }
+
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => {
+            if (b.dataset.correct === "true") {
+                b.style.backgroundColor = '#27ae60';
+                b.style.color = 'white';
+                b.style.borderColor = '#27ae60';
+            }
+            b.style.cursor = 'not-allowed';
+            b.disabled = true;
+        });
     }
 
 </script>
