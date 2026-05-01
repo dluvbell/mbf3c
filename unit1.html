@@ -67,7 +67,8 @@
         /* Multiple Choice Grid */
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 600px; margin: 20px auto; }
         .option-btn { background: white; border: 2px solid #1abc9c; color: #1abc9c; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 1rem; }
-        .option-btn:hover { background: #1abc9c; color: white; }
+        .option-btn:hover:not(:disabled) { background: #1abc9c; color: white; }
+        .option-btn:disabled { opacity: 0.8; }
 
         /* --- Assignment Styles --- */
         .assign-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
@@ -624,7 +625,7 @@
 
 <div id="print-area"></div>
 
-<div class="version-tag">v1.6 (Deep Randomization & Detailed KICA Sections)</div>
+<div class="version-tag">v1.6.1 (Single-Try Challenge Mod)</div>
 
 <script>
     /* --- UTILS & DEEP RANDOMIZATION DICTIONARIES --- */
@@ -686,6 +687,7 @@
         document.getElementById('p-feed').innerText = '';
         document.getElementById('p-feed').className = 'feedback';
         document.getElementById('p-input').value = '';
+        document.getElementById('p-input').disabled = false;
     }
 
     function setLbl(k, txt, type) {
@@ -1145,26 +1147,51 @@
         if(isNaN(u)) { fb.innerText = "Enter number"; return; }
         
         if(Math.abs(u - pAns) <= 0.15) {
-            fb.className = "feedback correct"; fb.innerText = "Correct!";
-            isQuestionSolved = true; saveScore(true);
+            fb.className = "feedback correct"; 
+            fb.innerText = "Correct!";
+            isQuestionSolved = true; 
+            saveScore(true);
+            document.getElementById('p-input').disabled = true;
         } else {
-            fb.className = "feedback incorrect"; fb.innerText = "Incorrect. Try again.";
+            fb.className = "feedback incorrect"; 
+            fb.innerHTML = `Incorrect. The correct answer was <strong>${round2(pAns)}</strong>.<br>Click 'Generate' to try a new question.`;
+            isQuestionSolved = true; 
             saveScore(false);
+            document.getElementById('p-input').disabled = true;
         }
     }
     
     function checkMCAnswer(isCorrect, btn) {
         if (isQuestionSolved) return;
-        btn.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
-        btn.style.color = 'white';
+        
         let fb = document.getElementById('p-feed');
+        
         if (isCorrect) {
-            fb.className = "feedback correct"; fb.innerText = "Correct! Great logic.";
-            isQuestionSolved = true; saveScore(true);
+            btn.style.backgroundColor = '#27ae60';
+            btn.style.color = 'white';
+            fb.className = "feedback correct"; 
+            fb.innerText = "Correct! Great logic.";
+            isQuestionSolved = true; 
+            saveScore(true);
         } else {
-            fb.className = "feedback incorrect"; fb.innerText = "Incorrect. Try again.";
+            btn.style.backgroundColor = '#c0392b';
+            btn.style.color = 'white';
+            fb.className = "feedback incorrect"; 
+            fb.innerHTML = "Incorrect. The correct answer is highlighted in green.<br>Click 'Generate' to try a new question.";
+            isQuestionSolved = true; 
             saveScore(false);
         }
+
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => {
+            if (b.dataset.correct === "true") {
+                b.style.backgroundColor = '#27ae60';
+                b.style.color = 'white';
+                b.style.borderColor = '#27ae60';
+            }
+            b.style.cursor = 'not-allowed';
+            b.disabled = true;
+        });
     }
     
     function setupMC(options) {
@@ -1176,6 +1203,7 @@
             let btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerHTML = opt.text;
+            btn.dataset.correct = opt.correct;
             btn.onclick = () => checkMCAnswer(opt.correct, btn);
             mcArea.appendChild(btn);
         });
