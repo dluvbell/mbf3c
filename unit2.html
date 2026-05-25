@@ -265,9 +265,41 @@
 
         .correct { color: var(--success-color); }
         .incorrect { color: var(--error-color); }
+        
+        /* Feedback Explanation Box */
+        .feedback-explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fdfefe;
+            border-left: 5px solid var(--accent-color);
+            color: #2c3e50;
+            font-size: 1.05rem;
+            font-weight: normal;
+            border-radius: 4px;
+            text-align: left;
+            line-height: 1.6;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .feedback-explanation strong { color: var(--primary-color); }
 
         /* Print Button */
         .print-btn { background-color: #7f8c8d; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; float: right; }
+
+        /* Assignment Task Box */
+        .task-box {
+            border-left: 5px solid var(--accent-color);
+            background: #fdfdfd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .task-step {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
@@ -281,30 +313,17 @@
         /* Rubric Table styling */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
-        th { background-color: #ecf0f1; color: var(--primary-color); }
+        th { background-color: #ecf0f1; color: var(--primary-color); text-align: center;}
 
         /* Perfect Native Print Media Query */
         @media print {
-            header, nav, main, .version-tag { 
-                display: none !important; 
-            }
-            #print-area { 
-                display: block !important; 
-            }
-            .print-btn { 
-                display: none !important; 
-            }
-            body {
-                background-color: white;
-            }
+            header, nav, main, .version-tag { display: none !important; }
+            #print-area { display: block !important; }
+            .print-btn { display: none !important; }
+            body { background-color: white; }
         }
 
-        #print-area {
-            display: none;
-            padding: 20px;
-            background: white;
-            color: black;
-        }
+        #print-area { display: none; padding: 20px; background: white; color: black; }
     </style>
 </head>
 <body>
@@ -328,21 +347,12 @@
         <p>Enter the values to find the Vertex (h, k) without graphs.</p>
         
         <script async src="https://cdn.omnicalculator.com/sdk.js"></script>
-        <div class="omni-calculator" 
-             data-calculator="math/vertex-form" 
-             data-width="100%" 
-             data-config='{}' 
-             data-currency="USD" 
-             data-show-row-controls="false" 
-             data-version="1" 
-             data-t="1">
+        <div class="omni-calculator" data-calculator="math/vertex-form" data-width="100%" data-config='{}' data-currency="USD" data-show-row-controls="false" data-version="1" data-t="1">
             <div class="omni-calculator-header">Vertex Form Calculator</div>
         </div>
 
         <div style="text-align:center; margin-top:20px;">
-            <p style="font-size:0.9rem; color:#7f8c8d;">
-                * If the calculator does not load, click the button below.
-            </p>
+            <p style="font-size:0.9rem; color:#7f8c8d;">* If the calculator does not load, click the button below.</p>
             <a href="https://www.omnicalculator.com/math/vertex-form" target="_blank">
                 <button class="btn-primary" style="background-color:#27ae60;">Open Calculator in New Tab</button>
             </a>
@@ -580,29 +590,25 @@
                 <optgroup label="2.1 Linear vs Quadratic (Trends)">
                     <option value="2.1-K">Knowledge: Identify the Equation</option>
                     <option value="2.1-A">Application: Identify the Scenario</option>
-                    <option value="2.1-I">Inquiry: Data Patterns</option>
                     <option value="2.1-C">Comm: Explain the Hype Cycle</option>
                 </optgroup>
 
                 <optgroup label="2.2 The Vertex (The Sweet Spot)">
                     <option value="2.2-K">Knowledge: Find (h, k) from Equation</option>
                     <option value="2.2-A">Application: Calculate Max Profit / Ideal Price</option>
-                    <option value="2.2-I">Inquiry: Distance from the Vertex</option>
                     <option value="2.2-C">Comm: Explain the Vertex to CEO</option>
                 </optgroup>
 
                 <optgroup label="2.3 Intercepts (Startup Costs)">
                     <option value="2.3-K">Knowledge: Expand to Standard Form (Find 'c')</option>
                     <option value="2.3-A">Application: Calculate Startup Cost</option>
-                    <option value="2.3-I">Inquiry: The Break-Even Meaning</option>
-                    <option value="2.3-C">Comm: Explain Negative Profit</option>
+                    <option value="2.3-C">Comm: Explain the Business Intercepts</option>
                 </optgroup>
 
                 <optgroup label="2.4 Maximizing Profit (Greed & Risk)">
-                    <option value="2.4-K">Knowledge: Substitute and Calculate P</option>
                     <option value="2.4-A">Application: The "Greed" Calculation</option>
                     <option value="2.4-I">Inquiry: Market Shift (Changing 'a' value)</option>
-                    <option value="2.4-C">Comm: Explain the Greed Loss</option>
+                    <option value="2.4-C">Comm: Explain the Profit Loss</option>
                 </optgroup>
             </select>
 
@@ -628,105 +634,119 @@
     </div>
     
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 2 Assignment: E-Commerce Brand Launch</h2>
-        <p><strong>Scenario:</strong> You are launching a new e-commerce brand. Choose an item to sell (e.g., custom t-shirts, phone cases, sneakers). Your goal is not just to sell a lot of items, but to find the <strong>"Sweet Spot" (perfect price)</strong> to generate the <strong>Maximum Profit</strong>.</p>
-        
-        <div class="money-box">
-            <div class="money-header">💼 Your Business Setup (Fill in the blanks)</div>
-            <p>1. The item I am selling: ____________________</p>
-            <p>2. My ideal <strong>Selling Price</strong> for this item (h): $________</p>
-            <p>3. The <strong>Maximum Profit</strong> I expect at that price (k): $________</p>
-            <p><em>*Note: For these calculations, we will lock the 'a' value (the steepness of the curve) at <strong>-2</strong>.</em></p>
+        <h2>Unit 2 Assignment: The Quadratic Consultant Report</h2>
+        <p><strong>Scenario:</strong> You have been hired by three different clients to analyze their data. They have provided mathematical models (equations), but they don't know what the numbers actually mean in the real world.</p>
+
+        <div class="task-box">
+            <span class="task-step">Step 1: Choose Your Client (Select ONE)</span>
+            <p>Pick ONE of the following clients to advise. You will use their specific equation for the rest of the assignment.</p>
+            <table>
+                <tr>
+                    <th style="background:#2c3e50;">🌉 Client A: The Architect</th>
+                    <th style="background:#27ae60;">🚀 Client B: The Sports Scientist</th>
+                    <th style="background:#8e44ad;">💼 Client C: The CEO</th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Project:</strong> Bridge Arch Design<br><br>
+                        <strong>Equation:</strong> <br><code>y = -0.05(x - 20)² + 25</code><br><br>
+                        <em>(x = horizontal distance in meters, y = height of the arch in meters)</em><br><br>
+                        <strong>Format:</strong> Vertex Form
+                    </td>
+                    <td>
+                        <strong>Project:</strong> Rocket Launch Trajectory<br><br>
+                        <strong>Equation:</strong> <br><code>y = -5(x - 0)(x - 12)</code><br><br>
+                        <em>(x = time in seconds, y = height in meters)</em><br><br>
+                        <strong>Format:</strong> Factored Form
+                    </td>
+                    <td>
+                        <strong>Project:</strong> Product Profit Model<br><br>
+                        <strong>Equation:</strong> <br><code>y = -2x² + 40x - 100</code><br><br>
+                        <em>(x = price of item in $, y = profit in $1000s)</em><br><br>
+                        <strong>Format:</strong> Standard Form
+                    </td>
+                </tr>
+            </table>
+            <p style="margin-top: 15px; font-weight: bold; color: var(--primary-color);">My Chosen Client is: ____________________________________</p>
         </div>
 
-        <h3>Question 1: The Model & The Peak (Vertex Form)</h3>
-        <p>In business mathematics, the <strong>Vertex</strong> represents your "Peak Profit". Substitute your chosen <strong>h</strong> and <strong>k</strong> values into the equation below to create your personal profit model.</p>
-        <p style="font-size: 1.2rem; text-align: center; font-weight: bold; padding: 10px; background: #eee;">
-            <strong>P = -2(x - ____ )² + ____</strong>
-        </p>
-        <ul>
-            <li><strong>Explain:</strong> What are the coordinates of your Vertex (h, k)? What does this specific point mean for your business in the real world? (Write 2-3 sentences and include your reasoning to fully explain your answer.)</li>
-        </ul>
+        <div class="task-box" style="border-left-color: #f39c12;">
+            <span class="task-step" style="color: #d35400;">Step 2: Mathematical Assessment (The Math)</span>
+            <p>Use your chosen client's equation (or type it into the Desmos Graphing Calculator) to find the following key features. <em>(Show your work or state how you found it)</em>.</p>
+            <ul>
+                <li style="margin-bottom: 15px;"><strong>a) Find the Vertex (h, k):</strong> (____, ____)</li>
+                <li style="margin-bottom: 15px;"><strong>b) Find the y-intercept:</strong> ________</li>
+                <li><strong>c) Find the x-intercepts (Zeros):</strong> ________ and ________</li>
+            </ul>
+        </div>
 
-        <h3>Question 2: Startup Costs (Standard Form & y-intercept)</h3>
-        <p>Before you even sell a single item, you have to spend money (website hosting, manufacturing, marketing). Let's find out your initial costs by expanding your <strong>Vertex Form</strong> equation from Question 1 into <strong>Standard Form (P = ax² + bx + c)</strong>.</p>
-        <ul>
-            <li><strong>Calculate:</strong> Use the Quadratics calculator to find the answer.</li>
-            <li><strong>Explain:</strong> What is your <strong>y-intercept ('c' value)</strong> in your model? What does that number mean in your business? (Write 2-3 sentences and include your reasoning to fully explain your answer.)</li>
-        </ul>
+        <div class="task-box" style="border-left-color: #2980b9;">
+            <span class="task-step" style="color: #2980b9;">Step 3: Communication Assessment (The Meaning)</span>
+            <p>Your client does not understand math terms like "Vertex" or "Intercept". Write a 3-4 sentence report explaining exactly what the numbers from Step 2 mean <strong>in the context of their specific project</strong>.</p>
+            <ul>
+                <li style="margin-bottom: 15px;"><strong>Explain the Vertex:</strong> <em>(e.g., "This means the absolute highest point the bridge reaches is...")</em></li>
+                <li><strong>Explain the Zeros:</strong> <em>(e.g., "This means the rocket hits the ground at...")</em></li>
+            </ul>
+        </div>
 
-        <h3>Question 3: Breaking Even (x-intercepts)</h3>
-        <p>A profit parabola typically has two <strong>x-intercepts</strong> (points where your profit is exactly $0 or your "break-even" points). One happens when your price is too low, and the other happens when your price is too high.</p>
-        <ul>
-            <li><strong>a)</strong> Explain what those numbers are for your model? (Write 1-2 sentences and include your reasoning.)</li>
-            <li><strong>b)</strong> What those numbers mean in your in business? (Write 2-3 sentences and include your reasoning.)</li>
-            <li><strong>c)</strong> Explain: Using logic and consumer psychology, explain why pricing your item <em>too high</em> would cause your total profit to drop to $0 (or go negative). (Write 3-4 sentences and include your reasoning to fully explain your answer.)</li>
-        </ul>
+        <div class="task-box" style="border-left-color: #c0392b;">
+            <span class="task-step" style="color: #c0392b;">Step 4: The "What If" Scenario (Catastrophic Error)</span>
+            <p>Imagine a data entry clerk accidentally deleted the negative sign at the front of your equation, changing the <code>'a'</code> value from a negative number to a positive number.</p>
+            <ul>
+                <li><strong>Your Task:</strong> Explain what physically happens to the shape of the parabola, and describe the <strong>catastrophic real-world consequence</strong> this would have on your specific client's project. (e.g., What happens to a bridge if it opens UP instead of DOWN?)</li>
+            </ul>
+        </div>
 
-        <h3>Question 4: The "Greed" Scenario (Application)</h3>
-        <p>Imagine you get greedy and decide to sell your product for <strong>$30 more</strong> than your ideal price (h).</p>
-        <ul>
-            <li><strong>a)</strong> Calculate your new profit with the new price.</li>
-            <li><strong>b)</strong> Explain: Write a short email to your investors. Show them the math result, and explain why increasing the price per item actually caused the company to lose money overall. (Write 3-4 sentences and include your reasoning to fully explain your answer.)</li>
-        </ul>
-
-        <h3>Question 5: Market Shifts & Risk (Inquiry)</h3>
-        <p>A massive competitor enters the market, making consumers hyper-aware of prices. Mathematically, this changes your 'a' value from -2 to <strong>-10</strong>.</p>
-        <ul>
-            <li><strong>a)</strong> What happens to your profit equation graph if the 'a' value changes from -2 to -10? Does it get wider, narrower, or stay the same?</li>
-            <li><strong>b)</strong> Explain without doing any math calculations, deduce what this visual change means for your pricing strategy's <strong>Risk</strong>. In other words, what will happen to your price margin or the range that you can change the price? (Write 3-4 sentences and include your reasoning to fully explain your answer.)</li>
-        </ul>
-
-        <hr>
-
-        <h3>Grading Rubric (KICA)</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Level 4 (80-100%)</th>
-                    <th>Level 3 (70-79%)</th>
-                    <th>Level 2 (60-69%)</th>
-                    <th>Level 1 (50-59%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Knowledge (Q1, Q2)</strong></td>
-                    <td>Accurately creates the Vertex equation and correctly uses the calculator to identify the y-intercept.</td>
-                    <td>Creates the equation correctly, but makes minor errors identifying values from the calculator.</td>
-                    <td>Understands the equation structure, but struggles to use the calculator to find the correct values.</td>
-                    <td>Unable to set up the equation or use the calculator correctly.</td>
-                </tr>
-                <tr>
-                    <td><strong>Inquiry (Q3, Q5)</strong></td>
-                    <td>Insightfully connects the shape of the parabola and its intercepts to real market risks and consumer behavior.</td>
-                    <td>Draws a logical connection between the graph's shape and business impact.</td>
-                    <td>Understands the graph changes, but the real-world connection is weak.</td>
-                    <td>Cannot connect the mathematical changes to the real world.</td>
-                </tr>
-                <tr>
-                    <td><strong>Communication (Overall & Q4)</strong></td>
-                    <td>The investor email and explanations are professional, persuasive, use math terms perfectly in context, and meet the required sentence length with deep reasoning.</td>
-                    <td>Explanations are clear, mathematical terms are used correctly, and answers meet the sentence length with adequate reasoning.</td>
-                    <td>Explanations are somewhat vague, often missing the required sentence length or lacking reasoning; relies on everyday language.</td>
-                    <td>Explanations are confusing, consist of single words or very short phrases, and lack logical flow or reasoning.</td>
-                </tr>
-                <tr>
-                    <td><strong>Application (Q2, Q4)</strong></td>
-                    <td>Perfectly applies the concept of y-intercept to startup costs, and accurately calculates the greed scenario to prove a business point.</td>
-                    <td>Successfully applies the math results to the business scenarios.</td>
-                    <td>Calculates the math correctly, but struggles to fully apply the meaning to the scenarios.</td>
-                    <td>Unable to apply mathematical results to the business context.</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="task-box" style="border-left-color: #2c3e50; margin-top: 40px;">
+            <h3 style="color: var(--primary-color); margin-top:0;">Assignment Grading Rubric (MBF3C Standard)</h3>
+            <table class="rubric-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Category</th>
+                        <th>Level R (Fail/0)</th>
+                        <th>Level 1 (50-59%)</th>
+                        <th>Level 2 (60-69%)</th>
+                        <th>Level 3 (70-79%)</th>
+                        <th>Level 4 (80-100%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: bold; background-color: #ecf0f1; text-align: left;">Knowledge<br><small>(Step 2)</small></td>
+                        <td>No calculations or totally incorrect extraction.</td>
+                        <td>Extracts vertex but signs are backwards, missing intercept/zeros.</td>
+                        <td>Correct vertex, but struggles with the intercepts or zeros.</td>
+                        <td>Correct vertex, y-intercept, and zeros with minor notation errors.</td>
+                        <td>Flawlessly extracts and labels all mathematical features.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; background-color: #ecf0f1; text-align: left;">Communication<br><small>(Step 3)</small></td>
+                        <td>Blank or uses only math jargon with no context.</td>
+                        <td>Vague explanation ("It's the highest").</td>
+                        <td>Explains meaning but lacks specific units (meters, seconds, $).</td>
+                        <td>Clearly translates the vertex and zeros into real-world terms.</td>
+                        <td>Professional report tone; perfectly links math to reality.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; background-color: #ecf0f1; text-align: left;">Application & Inquiry<br><small>(Step 4)</small></td>
+                        <td>Does not understand the role of 'a'.</td>
+                        <td>Knows it opens UP, but gives no real-world consequence.</td>
+                        <td>Identifies a weak consequence ("The bridge falls").</td>
+                        <td>Clearly explains the physical disaster caused by a positive 'a'.</td>
+                        <td>Insightful, highly detailed analysis of the catastrophic failure.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 15px; padding: 10px; background: #ecf0f1; border-radius: 5px; font-size:0.9rem;">
+                <strong>📚 Lesson Correlation:</strong> Step 2 tests Lessons 2.2, 2.3, 2.4. Step 3 tests Lesson 2.1 (Features). Step 4 tests Lesson 2.1 (Direction of Opening).
+            </div>
+        </div>
     </div>
 </main>
 
 <div id="print-area"></div>
 
-<div class="version-tag">v2.9.1 (Single-Try Challenge Mod)</div>
+<div class="version-tag">v4.0.0 (Mastery Remediation Engine Integrated - MBF3C Standard)</div>
 
 <script>
     /* --- UTILS & DEEP RANDOMIZATION DICTIONARIES --- */
@@ -744,9 +764,47 @@
     const vars = ["x", "t", "n", "p", "d", "y"];
     const outVars = ["y", "P", "h", "C", "R", "D"];
 
+    // 🚀 MASTER REMEDIATION CONTROL PROFILE STATE VARIABLES
+    let isCurrentTypeLocked = false;
+    let lastPickedIndices = {};
+    let lockedMeta = {};
+    let questionBags = {};
+
+    function getUniqueQuestion(arr, bagId) {
+        if (isCurrentTypeLocked && lastPickedIndices[bagId] !== undefined) {
+            let savedIndex = lastPickedIndices[bagId];
+            if (savedIndex < arr.length) {
+                return arr[savedIndex];
+            }
+        }
+
+        if (!questionBags[bagId] || questionBags[bagId].length === 0) {
+            questionBags[bagId] = [];
+            for (let i = 0; i < arr.length; i++) {
+                questionBags[bagId].push(i);
+            }
+            // Array Shuffle
+            for (let i = questionBags[bagId].length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questionBags[bagId][i], questionBags[bagId][j]] = [questionBags[bagId][j], questionBags[bagId][i]];
+            }
+        }
+        let nextIndex = questionBags[bagId].pop();
+        lastPickedIndices[bagId] = nextIndex;
+        return arr[nextIndex];
+    }
+
+    const makeMC = (q, c, w1, w2, exp) => ({
+        q: `<p>${q}</p>`,
+        opts: [ {text: c, correct: true}, {text: w1, correct: false}, {text: w2, correct: false} ],
+        exp: exp
+    });
+    const makeInput = (q, ans, exp, isText=false) => ({ q, ans, exp, isText });
+
     // --- State Management ---
     let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit2_data')) || {};
     let isQuestionSolved = false; 
+    let currentQuestion = null;
 
     // --- Navigation ---
     function openTab(tabId) {
@@ -821,17 +879,21 @@
 
     function resetPracticeUI() {
         document.getElementById('feedback-area').innerHTML = "";
+        document.getElementById('feedback-area').className = "";
         document.getElementById('question-area').innerHTML = "<p>Click 'Generate Random Question' to start.</p>";
         document.getElementById('input-area').style.display = 'none';
         document.getElementById('user-answer').disabled = false;
+        
+        isCurrentTypeLocked = false;
+        lastPickedIndices = {};
+        lockedMeta = {};
+
         const mcArea = document.getElementById('mc-area');
         if(mcArea) { mcArea.style.display = 'none'; mcArea.innerHTML = ""; }
         updateScoreDisplay();
     }
 
     // --- Main Logic: Generate Question ---
-    let currentQuestion = null;
-
     function generateQuestion() {
         const selector = document.getElementById('practice-selector');
         let val = selector.value;
@@ -842,8 +904,7 @@
         const mcArea = document.getElementById('mc-area');
         const feedback = document.getElementById('feedback-area');
 
-        // Reset UI
-        feedback.innerText = ""; feedback.className = "";
+        feedback.innerHTML = ""; feedback.className = "";
         document.getElementById('user-answer').value = "";
         document.getElementById('user-answer').disabled = false;
         inputArea.style.display = 'none';
@@ -861,158 +922,69 @@
         else if (section === "2.4") gen2_4(kica, qArea);
     }
 
-    // --- Section 2.1 Generators (DEEP RANDOMIZATION) ---
+    // --- Section 2.1 Generators ---
     function gen2_1(kica, qArea) {
-        let isQuad = Math.random() > 0.5;
-
         if (kica === "K") {
             let asks = [];
-            // Quad variations (10)
+            // Quad variations
             for(let i=0; i<10; i++) {
                 let a = randInt(2, 25) * (Math.random()>0.5?1:-1);
                 let b = randInt(1, 150); let c = randInt(1, 5000);
                 let v = randChoice(vars); let out = randChoice(outVars);
-                let styles = [
-                    `${out} = ${a}${v}² + ${b}${v} - ${c}`,
-                    `${out} = ${a}(${v} - ${b})² + ${c}`,
-                    `${out} = ${v}(${a}${v} + ${b})`,
-                    `${out} = ${a}${v}² - ${c}`,
-                    `${out} = -${v}² + ${b}${v}`
-                ];
-                asks.push({ eq: randChoice(styles), ans: "Quadratic" });
+                let styles = [`${out} = ${a}${v}² + ${b}${v} - ${c}`, `${out} = ${a}(${v} - ${b})² + ${c}`, `${out} = ${v}(${a}${v} + ${b})`, `${out} = ${a}${v}² - ${c}`, `${out} = -${v}² + ${b}${v}`];
+                asks.push({ eq: randChoice(styles), ans: "Quadratic", exp: "Quadratic equations have a squared term (e.g., x²). This creates a parabolic curve." });
             }
-            // Linear variations (10)
+            // Linear variations
             for(let i=0; i<10; i++) {
                 let a = randInt(2, 25) * (Math.random()>0.5?1:-1);
                 let b = randInt(1, 150); let c = randInt(1, 5000);
                 let v = randChoice(vars); let out = randChoice(outVars);
-                let styles = [
-                    `${out} = ${a}${v} + ${b}`,
-                    `${out} = ${b} - ${a}${v}`,
-                    `${out} = ${a}(${v} + ${b})`,
-                    `${out} = ${c}${v}`,
-                    `${out} = (${b}/${c})${v} + ${a}`
-                ];
-                asks.push({ eq: randChoice(styles), ans: "Linear" });
+                let styles = [`${out} = ${a}${v} + ${b}`, `${out} = ${b} - ${a}${v}`, `${out} = ${a}(${v} + ${b})`, `${out} = ${c}${v}`, `${out} = (${b}/${c})${v} + ${a}`];
+                asks.push({ eq: randChoice(styles), ans: "Linear", exp: "Linear equations have no exponents greater than 1. They represent constant, straight-line rates." });
             }
             
-            // Filter by selected boolean to pick one
-            let validAsks = asks.filter(a => a.ans === (isQuad ? "Quadratic" : "Linear"));
-            let selected = randChoice(validAsks);
-            
+            let selected = getUniqueQuestion(asks, '2.1-K');
             qArea.innerHTML = `<p>Equation: <strong>${selected.eq}</strong></p><p>Is this relationship Linear or Quadratic?</p>`;
-            setupInput(selected.ans);
+            setupInput(selected.ans, selected.exp);
             
         } else if (kica === "A") {
             let item = randChoice(items);
             let price = randInt(10, 200);
             
-            let quadScenarios = [
-                `The total profit of selling ${item} goes up as price increases, hits a maximum, then falls off as fewer people buy.`,
-                `A baseball is thrown off a bridge into the water below.`,
-                `The area of a square garden as you increase its side length.`,
-                `The fuel efficiency of a car peaking at 90 km/h and dropping at higher speeds.`,
-                `A satellite dish's cross-sectional shape.`,
-                `The trajectory of an angry bird launched from a slingshot.`,
-                `The revenue of a movie theater dropping when ticket prices get too high.`,
-                `The height of a diver jumping off a 10m platform.`,
-                `A skateboarder doing a massive jump over a ramp.`,
-                `The hype cycle of a viral TikTok video.`
+            let pool = [
+                { s: `The total profit of selling ${item} goes up as price increases, hits a maximum, then falls off as fewer people buy.`, ans: "Quadratic", exp: "A pattern that rises to a peak and then falls is a parabola, making it a Quadratic model." },
+                { s: `A baseball is thrown off a bridge into the water below.`, ans: "Quadratic", exp: "Gravity pulls thrown objects in an accelerating curve downward, which is perfectly modeled by a Quadratic parabola." },
+                { s: `The area of a square garden as you increase its side length.`, ans: "Quadratic", exp: "Area is length squared (x²). Any relationship involving squaring is Quadratic." },
+                { s: `The fuel efficiency of a car peaking at 90 km/h and dropping at higher speeds.`, ans: "Quadratic", exp: "Finding an optimal 'sweet spot' (a peak) means the graph is a Quadratic curve." },
+                { s: `The hype cycle of a viral TikTok video.`, ans: "Quadratic", exp: "Viral trends shoot up, peak, and then die down. This rise-and-fall shape is a Quadratic parabola." },
+                { s: `You earn $${price} per hour working at a warehouse.`, ans: "Linear", exp: "You earn the exact same amount every hour. A constant rate of change creates a straight Linear line." },
+                { s: `A car drives on the highway at a constant speed of 100 km/h.`, ans: "Linear", exp: "The word 'constant' means the slope never changes. This is a Linear relationship." },
+                { s: `A gym charges a $50 sign-up fee plus $${price} every single month.`, ans: "Linear", exp: `The $50 is the y-intercept, and the $${price} is a constant slope. This is the linear formula y = mx + b.` },
+                { s: `Your phone battery drains at a steady rate of 2% every hour.`, ans: "Linear", exp: "A steady, unchanging rate always graphs as a straight Linear line." },
+                { s: `A factory produces exactly 500 widgets every single hour.`, ans: "Linear", exp: "Since production never accelerates or slows down, the total is a perfectly straight Linear line." }
             ];
             
-            let linScenarios = [
-                `You earn $${price} per hour working at a warehouse.`,
-                `A car drives on the highway at a constant speed of 100 km/h.`,
-                `A gym charges a $50 sign-up fee plus $${price} every single month.`,
-                `Your phone battery drains at a steady rate of 2% every hour.`,
-                `Water is leaking from a tank at exactly 5 liters per minute.`,
-                `A taxi charges $5 to start, and $2 for every kilometer driven.`,
-                `You deposit exactly $100 into your savings account every Friday.`,
-                `A factory produces exactly 500 widgets every single hour.`,
-                `The cost of buying bananas at $1.50 per pound.`,
-                `A candle burns down at a steady rate of 1 inch per hour.`
-            ];
-            
-            let scenario = isQuad ? randChoice(quadScenarios) : randChoice(linScenarios);
-            qArea.innerHTML = `<p>Scenario: <strong>${scenario}</strong></p><p>Which mathematical model best represents this?</p>`;
-            setupInput(isQuad ? "Quadratic" : "Linear");
-            
-        } else if (kica === "I") {
-            let n1 = randInt(2, 15);
-            let n2 = randInt(20, 80);
-            const pool = [
-                {
-                    q: `<p>Your sales data shows that the <strong>Second Differences</strong> equal exactly ${n1} every time.</p><p>What shape will the graph make?</p>`,
-                    opts: [ {text: "A U-shaped curve (Parabola)", correct: true}, {text: "A straight line", correct: false}, {text: "A random scatter plot", correct: false}, {text: "A V-shape", correct: false} ]
-                },
-                {
-                    q: `<p>Your data shows the <strong>First Differences</strong> are constantly increasing by ${n2} each time.</p><p>What kind of relationship is this?</p>`,
-                    opts: [ {text: "Quadratic (because the first differences are changing steadily).", correct: true}, {text: "Linear (because it goes up).", correct: false}, {text: "Neither.", correct: false}, {text: "Exponential.", correct: false} ]
-                },
-                {
-                    q: `<p>You track daily revenue. It goes up for 10 days, reaches a sharp peak, and then starts dropping.</p><p>What mathematical trend is this?</p>`,
-                    opts: [ {text: "Quadratic (Parabolic)", correct: true}, {text: "Linear", correct: false}, {text: "Exponential", correct: false}, {text: "Constant", correct: false} ]
-                },
-                {
-                    q: `<p>A chart shows a <strong>constant First Difference</strong> of -${n1}. What does the graph look like?</p>`,
-                    opts: [ {text: "A straight line going downwards.", correct: true}, {text: "A parabola opening downwards.", correct: false}, {text: "A flat horizontal line.", correct: false}, {text: "A jagged zigzag line.", correct: false} ]
-                },
-                {
-                    q: `<p>In the formula <span class="math-text">y = ${n1}x² + ${n2}</span>, what specifically makes it quadratic?</p>`,
-                    opts: [ {text: "The exponent '2' attached to the variable.", correct: true}, {text: `The numbers ${n1} and ${n2}.`, correct: false}, {text: "The fact that it has an 'x' and a 'y'.", correct: false}, {text: "The positive sign.", correct: false} ]
-                },
-                {
-                    q: `<p>If a table of values has constant First Differences of ${n2}, what is the mathematical model?</p>`,
-                    opts: [ {text: "Linear.", correct: true}, {text: "Quadratic.", correct: false}, {text: "Exponential.", correct: false}, {text: "Impossible to tell.", correct: false} ]
-                },
-                {
-                    q: `<p>Why does a quadratic curve (parabola) have changing first differences?</p>`,
-                    opts: [ {text: "Because the slope of the curve is constantly changing (accelerating or decelerating).", correct: true}, {text: "Because it's a straight line.", correct: false}, {text: "Because it starts at zero.", correct: false}, {text: "Because the calculator rounds the numbers.", correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            let selected = getUniqueQuestion(pool, '2.1-A');
+            qArea.innerHTML = `<p>Scenario: <strong>${selected.s}</strong></p><p>Which mathematical model best represents this?</p>`;
+            setupInput(selected.ans, selected.exp);
             
         } else if (kica === "C") {
             let item = randChoice(items);
             let wage = randInt(20, 45);
             let stName = randChoice(names);
             const pool = [
-                {
-                    q: `<p>Explain the "Hype Cycle" of a viral product like ${item} to a business partner using math terms.</p>`,
-                    opts: [ {text: `"It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies."`, correct: true}, {text: `"It's linear. Popularity just keeps going up forever at the same speed."`, correct: false}, {text: `"It's standard form because the y-intercept is always zero."`, correct: false}, {text: `"It's an asymptote because it never hits zero."`, correct: false} ]
-                },
-                {
-                    q: `<p>You hire an employee at $${wage} per hour. Explain this cost using math terminology.</p>`,
-                    opts: [ {text: `It is a linear cost. For every hour worked, the cost goes up by a constant $${wage} in a straight line.`, correct: true}, {text: "It is a quadratic cost because it forms a parabola.", correct: false}, {text: "It has a constant second difference.", correct: false}, {text: "It is exponential because wages grow fast.", correct: false} ]
-                },
-                {
-                    q: `<p>${stName} says that Quadratic and Linear relationships both just "go up". How do you correct them?</p>`,
-                    opts: [ {text: `"Linear relationships go up by the exact same amount every time, but Quadratic relationships accelerate, creating a curve."`, correct: true}, {text: `"They are exactly the same, just different formulas."`, correct: false}, {text: `"Linear goes up, but Quadratic only goes down."`, correct: false}, {text: `"Quadratic goes in a circle."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why can't a company's profit graph based on price be a linear line going up forever?</p>`,
-                    opts: [ {text: `"Because if the price gets too high, demand drops to zero. A parabola perfectly shows this peak and subsequent fall."`, correct: true}, {text: `"Because math formulas don't allow lines to go up forever."`, correct: false}, {text: `"Actually, it can be linear if the product is really good."`, correct: false}, {text: `"Because linear graphs are only used in science."`, correct: false} ]
-                },
-                {
-                    q: `<p>How would you describe the path of a thrown object to someone who doesn't know math?</p>`,
-                    opts: [ {text: `"It follows a quadratic parabola. It shoots up, slows down, hits a vertex, and falls back down."`, correct: true}, {text: `"It's a linear line that just changes direction randomly."`, correct: false}, {text: `"It has a constant first difference."`, correct: false}, {text: `"It moves in a perfect circle."`, correct: false} ]
-                },
-                {
-                    q: `<p>Explain to a driver why their fuel cost vs speed graph is a parabola (U-shape) and not a straight line.</p>`,
-                    opts: [ {text: `"Driving too slow wastes gas, and driving too fast burns fuel rapidly. There is a perfect sweet spot (the minimum vertex) in the middle."`, correct: true}, {text: `"Fuel cost is a straight line going down."`, correct: false}, {text: `"Fuel is linear because you always pay the same price at the pump."`, correct: false}, {text: `"Parabolas are only used for flying objects, not cars."`, correct: false} ]
-                }
+                makeMC(`Explain the "Hype Cycle" of a viral product like ${item} to a business partner using math terms.`, `"It's quadratic. Popularity spikes to a peak (Vertex), then drops back down as the hype dies."`, `"It's linear. Popularity just keeps going up forever at the same speed."`, `"It's standard form because the y-intercept is always zero."`, "Viral products naturally lose momentum over time. A Quadratic curve (Parabola) perfectly models this rise, peak (Vertex), and inevitable fall."),
+                makeMC(`You hire an employee at $${wage} per hour. Explain this cost using math terminology.`, `It is a linear cost. For every hour worked, the cost goes up by a constant $${wage} in a straight line.`, "It is a quadratic cost because it forms a parabola.", "It has a constant second difference.", "It is exponential because wages grow fast.", "Our hourly wage rate remains constant over all hours worked."),
+                makeMC(`${stName} says that Quadratic and Linear relationships both just "go up". How do you correct them?`, `"Linear relationships go up by the exact same amount every time, but Quadratic relationships accelerate, creating a curve."`, `"They are exactly the same, just different formulas."`, `"Linear goes up, but Quadratic only goes down."`, `"Quadratic goes in a circle."`, "A linear line goes up by equal intervals. A quadratic curve possesses compounding acceleration where differences change consistently.")
             ];
-            let selected = randChoice(pool);
+            let selected = getUniqueQuestion(pool, '2.1-C');
             qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            setupMC(selected.opts, selected.exp);
         }
     }
 
-    // --- Section 2.2 Generators (DEEP RANDOMIZATION) ---
+    // --- Section 2.2 Generators ---
     function gen2_2(kica, qArea) {
-        let style = randInt(1, 5);
         let h = randInt(15, 250);
         let k = randInt(1000, 95000);
         let a = randInt(-15, -1);
@@ -1020,119 +992,94 @@
         let out = randChoice(outVars);
         let vIn = randChoice(vars);
         
+        let style;
+        if (isCurrentTypeLocked && lockedMeta['2.2-K']) {
+            style = lockedMeta['2.2-K'].style;
+        } else {
+            style = randInt(1, 5);
+            lockedMeta['2.2-K'] = { style };
+        }
+
         let eq = "";
         if (style === 1) eq = `${out} = ${a}(${vIn} - ${h})² + ${k}`;
-        else if (style === 2) eq = `${out} = ${a}(${vIn} + ${h})² + ${k}`; // negative h
-        else if (style === 3) eq = `${out} = ${Math.abs(a)}(${vIn} - ${h})² + ${k}`; // positive a = minimum
-        else if (style === 4) eq = `${out} = ${a}(${vIn} - ${h})² - ${k}`; // negative k
-        else eq = `${out} = ${a}${vIn}² + ${k}`; // h=0
+        else if (style === 2) eq = `${out} = ${a}(${vIn} + ${h})² + ${k}`;
+        else if (style === 3) eq = `${out} = ${Math.abs(a)}(${vIn} - ${h})² + ${k}`;
+        else if (style === 4) eq = `${out} = ${a}(${vIn} - ${h})² - ${k}`;
+        else eq = `${out} = ${a}${vIn}² + ${k}`;
 
         let realH = (style === 2) ? -h : (style === 5 ? 0 : h);
         let realK = (style === 4) ? -k : k;
 
         if (kica === "K") {
-            let asks = [
-                `<p>Equation: <strong>${eq}</strong></p><p>Identify the Vertex coordinates. (Format: (x,y) with no spaces)</p>`,
-                `<p>Given the quadratic relation: <strong>${eq}</strong></p><p>What is the exact (h,k) vertex point?</p>`,
-                `<p>Locate the vertex of the following equation: <strong>${eq}</strong></p><p>(Enter as (x,y))</p>`
-            ];
-            qArea.innerHTML = randChoice(asks);
-            setupInput(`(${realH},${realK})`);
+            qArea.innerHTML = `<p>Equation: <strong>${eq}</strong></p><p>Identify the Vertex coordinates. (Format: (x,y) with no spaces)</p>`;
+            setupInput(`(${realH},${realK})`, `In vertex form y = a(x - h)² + k, the vertex is (h, k). Remember that the sign of 'h' inside the bracket is flipped from reality. So if you see (x - ${h}), the coordinate is positive ${h}.`);
             
         } else if (kica === "A") {
             let pA = randInt(-25, -2);
             let pH = randInt(10, 100);
             let pK = randInt(500, 10000);
-            let asks = [
-                {q: `Your ${item} profit model is: <strong>P = ${pA}(x - ${pH})² + ${pK}</strong>. What is your <strong>Maximum Profit</strong>?`, ans: pK},
-                {q: `Your ${item} profit model is: <strong>P = ${pA}(x - ${pH})² + ${pK}</strong>. What is the <strong>Ideal Selling Price</strong>?`, ans: pH},
-                {q: `A rocket's flight path is <strong>h = ${pA}(t - ${pH})² + ${pK}</strong>. What is its <strong>Maximum Height</strong>?`, ans: pK},
-                {q: `A rocket's flight path is <strong>h = ${pA}(t - ${pH})² + ${pK}</strong>. At what <strong>Time (t)</strong> does it reach the peak?`, ans: pH},
-                {q: `Your factory's cost equation is <strong>C = ${Math.abs(pA)}(n - ${pH})² + ${pK}</strong>. What is the <strong>Lowest Possible Cost</strong> (Minimum)?`, ans: pK},
-                {q: `A submarine's depth is modeled by <strong>d = ${Math.abs(pA)}(t - ${pH})² - ${pK}</strong>. What is the <strong>Absolute Lowest Depth</strong> reached?`, ans: -pK},
-                {q: `A marketing campaign engagement peaks at <strong>E = ${pA}(d - ${pH})² + ${pK}</strong>. On what <strong>Day (d)</strong> does it peak?`, ans: pH},
-                {q: `The temperature of an oven is modeled by <strong>T = ${pA}(m - ${pH})² + ${pK}</strong>. What is the <strong>Peak Temperature</strong>?`, ans: pK}
-            ];
-            let selected = randChoice(asks);
-            qArea.innerHTML = `<p>${selected.q}</p>`;
-            setupInput(selected.ans.toString());
             
-        } else if (kica === "I") {
-            let badP = h + randInt(20, 100);
-            let badPLow = h - randInt(10, h-1);
-            let kUp = randInt(5000, 20000);
-            let hUp = randInt(5, 50);
-            const pool = [
-                {
-                    q: `<p>Your profit model is <strong>P = ${a}(x - ${h})² + ${k}</strong>. The perfect price is $${h}.</p><p>What happens to your profit if you set the price to $${badP}?</p>`,
-                    opts: [ {text: `It will drop significantly below $${k} because you moved right on the parabola, away from the Vertex.`, correct: true}, {text: `It stays at $${k} because higher prices equal higher profits.`, correct: false}, {text: `Profit will increase infinitely.`, correct: false}, {text: `Profit drops to exactly zero.`, correct: false} ]
-                },
-                {
-                    q: `<p>Your profit model is <strong>P = ${a}(x - ${h})² + ${k}</strong>. You drastically lower the price to $${badPLow} to \"sell more\".</p><p>What happens to the profit (P)?</p>`,
-                    opts: [ {text: `Total profit drops because you moved left on the graph, falling away from the peak.`, correct: true}, {text: `Total profit goes up because volume fixes everything.`, correct: false}, {text: `It stays at $${k}.`, correct: false}, {text: `Profit goes up linearly.`, correct: false} ]
-                },
-                {
-                    q: `<p>You find a cheaper manufacturer for ${item}. This increases your maximum profit by $${kUp}.</p><p>What happens to the Vertex of your graph?</p>`,
-                    opts: [ {text: `The Vertex shifts upwards vertically (the 'k' value becomes ${k + kUp}).`, correct: true}, {text: "The Vertex shifts horizontally.", correct: false}, {text: "The Vertex flips upside down.", correct: false}, {text: "The 'a' value changes to positive.", correct: false} ]
-                },
-                {
-                    q: `<p>Due to inflation, consumers are willing to pay $${hUp} more for your product before demand drops.</p><p>What happens to your Vertex?</p>`,
-                    opts: [ {text: `It shifts horizontally to the right (the 'h' value becomes ${h + hUp}).`, correct: true}, {text: "It shifts vertically up.", correct: false}, {text: "It does not move.", correct: false}, {text: "It shifts downwards.", correct: false} ]
-                },
-                {
-                    q: `<p>If an equation has a POSITIVE 'a' value, like <strong>C = 5(x - ${h})² + ${k}</strong>, what does the Vertex represent?</p>`,
-                    opts: [ {text: "A Minimum (a Valley) – usually representing the lowest possible cost or lowest point.", correct: true}, {text: "A Maximum (a Peak) – representing highest profit.", correct: false}, {text: "It means the graph has no vertex.", correct: false}, {text: "It represents a straight horizontal line.", correct: false} ]
-                },
-                {
-                    q: `<p>In the equation <strong>y = ${a}x² + ${k}</strong>, why is there no 'h' value in brackets?</p>`,
-                    opts: [ {text: "Because 'h' is exactly 0. The peak is directly on the y-axis.", correct: true}, {text: "Because 'h' is infinite.", correct: false}, {text: "It is a typo in the equation.", correct: false}, {text: "Because the graph is a straight line.", correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            let targetType;
+            if (isCurrentTypeLocked && lockedMeta['2.2-A']) {
+                targetType = lockedMeta['2.2-A'].targetType;
+            } else {
+                targetType = randInt(1, 4);
+                lockedMeta['2.2-A'] = { targetType };
+            }
+
+            let textProblem = "", finalAns = "", expStr = "";
+            if (targetType === 1) {
+                textProblem = `Your ${item} profit model is: <strong>P = ${pA}(x - ${pH})² + ${pK}</strong>. What is your <strong>Maximum Profit</strong>?`;
+                finalAns = pK;
+                expStr = "The vertex is (h, k). The k-value (y-coordinate) represents the absolute maximum output height/profit. You don't flip the sign for k!";
+            } else if (targetType === 2) {
+                textProblem = `Your ${item} profit model is: <strong>P = ${pA}(x - ${pH})² + ${pK}</strong>. What is the <strong>Ideal Selling Price</strong>?`;
+                finalAns = pH;
+                expStr = "The vertex is (h, k). The h-value (x-coordinate) represents the input (price) that achieves the peak. Remember to flip the sign from the bracket!";
+            } else if (targetType === 3) {
+                textProblem = `A rocket's flight path is <strong>h = ${pA}(t - ${pH})² + ${pK}</strong>. What is its <strong>Maximum Height</strong>?`;
+                finalAns = pK;
+                expStr = "The maximum height is the y-coordinate of the peak, which corresponds to the 'k' value at the end of the Vertex Form equation.";
+            } else {
+                textProblem = `A submarine's depth is modeled by <strong>d = ${Math.abs(pA)}(t - ${pH})² - ${pK}</strong>. What is the <strong>Absolute Lowest Depth</strong> reached?`;
+                finalAns = -pK;
+                expStr = "The lowest depth is the Minimum Vertex. The 'k' value at the end of the equation is the y-coordinate. Since it says minus, the depth is negative.";
+            }
+
+            qArea.innerHTML = `<p>${textProblem}</p>`;
+            setupInput(finalAns.toString(), expStr);
             
         } else if (kica === "C") {
-            let stName = randChoice(names);
             const pool = [
                 {
                     q: `<p>Your business vertex is <strong>(${h}, ${k})</strong>.</p><p>Which sentence best explains this to your investors?</p>`,
-                    opts: [ {text: `"If we price the item exactly at $${h}, we will hit our maximum possible profit of $${k}."`, correct: true}, {text: `"We have to spend $${k} to make $${h}."`, correct: false}, {text: `"If we sell ${h} items, we break even at $${k}."`, correct: false}, {text: `"Our startup cost is $${k}."`, correct: false} ]
-                },
-                {
-                    q: `<p>A customer asks why you don't just sell the ${item} for $${h + 200}. How do you explain the math to them?</p>`,
-                    opts: [ {text: `"Our profit follows a parabola. If we raise the price too far past the peak (vertex), the massive loss in sales volume ruins our total profit."`, correct: true}, {text: `"Because the equation has a negative y-intercept."`, correct: false}, {text: `"We actually would make more money, but we want to be nice."`, correct: false}, {text: `"Because $${h+200} is the break-even point."`, correct: false} ]
+                    opts: [ {text: `"If we price the item exactly at $${h}, we will hit our maximum possible profit of $${k}."`, correct: true}, {text: `"We have to spend $${k} to make $${h}."`, correct: false}, {text: `"If we sell ${h} items, we break even at $${k}."`, correct: false}, {text: `"Our startup cost is $${k}."`, correct: false} ],
+                    exp: "The x-coordinate (h) is your input (Price), and the y-coordinate (k) is your resulting output (Maximum Profit). You must translate the math numbers into the business reality."
                 },
                 {
                     q: `<p>A new partner asks why the profit equation has a negative number (<strong>${a}</strong>) at the front.</p><p>How do you explain this?</p>`,
-                    opts: [ {text: `"Because a negative 'a' value makes the parabola open DOWN, creating a 'Peak' (Max profit). If it opened up, it would imply infinite profit, which is impossible."`, correct: true}, {text: `"Because we are operating at a loss right now."`, correct: false}, {text: `"It is a typo in the formula."`, correct: false}, {text: `"Because taxes are deducted."`, correct: false} ]
+                    opts: [ {text: `"Because a negative 'a' value makes the parabola open DOWN, creating a 'Peak' (Max profit). If it opened up, it would imply infinite profit, which is impossible."`, correct: true}, {text: `"Because we are operating at a loss right now."`, correct: false}, {text: `"It is a typo in the formula."`, correct: false}, {text: `"Because taxes are deducted."`, correct: false} ],
+                    exp: "In economics, profit is constrained by demand. A negative 'a' forms a peak, proving that charging too much eventually kills your sales."
                 },
                 {
-                    q: `<p>Your factory cost equation is <strong>C = 12(x - 50)² + 3000</strong>.</p><p>Explain to the manager what this means for production speed (x).</p>`,
-                    opts: [ {text: `"We must run the machines at speed 50. Anything faster or slower will cause costs to rise above our absolute minimum of $3000."`, correct: true}, {text: `"It means we will make $3000 in profit."`, correct: false}, {text: `"The cost goes down constantly forever."`, correct: false}, {text: `"We need to run at speed 3000."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is Vertex Form Form considered the most "business-friendly" way to write a quadratic equation?</p>`,
-                    opts: [ {text: `"Because you can just look at the numbers inside the brackets and immediately know your optimal strategy (h) and best outcome (k)."`, correct: true}, {text: `"Because it is the only form calculators accept."`, correct: false}, {text: `"Because it perfectly shows the startup costs (y-intercept)."`, correct: false}, {text: `"Because it doesn't use exponents."`, correct: false} ]
-                },
-                {
-                    q: `<p>${stName} says, "To find max profit, just look at the y-intercept." Correct them.</p>`,
-                    opts: [ {text: `"The y-intercept is your starting point (usually a loss). The Vertex is the peak representing maximum profit."`, correct: true}, {text: `"You are right, the y-intercept is the highest point."`, correct: false}, {text: `"Max profit is found at the x-intercepts."`, correct: false}, {text: `"Profit is calculated using the first differences."`, correct: false} ]
+                    q: `<p>Why is Vertex Form considered the most "business-friendly" way to write a quadratic equation?</p>`,
+                    opts: [ {text: `"Because you can just look at the numbers inside the brackets and immediately know your optimal strategy (h) and best outcome (k)."`, correct: true}, {text: `"Because it is the only form calculators accept."`, correct: false}, {text: `"Because it perfectly shows the startup costs (y-intercept)."`, correct: false}, {text: `"Because it doesn't use exponents."`, correct: false} ],
+                    exp: "Business leaders care about maximums and minimums (optimizations). Vertex form hands you the peak coordinates without needing any algebra or graphing tools."
                 }
             ];
-            let selected = randChoice(pool);
+            let selected = getUniqueQuestion(pool, '2.2-C');
             qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            setupMC(selected.opts, selected.exp);
         }
     }
 
-    // --- Section 2.3 Generators (DEEP RANDOMIZATION) ---
+    // --- Section 2.3 Generators ---
     function gen2_3(kica, qArea) {
         let h = randInt(10, 50);
         let k = randInt(2000, 25000);
         let a = randInt(-8, -1); 
         let b = -2 * a * h; 
-        let c = (a * h * h) + k; // This is the y-intercept
+        let c = (a * h * h) + k;
         let item = randChoice(items);
         let out = randChoice(outVars);
         let vIn = randChoice(vars);
@@ -1141,144 +1088,103 @@
         let vertexEq = `${out} = ${a}(${vIn} - ${h})² + ${k}`;
 
         if (kica === "K") {
-            let asks = [
-                {q: `Expand to Standard Form: <strong>${vertexEq}</strong>. What is the 'c' value (y-intercept)?`},
-                {q: `Look at the equation: <strong>y = ${a}(x - ${h})(x + ${randInt(5,20)}) ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}</strong>. Let x = 0 to find the exact y-intercept.`},
-                {q: `In the equation <strong>${standardEq}</strong>, physically identify the y-intercept.`},
-                {q: `Calculate the starting value (when t=0) for <strong>h = ${a}t² + ${b}t ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}</strong>.`},
-                {q: `Find the y-intercept by expanding: <strong>C = ${Math.abs(a)}(n - ${h})² ${c>=0?'+':'-'} ${Math.abs(k)}</strong>. (Note: calculate the final 'c' value)`}
-            ];
-            
-            let calcC = c;
-            let finalQ = `Equation: <strong>${vertexEq}</strong><br>Expand this and identify the <strong>'c' value (y-intercept)</strong>.`;
-            let rNum = randInt(1,4);
-            if(rNum === 1) finalQ = `In the equation <strong>${standardEq}</strong>, identify the y-intercept.`;
-            if(rNum === 2) finalQ = `Calculate the starting value (t=0) for <strong>${out} = ${a}t² + ${b}t ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}</strong>.`;
-            if(rNum === 3) {
-                let rFac1 = randInt(2,8); let rFac2 = randInt(2,8); let rC = randInt(-100, 100);
-                finalQ = `Look at the factored equation: <strong>y = ${a}(x - ${rFac1})(x + ${rFac2}) ${rC >= 0 ? '+ '+rC : '- '+Math.abs(rC)}</strong>. Let x = 0 to find the y-intercept.`;
-                calcC = (a * (-rFac1) * rFac2) + rC;
+            let targetType;
+            if (isCurrentTypeLocked && lockedMeta['2.3-K']) {
+                targetType = lockedMeta['2.3-K'].targetType;
+            } else {
+                targetType = randInt(1, 4);
+                lockedMeta['2.3-K'] = { targetType };
+            }
+
+            let finalQ = "", calcC = c;
+            if (targetType === 1) {
+                finalQ = `Equation: <strong>${vertexEq}</strong><br>Expand this and identify the <strong>'c' value (y-intercept)</strong>.`;
+                calcC = c;
+            } else if (targetType === 2) {
+                finalQ = `In the equation <strong>${standardEq}</strong>, identify the y-intercept.`;
+                calcC = c;
+            } else if (targetType === 3) {
+                finalQ = `Calculate the starting value (t=0) for <strong>${out} = ${a}t² + ${b}t ${c >= 0 ? '+ '+c : '- '+Math.abs(c)}</strong>.`;
+                calcC = c;
+            } else {
+                // 🚀 FIXED: Partially-factored form changed here to full standard Factored Form y = a(x - r)(x - s)
+                let rFac1 = randInt(2,8); let rFac2 = randInt(2,8);
+                finalQ = `Look at the factored equation: <strong>y = ${a}(x - ${rFac1})(x + ${rFac2})</strong>. Let x = 0 to find the y-intercept.`;
+                calcC = a * (-rFac1) * rFac2;
             }
             
             qArea.innerHTML = `<p>${finalQ}</p>`;
-            setupInput(calcC.toString());
+            setupInput(calcC.toString(), "The y-intercept occurs when the input (x) is 0. If it's in Standard Form, all x terms disappear and you are left with just the constant 'c' at the end. Otherwise, substitute x=0 and calculate.");
             
         } else if (kica === "A") {
-            let asks = [
-                `Your ${item} profit model is expanded to: <strong>${standardEq}</strong>. What is your <strong>Startup Cost</strong> (Profit when price x = 0)?`,
-                `A ball is thrown. Its path is <strong>h = -5t² + 20t + ${Math.abs(c)}</strong>. What is the <strong>Initial Height</strong> of the ball in meters?`,
-                `A business debt model is <strong>D = ${Math.abs(a)}x² + ${b}x + ${Math.abs(c)}</strong>. What is the exact debt on Day 0?`,
-                `Your app's revenue is <strong>R = ${a}x² + ${b}x ${c>=0?'+':'-'} ${Math.abs(c)}</strong>. What is the revenue exactly at launch (x=0)?`,
-                `A drone's trajectory is <strong>y = ${a}x² + ${b}x + ${Math.abs(c)}</strong>. At distance x=0, what is its height?`,
-                `A submarine's depth is <strong>d = ${a}t² + ${b}t - ${Math.abs(c)}</strong>. Where is it located at t=0?`,
-                `The temperature of an oven is <strong>T = -2m² + 40m + ${Math.abs(c)}</strong>. What is the temperature before it gets turned on (m=0)?`
-            ];
-            let selected = randChoice(asks);
-            qArea.innerHTML = `<p>${selected}</p>`;
-            let finalAns = c;
-            if(selected.includes("Height") || selected.includes("debt") || selected.includes("temperature")) finalAns = Math.abs(c);
-            if(selected.includes("submarine")) finalAns = -Math.abs(c);
-            if(selected.includes("revenue") || selected.includes("Startup")) finalAns = c;
+            let targetType;
+            if (isCurrentTypeLocked && lockedMeta['2.3-A']) {
+                targetType = lockedMeta['2.3-A'].targetType;
+            } else {
+                targetType = randInt(1, 3);
+                lockedMeta['2.3-A'] = { targetType };
+            }
 
-            setupInput(finalAns.toString());
-            
-        } else if (kica === "I") {
-            let x1 = randInt(5, 25);
-            let x2 = randInt(40, 150);
-            let costHit = randInt(1000, 5000);
-            const pool = [
-                {
-                    q: `<p>Your profit parabola crosses the x-axis at $${x1} and $${x2}.</p><p>What do these x-intercepts represent in your business?</p>`,
-                    opts: [ {text: `The Break-Even points. Pricing below $${x1} or above $${x2} results in a total loss.`, correct: true}, {text: `The points where we make the maximum possible profit.`, correct: false}, {text: `The startup costs for the business.`, correct: false}, {text: `The amount of taxes owed.`, correct: false} ]
-                },
-                {
-                    q: `<p>Your business equation is factored to <span class="math-text">P = ${a}(x - ${x1})(x - ${x2})</span>.</p><p>What exactly happens if you set the price at $${x1}?</p>`,
-                    opts: [ {text: `Your profit will be exactly $0 (You break even).`, correct: true}, {text: `You will reach your peak profit.`, correct: false}, {text: `You will owe the bank money.`, correct: false}, {text: `Your profit is infinite.`, correct: false} ]
-                },
-                {
-                    q: `<p>Your y-intercept is currently ${c}. Suddenly, property taxes for your warehouse increase by $${costHit}.</p><p>What happens to the y-intercept?</p>`,
-                    opts: [ {text: `It moves further down into the negative numbers (becomes ${c - costHit}).`, correct: true}, {text: `It moves up and becomes positive.`, correct: false}, {text: `The y-intercept stays the same, but the curve gets wider.`, correct: false}, {text: `It shifts horizontally.`, correct: false} ]
-                },
-                {
-                    q: `<p>What happens to the graph if a business has NO x-intercepts and the 'a' value is negative?</p>`,
-                    opts: [ {text: "The entire parabola is below the x-axis. The business will never break even, no matter what price is chosen.", correct: true}, {text: "It means the business has infinite profit.", correct: false}, {text: "It means there are no startup costs.", correct: false}, {text: "The graph forms a straight line.", correct: false} ]
-                },
-                {
-                    q: `<p>The distance between your two x-intercepts is $${x2 - x1}. What does this width mathematically represent?</p>`,
-                    opts: [ {text: "The 'Safe Window'. It is the entire range of prices you can choose from and still make a positive profit.", correct: true}, {text: "The amount of items you need to sell.", correct: false}, {text: "Your maximum profit margin.", correct: false}, {text: "The exact coordinate of the vertex.", correct: false} ]
-                },
-                {
-                    q: `<p>If the equation is <strong>y = -5x² + 20x</strong>, why is there no 'c' value shown?</p>`,
-                    opts: [ {text: "Because the y-intercept is exactly 0. The graph starts perfectly at the origin.", correct: true}, {text: "Because it was deleted by mistake.", correct: false}, {text: "Because 'c' is infinity.", correct: false}, {text: "Because it's impossible to calculate.", correct: false} ]
-                }
-            ];
-            let selected = randChoice(pool);
-            qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            let textProblem = "", finalAns = "", expStr = "";
+            if (targetType === 1) {
+                textProblem = `Your ${item} profit model is expanded to: <strong>${standardEq}</strong>. What is your <strong>Startup Cost</strong> (Profit when price x = 0)?`;
+                finalAns = c;
+                expStr = "At price 0, the business has not sold anything yet. The y-intercept (the 'c' value at the end of Standard Form) represents your starting balance or setup costs.";
+            } else if (targetType === 2) {
+                textProblem = `A ball is thrown. Its path is <strong>h = -5t² + 20t + ${Math.abs(c)}</strong>. What is the <strong>Initial Height</strong> of the ball in meters?`;
+                finalAns = Math.abs(c);
+                expStr = "Initial height happens at time = 0. In Standard Form, the constant 'c' value at the end is the y-intercept (starting height).";
+            } else {
+                textProblem = `A business debt model is <strong>D = ${Math.abs(a)}x² + ${b}x + ${Math.abs(c)}</strong>. What is the exact debt on Day 0?`;
+                finalAns = Math.abs(c);
+                expStr = "Day 0 means x=0. The x terms vanish, leaving only the 'c' constant as your starting debt.";
+            }
+
+            qArea.innerHTML = `<p>${textProblem}</p>`;
+            setupInput(finalAns.toString(), expStr);
             
         } else if (kica === "C") {
             let negC = randInt(-5000, -500);
-            let stName = randChoice(names);
             const pool = [
                 {
                     q: `<p>Your y-intercept is calculated as <strong>${negC}</strong>.</p><p>Why is this number negative in a real business scenario?</p>`,
-                    opts: [ {text: `"It represents the fixed money spent on equipment and inventory before selling a single item (Startup Costs)."`, correct: true}, {text: `"Because no one wants to buy the product."`, correct: false}, {text: `"Because the formula demands a negative 'c' value."`, correct: false}, {text: `"Because taxes were deducted."`, correct: false} ]
-                },
-                {
-                    q: `<p>A new employee looks at the graph and asks why it starts below zero when the price (x) is 0.</p><p>How do you explain this?</p>`,
-                    opts: [ {text: `"At price 0, we make no revenue, so we are deep in the hole for our initial setup expenses."`, correct: true}, {text: `"It's a mathematical glitch. Profit always starts at 0."`, correct: false}, {text: `"It means our product is priced way too high."`, correct: false}, {text: `"It means we have infinite profit."`, correct: false} ]
+                    opts: [ {text: `"It represents the fixed money spent on equipment and inventory before selling a single item (Startup Costs)."`, correct: true}, {text: `"Because no one wants to buy the product."`, correct: false}, {text: `"Because the formula demands a negative 'c' value."`, correct: false}, {text: `"Because taxes were deducted."`, correct: false} ],
+                    exp: "A new business must spend money before it can make money. This creates a negative starting balance (y-intercept) on the profit graph."
                 },
                 {
                     q: `<p>A partner says, "We should only use the Vertex Form."</p><p>Why is the <strong>Standard Form</strong> (P = ax² + bx + c) also useful to communicate?</p>`,
-                    opts: [ {text: `"Because the 'c' value instantly reveals our exact initial investment/startup cost without needing any math."`, correct: true}, {text: `"Because standard form tells us the maximum profit directly."`, correct: false}, {text: `"It isn't useful, Vertex form is always better."`, correct: false}, {text: `"Because it's the only one calculators understand."`, correct: false} ]
+                    opts: [ {text: `"Because the 'c' value instantly reveals our exact initial investment/startup cost without needing any math."`, correct: true}, {text: `"Because standard form tells us the maximum profit directly."`, correct: false}, {text: `"It isn't useful, Vertex form is always better."`, correct: false}, {text: `"Because it's the only one calculators understand."`, correct: false} ],
+                    exp: "Each form has a superpower. Vertex Form gives you the peak. Standard Form gives you the exact starting point (y-intercept) on a silver platter."
                 },
                 {
                     q: `<p>Explain to an investor what it means to "Break Even" using the shape of a parabola.</p>`,
-                    opts: [ {text: `"It's the exact moments the curved line crosses the zero-axis, meaning our revenue has finally perfectly covered our startup costs."`, correct: true}, {text: `"It's the peak of the curve where we make the most money."`, correct: false}, {text: `"It's where the curve starts on the y-axis."`, correct: false}, {text: `"It's the distance between the highest and lowest points."`, correct: false} ]
-                },
-                {
-                    q: `<p>Why is it dangerous to ignore the y-intercept when planning a new business?</p>`,
-                    opts: [ {text: `"If the y-intercept (startup cost) is too deeply negative, you might run out of cash before you ever reach the break-even point."`, correct: true}, {text: `"Because the y-intercept determines the maximum profit."`, correct: false}, {text: `"It is not dangerous. Startup costs don't matter in the long run."`, correct: false}, {text: `"Because the y-intercept determines the price of the item."`, correct: false} ]
-                },
-                {
-                    q: `<p>${stName} asks why there are TWO x-intercepts (break-even points) on the profit graph instead of just one.</p><p>Explain this to them.</p>`,
-                    opts: [ {text: `"One is when the price is too low (not enough margin), the other is when the price is too high (nobody buys it). Both result in $0 profit."`, correct: true}, {text: `"It's a glitch in the graph."`, correct: false}, {text: `"One is for last year, one is for next year."`, correct: false}, {text: `"Because all businesses sell two different items."`, correct: false} ]
+                    opts: [ {text: `"It's the exact moments the curved line crosses the zero-axis, meaning our revenue has finally perfectly covered our startup costs."`, correct: true}, {text: `"It's the peak of the curve where we make the most money."`, correct: false}, {text: `"It's where the curve starts on the y-axis."`, correct: false}, {text: `"It's the distance between the highest and lowest points."`, correct: false} ],
+                    exp: "The curve starts in the negative, rises up across the x-axis (Zero / Break-even), and enters the positive profit zone."
                 }
             ];
-            let selected = randChoice(pool);
+            let selected = getUniqueQuestion(pool, '2.3-C');
             qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            setupMC(selected.opts, selected.exp);
         }
     }
 
-    // --- Section 2.4 Generators (DEEP RANDOMIZATION) ---
+    // --- Section 2.4 Generators ---
     function gen2_4(kica, qArea) {
         let h = randInt(25, 150);
         let k = randInt(5000, 80000);
         let a = randInt(-10, -2);
         let item = randChoice(items);
         let eq = `P = ${a}(x - ${h})² + ${k}`;
-        let stName = randChoice(names);
 
-        if (kica === "K") {
-            let asks = [];
-            for(let i=0; i<10; i++) {
-                let testX = h + randInt(5, 40) * (Math.random()>0.5?1:-1);
-                let result = a * Math.pow((testX - h), 2) + k;
-                let cA = randInt(-8, -2); let cH = randInt(10, 50); let cK = randInt(1000, 5000);
-                let cEq = `R = ${cA}(p - ${cH})² + ${cK}`;
-                let cTest = cH + randInt(2, 10);
-                let cRes = cA * Math.pow((cTest - cH), 2) + cK;
-                
-                asks.push({ q: `<p>Equation: <strong>P = ${a}(x - ${h})² + ${k}</strong></p><p>Substitute x = <strong>${testX}</strong> into the equation and calculate P.</p>`, a: result });
-                asks.push({ q: `<p>Given <strong>y = ${a}(x - ${h})² + ${k}</strong></p><p>Find y when x is exactly <strong>${testX}</strong>.</p>`, a: result });
-                asks.push({ q: `<p>Using the model <strong>${cEq}</strong></p><p>Calculate R if p = <strong>${cTest}</strong>.</p>`, a: cRes });
+        if (kica === "A") {
+            let targetType;
+            if (isCurrentTypeLocked && lockedMeta['2.4-A']) {
+                targetType = lockedMeta['2.4-A'].targetType;
+            } else {
+                targetType = randInt(1, 2);
+                lockedMeta['2.4-A'] = { targetType };
             }
-            let selected = randChoice(asks);
-            qArea.innerHTML = selected.q;
-            setupInput(selected.a.toString());
-            
-        } else if (kica === "A") {
+
             let greedAmt = randInt(15, 60);
             let greedPrice = h + greedAmt;
             let greedResult = a * Math.pow((greedPrice - h), 2) + k;
@@ -1286,21 +1192,20 @@
             let panicAmt = randInt(10, h-5);
             let panicPrice = h - panicAmt;
             let panicResult = a * Math.pow((panicPrice - h), 2) + k;
-
-            let cA = randInt(-5, -2); let cH = randInt(20, 80); let cK = randInt(2000, 9000);
-            let cGreedP = cH + randInt(10, 30);
-            let cGreedRes = cA * Math.pow((cGreedP - cH), 2) + cK;
             
-            let asks = [
-                {q: `The ideal price for ${item} is $${h} making $${k} (<strong>${eq}</strong>).<br>You get greedy and charge <strong>$${greedPrice}</strong>. Calculate the new Profit.`, ans: greedResult},
-                {q: `The sweet spot is $${h} (<strong>${eq}</strong>).<br>You panic and drop the price to <strong>$${panicPrice}</strong> to sell more. Calculate the new Profit.`, ans: panicResult},
-                {q: `A concert's max revenue is at ticket price $${cH} (<strong>R = ${cA}(p - ${cH})² + ${cK}</strong>).<br>If they charge <strong>$${cGreedP}</strong>, what is the revenue?`, ans: cGreedRes},
-                {q: `Your app makes $${k} max at $${h} per download (<strong>${eq}</strong>).<br>If you greedily charge <strong>$${greedPrice}</strong>, what does profit drop to?`, ans: greedResult},
-                {q: `A baker's optimal bread price is $${cH} (<strong>P = ${cA}(x - ${cH})² + ${cK}</strong>).<br>They get scared and price it at <strong>$${cH - 5}</strong>. Find the new profit.`, ans: cA * Math.pow(-5, 2) + cK}
-            ];
-            let selected = randChoice(asks);
-            qArea.innerHTML = `<p>${selected.q}</p>`;
-            setupInput(selected.ans.toString());
+            let finalQ = "", finalAns = "", expStr = "";
+            if (targetType === 1) {
+                finalQ = `The ideal price for ${item} is $${h} making $${k} (<strong>${eq}</strong>).<br>You get greedy and charge <strong>$${greedPrice}</strong>. Calculate the new Profit.`;
+                finalAns = greedResult;
+                expStr = `Substitute ${greedPrice} for x in the equation. Moving away from the vertex (sweet spot) mathematically guarantees a lower profit.`;
+            } else {
+                finalQ = `The sweet spot is $${h} (<strong>${eq}</strong>).<br>You panic and drop the price to <strong>$${panicPrice}</strong> to sell more. Calculate the new Profit.`;
+                finalAns = panicResult;
+                expStr = `Substitute ${panicPrice} for x in the equation. Even though you sell more volume, your margin is so thin that your total profit drops.`;
+            }
+
+            qArea.innerHTML = `<p>${finalQ}</p>`;
+            setupInput(finalAns.toString(), expStr);
             
         } else if (kica === "I") {
             let isNarrowing = Math.random() > 0.5;
@@ -1318,88 +1223,54 @@
                 wrongText = `The curve gets steeper/narrower. The break-even points get closer together, creating a much smaller 'safe' pricing window (High Risk).`;
             }
 
-            let bp1 = randInt(10, 40);
-            let bp2 = randInt(60, 200);
-            let badPHigh = bp2 + randInt(10, 50);
-            let shiftUp = randInt(5000, 15000);
-            
             const pool = [
                 {
-                    q: `<p>Due to market changes, your 'a' value drops from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this physically mean for your Break-Even points?</p>`,
-                    opts: [ {text: correctText, correct: true}, {text: wrongText, correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false}, {text: "It means the break-even points become negative.", correct: false} ]
-                },
-                {
-                    q: `<p>Your profit graph has x-intercepts (Break-Even points) at $${bp1} and $${bp2}.</p><p>If you price your product at $${badPHigh}, what happens?</p>`,
-                    opts: [ {text: "You operate at a loss (negative profit) because you are pricing completely outside the break-even window.", correct: true}, {text: "You make a massive profit because the price is so high.", correct: false}, {text: "You perfectly break even.", correct: false}, {text: "Your y-intercept goes up.", correct: false} ]
-                },
-                {
-                    q: `<p>A celebrity wears your ${item}, increasing global demand. Your entire profit parabola shifts UP vertically by $${shiftUp}.</p><p>What happens to your Break-Even window?</p>`,
-                    opts: [ {text: "It spreads further apart, giving you a much wider and safer range of prices to choose from.", correct: true}, {text: "It gets narrower and riskier.", correct: false}, {text: "It remains exactly the same size.", correct: false}, {text: "It drops below the x-axis.", correct: false} ]
+                    q: `<p>Due to market changes, your 'a' value changes from <strong>${a1}</strong> to <strong>${a2}</strong>.</p><p>What does this physically mean for your Break-Even points?</p>`,
+                    opts: [ {text: correctText, correct: true}, {text: wrongText, correct: false}, {text: "Changing 'a' does not affect the break-even points at all.", correct: false}, {text: "It means the break-even points become negative.", correct: false} ],
+                    exp: "A larger 'a' value (e.g. -20 vs -2) compresses the parabola horizontally, making it extremely narrow. A smaller 'a' value widens it. A narrow parabola means a tiny margin of error for pricing."
                 },
                 {
                     q: `<p>If an equation's 'a' value is <strong>-100</strong>, what can you infer about the business compared to an 'a' value of <strong>-2</strong>?</p>`,
-                    opts: [ {text: "It is highly volatile. Consumers are extremely price-sensitive, and missing the perfect price by even a dollar will destroy profits.", correct: true}, {text: "It is very safe. You can charge almost anything and make money.", correct: false}, {text: "It has a much higher maximum profit.", correct: false}, {text: "The startup costs are zero.", correct: false} ]
-                },
-                {
-                    q: `<p>You set your price exactly halfway between your two Break-Even points. Where are you on the graph?</p>`,
-                    opts: [ {text: "Exactly at the Vertex (The Sweet Spot). You are making maximum profit.", correct: true}, {text: "You are at $0 profit.", correct: false}, {text: "You are at the y-intercept.", correct: false}, {text: "You are at the absolute minimum.", correct: false} ]
-                },
-                {
-                    q: `<p>Your 'a' value is -5. Suddenly, a competitor steals your customers, making your curve shift completely below the x-axis.</p><p>What does this mean mathematically?</p>`,
-                    opts: [ {text: "There are no real x-intercepts. No matter what price you set, the business operates at a loss.", correct: true}, {text: "The business has infinite profit.", correct: false}, {text: "You just need to find the new vertex to make millions.", correct: false}, {text: "The 'a' value became positive.", correct: false} ]
+                    opts: [ {text: "It is highly volatile. Consumers are extremely price-sensitive, and missing the perfect price by even a dollar will destroy profits.", correct: true}, {text: "It is very safe. You can charge almost anything and make money.", correct: false}, {text: "It has a much higher maximum profit.", correct: false}, {text: "The startup costs are zero.", correct: false} ],
+                    exp: "An 'a' value of -100 creates an incredibly steep, needle-like parabola. If your price shifts slightly away from the vertex, you fall rapidly down the steep slope."
                 }
             ];
-            let selected = randChoice(pool);
+            let selected = getUniqueQuestion(pool, '2.4-I');
             qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            setupMC(selected.opts, selected.exp);
             
         } else if (kica === "C") {
             let inc = randInt(15, 45);
-            let dec = randInt(10, h-10);
             let highM = randInt(80, 150);
             const pool = [
                 {
                     q: `<p>You raised the price of ${item} from the optimal $${h} to $${h + inc}, but total profit dropped.</p><p>Which email correctly explains this to the CEO?</p>`,
-                    opts: [ {text: `"We are making more margin per item, but the high price caused customer demand to crash so heavily that overall total profit fell."`, correct: true}, {text: `"The math formula is broken. Higher price should always equal higher total profit."`, correct: false}, {text: `"Our startup costs increased suddenly, which ruined the margins."`, correct: false}, {text: `"We hit the y-intercept, causing a crash."`, correct: false} ]
-                },
-                {
-                    q: `<p>You lowered the price of ${item} to $${h - dec}. You sold record numbers of items, but still made less total profit than the sweet spot.</p><p>How do you explain this?</p>`,
-                    opts: [ {text: `"Even though we sold massive volume, the profit margin per item became too thin to generate our maximum potential profit."`, correct: true}, {text: `"We didn't sell enough items to cover the startup costs."`, correct: false}, {text: `"Lower prices always mean fewer people want to buy the product."`, correct: false}, {text: `"The 'a' value turned positive."`, correct: false} ]
+                    opts: [ {text: `"We are making more margin per item, but the high price caused customer demand to crash so heavily that overall total profit fell."`, correct: true}, {text: `"The math formula is broken. Higher price should always equal higher total profit."`, correct: false}, {text: `"Our startup costs increased suddenly, which ruined the margins."`, correct: false}, {text: `"We hit the y-intercept, causing a crash."`, correct: false} ],
+                    exp: "Profit is Price × Demand. Raising the price increases margin but destroys demand. The parabola calculates the exact point where these two forces overwrite each other."
                 },
                 {
                     q: `<p>An investor asks: "Why don't we just aim for the highest possible profit margin ($${highM} per item)?"</p><p>How do you explain the flaw in this logic using parabolas?</p>`,
-                    opts: [ {text: `"Because the profit curve is a parabola. Maximizing margin usually destroys sales volume. The peak is found by balancing margin AND volume."`, correct: true}, {text: `"Because a high margin changes our 'a' value to positive."`, correct: false}, {text: `"Actually, they are right. The highest margin always creates the maximum total profit."`, correct: false}, {text: `"Because the calculator won't let us."`, correct: false} ]
-                },
-                {
-                    q: `<p>Your marketing team says, "We want a wide parabola, not a steep one."</p><p>Translate this visual request into business strategy.</p>`,
-                    opts: [ {text: `"They want a forgiving market where we can test a wide range of prices without the risk of profits suddenly dropping to zero."`, correct: true}, {text: `"They want higher startup costs so the graph starts lower."`, correct: false}, {text: `"They want the maximum profit to be smaller."`, correct: false}, {text: `"They want negative profit."`, correct: false} ]
-                },
-                {
-                    q: `<p>How do you justify to a board of directors that the "Sweet Spot" is a mathematical absolute, not just a guess?</p>`,
-                    opts: [ {text: `"The Vertex is the exact mathematical apex where the multiplying factors of Price and Demand peak before overriding each other."`, correct: true}, {text: `"Because the formula has an x and a y."`, correct: false}, {text: `"It is just a guess, but it usually works."`, correct: false}, {text: `"Because I used a calculator."`, correct: false} ]
-                },
-                {
-                    q: `<p>${stName} says, "We passed the vertex, just keep raising the price to fix it!" Correct them.</p>`,
-                    opts: [ {text: `"Once you pass the vertex on the right side of the parabola, the graph curves steeply downward. Raising the price further will only accelerate our losses."`, correct: true}, {text: `"You are right, passing the vertex means we unlock infinite profit."`, correct: false}, {text: `"Raising the price will shift the vertex."`, correct: false}, {text: `"We need to change the y-intercept."`, correct: false} ]
+                    opts: [ {text: `"Because the profit curve is a parabola. Maximizing margin usually destroys sales volume. The peak is found by balancing margin AND volume."`, correct: true}, {text: `"Because a high margin changes our 'a' value to positive."`, correct: false}, {text: `"Actually, they are right. The highest margin always creates the maximum total profit."`, correct: false}, {text: `"Because the calculator won't let us."`, correct: false} ],
+                    exp: "A $10,000 margin means nothing if 0 people buy it. You must find the mathematical 'Vertex' to maximize total revenue."
                 }
             ];
-            let selected = randChoice(pool);
+            let selected = getUniqueQuestion(pool, '2.4-C');
             qArea.innerHTML = selected.q;
-            setupMC(selected.opts);
+            setupMC(selected.opts, selected.exp);
         }
     }
 
     // --- Answer Checking Logic ---
-    function setupInput(correctAnswer) {
-        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input' };
+    function setupInput(correctAnswer, explanation) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input', explanation: explanation };
         document.getElementById('input-area').style.display = 'block';
     }
 
-    function setupMC(options) {
+    function setupMC(options, explanation) {
         const mcArea = document.getElementById('mc-area');
         mcArea.style.display = 'grid';
+        currentQuestion = { type: 'mc', explanation: explanation };
         
-        // Shuffle options
         options.sort(() => Math.random() - 0.5);
 
         options.forEach(opt => {
@@ -1419,13 +1290,12 @@
         let cleanUser = userRaw.toLowerCase().replace(/\s/g, '');
         let isCorrect = (cleanUser === currentQuestion.answer);
 
-        // Allow numerical tolerance for pure numbers
         let userNum = parseFloat(cleanUser);
         let ansNum = parseFloat(currentQuestion.answer);
         const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf(',') === -1 && currentQuestion.answer.toString().indexOf('^') === -1;
 
         if (isPureNumber && !isNaN(userNum)) {
-             if (Math.abs(userNum - ansNum) <= 0.01) {
+             if (Math.abs(userNum - ansNum) <= 0.05) {
                  isCorrect = true;
              }
         }
@@ -1434,17 +1304,19 @@
         let inputField = document.getElementById('user-answer');
         
         if (isCorrect) {
-            feedback.innerHTML = "✅ Correct! Great job connecting the math to the real world.";
+            feedback.innerHTML = `✅ Correct! Excellent work.<div class="feedback-explanation">💡 <strong>Solution & Reasoning:</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "correct";
             isQuestionSolved = true; 
             saveScore(true);
             inputField.disabled = true;
+            isCurrentTypeLocked = false;
         } else {
-            feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Random Question' to try a new one.`;
+            feedback.innerHTML = `❌ Incorrect. The correct answer is: <strong style="font-size: 1.2rem;">${currentQuestion.answer}</strong><br>Click 'Generate Random Question' to try a new one.<div class="feedback-explanation">💡 <strong>How to solve this:</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "incorrect";
             isQuestionSolved = true; 
             saveScore(false);
             inputField.disabled = true;
+            isCurrentTypeLocked = true;
         }
     }
 
@@ -1456,17 +1328,19 @@
         if (isCorrect) {
             btn.style.backgroundColor = '#27ae60';
             btn.style.color = 'white';
-            feedback.innerHTML = "✅ Correct! Great job connecting the math to the real world.";
+            feedback.innerHTML = `✅ Correct! Spot on.<div class="feedback-explanation">💡 <strong>Why this is correct:</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "correct";
             isQuestionSolved = true; 
             saveScore(true);
+            isCurrentTypeLocked = false;
         } else {
             btn.style.backgroundColor = '#c0392b';
             btn.style.color = 'white';
-            feedback.innerHTML = "❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Random Question' to try a new one.";
+            feedback.innerHTML = `❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Random Question' to try a new one.<div class="feedback-explanation">💡 <strong>Explanation:</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "incorrect";
             isQuestionSolved = true; 
             saveScore(false);
+            isCurrentTypeLocked = true;
         }
 
         const buttons = document.querySelectorAll('.option-btn');
