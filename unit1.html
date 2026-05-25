@@ -6,15 +6,25 @@
     <title>MBF3C - Unit 1: Trigonometry</title>
     <style>
         /* --- General Styles --- */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f6f7; color: #2c3e50; }
-        header { background-color: #2c3e50; color: white; padding: 1.5rem; text-align: center; border-bottom: 5px solid #1abc9c; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #1abc9c; /* Teal for Trig */
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --bg-color: #f4f6f7;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: #333; line-height: 1.6; }
+        header { background-color: var(--primary-color); color: white; padding: 1.5rem; text-align: center; border-bottom: 5px solid var(--accent-color); }
         h1 { margin: 0; font-size: 1.8rem; }
-        h2 { border-bottom: 2px solid #1abc9c; padding-bottom: 10px; margin-top: 0; }
+        h2 { border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; }
         
         /* --- Navigation --- */
         nav { display: flex; justify-content: center; background-color: #34495e; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000; }
         nav button { background: none; border: none; color: #ecf0f1; padding: 15px 20px; cursor: pointer; font-size: 16px; font-weight: 500; transition: 0.3s; border-bottom: 4px solid transparent; }
-        nav button:hover { background-color: #1abc9c; }
+        nav button:hover { background-color: var(--accent-color); }
         nav button.active { background-color: #16a085; border-bottom: 4px solid #f1c40f; color: white; }
 
         .home-btn { background-color: #e67e22 !important; }
@@ -40,74 +50,81 @@
         .lesson-content.show { display: block; }
         .example-box { background-color: #fff8e1; border: 1px solid #ffe0b2; padding: 15px; margin-top: 15px; border-radius: 5px; page-break-inside: avoid; }
 
-        /* Print Button inside Lesson */
         .print-btn { float: right; padding: 5px 10px; font-size: 0.8rem; background-color: #7f8c8d; color: white; border: none; border-radius: 4px; cursor: pointer; }
         .print-btn:hover { background-color: #95a5a6; }
 
         /* --- Practice UI --- */
-        .input-group { margin: 20px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee; }
+        .input-group { margin: 20px 0; padding: 20px; background: #fdfdfd; border-radius: 8px; border: 1px solid #bdc3c7; }
+        select, input[type="text"], input[type="number"] { padding: 10px; border: 1px solid #bdc3c7; border-radius: 4px; font-size: 1rem; width: 100%; max-width: 400px; }
         .action-btn { padding: 10px 25px; background-color: #2980b9; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 5px;}
         .action-btn:hover { background-color: #3498db; }
         
+        .score-board { font-weight: bold; color: var(--primary-color); font-size: 1.1rem; float: right; margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+
         .diagram-container { position: relative; width: 100%; max-width: 400px; height: 280px; margin: 20px auto; background: #fff; border: 1px solid #ddd; border-radius: 8px; }
         svg { width: 100%; height: 100%; }
         .diagram-label { position: absolute; font-weight: bold; font-size: 16px; color: #d35400; background: rgba(255,255,255,0.9); padding: 2px 4px; border-radius: 4px; border: 1px solid #ddd; }
         
-        .text-problem-box { padding: 30px; background: #eef2f3; border-radius: 8px; margin: 20px 0; font-size: 1.2rem; text-align: center; border: 2px dashed #bdc3c7; }
+        .text-problem-box { padding: 30px; background: #fafafa; border-radius: 8px; margin: 20px 0; font-size: 1.2rem; text-align: center; border: 2px dashed #bdc3c7; }
 
-        .aio-item { border-bottom: 1px dashed #ccc; padding: 20px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-        .aio-svg-box { width: 150px; height: 120px; background: white; border: 1px solid #eee; margin-right: 20px; position: relative; }
-        .aio-q-box { flex: 1; min-width: 250px; }
-        .aio-check-box { margin-left: 20px; text-align: right; min-width: 150px; }
+        #question-text { font-size:1.2em; margin-bottom:15px; font-weight:500; }
 
-        .feedback { margin-top: 10px; font-weight: bold; padding: 5px; border-radius: 4px; text-align: center; display: inline-block; }
-        .correct { color: #27ae60; background: #eafaf1; border: 1px solid #27ae60; }
-        .incorrect { color: #c0392b; background: #fdedec; border: 1px solid #c0392b; }
-
-        /* Multiple Choice Grid */
+        /* Option Buttons Grid */
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 600px; margin: 20px auto; }
-        .option-btn { background: white; border: 2px solid #1abc9c; color: #1abc9c; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 1rem; }
-        .option-btn:hover:not(:disabled) { background: #1abc9c; color: white; }
+        .option-btn { background: white; border: 2px solid var(--accent-color); color: var(--accent-color); padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 1rem; }
+        .option-btn:hover:not(:disabled) { background: var(--accent-color); color: white; }
         .option-btn:disabled { opacity: 0.8; }
 
+        #p-feed { margin-top: 15px; font-weight: bold; min-height: 24px; font-size: 1.1rem; }
+        .correct { color: var(--success-color); }
+        .incorrect { color: var(--error-color); }
+
+        /* Feedback Explanation Box */
+        .feedback-explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fdfefe;
+            border-left: 5px solid var(--accent-color);
+            color: #2c3e50;
+            font-size: 1.05rem;
+            font-weight: normal;
+            border-radius: 4px;
+            text-align: left;
+            line-height: 1.6;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .feedback-explanation strong { color: var(--primary-color); }
+
         /* --- Assignment Styles --- */
-        .assign-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
-        .assign-title { color: #d35400; border-bottom: 2px solid #e67e22; padding-bottom: 5px; margin-bottom: 15px; }
+        .task-box { border-left: 5px solid var(--accent-color); background: #fdfdfd; padding: 15px; margin-bottom: 20px; }
+        .task-step { font-weight: bold; color: var(--accent-color); text-transform: uppercase; font-size: 0.9rem; margin-bottom: 5px; display: block; }
         
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: white; }
+        th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: left; vertical-align: top; font-size: 0.95rem; }
+        th { background-color: var(--primary-color); color: white; text-align: center; }
+
         .rubric-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.85rem; }
         .rubric-table th, .rubric-table td { border: 1px solid #bdc3c7; padding: 8px; text-align: center; vertical-align: middle; }
-        .rubric-table th { background-color: #2c3e50; color: white; }
+        .rubric-table th { background-color: var(--primary-color); color: white; }
         .rubric-table .category-col { text-align: left; background-color: #ecf0f1; font-weight: bold; width: 15%; }
-        .rubric-table .criteria-col { text-align: left; width: 20%; }
 
-        /* --- Perfect Native Print Media Query (Updated from Unit 5) --- */
+        /* --- Perfect Native Print Media Query --- */
         @media print {
-            header, nav, .container, .version-tag { 
-                display: none !important; 
-            }
-            #print-area { 
-                display: block !important; 
-            }
-            .print-btn { 
-                display: none !important; 
-            }
-            body {
-                background-color: white;
-            }
+            header, nav, .version-tag { display: none !important; }
+            .container { display: none !important; }
+            .container.active { display: block !important; box-shadow: none; margin: 0; padding: 0; }
+            #print-area { display: block !important; }
+            .print-btn { display: none !important; }
+            body { background-color: white; }
         }
 
-        #print-area {
-            display: none;
-            padding: 20px;
-            background: white;
-            color: black;
-        }
+        #print-area { display: none; padding: 20px; background: white; color: black; }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 600px) {
             nav { flex-direction: column; }
             nav button { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px; }
-            table { display: block; overflow-x: auto; white-space: nowrap; }
+            table, .rubric-table { display: block; overflow-x: auto; white-space: nowrap; }
             .container { padding: 15px; }
             .option-grid { grid-template-columns: 1fr; }
         }
@@ -124,10 +141,10 @@
 
 <nav>
     <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button onclick="showTab('calc')">Calculator</button>
-    <button onclick="showTab('lesson')" class="active">Lessons</button>
-    <button onclick="showTab('practice')">Practice</button>
-    <button onclick="showTab('assignment')">Assignment</button>
+    <button onclick="showTab(event, 'calc')">Calculator</button>
+    <button onclick="showTab(event, 'lesson')" class="active">Lessons</button>
+    <button onclick="showTab(event, 'practice')">Practice</button>
+    <button onclick="showTab(event, 'assignment')">Assignment</button>
 </nav>
 
 <div id="calc" class="container">
@@ -165,26 +182,6 @@
                 <span class="given-text">Ex 3: Given Adj=4, Hyp=7. Find cos θ.</span>
                 <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">4</span><span class="bottom">7</span></div> <span class="op">≈</span> 0.571</div>
             </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: Given Opp=8, Hyp=10. Find sin θ.</span>
-                <div class="math-line">sin θ <span class="op">=</span> <div class="fraction"><span class="top">8</span><span class="bottom">10</span></div> <span class="op">=</span> 0.8</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: Given Adj=15, Hyp=17. Find cos θ.</span>
-                <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">15</span><span class="bottom">17</span></div> <span class="op">≈</span> 0.882</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: Given Opp=9, Adj=40. Find tan θ.</span>
-                <div class="math-line">tan θ <span class="op">=</span> <div class="fraction"><span class="top">9</span><span class="bottom">40</span></div> <span class="op">=</span> 0.225</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: Given Opp=7, Hyp=25. Find sin θ.</span>
-                <div class="math-line">sin θ <span class="op">=</span> <div class="fraction"><span class="top">7</span><span class="bottom">25</span></div> <span class="op">=</span> 0.28</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: Given Adj=11, Hyp=61. Find cos θ.</span>
-                <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">11</span><span class="bottom">61</span></div> <span class="op">≈</span> 0.180</div>
-            </div>
         </div>
     </div>
 
@@ -205,26 +202,6 @@
             <div class="example-box">
                 <span class="given-text">Ex 3: Given Adj=5, Hyp=9. Find θ.</span>
                 <div class="math-line">cos θ <span class="op">=</span> <div class="fraction"><span class="top">5</span><span class="bottom">9</span></div> <span class="op">→</span> θ <span class="op">≈</span> 56.3°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: Given Opp=15, Hyp=20. Find θ.</span>
-                <div class="math-line">sin θ <span class="op">=</span> 0.75 <span class="op">→</span> θ <span class="op">=</span> sin⁻¹(0.75) <span class="op">≈</span> 48.6°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: Given cos θ = 0.5.</span>
-                <div class="math-line">θ <span class="op">=</span> cos⁻¹(0.5) <span class="op">=</span> 60°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: Given tan θ = 1.</span>
-                <div class="math-line">θ <span class="op">=</span> tan⁻¹(1) <span class="op">=</span> 45°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: Given Adj=12, Hyp=13. Find θ.</span>
-                <div class="math-line">cos θ <span class="op">≈</span> 0.923 <span class="op">→</span> θ <span class="op">=</span> cos⁻¹(0.923) <span class="op">≈</span> 22.6°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: Given Opp=100, Adj=50. Find θ.</span>
-                <div class="math-line">tan θ <span class="op">=</span> 2.0 <span class="op">→</span> θ <span class="op">=</span> tan⁻¹(2.0) <span class="op">≈</span> 63.4°</div>
             </div>
         </div>
     </div>
@@ -247,26 +224,6 @@
                 <span class="given-text">Ex 3: tan(45°) = x / 12.</span>
                 <div class="math-line">x <span class="op">=</span> 12 <span class="op">×</span> 1 <span class="op">=</span> 12</div>
             </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: sin(50°) = 20 / x.</span>
-                <div class="math-line">x <span class="op">=</span> 20 <span class="op">÷</span> sin(50°) <span class="op">≈</span> 26.1</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: cos(45°) = x / 14.</span>
-                <div class="math-line">x <span class="op">=</span> 14 <span class="op">×</span> cos(45°) <span class="op">≈</span> 9.9</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: tan(30°) = 15 / x.</span>
-                <div class="math-line">x <span class="op">=</span> 15 <span class="op">÷</span> tan(30°) <span class="op">≈</span> 26.0</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: sin(80°) = x / 100.</span>
-                <div class="math-line">x <span class="op">=</span> 100 <span class="op">×</span> sin(80°) <span class="op">≈</span> 98.5</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: cos(25°) = 50 / x.</span>
-                <div class="math-line">x <span class="op">=</span> 50 <span class="op">÷</span> cos(25°) <span class="op">≈</span> 55.2</div>
-            </div>
         </div>
     </div>
 
@@ -283,30 +240,6 @@
             <div class="example-box">
                 <span class="given-text">Ex 2: A=30°, a=15, C=80°. Find c.</span>
                 <div class="math-line">c <span class="op">=</span> <div class="fraction"><span class="top">15 × sin 80°</span><span class="bottom">sin 30°</span></div> <span class="op">≈</span> 29.5</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 3: B=50°, b=20, A=45°. Find a.</span>
-                <div class="math-line">a <span class="op">=</span> <div class="fraction"><span class="top">20 × sin 45°</span><span class="bottom">sin 50°</span></div> <span class="op">≈</span> 18.5</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: A=100°, a=50, B=30°. Find b.</span>
-                <div class="math-line">b <span class="op">=</span> <div class="fraction"><span class="top">50 × sin 30°</span><span class="bottom">sin 100°</span></div> <span class="op">≈</span> 25.4</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: C=110°, c=30, B=25°. Find b.</span>
-                <div class="math-line">b <span class="op">=</span> <div class="fraction"><span class="top">30 × sin 25°</span><span class="bottom">sin 110°</span></div> <span class="op">≈</span> 13.5</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: A=65°, a=100, C=40°. Find c.</span>
-                <div class="math-line">c <span class="op">=</span> <div class="fraction"><span class="top">100 × sin 40°</span><span class="bottom">sin 65°</span></div> <span class="op">≈</span> 70.9</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: B=85°, b=12, A=15°. Find a.</span>
-                <div class="math-line">a <span class="op">=</span> <div class="fraction"><span class="top">12 × sin 15°</span><span class="bottom">sin 85°</span></div> <span class="op">≈</span> 3.1</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: C=130°, c=200, A=20°. Find a.</span>
-                <div class="math-line">a <span class="op">=</span> <div class="fraction"><span class="top">200 × sin 20°</span><span class="bottom">sin 130°</span></div> <span class="op">≈</span> 89.3</div>
             </div>
         </div>
     </div>
@@ -325,30 +258,6 @@
                 <span class="given-text">Ex 2: c=10, C=30°, a=15. Find A.</span>
                 <div class="math-line">sin A <span class="op">=</span> 0.75 <span class="op">→</span> A <span class="op">≈</span> 48.6°</div>
             </div>
-            <div class="example-box">
-                <span class="given-text">Ex 3: a=25, A=60°, b=20. Find B.</span>
-                <div class="math-line">sin B <span class="op">=</span> 0.693 <span class="op">→</span> B <span class="op">≈</span> 43.9°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: b=30, B=120°, c=15. Find C.</span>
-                <div class="math-line">sin C <span class="op">=</span> 0.433 <span class="op">→</span> C <span class="op">≈</span> 25.7°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: a=40, A=100°, b=25. Find B.</span>
-                <div class="math-line">sin B <span class="op">=</span> 0.615 <span class="op">→</span> B <span class="op">≈</span> 38.0°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: c=12, C=45°, a=14. Find A.</span>
-                <div class="math-line">sin A <span class="op">=</span> 0.825 <span class="op">→</span> A <span class="op">≈</span> 55.6°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: b=8, B=50°, c=10. Find C.</span>
-                <div class="math-line">sin C <span class="op">=</span> 0.957 <span class="op">→</span> C <span class="op">≈</span> 73.2°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: a=50, A=110°, c=20. Find C.</span>
-                <div class="math-line">sin C <span class="op">=</span> 0.375 <span class="op">→</span> C <span class="op">≈</span> 22.0°</div>
-            </div>
         </div>
     </div>
 
@@ -363,32 +272,8 @@
                 <div class="math-line">c² <span class="op">=</span> 25 + 64 - 80(0.5) <span class="op">=</span> 49 <span class="op">→</span> c=7</div>
             </div>
             <div class="example-box">
-                <span class="given-text">Ex 2: a=3, b=4, C=90°. Find c.</span>
-                <div class="math-line">c² <span class="op">=</span> 9 + 16 <span class="op">=</span> 25 <span class="op">→</span> c=5</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 3: a=10, b=10, C=45°. Find c.</span>
+                <span class="given-text">Ex 2: a=10, b=10, C=45°. Find c.</span>
                 <div class="math-line">c² <span class="op">≈</span> 58.6 <span class="op">→</span> c <span class="op">≈</span> 7.7</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: a=6, b=7, C=50°. Find c.</span>
-                <div class="math-line">c² <span class="op">≈</span> 31.0 <span class="op">→</span> c <span class="op">≈</span> 5.6</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: a=12, b=15, C=120°. Find c.</span>
-                <div class="math-line">c² <span class="op">=</span> 144 + 225 - 360(-0.5) <span class="op">=</span> 549 <span class="op">→</span> c <span class="op">≈</span> 23.4</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: a=20, b=25, C=85°. Find c.</span>
-                <div class="math-line">c² <span class="op">≈</span> 937.8 <span class="op">→</span> c <span class="op">≈</span> 30.6</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: a=8, b=11, C=35°. Find c.</span>
-                <div class="math-line">c² <span class="op">≈</span> 40.8 <span class="op">→</span> c <span class="op">≈</span> 6.4</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: a=40, b=50, C=140°. Find c.</span>
-                <div class="math-line">c² <span class="op">≈</span> 7164 <span class="op">→</span> c <span class="op">≈</span> 84.6</div>
             </div>
         </div>
     </div>
@@ -407,89 +292,53 @@
                 <span class="given-text">Ex 2: a=5, b=5, c=8. Find C.</span>
                 <div class="math-line">cos C <span class="op">=</span> -0.28 <span class="op">→</span> C <span class="op">≈</span> 106.3°</div>
             </div>
-            <div class="example-box">
-                <span class="given-text">Ex 3: a=6, b=6, c=6. Find C.</span>
-                <div class="math-line">cos C <span class="op">=</span> 0.5 <span class="op">→</span> C <span class="op">=</span> 60°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 4: a=10, b=15, c=20. Find C.</span>
-                <div class="math-line">cos C <span class="op">=</span> -0.25 <span class="op">→</span> C <span class="op">≈</span> 104.5°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 5: a=7, b=8, c=12. Find C.</span>
-                <div class="math-line">cos C <span class="op">≈</span> -0.276 <span class="op">→</span> C <span class="op">≈</span> 106.1°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 6: a=14, b=14, c=10. Find C.</span>
-                <div class="math-line">cos C <span class="op">≈</span> 0.745 <span class="op">→</span> C <span class="op">≈</span> 41.8°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 7: a=20, b=21, c=29. Find C.</span>
-                <div class="math-line">cos C <span class="op">=</span> 0 <span class="op">→</span> C <span class="op">=</span> 90°</div>
-            </div>
-            <div class="example-box">
-                <span class="given-text">Ex 8: a=40, b=45, c=80. Find C.</span>
-                <div class="math-line">cos C <span class="op">≈</span> -0.771 <span class="op">→</span> C <span class="op">≈</span> 140.4°</div>
-            </div>
         </div>
     </div>
 </div>
 
 <div id="practice" class="container">
-    <h2>Practice Problems (KICA Training)</h2>
-    <div style="background:#2c3e50; color:white; padding:10px; border-radius:5px; display:flex; justify-content:space-between; align-items:center;">
-        <span><strong>Score:</strong> <span id="p-score" style="color:#2ecc71">0</span> / <span id="p-total">0</span></span>
-        <button onclick="resetPracticeScore()" style="background:transparent; border:1px solid #7f8c8d; color:#bdc3c7; cursor:pointer; font-size:0.8rem; padding:2px 5px;">Reset Score</button>
-    </div>
+    <h2>Practice Problems (Targeted KICA)</h2>
+    <p>We've trimmed the fat. Practice the essential mechanics (Knowledge) and the most relevant real-world applications for each lesson.</p>
     
     <div class="input-group">
-        <label><strong>Topic:</strong></label>
-        <select id="p-topic" onchange="newPractice()" style="padding:8px; font-size:1rem; width:100%; max-width:350px; margin-top:5px;">
+        <label><strong>Select Module:</strong></label>
+        <select id="p-topic" onchange="resetPracticeUI()">
+            <option value="" disabled selected>-- Choose a Training Module --</option>
             <optgroup label="Lesson 1.1: Trig Ratios">
                 <option value="1.1-K">Knowledge: Find the Ratio</option>
-                <option value="1.1-A">Application: Ratios in Reality</option>
-                <option value="1.1-I">Inquiry: Ratio Rules & Limits</option>
                 <option value="1.1-C">Comm: Explaining SOH CAH TOA</option>
             </optgroup>
             <optgroup label="Lesson 1.2: Missing Angles">
                 <option value="1.2-K">Knowledge: Calculate the Angle</option>
-                <option value="1.2-A">Application: Elevation & Depression</option>
                 <option value="1.2-I">Inquiry: Inverse Trig Logic</option>
-                <option value="1.2-C">Comm: Explaining Angles</option>
             </optgroup>
             <optgroup label="Lesson 1.3: Missing Sides">
                 <option value="1.3-K">Knowledge: Calculate the Side</option>
                 <option value="1.3-A">Application: Real World Distances</option>
-                <option value="1.3-I">Inquiry: Algebraic Manipulation</option>
-                <option value="1.3-C">Comm: Explaining Side Calculations</option>
             </optgroup>
             <optgroup label="Lesson 2.1: Sine Law (Sides)">
                 <option value="2.1-K">Knowledge: Formula Calculation</option>
                 <option value="2.1-A">Application: Complex Distances</option>
-                <option value="2.1-I">Inquiry: Why Sine Law Fails</option>
-                <option value="2.1-C">Comm: Setting up the Equation</option>
             </optgroup>
             <optgroup label="Lesson 2.2: Sine Law (Angles)">
                 <option value="2.2-K">Knowledge: Formula Calculation</option>
                 <option value="2.2-A">Application: Navigational Angles</option>
-                <option value="2.2-I">Inquiry: Ratio Connections</option>
-                <option value="2.2-C">Comm: Explaining the Process</option>
             </optgroup>
             <optgroup label="Lesson 3.1: Cosine Law (Sides)">
                 <option value="3.1-K">Knowledge: SAS Calculation</option>
                 <option value="3.1-A">Application: Diverging Paths</option>
-                <option value="3.1-I">Inquiry: Cos vs Pythagoras</option>
-                <option value="3.1-C">Comm: When to use Cosine</option>
             </optgroup>
             <optgroup label="Lesson 3.2: Cosine Law (Angles)">
                 <option value="3.2-K">Knowledge: SSS Calculation</option>
-                <option value="3.2-A">Application: Triangulating Properties</option>
                 <option value="3.2-I">Inquiry: Negative Cosine meaning</option>
-                <option value="3.2-C">Comm: Order of Operations</option>
             </optgroup>
         </select>
         <br>
-        <button class="action-btn" onclick="newPractice()">Generate</button>
+        <button class="action-btn" onclick="newPractice()">Generate Question</button>
+        <div class="score-board">
+            Score: <span id="p-score" style="color:var(--success-color)">0</span> / <span id="p-total">0</span>
+            <button onclick="resetPracticeScore()" style="background:none; border:1px solid #bdc3c7; cursor:pointer; font-size:0.8rem; margin-left:10px; border-radius:4px; padding:2px 5px;">Reset</button>
+        </div>
     </div>
 
     <div id="single-practice-wrapper">
@@ -513,72 +362,91 @@
         </div>
 
         <div style="text-align:center; margin-top:20px;">
-            <p id="question-text" style="font-size:1.2em; margin-bottom:15px; font-weight:500;"></p>
-            <div id="single-input-area" style="display:inline-block; background:#ecf0f1; padding:15px; border-radius:8px; display:none;">
-                <label>Answer: </label>
-                <input type="number" id="p-input" step="0.1" style="width:100px; padding:5px; font-size:1.1em;">
-                <button class="action-btn" onclick="checkPractice()">Check</button>
+            <p id="question-text"></p>
+            <div id="single-input-area" style="display:inline-block; padding:15px; border-radius:8px; display:none;">
+                <input type="number" id="p-input" step="0.001" placeholder="Enter answer">
+                <button class="action-btn" onclick="checkPractice()">Check Answer</button>
             </div>
             <div id="mc-area" class="option-grid" style="display:none;"></div>
-            <div id="p-feed" class="feedback"></div>
+            <div id="p-feed"></div>
         </div>
     </div>
 </div>
 
 <div id="assignment" class="container">
-    <h2>Assignment: The "High-Stakes" Trig Report</h2>
-    <p><strong>Goal:</strong> You are a technical consultant. Your job is to calculate precise measurements for construction and safety projects. Create a digital report solving two client problems using Trigonometry. You must define the measurements yourself, making sure they are realistic.</p>
-    
-    <div class="assign-section">
-        <h3 class="assign-title">Part A: The Mandatory Job (SOH CAH TOA)</h3>
-        <p><strong>Client:</strong> SafeStep Accessibility Inc.<br>
-        <strong>Scenario:</strong> You are designing a wheelchair ramp for a building entrance.</p>
+    <h2>Unit 1 Assignment: The Trigonometry Consultant Report</h2>
+    <p><strong>Scenario:</strong> You have been hired as a Junior Technical Consultant. Your job is to look at real-world blueprints and advise your clients using cold, hard math (SOH CAH TOA, Sine Law, Cosine Law).</p>
+
+    <div class="task-box">
+        <span class="task-step">Step 1: Choose Your Client (Select ONE)</span>
+        <p>Pick ONE of the following client projects to solve. All the necessary measurements are provided below.</p>
+        <table>
+            <tr>
+                <th style="background:#2c3e50;">♿ Client A: Accessibility Inc.</th>
+                <th style="background:#27ae60;">🌲 Client B: Land Surveyors</th>
+                <th style="background:#8e44ad;">🚗 Client C: Coast Guard</th>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Project:</strong> Wheelchair Ramp<br><br>
+                    <strong>Given Data:</strong><br>
+                    - The stairs have a vertical <strong>Rise</strong> of <strong>0.5 m</strong>.<br>
+                    - The ramp will stretch out horizontally (<strong>Run</strong>) for <strong>5.0 m</strong>.<br><br>
+                    <strong>Task:</strong> Find the Angle of Elevation (Slope).
+                </td>
+                <td>
+                    <strong>Project:</strong> Lake Fence Measure<br><br>
+                    <strong>Given Data:</strong><br>
+                    - Side 1 (A to C) = <strong>120 m</strong><br>
+                    - Side 2 (B to C) = <strong>150 m</strong><br>
+                    - The angle between them (Angle C) = <strong>75°</strong><br><br>
+                    <strong>Task:</strong> Find the length of the fence (Side A to B).
+                </td>
+                <td>
+                    <strong>Project:</strong> Locate Sinking Ship<br><br>
+                    <strong>Given Data:</strong><br>
+                    - Two rescue towers are <strong>10 km</strong> apart.<br>
+                    - Tower A sees the ship at an angle of <strong>65°</strong>.<br>
+                    - Tower B sees the ship at an angle of <strong>50°</strong>.<br><br>
+                    <strong>Task:</strong> Find the exact distance from Tower A to the ship.
+                </td>
+            </tr>
+        </table>
+        <p style="margin-top: 15px; font-weight: bold; color: var(--primary-color);">My Chosen Client is: ____________________________________</p>
+    </div>
+
+    <div class="task-box" style="border-left-color: #f39c12;">
+        <span class="task-step" style="color: #d35400;">Step 2: The Mathematical Assessment (The Math)</span>
+        <p>Using the data from your chosen client, determine which Trigonometric tool to use (SOH CAH TOA, Sine Law, or Cosine Law). Write out your full formula and calculate the final answer. (Round to 1 decimal place).</p>
+        <p><em>Your Formula & Calculation:</em></p>
+        <br><br><br><br>
+        <p><strong>Final Answer: _________________</strong></p>
+    </div>
+
+    <div class="task-box" style="border-left-color: #2980b9;">
+        <span class="task-step" style="color: #2980b9;">Step 3: Communication Assessment (The Meaning)</span>
+        <p>Write a 2-3 sentence report explaining exactly what the number from Step 2 means <strong>in the context of their specific project</strong>. Use appropriate units (degrees, meters, km).</p>
+        <br><br>
+    </div>
+
+    <div class="task-box" style="border-left-color: #c0392b;">
+        <span class="task-step" style="color: #c0392b;">Step 4: The "What If" Scenario (Catastrophic Error)</span>
+        <p>In the real world, math errors have physical consequences. Answer the question that corresponds to your client in 2-3 sentences:</p>
         <ul>
-            <li><strong>Your Inputs:</strong> You must decide the <strong>Rise</strong> (vertical height of the stairs) and the <strong>Run</strong> (horizontal distance) OR the <strong>Ramp Length</strong>.</li>
-            <li><strong>The Math:</strong> Use a primary trig ratio (SOH CAH TOA) and the Right Triangle Calculator to calculate the <strong>Angle of Elevation</strong>.</li>
-            <li><strong>Safety Check:</strong> A safe ramp is usually roughly <strong>5° to 6°</strong>. If your angle is too steep, you must adjust your numbers and re-calculate until it is safe.</li>
+            <li><strong>If Client A:</strong> The legal maximum safe angle for a ramp is roughly 5.5°. Is your calculated ramp safe? If a builder messed up the math and built the angle at 20°, what <strong>specifically</strong> would happen to a person in a manual wheelchair?</li>
+            <li><strong>If Client B:</strong> If you accidentally set your calculator to "Radians" instead of "Degrees" and ordered the wrong amount of fencing, who pays for the mistake and how does it affect the project timeline?</li>
+            <li><strong>If Client C:</strong> If you used the wrong angle and calculated the distance 4km shorter than reality, what happens to the rescue helicopter's fuel supply and the crew on the sinking ship?</li>
         </ul>
+        <br><br><br><br>
     </div>
 
-    <div class="assign-section">
-        <h3 class="assign-title">Part B: The Contract Choice (Choose ONE)</h3>
-        <p>Select ONE of the following complex scenarios to solve.</p>
-        
-        <div style="background:#fff; border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px;">
-            <h4 style="margin-top:0;">Option 1: The Land Dispute</h4>
-            <ul>
-                <li><strong>Scenario:</strong> A homeowner needs to fence the back of their triangular property, but a shed blocks the measuring tape. The fence must be between 10 to 20 meters.</li>
-                <li><strong>Your Inputs:</strong> You measure Side A, Side B, and the Angle between them.</li>
-                <li><strong>The Math:</strong> Use the Triangle Calculator (Cosine Law) to find the length of the third side (the fence).</li>
-            </ul>
-        </div>
-
-        <div style="background:#fff; border:1px solid #ddd; padding:15px; border-radius:5px;">
-            <h4 style="margin-top:0;">Option 2: The Rescue Triangle</h4>
-            <ul>
-                <li><strong>Scenario:</strong> Two fire towers (Tower 1 and 2) are a known distance apart. Both spot a fire in the distance.</li>
-                <li><strong>Your Inputs:</strong> You decide the Distance between towers, Angle A (Between “Tower 1 to Fire” and “Tower 1 to Tower 2”), and Angle B (Between “Tower 2 to Fire” and “Tower 2 to Tower 1”).</li>
-                <li><strong>The Math:</strong> Use the Triangle Calculator (Sine Law) to calculate how far the fire is from Tower 1.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="assign-section">
-        <h3 class="assign-title">Part C: The "High Stakes" Analysis</h3>
-        <p>Answer the following question in 3–4 sentences:</p>
-        <blockquote style="background:#f9f9f9; padding:15px; border-left: 5px solid #e67e22; margin:10px 0;">
-            "Imagine you made a mistake in your calculation for Part A (The Ramp) and the angle ended up being 15° instead of your calculated answer. What is the specific real-world consequence?"
-        </blockquote>
-        <p><em>(Do not just say 'It is wrong.' Explain what physically happens to the person in the wheelchair or the company hired to build it.)</em></p>
-    </div>
-
-    <div class="assign-section">
-        <h3 class="assign-title">Assessment Rubric</h3>
+    <div class="task-box" style="border-left-color: #2c3e50; margin-top: 40px;">
+        <h3 style="color: var(--primary-color); margin-top:0;">Assignment Grading Rubric (MBF3C Standard)</h3>
         <table class="rubric-table">
             <thead>
                 <tr>
                     <th class="category-col">Category</th>
-                    <th class="criteria-col">Criteria</th>
+                    <th>Level R (Fail/0)</th>
                     <th>Level 1 (50-59%)</th>
                     <th>Level 2 (60-69%)</th>
                     <th>Level 3 (70-79%)</th>
@@ -587,86 +455,115 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="category-col">Knowledge (The Math)</td>
-                    <td class="criteria-col">Process & Accuracy</td>
-                    <td>Calculations contain major errors. Incorrect formula selected.</td>
-                    <td>Calculations follow the right process but contain minor errors.</td>
-                    <td>Calculations are correct. Correctly applies SOHCAHTOA and Law of Sine/Cos.</td>
-                    <td>Calculations are flawless. Steps are shown clearly and notation is precise.</td>
+                    <td class="category-col">Knowledge<br><small>(Step 2)</small></td>
+                    <td>No math provided or completely incorrect method.</td>
+                    <td>Selects wrong formula (e.g., Sine Law instead of Cosine) but attempts calculation.</td>
+                    <td>Selects correct formula but makes a major calculation or algebra error.</td>
+                    <td>Calculates correctly with minor rounding errors.</td>
+                    <td>Flawless calculation. Shows full algebraic process.</td>
                 </tr>
                 <tr>
-                    <td class="category-col">Thinking (The Numbers)</td>
-                    <td class="criteria-col">Realism</td>
-                    <td>Selected dimensions are impossible or unrealistic.</td>
-                    <td>Dimensions are mathematically possible but not realistic.</td>
-                    <td>Dimensions are realistic for the physical scenario chosen.</td>
-                    <td>Dimensions show excellent real-world logic (e.g., achieving the perfect 5° slope).</td>
+                    <td class="category-col">Communication<br><small>(Step 3)</small></td>
+                    <td>Illegible or blank.</td>
+                    <td>Hard to follow, no context given to the number.</td>
+                    <td>Explains meaning but lacks specific units (m, km, °).</td>
+                    <td>Clear explanation and neat formatting.</td>
+                    <td>Professional report tone, precise use of terminology.</td>
                 </tr>
                 <tr>
-                    <td class="category-col">Communication (The Format)</td>
-                    <td class="criteria-col">Clarity</td>
-                    <td>Did not follow template. Variables are undefined.</td>
-                    <td>Followed template but descriptions are vague.</td>
-                    <td>Followed template perfectly. Variables are clearly defined.</td>
-                    <td>Description of geometry is professional and technical. Easy to visualize.</td>
-                </tr>
-                <tr>
-                    <td class="category-col">Application (The "What If")</td>
-                    <td class="criteria-col">Reflection</td>
-                    <td>Reflection is missing or simply says "The answer is wrong."</td>
-                    <td>Reflection identifies a general consequence (e.g., "It's dangerous").</td>
-                    <td>Reflection identifies a specific consequence related to the scenario.</td>
-                    <td>Reflection is insightful, identifying specific physical/financial consequences.</td>
+                    <td class="category-col">Application & Inquiry<br><small>(Step 4)</small></td>
+                    <td>No impact described or ignores real-world context.</td>
+                    <td>Vague consequence ("It's bad").</td>
+                    <td>Identifies a basic physical or financial consequence.</td>
+                    <td>Clearly explains the specific consequence of the math error.</td>
+                    <td>Insightful, highly detailed analysis of safety/financial ruin.</td>
                 </tr>
             </tbody>
         </table>
+        <div style="margin-top: 15px; padding: 10px; background: #ecf0f1; border-radius: 5px; font-size:0.9rem;">
+            <strong>📚 Lesson Guide:</strong> Client A = Lesson 1.2 (SOHCAHTOA) | Client B = Lesson 3.1 (Cosine Law) | Client C = Lesson 2.1 (Sine Law)
+        </div>
     </div>
 </div>
 
 <div id="print-area"></div>
 
-<div class="version-tag">v1.6.1 (Single-Try Challenge Mod)</div>
+<div class="version-tag">v3.5.0 (Streamlined KICA Mod: Selected 15 Modules)</div>
 
 <script>
-    /* --- UTILS & DEEP RANDOMIZATION DICTIONARIES --- */
+    /* --- UTILS & MATH FUNCTIONS --- */
     const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
     const r2d = 180 / Math.PI;
     const d2r = Math.PI / 180;
-    const round = (n) => Math.round(n * 10) / 10;
     const round2 = (n) => Math.round(n * 100) / 100;
     const randChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie", "Chris", "Pat", "Drew", "Avery", "Cameron", "Dakota", "Quinn", "Skyler", "Reese"];
-    const jobs = ["contractor", "engineer", "architect", "surveyor", "pilot", "captain", "builder", "carpenter", "landscaper", "designer", "urban planner", "mechanic"];
-    const buildings = ["skyscraper", "apartment building", "radio tower", "water tower", "monument", "lighthouse", "hospital", "stadium", "office building", "castle"];
-    const planes = ["airplane", "helicopter", "drone", "hot air balloon", "jet", "glider", "rescue chopper", "cargo plane"];
-    const objects = ["ladder", "ramp", "slide", "escalator", "conveyor belt", "staircase", "bridge", "roof", "zipline", "beam"];
+    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Sam", "Jamie"];
+    const jobs = ["contractor", "engineer", "architect", "surveyor", "pilot", "builder"];
+    const buildings = ["skyscraper", "radio tower", "water tower", "lighthouse"];
+    const planes = ["airplane", "helicopter", "drone", "rescue chopper"];
+    const objects = ["ladder", "ramp", "slide", "escalator"];
+
+    // 🚀 MASTER REMEDIATION CONTROL PROFILE STATE VARIABLES
+    let isCurrentTypeLocked = false;
+    let lastPickedIndices = {};
+    let lockedMeta = {};
+
+    // 🚀 20-Pool Bag System (Non-Repeating) for I & C questions
+    let questionBags = {};
+    function getUniqueQuestion(arr, bagId) {
+        if (isCurrentTypeLocked && lastPickedIndices[bagId] !== undefined) {
+            let savedIndex = lastPickedIndices[bagId];
+            if (savedIndex < arr.length) {
+                return arr[savedIndex];
+            }
+        }
+        
+        if (!questionBags[bagId] || questionBags[bagId].length === 0) {
+            questionBags[bagId] = [];
+            for (let i = 0; i < arr.length; i++) {
+                questionBags[bagId].push(i);
+            }
+            for (let i = questionBags[bagId].length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questionBags[bagId][i], questionBags[bagId][j]] = [questionBags[bagId][j], questionBags[bagId][i]];
+            }
+        }
+        let nextIndex = questionBags[bagId].pop();
+        lastPickedIndices[bagId] = nextIndex;
+        return arr[nextIndex];
+    }
+
+    const makeMC = (q, c, w1, w2, exp) => ({
+        q: `<p>${q}</p>`,
+        opts: [ {text: c, correct: true}, {text: w1, correct: false}, {text: w2, correct: false} ],
+        exp: exp
+    });
 
     /* --- STATE MANAGEMENT --- */
+    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit1_data')) || {};
     let isQuestionSolved = false;
-    let pAns = 0; 
+    let currentQuestion = null;
 
     /* --- NAVIGATION --- */
-    function showTab(id) {
+    function showTab(evt, id) {
         document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        event.target.classList.add('active');
+        if(evt) evt.currentTarget.classList.add('active');
     }
     function toggleLesson(header) { header.nextElementSibling.classList.toggle('show'); }
 
-    /* --- PERSISTENCE --- */
-    let practiceData = JSON.parse(localStorage.getItem('mbf3c_unit1_data')) || {};
-
+    /* --- SCORE & UI LOGIC --- */
     function updateScoreDisplay() {
-        let type = document.getElementById('p-topic').value;
+        let type = document.getElementById('p-topic').value || 'default';
         let data = practiceData[type] || { correct: 0, total: 0 };
         document.getElementById('p-score').innerText = data.correct;
         document.getElementById('p-total').innerText = data.total;
     }
 
     function saveScore(isCorrect) {
-        let type = document.getElementById('p-topic').value;
+        let type = document.getElementById('p-topic').value || 'default';
         if (!practiceData[type]) { practiceData[type] = { total: 0, correct: 0 }; }
         practiceData[type].total++;
         if(isCorrect) practiceData[type].correct++;
@@ -675,19 +572,27 @@
     }
 
     function resetPracticeScore() {
-        let type = document.getElementById('p-topic').value;
+        let type = document.getElementById('p-topic').value || 'default';
         practiceData[type] = { correct: 0, total: 0 };
         localStorage.setItem('mbf3c_unit1_data', JSON.stringify(practiceData));
         updateScoreDisplay();
     }
 
     const lbls = { A: 'lbl-A', B: 'lbl-B', C: 'lbl-C', a: 'lbl-a', b: 'lbl-b', c: 'lbl-c' };
-    function hideLabels() {
+    function resetPracticeUI() {
         for(let k in lbls) document.getElementById(lbls[k]).style.display = 'none';
-        document.getElementById('p-feed').innerText = '';
-        document.getElementById('p-feed').className = 'feedback';
+        document.getElementById('p-feed').innerHTML = '';
+        document.getElementById('p-feed').className = '';
         document.getElementById('p-input').value = '';
         document.getElementById('p-input').disabled = false;
+        
+        isCurrentTypeLocked = false;
+        lastPickedIndices = {};
+        lockedMeta = {};
+
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) { mcArea.style.display = 'none'; mcArea.innerHTML = ""; }
+        updateScoreDisplay();
     }
 
     function setLbl(k, txt, type) {
@@ -727,15 +632,23 @@
 
     /* --- PRACTICE ROUTER --- */
     function newPractice() {
-        updateScoreDisplay();
-        hideLabels();
         const type = document.getElementById('p-topic').value;
+        if(!type) return;
+        
+        // Clear basic UI display tags but hold onto locking flags
+        for(let k in lbls) document.getElementById(lbls[k]).style.display = 'none';
+        document.getElementById('p-feed').innerHTML = '';
+        document.getElementById('p-feed').className = '';
+        document.getElementById('p-input').value = '';
+        document.getElementById('p-input').disabled = false;
+        const mcArea = document.getElementById('mc-area');
+        if(mcArea) { mcArea.style.display = 'none'; mcArea.innerHTML = ""; }
+        
         const singleWrapper = document.getElementById('single-practice-wrapper');
         const diagWrap = document.getElementById('prac-diagram-wrapper');
         const txtBox = document.getElementById('text-problem-box');
         const qText = document.getElementById('question-text');
         const singleInput = document.getElementById('single-input-area');
-        const mcArea = document.getElementById('mc-area');
 
         isQuestionSolved = false;
         singleWrapper.style.display = 'block';
@@ -743,7 +656,6 @@
         txtBox.style.display = 'none';
         qText.innerHTML = "";
         singleInput.style.display = 'none';
-        if(mcArea) { mcArea.style.display = 'none'; mcArea.innerHTML = ""; }
 
         let parts = type.split('-');
         let section = parts[0];
@@ -758,209 +670,207 @@
         else if (section === '3.2') gen3_2(kica, qText, diagWrap, txtBox, singleInput);
     }
 
-    /* --- GENERATOR 1.1: TRIG RATIOS --- */
+    /* --- 1.1: TRIG RATIOS --- */
     function gen1_1(kica, qText, diagWrap, txtBox, singleInput) {
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
             let s_bottom = rand(5, 25); let s_left = rand(5, 25);
             let disp_hyp = round2(Math.sqrt(s_bottom*s_bottom + s_left*s_left));
-            let refAngle = (Math.random() > 0.5) ? 'A' : 'C';
+            
+            let refAngle, rType;
+            if (isCurrentTypeLocked && lockedMeta['1.1-K']) {
+                refAngle = lockedMeta['1.1-K'].refAngle;
+                rType = lockedMeta['1.1-K'].rType;
+            } else {
+                refAngle = (Math.random() > 0.5) ? 'A' : 'C';
+                rType = randChoice(['sin', 'cos', 'tan']);
+                lockedMeta['1.1-K'] = { refAngle, rType };
+            }
+
             let map = (refAngle === 'A') ? { opp: 'a', adj: 'c', hyp: 'b' } : { opp: 'c', adj: 'a', hyp: 'b' };
             let vals = {}; vals[map.opp] = (refAngle === 'A') ? s_bottom : s_left; vals[map.adj] = (refAngle === 'A') ? s_left : s_bottom; vals['b'] = disp_hyp; 
             
-            let rType = randChoice(['sin', 'cos', 'tan']);
             qText.innerHTML = `Calculate <strong>${rType} ${refAngle}</strong>. <br><small>(Format: decimal to 3 places)</small>`;
             
             let poly = document.getElementById('prac-poly');
             poly.setAttribute('points', "40,40 40,240 360,240");
             document.getElementById('txt-A-lbl').setAttribute('x', 40);
-            setLbl('B', '90°', 'right');
-            setLbl(refAngle, 'θ', 'right');
+            setLbl('B', '90°', 'right'); setLbl(refAngle, 'θ', 'right');
             
-            if(rType==='sin') { setLbl(map.opp, vals[map.opp], 'right'); setLbl('b', vals['b'], 'right'); pAns = vals[map.opp]/vals['b']; }
-            if(rType==='cos') { setLbl(map.adj, vals[map.adj], 'right'); setLbl('b', vals['b'], 'right'); pAns = vals[map.adj]/vals['b']; }
-            if(rType==='tan') { setLbl(map.opp, vals[map.opp], 'right'); setLbl(map.adj, vals[map.adj], 'right'); pAns = vals[map.opp]/vals[map.adj]; }
-        } else if (kica === "A") {
-            txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
-            let scenarios = [];
-            for(let i=0; i<10; i++) {
-                let rise = rand(2, 10); let run = rand(15, 30);
-                scenarios.push({q: `A ${randChoice(objects)} rises ${rise}m and has a horizontal run of ${run}m. What is the Tangent ratio (slope) of this object as a decimal?`, ans: rise/run});
-            }
-            for(let i=0; i<10; i++) {
-                let opp = rand(10, 50); let hyp = rand(60, 100);
-                scenarios.push({q: `A ${randChoice(planes)} flies at a steady angle. The vertical altitude is ${opp}m and the actual flight path distance is ${hyp}m. Calculate the Sine ratio.`, ans: opp/hyp});
-            }
-            let sel = randChoice(scenarios);
-            document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 3 decimal places)</small>`;
-            pAns = sel.ans;
-        } else if (kica === "I") {
-            let pool = [
-                { q: "What physically happens to the value of Tangent (Opposite/Adjacent) as the angle approaches 90°?", opts: [ {text: "It approaches infinity, because the Adjacent side shrinks toward zero.", correct: true}, {text: "It becomes exactly 1.", correct: false}, {text: "It drops to zero.", correct: false}, {text: "It becomes negative.", correct: false} ] },
-                { q: "Why must the Sine and Cosine ratios of an acute right triangle ALWAYS be less than 1?", opts: [ {text: "Because the Hypotenuse is the denominator, and the Hypotenuse is mathematically always the longest side of a right triangle.", correct: true}, {text: "Because you are dividing by 90 degrees.", correct: false}, {text: "Because the calculator is programmed that way.", correct: false}, {text: "They are not always less than 1.", correct: false} ] },
-                { q: "If tan(θ) = 1, what does this tell you about the physical shape of the right triangle?", opts: [ {text: "The Opposite and Adjacent sides are exactly equal in length (an isosceles right triangle).", correct: true}, {text: "The Hypotenuse is 1.", correct: false}, {text: "The triangle has no area.", correct: false}, {text: "The angle is 90 degrees.", correct: false} ] },
-                { q: "In a right triangle, if you increase Angle A, what happens to the Opposite side assuming the Adjacent stays the same?", opts: [ {text: "The Opposite side gets much longer.", correct: true}, {text: "The Opposite side gets shorter.", correct: false}, {text: "The Opposite side stays exactly the same.", correct: false}, {text: "The Opposite side becomes the Hypotenuse.", correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            let pAns = 0; let exp = "";
+            if(rType==='sin') { setLbl(map.opp, vals[map.opp], 'right'); setLbl('b', vals['b'], 'right'); pAns = vals[map.opp]/vals['b']; exp = `Sine is Opposite / Hypotenuse (SOH). You divide ${vals[map.opp]} by ${vals['b']}.`;}
+            if(rType==='cos') { setLbl(map.adj, vals[map.adj], 'right'); setLbl('b', vals['b'], 'right'); pAns = vals[map.adj]/vals['b']; exp = `Cosine is Adjacent / Hypotenuse (CAH). You divide ${vals[map.adj]} by ${vals['b']}.`;}
+            if(rType==='tan') { setLbl(map.opp, vals[map.opp], 'right'); setLbl(map.adj, vals[map.adj], 'right'); pAns = vals[map.opp]/vals[map.adj]; exp = `Tangent is Opposite / Adjacent (TOA). You divide ${vals[map.opp]} by ${vals['b']}.`;}
+            
+            currentQuestion = { answer: pAns.toFixed(3), type: 'input', explanation: exp };
+
         } else if (kica === "C") {
-            let name = randChoice(names);
-            let job = randChoice(jobs);
             let pool = [
-                { q: `Explain to a ${job} why the "Angle of Elevation" and "Angle of Depression" are mathematically identical in a sightline problem.`, opts: [ {text: `"They are Alternate Interior Angles (the 'Z' pattern) between two parallel horizontal lines."`, correct: true}, {text: `"Because all angles in a right triangle equal 90 degrees."`, correct: false}, {text: `"They are not identical, one is always larger."`, correct: false}, {text: `"Because gravity affects them equally."`, correct: false} ] },
-                { q: `${name} asks how to remember which sides to use for Tangent. What is the clearest explanation?`, opts: [ {text: `"Use 'TOA' from SOH CAH TOA. Tangent = Opposite side divided by the Adjacent side."`, correct: true}, {text: `"Tangent is the Hypotenuse divided by the Opposite."`, correct: false}, {text: `"Tangent is the longest side divided by the shortest."`, correct: false}, {text: `"Tangent just means to add the two sides together."`, correct: false} ] },
-                { q: `A ${job} asks why you need the "Hypotenuse" to use Sine. Explain.`, opts: [ {text: `"Because Sine (SOH) is defined specifically as the ratio of the Opposite side to the Hypotenuse."`, correct: true}, {text: `"Because the Hypotenuse is the only side that changes length."`, correct: false}, {text: `"You actually don't need the Hypotenuse for Sine."`, correct: false}, {text: `"Because Sine is used to calculate area."`, correct: false} ] },
-                { q: `${name} measured a wheelchair ramp and got sin(θ) = 1.5. How do you correct them?`, opts: [ {text: `"That is mathematically impossible. Sine is Opposite/Hypotenuse, and the Opposite can never be longer than the Hypotenuse. The ratio must be under 1."`, correct: true}, {text: `"The angle is just 1.5 degrees, they didn't do anything wrong."`, correct: false}, {text: `"They should have used Cosine instead."`, correct: false}, {text: `"They forgot to multiply by 100."`, correct: false} ] }
+                makeMC("Explain to a client why the 'Angle of Elevation' and 'Angle of Depression' are mathematically identical in a sightline problem.", "\"They are Alternate Interior Angles (the 'Z' pattern) between two parallel horizontal lines.\"", "\"Because all angles in a right triangle equal 90 degrees.\"", "\"They are not identical, one is always larger.\"", "When you draw a horizontal line from your eye, and another from the object, they are parallel. The sightline cuts through them, creating equal alternate interior angles."),
+                makeMC("A worker asks how to remember which sides to use for Tangent. What is the clearest explanation?", "\"Use 'TOA' from SOH CAH TOA. Tangent = Opposite side divided by the Adjacent side.\"", "\"Tangent is the Hypotenuse divided by the Opposite.\"", "\"Tangent is the longest side divided by the shortest.\"", "TOA is the universal mnemonic device. T = O / A."),
+                makeMC("A contractor measured a wheelchair ramp and got sin(θ) = 1.5. How do you correct them?", "\"That is mathematically impossible. Sine is Opposite/Hypotenuse, and the Opposite can never be longer than the Hypotenuse. The ratio must be under 1.\"", "\"The angle is just 1.5 degrees, they didn't do anything wrong.\"", "\"They should have used Cosine instead.\"", "The hypotenuse is the longest side. A smaller number divided by a larger number cannot be greater than 1."),
+                makeMC("If θ increases from 10° to 80° in a right triangle, what happens to the value of tan(θ)?", "\"It increases significantly because the opposite side grows larger than the adjacent side.\"", "\"It stays exactly the same because ratios are constant.\"", "\"It decreases toward zero as the angle expands.\"", "Tangent is opposite over adjacent. As the angle grows towards 90, the opposite side becomes much larger than the adjacent side, causing the ratio to rise."),
+                makeMC("Why is the hypotenuse always the denominator in the baseline sine and cosine ratios?", "\"Because the hypotenuse is the longest side, ensuring the resulting baseline ratio never exceeds 1.0.\"", "\"Because the denominator must always be an even integer value.\"", "\"To ensure that tangent is always calculated first.\"", "In a right triangle, the hypotenuse is always the longest side. Dividing a shorter side by the longest side ensures that sine and cosine ratios remain between 0 and 1."),
+                makeMC("A student writes cos(A) = adjacent / opposite. How do you communicate the correct definition?", "\"Remind them of CAH: Cosine equals Adjacent divided by Hypotenuse.\"", "\"Tell them that Cosine is always equal to 1.\"", "\"Explain that Cosine uses opposite divided by adjacent sides.\"", "CAH reminds us that C = A / H, meaning Adjacent over Hypotenuse."),
+                makeMC("How do you explain the term 'Opposite side' to someone looking at a triangle blueprint?", "\"It is the side directly across from the reference angle, not touching it at all.\"", "\"It is always the horizontal base line of the system.\"", "\"It is the longest diagonal structural beam in the triangle.\"", "The opposite side is located directly across from the chosen angle and does not form any part of that angle's vertex."),
+                makeMC("What line of sight forms the base reference point for an angle of depression?", "\"A perfectly flat horizontal line extending outward from the observer's eye level.\"", "\"A vertical line dropping straight down to the absolute center point.\"", "\"The diagonal baseline running parallel to the hypotenuse structure.\"", "All angles of elevation and depression must be measured from a baseline horizontal line."),
+                makeMC("A draftsman confuses the adjacent side with the hypotenuse. What key property distinguishes them?", "\"The hypotenuse is always the longest side and is located directly opposite the 90° angle.\"", "\"The adjacent side is always perfectly vertical.\"", "\"There is no geometric difference between them on site blueprints.\"", "The hypotenuse is unique because it lies across from the right angle and represents the maximum boundary length."),
+                makeMC("Why does tan(45°) always equal exactly 1 in an isosceles right-angled triangle?", "\"Because a 45° acute angle forces the opposite and adjacent sides to be perfectly equal in length.\"", "\"Because 45 divided by 45 equals 1.\"", "\"Because tangent calculations ignore the adjacent side completely.\"", "When a right triangle has a 45° angle, it is isosceles, meaning both legs are equal. A number divided by itself equals 1."),
+                makeMC("In a right triangle, if sin(A) = 3/5, what is the value of cos(C) where C is the other acute angle?", "\"It is exactly 3/5, because the opposite side of angle A is the adjacent side of angle C.\"", "\"It must be 4/5 based on standard rules.\"", "\"It is 5/3 because it is the reciprocal function.\"", "The side that is opposite angle A becomes the adjacent side when looking from the perspective of angle C, keeping the ratio identical."),
+                makeMC("Explain how to communicate the phrase 'SOH CAH TOA' to a junior trainee who keeps mixing up the ratios.", "\"Break it into syllables: Sine is Opp/Hyp, Cosine is Adj/Hyp, Tangent is Opp/Adj.\"", "\"Tell them it is an ancient Greek calculation tool used for circles.\"", "\"Explain that it tracks the alphabetical ordering of the sides.\"", "SOH CAH TOA breaks down as S=O/H, C=A/H, T=O/A."),
+                makeMC("If a roof pitch has a high tangent value, what does that communicate about its real-world steepness?", "\"The roof has a very steep incline because the vertical rise is much larger than the horizontal run.\"", "\"The roof is almost completely flat to shed rain water.\"", "\"The roof is highly structural but has no measurable slope value.\"", "A high tangent value means the vertical component (opposite) is significantly larger than the horizontal layout (adjacent)."),
+                makeMC("Can an angle of elevation inside a right triangle ever be equal to or greater than 90°?", "\"No, the two remaining acute angles must add up to 90°, so each must be strictly less than 90°.\"", "\"Yes, when dealing with extremely tall skyscraper footprints.\"", "\"Yes, it defaults to 90° when the system becomes completely vertical.\"", "Since a right triangle contains one fixed 90° angle, the other two angles must share the remaining 90°, forcing them to be acute."),
+                makeMC("How does a change in the scale of a blueprint affect the values of its trigonometric ratios?", "\"The ratios remain completely unchanged because the side lengths scale proportionally, keeping the fractions constant.\"", "\"The ratios double if the blueprint scale expands by two.\"", "\"The ratios automatically invert their numerator and denominator paths.\"", "Trig ratios depend entirely on the angle size. If the triangle changes size proportionally, the side ratios remain identical."),
+                makeMC("A client wants to know why you cannot compute tan(90°) for a right triangle. What is the correct explanation?", "\"The adjacent side shrinks to 0, and division by zero is mathematically undefined.\"", "\"Because the hypotenuse becomes infinite in length.\"", "\"Because calculators are blocked from display outputs above 85 degrees.\"", "As an angle approaches 90°, the adjacent side shrinks to zero. In the tangent fraction (Opp/Adj), this places a zero in the denominator, which is undefined."),
+                makeMC("If a triangle contains an acute angle where adjacent equals opposite, what type of right triangle is it?", "\"An isosceles right triangle, featuring two matching 45° angles.\"", "\"An equilateral triangle where all internal boundaries match.\"", "\"A scalene layout where no measurements are proportional.\"", "When opposite equals adjacent, the triangle forms a symmetrical half-square, forcing the acute angle to equal 45°."),
+                makeMC("Why does the sine of an angle always equal the cosine of its complementary angle?", "\"Because the opposite side of one angle is physically the adjacent side of the matching complementary angle.\"", "\"Because sine and cosine use the exact same definition formula.\"", "\"It is a random coincidence that only works for 45 degree elements.\"", "In a right triangle, the two acute angles are complementary. The leg opposite to one is adjacent to the other, making sin(x) equal to cos(90-x)."),
+                makeMC("Explain why the value of cos(θ) approaches 0 as θ approaches 90°.", "\"The adjacent side shrinks toward a length of zero as the angle opens up vertically.\"", "\"The hypotenuse grows infinitely large, causing the fraction to drop.\"", "\"The opposite side completely consumes the hypotenuse boundary line.\"", "Cosine is adjacent over hypotenuse. As the angle opens up toward 90°, the adjacent base segment shrinks down toward zero, causing the ratio to become zero."),
+                makeMC("A site surveyor states that the ratio of opposite to hypotenuse is exactly 0.0. What does this mean?", "\"The angle of elevation is 0°, meaning the trajectory is a perfectly flat horizontal line.\"", "\"The triangle has an infinite height vector profile.\"", "\"The system is completely invalid because hypotenuse values cannot equal zero.\"", "If the opposite side has a length of zero, there is no vertical rise, meaning the angle of elevation is exactly 0°.")
             ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            let sel = getUniqueQuestion(pool, '1.1-C');
+            qText.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
         }
     }
 
-    /* --- GENERATOR 1.2: MISSING ANGLES --- */
+    // --- 1.2: MISSING ANGLES ---
     function gen1_2(kica, qText, diagWrap, txtBox, singleInput) {
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
             let o = rand(5, 20); let a = rand(5, 20); let h = round2(Math.sqrt(o*o+a*a));
-            let refAngle = randChoice(['A','C']);
+            
+            let refAngle, mode;
+            if (isCurrentTypeLocked && lockedMeta['1.2-K']) {
+                refAngle = lockedMeta['1.2-K'].refAngle;
+                mode = lockedMeta['1.2-K'].mode;
+            } else {
+                refAngle = randChoice(['A','C']);
+                mode = rand(1,3);
+                lockedMeta['1.2-K'] = { refAngle, mode };
+            }
+
             let poly = document.getElementById('prac-poly');
             poly.setAttribute('points', "40,40 40,240 360,240");
             document.getElementById('txt-A-lbl').setAttribute('x', 40);
             setLbl('B', '90°', 'right');
             
-            let mode = rand(1,3); 
+            let pAns = 0; let exp = "";
             if(mode===1) {
-                setLbl(refAngle==='A'?'a':'c', o, 'right');
-                setLbl('b', h, 'right');
-                pAns = Math.asin(o/h)*r2d;
+                setLbl(refAngle==='A'?'a':'c', o, 'right'); setLbl('b', h, 'right');
+                pAns = Math.asin(o/h)*r2d; exp = `You have Opposite and Hypotenuse. Use Inverse Sine (sin⁻¹). sin⁻¹(${o}/${h}).`;
             } else if(mode===2) {
-                setLbl(refAngle==='A'?'c':'a', a, 'right');
-                setLbl('b', h, 'right');
-                pAns = Math.acos(a/h)*r2d;
+                setLbl(refAngle==='A'?'c':'a', a, 'right'); setLbl('b', h, 'right');
+                pAns = Math.acos(a/h)*r2d; exp = `You have Adjacent and Hypotenuse. Use Inverse Cosine (cos⁻¹). cos⁻¹(${a}/${h}).`;
             } else {
-                setLbl(refAngle==='A'?'a':'c', o, 'right');
-                setLbl(refAngle==='A'?'c':'a', a, 'right');
-                pAns = Math.atan(o/a)*r2d;
+                setLbl(refAngle==='A'?'a':'c', o, 'right'); setLbl(refAngle==='A'?'c':'a', a, 'right');
+                pAns = Math.atan(o/a)*r2d; exp = `You have Opposite and Adjacent. Use Inverse Tangent (tan⁻¹). tan⁻¹(${o}/${a}).`;
             }
             setLbl(refAngle, 'x', 'right');
             qText.innerHTML = `Find angle x.<br><small>(Round to 1 decimal degree)</small>`;
-        } else if (kica === "A") {
-            txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
-            let scenarios = [];
-            for(let i=0; i<10; i++) {
-                let H = rand(100, 500), D = rand(100, 500);
-                scenarios.push({q: `A ${randChoice(buildings)} is ${H}m tall. You are standing ${D}m away from the base. What is the angle of elevation to the top?`, ans: Math.atan(H/D)*r2d});
-            }
-            for(let i=0; i<10; i++) {
-                let H = rand(5, 15), L = rand(20, 40);
-                scenarios.push({q: `A ${randChoice(objects)} is ${L}m long and reaches a height of ${H}m. What is the angle it makes with the ground?`, ans: Math.asin(H/L)*r2d});
-            }
-            let sel = randChoice(scenarios);
-            document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
-            pAns = sel.ans;
+            currentQuestion = { answer: pAns.toFixed(1), type: 'input', explanation: exp };
+
         } else if (kica === "I") {
             let pool = [
-                { q: "Why do we use the INVERSE trig functions (sin⁻¹, cos⁻¹, tan⁻¹) in our calculators?", opts: [ {text: "To 'undo' the ratio and extract the actual degree measurement of the Angle.", correct: true}, {text: "To find the length of the hypotenuse.", correct: false}, {text: "To turn degrees into radians.", correct: false}, {text: "To multiply the sides together.", correct: false} ] },
-                { q: "If a right triangle has sides 3, 4, and 5, which inverse formula gives you the smallest angle?", opts: [ {text: "sin⁻¹(3/5). The smallest angle is always opposite the smallest side.", correct: true}, {text: "cos⁻¹(5/4)", correct: false}, {text: "tan⁻¹(4/3)", correct: false}, {text: "sin⁻¹(4/5)", correct: false} ] },
-                { q: "What does it mean if your calculator gives you an 'Error' when doing sin⁻¹?", opts: [ {text: "You tried to find the inverse sine of a number greater than 1, which means your Opposite side was illegally longer than the Hypotenuse.", correct: true}, {text: "The angle is exactly 90 degrees.", correct: false}, {text: "The calculator is broken.", correct: false}, {text: "You should have used Tangent instead.", correct: false} ] }
+                makeMC("Why do we use the INVERSE trig functions (sin⁻¹, cos⁻¹, tan⁻¹) in our calculators?", "To 'undo' the ratio and extract the actual degree measurement of the Angle.", "To find the length of the hypotenuse.", "To turn degrees into radians.", "Regular trig functions turn Angles into Ratios. Inverse trig functions reverse the process, turning Ratios back into Angles."),
+                makeMC("If a right triangle has sides 3, 4, and 5, which inverse formula gives you the smallest angle?", "sin⁻¹(3/5). The smallest angle is always opposite the smallest side.", "cos⁻¹(5/4)", "tan⁻¹(4/3)", "The shortest side is 3. The angle opposite to it will be the smallest. Sine is Opp/Hyp, so sin⁻¹(3/5)."),
+                makeMC("An investigation of tan⁻¹(x) reveals that as x becomes extremely large, the calculated angle approaches which boundary?", "Exactly 90°, because the opposite side dominates and becomes nearly vertical.", "It levels off at exactly 45°.", "It continuously cycles back down to 0°.", "As the opposite leg grows infinitely larger than the adjacent leg, the angle scales up toward a perfectly vertical trajectory, which caps out at 90°."),
+                makeMC("If sin(θ) = cos(θ) for an acute angle in a right triangle, what is the value of θ found using inverse trig operations?", "45°, because both sides must be identical for the ratios to equal each other.", "30° based on complementary identity constraints.", "60° due to geometry scaling limits.", "When sine equals cosine, the opposite leg equals the adjacent leg, creating an isosceles right triangle where the acute angles are 45°."),
+                makeMC("You input sin⁻¹(1.05) into a computer model and get an error. What does this reveal about the mathematical domain?", "The domain of inverse sine is strictly locked between -1 and 1. The opposite side can never exceed the hypotenuse.", "Calculators cannot evaluate decimals greater than 1 inside brackets.", "The system flipped into radian configuration automatically.", "Because the hypotenuse must be the longest side in a right triangle, the ratio Opp/Hyp can never be greater than 1. Thus, sin⁻¹(1.05) is impossible."),
+                makeMC("A surveyor finds that tan⁻¹(0) gives an angle of 0°. What does this imply about the physical rise of the line?", "There is absolutely zero vertical change; the path is entirely flat and horizontal.", "The line drops straight down vertically.", "The calculation is broken due to zero parameters.", "Tangent is rise over run. If tangent is zero, the rise is zero, which corresponds to a completely horizontal flat line."),
+                makeMC("If you know only the hypotenuse of a right triangle, why is it impossible to determine any missing angle using inverse trig?", "You require at least two distinct side lengths to formulate a valid ratio for an inverse function input.", "Because the hypotenuse only works with regular sine functions.", "Because missing angles require the presence of a right angle identifier.", "Inverse trig functions require a complete ratio of two side lengths. Knowing only one side provides an incomplete fraction configuration."),
+                makeMC("In a triangle where the adjacent side is twice as long as the opposite side, how do you express the calculation for the reference angle?", "Evaluate tan⁻¹(1/2) or tan⁻¹(0.5) to isolate the angle value.", "Evaluate tan⁻¹(2) to determine the baseline trajectory.", "Multiply the hypotenuse calculation by exactly 30 degrees.", "Tangent is opposite over adjacent. If adjacent is twice the opposite, the fraction is 1/2, so the angle is tan⁻¹(0.5)."),
+                makeMC("What occurs to the output of cos⁻¹(x) as the input value x decreases from 1 toward 0?", "The calculated angle expands from 0° up toward 90°.", "The calculated angle shrinks down toward 0°.", "The angle value remains fixed at 45°.", "An input of 1 for cosine means an angle of 0°. As the ratio drops toward 0, the angle opens up towards a full 90° configuration."),
+                makeMC("A student claims that sin⁻¹(x) is the same as 1/sin(x). How does an inquiry into reciprocal versus inverse operations disprove this?", "sin⁻¹(x) finds the missing angle, while 1/sin(x) is the cosecant ratio of an already known angle.", "They are mathematically identical, the calculator simply uses different button mapping.", "Inverse functions are exclusively used for vertical side measurements.", "The exponent notation -1 in function logic indicates an inverse operations pathway to find an angle, not a mathematical reciprocal fraction fraction slider."),
+                makeMC("If you double both the opposite and adjacent sides of a right triangle, what happens to the output of tan⁻¹(opposite/adjacent)?", "The angle remains completely unchanged because the ratio scales proportionally and simplifies to the same value.", "The resulting angle calculation doubles in size.", "The calculation returns a domain error value.", "Doubling both sides means the fraction becomes 2Opp/2Adj, which simplifies right back to Opp/Adj, leaving the inverse output identical."),
+                makeMC("Why is the range of outputs for an inverse sine function in a right triangle strictly bounded between 0° and 90°?", "Because an individual angle inside a right triangle can never be obtuse or exceed the right angle itself.", "Because hypotenuse lines cannot extend past ninety units on site charts.", "To prevent the geometric coordinates from transitioning into negative quad sets.", "The acute angles in a right triangle must share 90°, meaning each individual angle must fall strictly within the 0° to 90° structural boundary."),
+                makeMC("An automated laser level registers a ratio of opposite/hypotenuse equal to 0.707. What angle is indicated?", "45°, because sin⁻¹(0.707) corresponds to the balanced isosceles state.", "30° because 0.707 is the standard cosine threshold.", "60° based on standard elevation benchmarks.", "The decimal 0.707 approximates 1/√2, which is the exact sine value for a 45° angle framework."),
+                makeMC("If cos(θ) = 0.5, what geometric configuration does this imply about the relationship between the adjacent side and the hypotenuse?", "The adjacent side is exactly half the length of the hypotenuse line.", "The adjacent side is twice as long as the hypotenuse boundary.", "Both sides are completely identical in length parameters.", "Cosine is adjacent over hypotenuse. A ratio of 0.5 means Adjacent / Hypotenuse = 1/2, so adjacent is half of the hypotenuse."),
+                makeMC("Why does evaluating tan⁻¹(1) always return 45° regardless of the unit scale used?", "Because a ratio of 1 means the opposite and adjacent legs are perfectly equal, which only occurs at 45°.", "Because 45 is the default baseline multiplier for tangent grids.", "It only returns 45 if the triangle is measured in metric units.", "When opposite equals adjacent, the triangle forms a symmetrical half-square, forcing the acute angle to equal 45°."),
+                makeMC("If an angle is found using sin⁻¹(0.8), what would be the result if you evaluated cos⁻¹ using the adjacent side instead?", "It would return the exact same angle value because both trace back to the same structural position.", "It would return the complementary angle segment measurement.", "The output would shift by exactly fifteen percent due to formula changes.", "Different trig ratios for the same angle look at different side relationships but resolve to the identical degree opening."),
+                makeMC("What spatial orientation is created when the ratio inside an inverse cosine function equals exactly 0?", "A completely vertical trajectory pointing straight up at 90°.", "A perfectly flat horizontal surface vector.", "An equilateral intersection profile.", "cos⁻¹(0) equals 90°. This means the adjacent side has zero length, creating a perfectly vertical line relative to the baseline axis."),
+                makeMC("In evaluating a ramp, if the rise (opposite) approaches a value of 0 while the run remains constant, what limit does the inverse tangent angle approach?", "It approaches 0°, matching a completely flat horizontal layout.", "It ascends toward a maximum threshold of 45°.", "It triggers a mathematical zero division fault error.", "Tangent is rise over run. If rise becomes 0, the fraction is 0, and tan⁻¹(0) evaluates to exactly 0°."),
+                makeMC("A calculator is accidentally set to grads instead of degrees, how does this affect the output of an inverse trig calculation?", "The values output will scale incorrectly because grads divide a right angle into 100 parts instead of 90.", "The numbers will display as negative values automatically.", "The calculation returns a syntax error string due to unit mismatch.", "Gradients (grads) use 100 units for a right angle, meaning an angle that should be 90° will display as 100, breaking the degree calculation sync."),
+                makeMC("Why does an inverse sine function return a value of exactly 90° when the input is 1?", "Because at 90°, the opposite side reaches maximum extension and perfectly equals the length of the hypotenuse.", "Because 1 multiplied by 90 equals 90.", "It only does this if the right angle is oriented horizontally.", "When the opposite side equals the hypotenuse, the trajectory is completely vertical, which matches the 90° structural bound.")
             ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let name = randChoice(names);
-            let pool = [
-                { q: `Explain to a client why an Angle of Elevation of 80° for a ${randChoice(objects)} is a terrible design.`, opts: [ {text: `"An 80° angle is almost completely vertical (90° is straight up). It would be a ladder, not a safe surface, making it incredibly dangerous."`, correct: true}, {text: `"An 80° angle is perfectly flat, so water would pool on it."`, correct: false}, {text: `"80° is totally safe, the client is wrong."`, correct: false}, {text: `"Because tangent of 80 is a negative number."`, correct: false} ] },
-                { q: `${name} gets 0.45 from their ratio and says "The angle is 0.45 degrees!" Correct them.`, opts: [ {text: `"0.45 is just the decimal ratio of the sides. You must use the inverse function (like sin⁻¹) to convert that ratio into the actual degree measurement."`, correct: true}, {text: `"You need to multiply 0.45 by 100 to get 45 degrees."`, correct: false}, {text: `"0.45 means the hypotenuse is wrong."`, correct: false}, {text: `"The angle is actually negative 0.45 degrees."`, correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            let sel = getUniqueQuestion(pool, '1.2-I');
+            qText.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
         }
     }
 
-    /* --- GENERATOR 1.3: MISSING SIDES --- */
+    // --- 1.3: MISSING SIDES ---
     function gen1_3(kica, qText, diagWrap, txtBox, singleInput) {
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
-            let angVal = rand(25, 65);
-            let rad = angVal * d2r;
-            let refAngle = randChoice(['A','C']);
+            let angVal = rand(25, 65); let rad = angVal * d2r;
+            
+            let refAngle, uIdx, kIdx;
+            if (isCurrentTypeLocked && lockedMeta['1.3-K']) {
+                refAngle = lockedMeta['1.3-K'].refAngle;
+                uIdx = lockedMeta['1.3-K'].uIdx;
+                kIdx = lockedMeta['1.3-K'].kIdx;
+            } else {
+                refAngle = randChoice(['A','C']);
+                uIdx = rand(0, 2); kIdx = rand(0, 2);
+                while(uIdx === kIdx) kIdx = rand(0, 2);
+                lockedMeta['1.3-K'] = { refAngle, uIdx, kIdx };
+            }
+
             let poly = document.getElementById('prac-poly');
             poly.setAttribute('points', "40,40 40,240 360,240");
             document.getElementById('txt-A-lbl').setAttribute('x', 40);
-            setLbl('B', '90°', 'right');
-            setLbl(refAngle, angVal+'°', 'right');
+            setLbl('B', '90°', 'right'); setLbl(refAngle, angVal+'°', 'right');
 
             let map = (refAngle === 'A') ? { opp: 'a', adj: 'c', hyp: 'b' } : { opp: 'c', adj: 'a', hyp: 'b' };
             let sides = ['opp', 'adj', 'hyp'];
-            let uIdx = rand(0, 2); let kIdx = rand(0, 2);
-            while(uIdx === kIdx) kIdx = rand(0, 2);
             
             let uRole = sides[uIdx]; let kRole = sides[kIdx];
             let uKey = (uRole === 'hyp') ? 'b' : map[uRole];
             let kKey = (kRole === 'hyp') ? 'b' : map[kRole];
             
             let kVal = rand(10, 50);
-            setLbl(kKey, kVal, 'right');
-            setLbl(uKey, 'x', 'right');
-            
+            setLbl(kKey, kVal, 'right'); setLbl(uKey, 'x', 'right');
             qText.innerHTML = "Find side x.<br><small>(Round to 1 decimal)</small>";
             
+            let pAns = 0; let exp = "";
             if (uRole === 'hyp') {
-                if (kRole === 'opp') pAns = kVal / Math.sin(rad);
-                else pAns = kVal / Math.cos(rad);
+                if (kRole === 'opp') { pAns = kVal / Math.sin(rad); exp = `You have Opp, want Hyp. Use Sine. sin(${angVal}) = ${kVal}/x. Swap and divide: x = ${kVal} / sin(${angVal}).`; }
+                else { pAns = kVal / Math.cos(rad); exp = `You have Adj, want Hyp. Use Cosine. cos(${angVal}) = ${kVal}/x. Swap and divide: x = ${kVal} / cos(${angVal}).`; }
             }
             else if (uRole === 'opp') {
-                if (kRole === 'hyp') pAns = kVal * Math.sin(rad);
-                else pAns = kVal * Math.tan(rad);
+                if (kRole === 'hyp') { pAns = kVal * Math.sin(rad); exp = `You have Hyp, want Opp. Use Sine. sin(${angVal}) = x/${kVal}. Multiply: x = ${kVal} * sin(${angVal}).`; }
+                else { pAns = kVal * Math.tan(rad); exp = `You have Adj, want Opp. Use Tangent. tan(${angVal}) = x/${kVal}. Multiply: x = ${kVal} * tan(${angVal}).`; }
             }
             else {
-                if (kRole === 'hyp') pAns = kVal * Math.cos(rad);
-                else pAns = kVal / Math.tan(rad);
+                if (kRole === 'hyp') { pAns = kVal * Math.cos(rad); exp = `You have Hyp, want Adj. Use Cosine. cos(${angVal}) = x/${kVal}. Multiply: x = ${kVal} * cos(${angVal}).`; }
+                else { pAns = kVal / Math.tan(rad); exp = `You have Opp, want Adj. Use Tangent. tan(${angVal}) = ${kVal}/x. Swap and divide: x = ${kVal} / tan(${angVal}).`; }
             }
+            currentQuestion = { answer: pAns.toFixed(1), type: 'input', explanation: exp };
+
         } else if (kica === "A") {
             txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
             let scenarios = [];
-            for(let i=0; i<10; i++) {
+            for(let i=0; i<5; i++) {
                 let L = rand(5, 15), A = rand(60, 80);
-                scenarios.push({q: `A ${L}m ${randChoice(objects)} leans against a wall at ${A}° to the ground. How high up the wall does it reach?`, ans: L * Math.sin(A*d2r)});
+                scenarios.push({q: `A ${L}m ${randChoice(objects)} leans against a wall at ${A}° to the ground. How high up the wall does it reach?`, ans: L * Math.sin(A*d2r), exp: `Object is Hypotenuse. Wall is Opposite. Use Sine. sin(${A}) = x / ${L} -> x = ${L} * sin(${A}).`});
             }
-            for(let i=0; i<10; i++) {
+            for(let i=0; i<5; i++) {
                 let S = rand(10, 30), A = rand(30, 60);
-                scenarios.push({q: `A ${randChoice(buildings)} casts a ${S}m shadow when the sun's angle of elevation is ${A}°. How tall is the structure?`, ans: S * Math.tan(A*d2r)});
+                scenarios.push({q: `A ${randChoice(buildings)} casts a ${S}m shadow when the sun's angle of elevation is ${A}°. How tall is the structure?`, ans: S * Math.tan(A*d2r), exp: `Shadow is Adjacent. Height is Opposite. Use Tangent. tan(${A}) = x / ${S} -> x = ${S} * tan(${A}).`});
             }
-            let sel = randChoice(scenarios);
+            for(let i=0; i<5; i++) {
+                let L = rand(6, 18), A = rand(55, 75);
+                scenarios.push({q: `A technician places a ${L}m safety ladder against a utility pole at an angle of ${A}° to the terrain. Find the horizontal clearance from the base of the ladder to the pole.`, ans: L * Math.cos(A*d2r), exp: `Ladder is Hypotenuse. Base distance is Adjacent. Use Cosine: cos(${A}) = x / ${L} -> x = ${L} * cos(${A}).`});
+            }
+            for(let i=0; i<5; i++) {
+                let H = rand(15, 45), A = rand(25, 45);
+                scenarios.push({q: `From the top of a ${H}m observation deck, the angle of depression to a nearby vehicle is ${A}°. Find the horizontal distance from the base of the deck to the vehicle.`, ans: H / Math.tan(A*d2r), exp: `Height is Opposite. Horizontal distance is Adjacent. Use Tangent: tan(${A}) = ${H} / x -> x = ${H} / tan(${A}).`});
+            }
+            let sel = getUniqueQuestion(scenarios, '1.3-A');
             document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
-            pAns = sel.ans;
-        } else if (kica === "I") {
-            let pool = [
-                { q: "If you are solving for a side and the 'x' is in the DENOMINATOR (e.g., sin(30) = 5 / x), what algebraic step must you do?", opts: [ {text: "You must swap the 'x' and the trig function, meaning you DIVIDE the number by the trig function.", correct: true}, {text: "You multiply them together.", correct: false}, {text: "You use the inverse trig function.", correct: false}, {text: "You subtract the trig function from the number.", correct: false} ] },
-                { q: "Why is the Pythagorean theorem (a² + b² = c²) sometimes useless for right triangles?", opts: [ {text: "If you only know ONE side length and an angle, Pythagorean theorem cannot help you. You must use SOH CAH TOA.", correct: true}, {text: "It is never useless, it always works.", correct: false}, {text: "Because it only works for acute triangles.", correct: false}, {text: "Because the numbers get too large.", correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let job = randChoice(jobs);
-            let pool = [
-                { q: `A ${job} asks why you multiply sometimes and divide other times when finding a side. Explain.`, opts: [ {text: `"If the unknown side 'x' is on the top of the fraction, you multiply. If 'x' is stuck on the bottom of the fraction, you must swap and divide to isolate it."`, correct: true}, {text: `"You multiply for Sine and divide for Cosine."`, correct: false}, {text: `"You just guess which one looks better."`, correct: false}, {text: `"If the angle is big you multiply, if it is small you divide."`, correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            currentQuestion = { answer: sel.ans.toFixed(1), type: 'input', explanation: sel.exp };
         }
     }
 
-    /* --- GENERATOR 2.1: SINE LAW SIDES --- */
+    // --- 2.1: SINE LAW SIDES ---
     function gen2_1(kica, qText, diagWrap, txtBox, singleInput) {
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
@@ -971,43 +881,35 @@
             const valAng1 = rand(40, 60); const valSide1 = rand(10, 20); const valAng2 = rand(40, 60);
             let labels = { A: valAng1+'°', a: valSide1, B: valAng2+'°', b: 'x' };
             qText.innerHTML = `Sine Law: Find side x.<br><small>(Round to 1 decimal)</small>`;
-            pAns = valSide1 * Math.sin(valAng2 * d2r) / Math.sin(valAng1 * d2r);
+            let pAns = valSide1 * Math.sin(valAng2 * d2r) / Math.sin(valAng1 * d2r);
+            let exp = `Set up the ratio: x / sin(${valAng2}) = ${valSide1} / sin(${valAng1}). Multiply the right side by sin(${valAng2}).`;
             for (let k in labels) setLbl(k, labels[k], 'acute');
+            currentQuestion = { answer: pAns.toFixed(1), type: 'input', explanation: exp };
+
         } else if (kica === "A") {
             txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
             let scenarios = [];
-            for(let i=0; i<10; i++) {
-                let D = rand(50, 200), A1 = rand(30, 60), A2 = rand(40, 70);
+            for(let i=0; i<20; i++) {
+                let D = rand(50, 200), A1 = rand(30, 55), A2 = rand(40, 65);
                 let C = 180 - A1 - A2;
-                scenarios.push({ q: `Two ${randChoice(buildings)}s (A and B) are ${D}m apart. They spot a target at C. Angle A is ${A1}° and Angle B is ${A2}°. How far is Tower A from the target?`, ans: D * Math.sin(A2 * d2r) / Math.sin(C * d2r) });
+                scenarios.push({ 
+                    q: `Two surveyors stand ${D}m apart at points A and B. They spot a landmark at point C. Angle A is ${A1}° and Angle B is ${A2}°. How far is point A from the landmark (side b)?`, 
+                    ans: D * Math.sin(A2 * d2r) / Math.sin(C * d2r),
+                    exp: `First find the missing Angle C (180 - ${A1} - ${A2} = ${C}°). Now use Sine Law to calculate side b: b / sin(${A2}) = ${D} / sin(${C}).`
+                });
             }
-            let sel = randChoice(scenarios);
+            let sel = getUniqueQuestion(scenarios, '2.1-A');
             document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
-            pAns = sel.ans;
-        } else if (kica === "I") {
-            let pool = [
-                { q: "What is the absolute minimum requirement to use the Sine Law?", opts: [ {text: "You must have one complete 'Opposite Pair' (a known side AND its known opposite angle).", correct: true}, {text: "You must have a 90 degree angle.", correct: false}, {text: "You must know all three sides.", correct: false}, {text: "You must know the hypotenuse.", correct: false} ] },
-                { q: "Why does the Sine Law fail if you only have Side-Angle-Side (SAS)?", opts: [ {text: "Because SAS gives you an angle, but the opposite side is missing, so you can't create the complete ratio pair needed for the formula.", correct: true}, {text: "Because Sine only works on right triangles.", correct: false}, {text: "Because you need three angles.", correct: false}, {text: "It actually doesn't fail, SAS is perfect for Sine Law.", correct: false} ] },
-                { q: "If Angle A is larger than Angle B, what MUST be true about Side a and Side b?", opts: [ {text: "Side a MUST be longer than Side b. The longest side is always opposite the largest angle.", correct: true}, {text: "Side b must be longer.", correct: false}, {text: "They must be perfectly equal.", correct: false}, {text: "They must add up to 180.", correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let job = randChoice(jobs);
-            let pool = [
-                { q: `Explain to a ${job} how to set up the Sine Law equation to find a missing side.`, opts: [ {text: `"Match the sides with the angles directly across from them. The ratio of Side A over Sine(Angle A) perfectly equals Side B over Sine(Angle B)."`, correct: true}, {text: `"Add all the angles and divide by the side."`, correct: false}, {text: `"Multiply the adjacent side by the hypotenuse."`, correct: false}, {text: `"Subtract the smallest angle from 180."`, correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            currentQuestion = { answer: sel.ans.toFixed(1), type: 'input', explanation: sel.exp };
         }
     }
 
-    /* --- GENERATOR 2.2: SINE LAW ANGLES --- */
-    function gen2_2(kica, qText, diagWrap, txtBox, singleInput) {
+    // --- 2.2: SINE LAW ANGLES ---
+    function gen2_2(kica, qArea) {
+        const singleInput = document.getElementById('single-input-area');
+        const diagWrap = document.getElementById('prac-diagram-wrapper');
+        const txtBox = document.getElementById('text-problem-box');
+
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
             let poly = document.getElementById('prac-poly');
@@ -1016,41 +918,35 @@
 
             const valAng1 = rand(30, 50); const valSide1 = rand(15, 25); const valSide2 = rand(10, 14);
             let labels = { A: valAng1+'°', a: valSide1, b: valSide2, B: 'x' };
-            qText.innerHTML = `Sine Law: Find angle x.<br><small>(Round to 1 decimal)</small>`;
-            pAns = Math.asin(valSide2 * Math.sin(valAng1 * d2r) / valSide1) * r2d;
+            qArea.innerHTML = `Sine Law: Find angle x.<br><small>(Round to 1 decimal)</small>`;
+            let pAns = Math.asin(valSide2 * Math.sin(valAng1 * d2r) / valSide1) * r2d;
+            let exp = `Set up: sin(x)/${valSide2} = sin(${valAng1})/${valSide1}. Multiply by ${valSide2}, then use Inverse Sine (sin⁻¹) on the result.`;
             for (let k in labels) setLbl(k, labels[k], 'acute');
+            currentQuestion = { answer: pAns.toFixed(1), type: 'input', explanation: exp };
+
         } else if (kica === "A") {
             txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
             let scenarios = [];
-            for(let i=0; i<10; i++) {
-                let a = rand(30, 50), A = rand(40, 60), b = rand(15, 25);
-                scenarios.push({ q: `Two ${randChoice(planes)}s are tracked. Distance a = ${a}km, Angle A = ${A}°, Distance b = ${b}km. Find Angle B.`, ans: Math.asin(b * Math.sin(A * d2r) / a) * r2d });
+            for(let i=0; i<20; i++) {
+                let a = rand(30, 50), A = rand(41, 58), b = rand(16, 28);
+                scenarios.push({ 
+                    q: `In a communications mesh network tracking grid, signal leg side a = ${a}km, intersection Angle A = ${A}°, and leg side b = ${b}km. Calculate network target Angle B.`, 
+                    ans: Math.asin(b * Math.sin(A * d2r) / a) * r2d,
+                    exp: `Use the angle configuration for Sine Law: sin(B)/${b} = sin(${A})/${a}. Multiply the equation by ${b}, then calculate sin⁻¹ of the result.`
+                });
             }
-            let sel = randChoice(scenarios);
+            let sel = getUniqueQuestion(scenarios, '2.2-A');
             document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
-            pAns = sel.ans;
-        } else if (kica === "I") {
-            let pool = [
-                { q: "What happens if you try to use SOH CAH TOA on an obtuse triangle?", opts: [ {text: "It mathematically fails because SOH CAH TOA relies entirely on the existence of a 90° angle and a hypotenuse.", correct: true}, {text: "It works perfectly.", correct: false}, {text: "It gives you negative lengths.", correct: false}, {text: "It only works if you use Tangent.", correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let name = randChoice(names);
-            let pool = [
-                { q: `${name} used the Sine Law to find an angle, got 0.85, and stopped. What did they forget?`, opts: [ {text: `"They forgot to use the inverse sine function (sin⁻¹) to convert the raw ratio of 0.85 into actual degrees."`, correct: true}, {text: `"They forgot to multiply by 180."`, correct: false}, {text: `"0.85 is the correct degree."`, correct: false}, {text: `"They used the wrong sides."`, correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            currentQuestion = { answer: sel.ans.toFixed(1), type: 'input', explanation: sel.exp };
         }
     }
 
-    /* --- GENERATOR 3.1: COSINE LAW SIDES --- */
-    function gen3_1(kica, qText, diagWrap, txtBox, singleInput) {
+    // --- 3.1: COSINE LAW SIDES ---
+    function gen3_1(kica, qArea) {
+        const singleInput = document.getElementById('single-input-area');
+        const diagWrap = document.getElementById('prac-diagram-wrapper');
+        const txtBox = document.getElementById('text-problem-box');
+
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
             let poly = document.getElementById('prac-poly');
@@ -1059,43 +955,34 @@
 
             const v1 = rand(10, 20); const v2 = rand(10, 20); const vAng = rand(40, 80);
             let labels = { b: v1, c: v2, A: vAng+'°', a: 'x' };
-            qText.innerHTML = `Cosine Law (SAS): Find side x.<br><small>(Round to 1 decimal)</small>`;
-            pAns = Math.sqrt(v1*v1 + v2*v2 - 2*v1*v2*Math.cos(vAng * d2r));
+            qArea.innerHTML = `Cosine Law (SAS): Find side x.<br><small>(Round to 1 decimal)</small>`;
+            let pAns = Math.sqrt(v1*v1 + v2*v2 - 2*v1*v2*Math.cos(vAng * d2r));
+            let exp = `Cosine Law: x² = ${v1}² + ${v2}² - 2(${v1})(${v2})cos(${vAng}°). Calculate the right side, then take the Square Root.`;
             for (let k in labels) setLbl(k, labels[k], 'acute');
+            currentQuestion = { answer: pAns.toFixed(1), type: 'input', explanation: exp };
+
         } else if (kica === "A") {
             txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
             let scenarios = [];
-            for(let i=0; i<10; i++) { 
-                const D1 = rand(10, 50), D2 = rand(10, 50), A = rand(40, 120);
-                scenarios.push({ q: `Two ${randChoice(planes)}s leave an airport. One flies ${D1}km, the other flies ${D2}km. Their paths diverge at an angle of ${A}°. How far apart are they?`, ans: Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r)) });
+            for(let i=0; i<20; i++) { 
+                const D1 = rand(10, 50), D2 = rand(10, 50), A = rand(45, 115);
+                scenarios.push({ 
+                    q: `Two standard delivery vehicles depart from a distribution depot simultaneously. One travels ${D1}km along a straight route, while the other travels ${D2}km along an alternative straight pathway. Their trajectories diverge at an angle of ${A}°. Calculate the line-of-sight distance separating the two vehicles.`, 
+                    ans: Math.sqrt(D1*D1 + D2*D2 - 2*D1*D2*Math.cos(A * d2r)),
+                    exp: `This represents a Side-Angle-Side (SAS) layout profile. Apply the standard Cosine Law equation: c² = ${D1}² + ${D2}² - 2(${D1})(${D2})cos(${A}°). Take the absolute square root of the accumulated value.`
+                });
             }
-            let sel = randChoice(scenarios);
+            let sel = getUniqueQuestion(scenarios, '3.1-A');
             document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
-            pAns = sel.ans;
-        } else if (kica === "I") {
-            let pool = [
-                { q: "Why is the Cosine Law (c² = a² + b² - 2ab cos C) considered an 'upgrade' to the Pythagorean Theorem?", opts: [ {text: "If Angle C is 90°, cos(90) is 0, so the entire '- 2ab cos C' part vanishes, leaving just a² + b² = c². It works for EVERY triangle.", correct: true}, {text: "It is exactly the same, just spelled differently.", correct: false}, {text: "Because it calculates area.", correct: false}, {text: "Because it only works for right triangles.", correct: false} ] },
-                { q: "If you know all three sides of a triangle (SSS), which law MUST you use first?", opts: [ {text: "The Cosine Law. You have no angles, so the Sine Law (which requires an opposite pair) is completely impossible to use.", correct: true}, {text: "The Sine Law.", correct: false}, {text: "SOH CAH TOA.", correct: false}, {text: "Pythagorean Theorem.", correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let job = randChoice(jobs);
-            let pool = [
-                { q: `Explain to a ${job} when they are forced to use the Cosine Law instead of the Sine Law.`, opts: [ {text: `"If you only have Side-Angle-Side (SAS) or Side-Side-Side (SSS), you don't have a complete Opposite Pair. You are forced to use Cosine."`, correct: true}, {text: `"You use Cosine Law when you have a 90 degree angle."`, correct: false}, {text: `"You use Cosine when measuring heights."`, correct: false}, {text: `"Sine Law is illegal in construction."`, correct: false} ] },
-                { q: `A client asks why the Cosine Law formula is so long compared to a² + b² = c². Explain.`, opts: [ {text: `"The standard Pythagorean theorem only works for perfect squares. The extra '- 2ab cos C' part acts as a correction factor to stretch or squish the math for angled corners."`, correct: true}, {text: `"Because mathematicians wanted it to look complicated."`, correct: false}, {text: `"It includes the area of the triangle."`, correct: false}, {text: `"Because it adds all three angles together."`, correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            currentQuestion = { answer: sel.ans.toFixed(1), type: 'input', explanation: sel.exp };
         }
     }
 
-    /* --- GENERATOR 3.2: COSINE LAW ANGLES --- */
-    function gen3_2(kica, qText, diagWrap, txtBox, singleInput) {
+    // --- 3.2: COSINE LAW ANGLES ---
+    function gen3_2(kica, qArea) {
+        const singleInput = document.getElementById('single-input-area');
+        const diagWrap = document.getElementById('prac-diagram-wrapper');
+
         if (kica === "K") {
             diagWrap.style.display = 'block'; singleInput.style.display = 'inline-block';
             let poly = document.getElementById('prac-poly');
@@ -1104,60 +991,96 @@
 
             const a = rand(12, 18), b = rand(12, 18), c = rand(12, 18);
             let labels = { a: a, b: b, c: c, A: 'x' };
-            qText.innerHTML = `Cosine Law (SSS): Find angle x.<br><small>(Round to 1 decimal)</small>`;
+            qArea.innerHTML = `Cosine Law (SSS): Find angle x.<br><small>(Round to 1 decimal)</small>`;
             let num = b*b + c*c - a*a; let den = 2*b*c;
-            pAns = Math.acos(num/den) * r2d;
+            let pAns = Math.acos(num/den) * r2d;
+            let exp = `Cos(x) = (${b}² + ${c}² - ${a}²) / 2(${b})(${c}). Calculate the fraction, then use Inverse Cosine (cos⁻¹).`;
             for (let k in labels) setLbl(k, labels[k], 'acute');
-        } else if (kica === "A") {
-            txtBox.style.display = 'block'; singleInput.style.display = 'inline-block';
-            let scenarios = [];
-            for(let i=0; i<10; i++) {
-                const a = rand(15, 25), b = rand(15, 25), c = rand(15, 25);
-                scenarios.push({ q: `A triangular piece of land has sides ${a}m, ${b}m, and ${c}m. What is the angle opposite to the ${a}m side?`, ans: Math.acos((b*b + c*c - a*a)/(2*b*c)) * r2d });
-            }
-            let sel = randChoice(scenarios);
-            document.getElementById('text-problem-content').innerHTML = sel.q + `<br><small style="font-size:0.8em; color:#7f8c8d;">(Round to 1 decimal place)</small>`;
-            pAns = sel.ans;
+            currentQuestion = { answer: pAns.toFixed(1), type: 'input', explanation: exp };
+
         } else if (kica === "I") {
             let pool = [
-                { q: "What happens in the Cosine Law if the angle you use is Obtuse (greater than 90°)?", opts: [ {text: "The Cosine of the angle becomes negative, which turns the '- 2ab cos C' into a PLUS, making the opposite side correctly much longer.", correct: true}, {text: "The calculator crashes.", correct: false}, {text: "The side becomes negative.", correct: false}, {text: "It turns into a right triangle.", correct: false} ] },
-                { q: "When solving for an angle using SSS, what does it mean if your calculation gives you a Math Error?", opts: [ {text: "The three sides given cannot physically form a closed triangle (e.g., two short sides don't reach the long side).", correct: true}, {text: "The triangle is too big.", correct: false}, {text: "You used sine instead.", correct: false}, {text: "The angle is negative.", correct: false} ] }
+                makeMC("What happens in the Cosine Law if the angle you use is Obtuse (greater than 90°)?", "The Cosine of the angle becomes negative, which turns the '- 2ab cos C' into a PLUS, making the opposite side correctly much longer.", "The calculator crashes.", "It turns into a right triangle.", "Try typing cos(120) in a calculator. It's -0.5. Subtracting a negative means adding, which perfectly accounts for the side getting longer in an obtuse triangle."),
+                makeMC("When solving for an angle using SSS, what does it mean if your calculation gives you a Math Error?", "The three sides given cannot physically form a closed triangle (e.g., two short sides don't reach the long side).", "The triangle is too big.", "You used sine instead.", "If a=2, b=2, c=10, the short sides can never connect. The math results in finding the inverse cosine of a number > 1, triggering an error."),
+                makeMC("If a triangle has side lengths a=5, b=5, and c=5, what does evaluating the Cosine Law for angle A reveal about its geometry?", "It evaluates to exactly 60°, mathematically proving the structural properties of an equilateral triangle.", "It outputs a zero result indicating a flat alignment line.", "It returns a right angle configuration automatically.", "Substituting equal values into the formula generates cos(A) = 0.5, which corresponds perfectly to an angle of 60° across all sides."),
+                makeMC("An investigation of the Cosine Law formula cos(C) = (a²+b²-c²)/2ab shows that if a²+b² = c², the angle C must be:", "Exactly 90°, showing that the Cosine Law naturally reduces down to the Pythagorean Theorem.", "An obtuse angle value of 180°.", "An unstable fraction that triggers system overflow errors.", "If a²+b² = c², the numerator drops to exactly zero, yielding cos(C) = 0, which points exclusively to a 90° right angle."),
+                makeMC("If c² is strictly greater than a² + b² in a triangle, what deduction can you make about the nature of angle C?", "Angle C must be obtuse (greater than 90°) because the long side pushes the baseline open.", "Angle C is forced to remain acute and smaller than 45°.", "The geometric layout forms an impossible coordinate grid.", "When the opposite side squared exceeds the sum of the adjacent squares, the cosine value turns negative, indicating an obtuse trajectory window."),
+                makeMC("A structural beam configuration has sides 4m, 5m, and 10m. Why will the Cosine Law fail to calculate an angle?", "The segments violate the Triangle Inequality Theorem because 4 + 5 is less than 10, meaning they cannot physically connect.", "The system parameters exceed standard single-precision constraints.", "The angles inside the framing plan are forced to equal zero degrees.", "For three lines to form a triangle, the sum of any two sides must exceed the third. Since 4+5=9, these beams cannot form a triangle, causing an out-of-bounds math error."),
+                makeMC("If the value of (a² + b² - c²) inside the Cosine Law equation equals exactly zero, what property does the triangle hold?", "It is a right triangle with the right angle positioned exactly at vertex C.", "It is an equilateral framing profile.", "The structural assembly forms a straight linear path with no area.", "A zero numerator yields cos(C) = 0. The unique angle between 0° and 180° with a cosine of zero is exactly 90°."),
+                makeMC("Why does the Cosine Law transition seamlessly into the Pythagorean Theorem when the included angle becomes 90°?", "Because cos(90°) equals 0, which completely eliminates the trailing '-2ab cos C' adjustment term.", "Because the side ratios default into standard linear multiplier frameworks.", "It requires an inverse square matrix configuration adjustment.", "When the tracking angle equals 90°, cos(90°) drops out as zero, transforming c² = a² + b² - 2ab(0) directly into c² = a² + b²."),
+                makeMC("If an analytical model calculates that cos(C) = -0.866, what does this output indicate about the physical orientation of side c?", "It is positioned opposite an obtuse angle of exactly 150°.", "It runs perfectly perpendicular to the main horizontal reference grid line.", "The tracking path forms a matching 30 degree coordinate trajectory.", "Evaluating the inverse function cos⁻¹(-0.866) returns exactly 150°, which verifies the presence of an obtuse geometric frame."),
+                makeMC("Why is the Cosine Law preferable to the Sine Law when you are given all three side lengths (SSS) of an oblique triangle?", "The Sine Law requires at least one known angle-side pairing to compute, which SSS datasets completely lack.", "The Cosine Law uses simpler linear addition operators across fields.", "Because sine values cannot track coordinates above ninety degrees safely.", "The Sine Law requires a known ratio pair (like side a and angle A) to function. SSS profiles only provide side data, making Cosine Law mandatory."),
+                makeMC("If side c is extremely small relative to sides a and b, what physical limit does angle C approach in the Cosine Law?", "It approaches 0° as sides a and b compress together.", "It opens up wide toward a absolute peak of 180°.", "It locks into a standard 45 degree structural baseline configuration.", "As side c drops toward zero length, sides a and b merge together, closing the angle between them down towards 0°."),
+                makeMC("A builder modifies a triangle by lengthening side c while keeping sides a and b fixed. What happens to the value of cos(C)?", "The value of cos(C) decreases (becomes more negative) as the tracking angle opens wider.", "The value of cos(C) expands proportionally towards 1.0.", "The result stays static because the adjacent legs are anchored.", "As angle C opens up wider due to side c expanding, its cosine value tracks downward across the unit grid, shifting toward -1."),
+                makeMC("If the expression (a² + b² - c²) / 2ab simplifies to exactly 1, what does this state about the triangle's shape?", "The triangle has collapsed into a straight line because angle C equals 0°.", "The framing components form a perfect right triangle design.", "The boundary vectors indicate a standard symmetrical asset structure.", "An output value of 1 corresponds to cos⁻¹(1) = 0°, which means the triangle has flattened out entirely into a single line segment layout."),
+                makeMC("Why can the inverse cosine function directly return obtuse angles up to 180°, unlike the inverse sine function?", "Inverse cosine has a unique domain window from 0 to 180 where every output matches a distinct ratio.", "Because cosine calculations ignore the denominator restrictions.", "It uses a specialized mathematical modifier configuration inside calculators.", "Every angle from 0° to 180° has a unique cosine value, whereas sine returns identical positive decimals for both acute and obtuse positions."),
+                makeMC("If a triangle features side lengths of 7cm, 24cm, and 25cm, what will the calculated value of cos(C) be for the angle opposite the 25cm side?", "Exactly 0.0, identifying it as a standard right triangle layout.", "A negative value indicating an obtuse trajectory profile.", "An undefined infinity error value.", "Since 7² + 24² = 49 + 576 = 625 = 25², it fits the Pythagorean theorem perfectly, making the opposite angle 90° and its cosine 0."),
+                makeMC("What physical constraint prevents a triangle from having a calculated cosine value greater than 1?", "The absolute difference between side squares can never exceed the product of the remaining structural paths.", "The coordinate points would fall outside the target zone dimensions.", "Calculators round all calculations down to baseline levels.", "The geometric formula guarantees the numerator can never exceed the denominator in valid shapes, capping the ratio at 1."),
+                makeMC("If a triangle has fixed side lengths, why can there only be one unique set of interior angles calculated via the Cosine Law?", "Because three fixed side lengths anchor a single rigid structural shape that cannot bend or morph.", "Because the system defaults to alphabetical coordinate order matches.", "The formula automatically ignores variable angular paths across inputs.", "According to geometric congruence principles (SSS), three side lengths define a single unique triangle with locked, unchanging angles."),
+                makeMC("If side c decreases to a point where a + b = c, what type of spatial orientation do the three line segments form?", "A completely flat collapsed straight line profile containing zero interior area.", "A highly efficient right angle triangular structural matrix plan.", "An impossible array geometry that triggers compilation errors.", "If the two shorter segments equal the longest segment exactly, they must lie flat on top of it, creating a single flat line layout."),
+                makeMC("Why does a negative value for the numerator in the Cosine Law angle formula always guarantee an obtuse angle?", "Because the cosine function returns a negative value exclusively for angles located in the second quadrant (90° to 180°).", "Because negative values force the script to execute inverse sine tracking.", "It indicates that the opposite side has an invalid configuration parameter.", "In the geometric coordinate grid, cosine values are strictly negative for angles greater than 90°, making a negative ratio a clear indicator of an obtuse angle."),
+                makeMC("If you are solving a triangle with sides 10, 15, and 22, what structural geometric property ensures the calculation succeeds?", "The fact that 10 + 15 = 25, which successfully exceeds the maximum side length of 22.", "The presence of proportional scaling integers across the fields.", "The calculator's capacity to process double precision decimal tracks.", "Since the sum of the two smaller segments is greater than the largest side, the triangle inequality holds true, ensuring a valid geometry.")
             ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
-        } else if (kica === "C") {
-            let name = randChoice(names);
-            let pool = [
-                { q: `${name} is solving for Cos C and calculates the numerator, then subtracts the denominator before dividing. Correct their BEDMAS error.`, opts: [ {text: `"You must evaluate the entire numerator (a²+b²-c²) as one block, and the denominator (2ab) as another block, THEN divide them."`, correct: true}, {text: `"You must add them, not divide."`, correct: false}, {text: `"You need to use inverse sine."`, correct: false}, {text: `"BEDMAS doesn't apply to Cosine Law."`, correct: false} ] }
-            ];
-            for(let i=0; i<15; i++) { pool.push({...randChoice(pool)}); }
-            let sel = randChoice(pool);
-            qText.innerHTML = sel.q;
-            setupMC(sel.opts);
+            let sel = getUniqueQuestion(pool, '3.2-I');
+            qArea.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
         }
     }
 
-    /* --- CHECKING LOGIC --- */
-    function checkPractice() {
-        if(isQuestionSolved) return;
-        const u = parseFloat(document.getElementById('p-input').value);
-        const fb = document.getElementById('p-feed');
-        if(isNaN(u)) { fb.innerText = "Enter number"; return; }
+    // --- Answer Checking Logic ---
+    function setupInput(correctAnswer, explanation) {
+        currentQuestion = { answer: correctAnswer.toString().toLowerCase().replace(/\s/g, ''), type: 'input', explanation: explanation };
+        document.getElementById('single-input-area').style.display = 'inline-block';
+    }
+
+    function setupMC(options, explanation) {
+        const mcArea = document.getElementById('mc-area');
+        mcArea.style.display = 'grid';
+        mcArea.innerHTML = '';
+        currentQuestion = { type: 'mc', explanation: explanation };
         
-        if(Math.abs(u - pAns) <= 0.15) {
-            fb.className = "feedback correct"; 
-            fb.innerText = "Correct!";
+        options.sort(() => Math.random() - 0.5);
+        options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = opt.text;
+            btn.dataset.correct = opt.correct;
+            btn.onclick = () => checkMCAnswer(opt.correct, btn);
+            mcArea.appendChild(btn);
+        });
+    }
+
+    function checkPractice() {
+        if(isQuestionSolved || !currentQuestion || currentQuestion.type !== 'input') return;
+        
+        let userRaw = document.getElementById('p-input').value.trim();
+        let userNum = parseFloat(userRaw);
+        let ansNum = parseFloat(currentQuestion.answer);
+        let isCorrect = false;
+
+        let type = document.getElementById('p-topic').value || 'default';
+        let tolerance = (type === "1.1-K") ? 0.005 : 0.15;
+
+        if (!isNaN(userNum) && !isNaN(ansNum)) {
+             if (Math.abs(userNum - ansNum) <= tolerance) isCorrect = true;
+        }
+
+        let fb = document.getElementById('p-feed');
+        let inputField = document.getElementById('p-input');
+        
+        if(isCorrect) {
+            fb.innerHTML = `✅ Correct! Excellent.<div class="feedback-explanation">💡 <strong>Solution & Reasoning:</strong><br>${currentQuestion.explanation}</div>`;
+            fb.className = "correct"; 
             isQuestionSolved = true; 
             saveScore(true);
-            document.getElementById('p-input').disabled = true;
+            inputField.disabled = true;
+            isCurrentTypeLocked = false;
         } else {
-            fb.className = "feedback incorrect"; 
-            fb.innerHTML = `Incorrect. The correct answer was <strong>${round2(pAns)}</strong>.<br>Click 'Generate' to try a new question.`;
+            fb.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Question' to try a new one.<div class="feedback-explanation">💡 <strong>How to solve this:</strong><br>${currentQuestion.explanation}</div>`;
+            fb.className = "incorrect"; 
             isQuestionSolved = true; 
             saveScore(false);
-            document.getElementById('p-input').disabled = true;
+            inputField.disabled = true;
+            isCurrentTypeLocked = true;
         }
     }
     
@@ -1169,17 +1092,19 @@
         if (isCorrect) {
             btn.style.backgroundColor = '#27ae60';
             btn.style.color = 'white';
-            fb.className = "feedback correct"; 
-            fb.innerText = "Correct! Great logic.";
+            fb.innerHTML = `✅ Correct! Spot on.<div class="feedback-explanation">💡 <strong>Why this is correct:</strong><br>${currentQuestion.explanation}</div>`;
+            fb.className = "correct"; 
             isQuestionSolved = true; 
             saveScore(true);
+            isCurrentTypeLocked = false;
         } else {
             btn.style.backgroundColor = '#c0392b';
             btn.style.color = 'white';
-            fb.className = "feedback incorrect"; 
-            fb.innerHTML = "Incorrect. The correct answer is highlighted in green.<br>Click 'Generate' to try a new question.";
+            fb.innerHTML = `❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Question' to try a new one.<div class="feedback-explanation">💡 <strong>Explanation:</strong><br>${currentQuestion.explanation}</div>`;
+            fb.className = "incorrect"; 
             isQuestionSolved = true; 
             saveScore(false);
+            isCurrentTypeLocked = true;
         }
 
         const buttons = document.querySelectorAll('.option-btn');
@@ -1191,21 +1116,6 @@
             }
             b.style.cursor = 'not-allowed';
             b.disabled = true;
-        });
-    }
-    
-    function setupMC(options) {
-        const mcArea = document.getElementById('mc-area');
-        mcArea.style.display = 'grid';
-        mcArea.innerHTML = '';
-        options.sort(() => Math.random() - 0.5);
-        options.forEach(opt => {
-            let btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerHTML = opt.text;
-            btn.dataset.correct = opt.correct;
-            btn.onclick = () => checkMCAnswer(opt.correct, btn);
-            mcArea.appendChild(btn);
         });
     }
 
