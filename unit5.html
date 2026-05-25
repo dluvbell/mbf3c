@@ -728,10 +728,22 @@
     const companies = ["TechNova", "Global Insure", "AutoMax", "HomeGuard", "ElectroStore", "MegaMart", "QuickShip", "BuildRight", "SecureLife", "GamerTech"];
     const weather = ["rain", "snow", "hail", "thunderstorms", "heavy winds"];
 
+    // 🚀 MASTER REMEDIATION CONTROL PROFILE STATE VARIABLES
+    let isCurrentTypeLocked = false;
+    let lastPickedIndices = {};
+    let lockedMeta = {};
+
     // 🚀 NEW: Non-Repeating Bag System
     let questionBags = {};
 
     function getUniqueQuestion(arr, bagId) {
+        if (isCurrentTypeLocked && lastPickedIndices[bagId] !== undefined) {
+            let savedIndex = lastPickedIndices[bagId];
+            if (savedIndex < arr.length) {
+                return arr[savedIndex];
+            }
+        }
+
         if (!questionBags[bagId] || questionBags[bagId].length === 0) {
             questionBags[bagId] = [];
             for (let i = 0; i < arr.length; i++) {
@@ -744,6 +756,7 @@
             }
         }
         let nextIndex = questionBags[bagId].pop();
+        lastPickedIndices[bagId] = nextIndex;
         return arr[nextIndex];
     }
 
@@ -836,6 +849,10 @@
         document.getElementById('input-area').style.display = 'none';
         document.getElementById('user-answer').disabled = false;
         
+        isCurrentTypeLocked = false;
+        lastPickedIndices = {};
+        lockedMeta = {};
+
         const mcArea = document.getElementById('mc-area');
         if(mcArea) { mcArea.style.display = 'none'; mcArea.innerHTML = ""; }
         updateScoreDisplay();
@@ -1256,12 +1273,14 @@
             isQuestionSolved = true; 
             saveScore(true);
             inputField.disabled = true;
+            isCurrentTypeLocked = false;
         } else {
             feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Random Question' to try a new one.<div class="feedback-explanation">💡 <strong>How to solve this (and Why):</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "incorrect";
             isQuestionSolved = true; 
             saveScore(false);
             inputField.disabled = true;
+            isCurrentTypeLocked = true;
         }
     }
 
@@ -1277,6 +1296,7 @@
             feedback.className = "correct";
             isQuestionSolved = true; 
             saveScore(true);
+            isCurrentTypeLocked = false;
         } else {
             btn.style.backgroundColor = '#c0392b';
             btn.style.color = 'white';
@@ -1284,6 +1304,7 @@
             feedback.className = "incorrect";
             isQuestionSolved = true; 
             saveScore(false);
+            isCurrentTypeLocked = true;
         }
 
         const buttons = document.querySelectorAll('.option-btn');
