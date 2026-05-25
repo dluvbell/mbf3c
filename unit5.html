@@ -1077,8 +1077,13 @@
             ];
             asks.forEach(a => {
                 let nums = a.q.match(/\d+/g).map(Number);
-                if(a.q.includes('game') || a.q.includes('raffle')) a.ans = ((nums[0]/100)*nums[1] - ((100-nums[0])/100)*nums[2]).toFixed(2);
-                else a.ans = (nums[0] * (nums[1]/100)).toFixed(2);
+                if (a.q.includes('game')) {
+                    a.ans = ((nums[0]/100)*nums[1] - ((100-nums[0])/100)*nums[2]).toFixed(2);
+                } else if (a.q.includes('raffle')) {
+                    a.ans = ((0.01 * nums[1]) - (0.99 * nums[0])).toFixed(2);
+                } else {
+                    a.ans = (nums[0] * (nums[1]/100)).toFixed(2);
+                }
             });
             let selected = getUniqueQuestion(asks, '5.5-K');
             qArea.innerHTML = selected.q; setupInput(selected.ans, selected.exp);
@@ -1093,13 +1098,17 @@
             ];
             scenarios.forEach(a => {
                 let nums = a.q.match(/\d+/g).map(Number);
-                if(a.q.includes('Warranty') || a.q.includes('Insurer') || a.q.includes('appliance')) a.ans = (nums[1] - (nums[0]*(nums[2]/100))).toFixed(2);
-                else if (a.q.includes('launch')) a.ans = ((nums[0]/100)*nums[1] - ((100-nums[0])/100)*nums[2]).toFixed(2);
-                else if (a.q.includes('Casino')) a.ans = (nums[0] * nums[1]).toFixed(2);
-                // Fix specific mapping bugs
-                if(a.q.includes('device')) a.ans = (nums[2] - (nums[0]*(nums[1]/100))).toFixed(2);
-                if(a.q.includes('appliance')) a.ans = (nums[2] - (nums[0]*(nums[1]/100))).toFixed(2);
-                if(a.q.includes('Insurer')) a.ans = (nums[0] - (nums[2]*(nums[1]/100))).toFixed(2);
+                if (a.q.includes('device')) {
+                    a.ans = (nums[2] - (nums[0]*(nums[1]/100))).toFixed(2);
+                } else if (a.q.includes('launch')) {
+                    a.ans = ((nums[0]/100)*nums[1] - ((100-nums[0])/100)*nums[2]).toFixed(2);
+                } else if (a.q.includes('Insurer')) {
+                    a.ans = (nums[0] - (nums[2]*(nums[1]/100))).toFixed(2);
+                } else if (a.q.includes('Casino')) {
+                    a.ans = (nums[0] * nums[1]).toFixed(2);
+                } else if (a.q.includes('appliance')) {
+                    a.ans = (nums[2] - (nums[0]*(nums[1]/100))).toFixed(2);
+                }
             });
             let sel = getUniqueQuestion(scenarios, '5.5-A');
             qArea.innerHTML = sel.q; setupInput(sel.ans, sel.exp);
@@ -1155,7 +1164,7 @@
                 makeMC("Probability of a house fire is tiny. Why buy insurance?", "Because Frequency doesn't matter when Severity equals bankruptcy.", "Because Frequency is high.", "Because EV says to.", "We insure against the magnitude of the loss, not the likelihood."),
                 makeMC("A store clerk says 'Repairs are expensive!' to sell a warranty. You say:", "'It is an expected cost, not a catastrophic one. I will self-insure.'", "'You are right, here is my money.'", "'Insurance is illegal.'", "Recognize sales tactics that try to frame annoyances as catastrophes."),
                 makeMC("Why do insurers have an advantage over you?", "They have an infinite bankroll to absorb variance; you do not.", "They cheat.", "They use different math.", "Their size allows them to survive the Law of Large Numbers."),
-                makeMC("Summarize when to ignore Negative EV.", "Ignore EV when the outcome of losing the 'bet' destroys your life.", "Never ignore EV.", "Always ignore EV.", "Survival overrides mathematics when bankruptcy is on the line.")
+                makeMC("Summarize When to ignore Negative EV.", "Ignore EV when the outcome of losing the 'bet' destroys your life.", "Never ignore EV.", "Always ignore EV.", "Survival overrides mathematics when bankruptcy is on the line.")
             ];
             let sel = getUniqueQuestion(pool, '5.6-C');
             qArea.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
