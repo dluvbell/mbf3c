@@ -297,7 +297,6 @@
         }
         th { background-color: var(--primary-color); color: white; }
 
-        /* Assignment Task Box */
         .task-box {
             border-left: 5px solid var(--accent-color);
             background: #fdfdfd;
@@ -311,6 +310,16 @@
             font-size: 0.9rem;
             margin-bottom: 5px;
             display: block;
+        }
+
+        .hint-text {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            background: #fcfcfc;
+            padding: 8px 12px;
+            border-left: 3px solid #f39c12;
+            margin-top: 8px;
+            border-radius: 4px;
         }
 
         /* --- MOBILE OPTIMIZATION --- */
@@ -571,12 +580,12 @@
     </div>
 
     <div id="tab-assignment" class="tab-content">
-        <h2>Unit 5 Assignment: The Risk Assessment Report</h2>
-        <p><strong>Scenario:</strong> You have been hired as a Junior Financial Risk Advisor. Your job is to look at real-world scenarios and advise your clients using cold, hard math (Expected Value) and logical reasoning (Catastrophic Impact and Independent Events).</p>
+        <h2>Unit 5 Assignment: Financial Risk Assessment Report</h2>
+        <p><strong>Scenario:</strong> You are working as a Junior Financial Advisor. Your job is to look at your client's data, run the math, and guide them away from dangerous money traps using simple probability rules.</p>
 
         <div class="task-box">
             <span class="task-step">Step 1: Choose Your Client (Select ONE)</span>
-            <p>Pick ONE of the following clients to advise. All the data you need to calculate their risk is provided below.</p>
+            <p>Pick ONE of the following clients to help. Circle your selection. You will use their data for the rest of this assignment sheet.</p>
             <table style="width:100%; border-collapse: collapse; margin-top: 10px; background-color: white;">
                 <tr>
                     <th style="background:#2c3e50; color:white; padding:10px; text-align: center;">🎮 Client A: The Gamer</th>
@@ -608,113 +617,114 @@
         </div>
 
         <div class="task-box" style="border-left-color: #f39c12;">
-            <span class="task-step" style="color: #d35400;">Step 2: The Mathematical Assessment (Applies Unit 5.5)</span>
-            <p>Use the Unit 5 Expected Value Calculator to analyze your chosen client's situation.</p>
+            <span class="task-step" style="color: #d35400;">Step 2: Expected Value Math (Calculations)</span>
+            <p>📖 <strong>Refer to Lesson:</strong> 5.5 Expected Value (Warranties & Cost)</p>
+            <p>Use your Unit 5 custom calculator page to evaluate your client's financial position:</p>
             <ul>
-                <li style="margin-bottom: 15px;"><strong>a) Expected Cost:</strong> If they DON'T buy the warranty and just take the risk, what is the mathematical Expected Cost of the repair? (Show your work/calculator inputs).<br><em>Answer: $________</em></li>
-                <li><strong>b) Corporate Profit:</strong> Based on the EV, how much mathematical Expected Profit is the store/dealer making off your client by selling them this warranty?<br><em>Answer: $________</em></li>
+                <li style="margin-bottom: 15px;">
+                    <strong>a) Expected Cost of Repair:</strong> If your client skips the warranty entirely, what is the mathematical average cost of fixing the item out-of-pocket?<br>
+                    <em>Answer: $________</em>
+                    <div class="hint-text">📖 <strong>Practice Reference:</strong> Refer to Practice Problems section <strong>5.5-K (Knowledge)</strong> for help with this calculation steps.</div>
+                </li>
+                <li>
+                    <strong>b) Expected Corporate Profit:</strong> Based on your calculation above, how much clear mathematical average profit is the retail store pocketing from your client on each warranty sold?<br>
+                    <em>Answer: $________</em>
+                    <div class="hint-text">📖 <strong>Practice Reference:</strong> Refer to Practice Problems section <strong>5.5-A (Application)</strong> for help with finding corporate profit margins.</div>
+                </li>
             </ul>
         </div>
 
         <div class="task-box" style="border-left-color: #2980b9;">
-            <span class="task-step" style="color: #2980b9;">Step 3: The Psychological Assessment (Applies Unit 5.3)</span>
-            <p>Your client makes the following statement to you: <em>"I've owned my previous devices for 5 years and never broke anything! Because I'm on such a lucky streak, I'm definitely 'due' for a disaster soon. The chances of it breaking are super high now, so I should buy the warranty!"</em></p>
-            <ul>
-                <li style="margin-bottom: 10px;"><strong>Your Task a):</strong> Identify which mathematical fallacy your client is suffering from by selecting from the list below:
-                    <ul style="list-style-type: square; margin-top: 5px;">
-                        <li>[ &nbsp; ] The Sunk Cost Fallacy</li>
-                        <li>[ &nbsp; ] The Gambler's Fallacy</li>
-                        <li>[ &nbsp; ] The Illusion of Control</li>
-                    </ul>
-                </li>
-                <li><strong>Your Task b):</strong> Write a 2-3 sentence response explaining why their past "lucky streak" has absolutely zero effect on the probability of their new item breaking, using the concept of <strong>Independent Events</strong>.</li>
-            </ul>
+            <span class="task-step" style="color: #2980b9;">Step 3: Correcting the Fallacy (Thinking & Logic)</span>
+            <p>📖 <strong>Refer to Lesson:</strong> 5.3 Independent Events</p>
+            <p>Your client tells you: <em>"I've owned my last three electronic devices for years and none of them ever broke! Since I have been on such an incredibly lucky streak, I must be 'due' for a complete hardware disaster very soon. The probability of my new item breaking has to be way higher now, so I should buy the protection warranty!"</em></p>
+            <p>Your client is suffering from the <strong>Gambler's Fallacy</strong>. In a paragraph of <strong>3 to 4 sentences</strong>, explain to your client <em>why</em> their reasoning is wrong using the concept of <strong>Independent Events</strong>. In your explanation, include a completely unrelated example (like flipping coins or playing the lottery) to help them understand how probability resets every single time.</p>
+            <br>__________________________________________________________________________________________________<br>
+            <br>__________________________________________________________________________________________________<br>
+            <br>__________________________________________________________________________________________________
         </div>
 
         <div class="task-box" style="border-left-color: #c0392b;">
-            <span class="task-step" style="color: #c0392b;">Step 4: The Final Verdict</span>
-            <p>Based ONLY on your Expected Value calculations in Step 2, tell your client clearly whether they should buy the warranty for their item or not, and explain why using the math.</p>
+            <span class="task-step" style="color: #c0392b;">Step 4: The Final Verdict (Application)</span>
+            <p>📖 <strong>Refer to Lesson:</strong> 5.5 Expected Value (Skipping vs Buying)</p>
+            <p>Based **only** on the cold financial numbers you calculated back in Step 2, advise your client in 1-2 simple sentences whether they should buy the warranty or skip it. Use your values to defend your argument.<br>
+            <br>__________________________________________________________________________________________________<br>
+            <br>__________________________________________________________________________________________________
         </div>
         
         <div class="task-box" style="border-left-color: #8e44ad;">
-            <span class="task-step" style="color: #8e44ad;">Step 5: The Catastrophic Impact Rule (Applies Unit 5.6)</span>
-            <p>Your client is still confused. They ask, <em>"If EV says I shouldn't buy this warranty, why do financial advisors tell me I MUST buy House Fire Insurance?"</em></p>
-            <p>To explain this, you tell them about a hypothetical high-stakes game called <strong>"The Wheel of Ruin"</strong>:</p>
-            <div style="background: #f4ecf7; padding: 15px; border-radius: 5px; margin: 15px 0; font-style: italic; border-left: 4px solid #8e44ad;">
-                "Imagine a spinning wheel with 6 equal slices. If it lands on slices 1 through 5 (a 5 out of 6 chance), you win $10,000 cash. But if it lands on slice 6 (a 1 out of 6 chance), you instantly lose your entire life savings, your house is seized, and you declare permanent bankruptcy."
-            </div>
+            <span class="task-step" style="color: #8e44ad;">Step 5: The Catastrophic Impact Rule (Advanced Analysis)</span>
+            <p>📖 <strong>Refer to Lesson:</strong> 5.6 Catastrophic Impact (When to Ignore EV)</p>
+            <p>Your client reads your report but is still confused. They ask you: <em>"If the expected value of extended protections is negative and designed to make me lose money on average, why do financial planners tell me that I MUST buy House Fire Insurance or Auto Liability Insurance? Isn't that also a negative expected value scam?"</em></p>
+            <p>Write a response of <strong>5 to 6 sentences</strong> to your client explaining the difference between a small, minor risk and an absolute disaster based on the concept of **Severity**. </p>
+            <p>In your paragraph, you must answer this specific question: <strong>How does this connect to an investment that promises a 10x return in a short period of time, even though you have no idea what you are actually investing in?</strong> Explain why a massive potential reward is never worth a risk that could completely wipe out your savings.</p>
             <ul>
-                <li style="margin-bottom: 15px;"><strong>a) EV Check:</strong> Calculate the Expected Value of playing "The Wheel of Ruin" once. Is the EV positive or negative? (Show your math).</li>
-                <li><strong>b) The Catastrophe Rule:</strong> Even if the mathematical Expected Value might be incredibly positive, explain why no sane person should ever play this game. Use this extreme example to explain to your client the difference between an "annoying repair cost" and a <strong>"Catastrophic Impact"</strong>, and why that dictates when we MUST buy insurance.</li>
+                <li><strong>If you chose Client A (The Gamer):</strong> Contrast the financial impact of paying $300 cash out-of-pocket for a broken console (annoyance) versus an apartment fire that causes $100,000 in un-insured damage debt (catastrophe).</li>
+                <li><strong>If you chose Client B (The Commuter):</strong> Contrast a $1,000 bike repair cost (annoyance) versus hitting a pedestrian on a crosswalk and facing a life-altering $500,000 third-party liability lawsuit (catastrophe).</li>
+                <li><strong>If you chose Client C (The Driver):</strong> Contrast an annoying $3,500 engine repair bill (annoyance) versus causing a road accident that totals another vehicle or destroys public property (catastrophe).</li>
             </ul>
+            <p><em>Your Written Response to the Client:</em><br>
+            <br>__________________________________________________________________________________________________<br>
+            <br>__________________________________________________________________________________________________<br>
+            <br>__________________________________________________________________________________________________<br>
+            <br>__________________________________________________________________________________________________
         </div>
 
         <div class="task-box" style="border-left-color: #2c3e50; margin-top: 40px;">
-            <h3 style="color: var(--primary-color);">Assignment Grading Rubric (MBF3C)</h3>
+            <h3 style="color: var(--primary-color); margin-top:0;">Assignment Grading Rubric (MBF3C Standard)</h3>
             <table style="width:100%; border-collapse: collapse; font-size: 0.85rem;">
                 <thead>
                     <tr style="background-color: var(--primary-color); color: white;">
-                        <th style="padding: 8px;">Category</th>
-                        <th style="padding: 8px;">Level R (Fail)</th>
-                        <th style="padding: 8px;">Level 1</th>
-                        <th style="padding: 8px;">Level 2</th>
-                        <th style="padding: 8px;">Level 3</th>
-                        <th style="padding: 8px;">Level 4</th>
+                        <th style="padding: 10px;">Category</th>
+                        <th style="padding: 10px;">Level R (Fail)</th>
+                        <th style="padding: 10px;">Level 1</th>
+                        <th style="padding: 10px;">Level 2</th>
+                        <th style="padding: 10px;">Level 3</th>
+                        <th style="padding: 10px;">Level 4</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Knowledge & Understanding</td>
-                        <td style="padding: 8px;">No calculations provided or completely incorrect math.</td>
-                        <td style="padding: 8px;">Calculations attempt EV formula with multiple major errors.</td>
-                        <td style="padding: 8px;">Calculates EV and profit with some errors in formula or logic.</td>
-                        <td style="padding: 8px;">Calculates EV and profit correctly for the chosen client.</td>
-                        <td style="padding: 8px;">All calculations (Step 2 & 5a) are perfect, showing all work.</td>
+                        <td style="padding: 10px; font-weight: bold; background: #ecf0f1;">Knowledge & Understanding<br><small>(Step 2)</small></td>
+                        <td>No calculations provided or completely incorrect math.</td>
+                        <td>Calculations attempt EV formula with multiple major errors.</td>
+                        <td>Calculates EV and profit with some errors in formula or logic.</td>
+                        <td>Calculates EV and profit correctly for the chosen client.</td>
+                        <td>All calculations (Step 2) are perfect, showing all work.</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Thinking & Investigation</td>
-                        <td style="padding: 8px;">Fails to identify the fallacy or the independence of events.</td>
-                        <td style="padding: 8px;">Identifies fallacy but explanation is incorrect or illogical.</td>
-                        <td style="padding: 8px;">Identifies fallacy; limited explanation of Independent Events.</td>
-                        <td style="padding: 8px;">Accurately explains the Gambler's Fallacy and Independence.</td>
-                        <td style="padding: 8px;">Sophisticated analysis of how psychological bias affects math.</td>
+                        <td style="padding: 10px; font-weight: bold; background: #ecf0f1;">Thinking & Investigation<br><small>(Step 3)</small></td>
+                        <td>Fails to identify the fallacy parameters or the independence of events.</td>
+                        <td>Identifies fallacy but explanation is incorrect or missing required structures.</td>
+                        <td>Identifies fallacy; limited explanation of Independent Events without an external example.</td>
+                        <td>Accurately explains why it's a Gambler's Fallacy, hits the 3-4 sentence constraint, and provides an independent example.</td>
+                        <td>Sophisticated analysis of how psychological bias affects math.</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Communication</td>
-                        <td style="padding: 8px;">No response or unintelligible explanation.</td>
-                        <td style="padding: 8px;">Uses limited math terms; explanation is hard to follow.</td>
-                        <td style="padding: 8px;">Uses some terms (EV, Fallacy) but clarity is lacking.</td>
-                        <td style="padding: 8px;">Clear advice using appropriate math terminology.</td>
-                        <td style="padding: 8px;">Professional tone; perfectly articulates risk vs impact.</td>
+                        <td style="padding: 10px; font-weight: bold; background: #ecf0f1;">Communication<br><small>(Steps 3 & 5)</small></td>
+                        <td>No response or unintelligible explanation.</td>
+                        <td>Uses limited math terms; explanation is hard to follow.</td>
+                        <td>Uses some terms (EV, Fallacy) but clarity is lacking.</td>
+                        <td>Clear advice using appropriate math terminology and correct sentence length limits.</td>
+                        <td>Professional tone; perfectly articulates risk vs impact.</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Application</td>
-                        <td style="padding: 8px;">No final verdict or verdict ignores the math provided.</td>
-                        <td style="padding: 8px;">Verdict is weak and does not use math/logic to justify.</td>
-                        <td style="padding: 8px;">Verdict is math-based but logic for insurance transfer is weak.</td>
-                        <td style="padding: 8px;">Verdict correctly justifies when to buy/skip insurance.</td>
-                        <td style="padding: 8px;">Transfers learned math concepts to complex real-world risks.</td>
+                        <td style="padding: 10px; font-weight: bold; background: #ecf0f1;">Application<br><small>(Steps 4 & 5)</small></td>
+                        <td>No final verdict or verdict ignores the math provided.</td>
+                        <td>Verdict is weak and does not use math/logic to justify.</td>
+                        <td>Verdict is math-based but logic for insurance transfer is weak.</td>
+                        <td>Verdict correctly justifies when to buy/skip insurance based on severity metrics and addresses the 10x return risk.</td>
+                        <td>Transfers learned math concepts to complex real-world risks flawlessly.</td>
                     </tr>
                 </tbody>
             </table>
-
-            <div style="margin-top: 25px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px;">
-                <h4 style="margin-top: 0;">📚 Lesson Correlation Guide</h4>
-                <ul style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0;">
-                    <li><strong>Step 1:</strong> Relates to <strong>5.1 (Experimental Probability)</strong> - Analyzing historical breaking data & <strong>5.2 (Odds vs. Probability)</strong> - Understanding risk ratios.</li>
-                    <li><strong>Step 2:</strong> Relates to <strong>5.5 (Expected Value)</strong> - Calculating long-term financial averages.</li>
-                    <li><strong>Step 3:</strong> Relates to <strong>5.3 (Independent Events)</strong> - Busting the Gambler's Fallacy.</li>
-                    <li><strong>Step 4:</strong> Relates to <strong>5.4 (Dependent Events/Conditional Risk)</strong> - Making decisions based on specific conditions.</li>
-                    <li><strong>Step 5:</strong> Relates to <strong>5.6 (Catastrophic Impact)</strong> - Knowing when math is less important than survival.</li>
-                </ul>
-            </div>
         </div>
     </div>
 </main>
 
 <div id="print-area"></div>
 
-<div class="version-tag">v6.1.1 (Rubric Integrated - MBF3C Standard)</div>
+<div class="version-tag">v6.2.0 (Adaptive Remediation Loop & Streamlined Wording Mod - MBF3C Standard)</div>
 
 <script>
     /* --- UTILS & DATA GENERATORS --- */
@@ -732,8 +742,6 @@
     let isCurrentTypeLocked = false;
     let lastPickedIndices = {};
     let lockedMeta = {};
-
-    // 🚀 NEW: Non-Repeating Bag System
     let questionBags = {};
 
     function getUniqueQuestion(arr, bagId) {
@@ -893,85 +901,125 @@
     // --- 5.1: Experimental Probability (K, A) ---
     function gen5_1(kica, qArea) {
         let stName = randChoice(names); let comp = randChoice(companies); let w = randChoice(weather);
+        let total = randChoice([500,1000,2000]); let success = randInt(12,45);
+        let style = randInt(1,5);
+
+        if (isCurrentTypeLocked && lockedMeta['5.1']) {
+            total = lockedMeta['5.1'].total;
+            success = lockedMeta['5.1'].success;
+            style = lockedMeta['5.1'].style;
+            stName = lockedMeta['5.1'].stName;
+            comp = lockedMeta['5.1'].comp;
+            w = lockedMeta['5.1'].w;
+        } else {
+            if(style === 3) { total = randInt(100,500); success = randInt(40,200); }
+            if(style === 5) { total = randInt(500,1000); success = randInt(450,950); }
+            lockedMeta['5.1'] = { total, success, style, stName, comp, w };
+        }
 
         if (kica === "K") {
-            let asks = [
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>${comp} looks at ${randChoice([500,1000,2000])} young drivers and finds that ${randInt(12,45)} caused an accident.</p><p>What is the Experimental Probability?</p>`, (0).toFixed(3), `Go to 'Experimental Probability'. Divide Successes by Total Trials.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A factory produces ${randChoice([1000,2500])} ${randChoice(items)} and discovers ${randInt(10,50)} are defective.</p><p>Calculate the experimental probability of a defect.</p>`, (0).toFixed(3), `Divide the specific outcome (defects) by total trials.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>${stName} flips a coin ${randInt(100,500)} times and gets Heads ${randInt(40,200)} times.</p><p>What is the Experimental Probability of Heads?</p>`, (0).toFixed(3), `Divide actual Heads by total flips.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A hospital tested ${randChoice([400,800])} patients and found ${randInt(5,30)} had a rare reaction.</p><p>Calculate the Experimental Probability.</p>`, (0).toFixed(3), `Divide reactions by total patients.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>Out of ${randInt(200,600)} emails received, ${randInt(20,80)} were flagged as spam.</p><p>What is the Experimental Probability of spam?</p>`, (0).toFixed(3), `Divide spam emails by total emails.`)
-            ];
-            // Fix numbers dynamically
-            asks.forEach(a => {
-                let nums = a.q.match(/\d+/g).map(Number);
-                a.ans = (Math.min(nums[0], nums[1]) / Math.max(nums[0], nums[1])).toFixed(3);
-            });
-            let selected = getUniqueQuestion(asks, '5.1-K');
-            qArea.innerHTML = selected.q + `<p><small>(Enter as a decimal to 3 places)</small></p>`;
-            setupInput(selected.ans, selected.exp);
+            let qText = "", ansVal = 0, expStr = "";
+            ansVal = (success / total).toFixed(3);
+
+            if (style === 1) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>${comp} looks at ${total} young drivers and finds that ${success} caused an accident.</p><p>What is the Experimental Probability?</p>`;
+            } else if (style === 2) {
+                total = randChoice([1000,2500]); success = randInt(10,50);
+                ansVal = (success / total).toFixed(3);
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A factory produces ${total} ${randChoice(items)} and discovers ${success} are defective.</p><p>Calculate the experimental probability of a defect.</p>`;
+            } else if (style === 3) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>${stName} flips a coin ${total} times and gets Heads ${success} times.</p><p>What is the Experimental Probability of Heads?</p>`;
+            } else if (style === 4) {
+                total = randChoice([400,800]); success = randInt(5,30);
+                ansVal = (success / total).toFixed(3);
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A hospital tested ${total} patients and found ${success} had a rare reaction.</p><p>Calculate the Experimental Probability.</p>`;
+            } else {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>Out of ${total} emails received, ${success} were flagged as spam.</p><p>What is the Experimental Probability of spam?</p>`;
+            }
+            
+            expStr = `<strong>Experimental Probability Rule:</strong> Divide the specific tracked outcomes by the absolute total number of structural trials.<br>Formula: P(E) = Outcomes &div; Total Trials<br><br><strong>Step-by-step Solution:</strong><br>1. Tracked count = ${success}.<br>2. Total baseline trials = ${total}.<br>3. Divide: ${success} &div; ${total} = <strong>${ansVal}</strong>.`;
+            qArea.innerHTML = qText + `<p><small>(Enter as a decimal to 3 places)</small></p>`;
+            setupInput(ansVal, expStr);
 
         } else if (kica === "A") {
-            let scenarios = [
-                makeInput(`<p>${stName} tested a trading algorithm ${randInt(50,300)} times, and it successfully made a profit ${randInt(10,40)} times.</p><p>What is the Experimental Probability?</p>`, 0, "Divide profit times by total tests."),
-                makeInput(`<p>Out of ${randInt(100,500)} microchips tested at ${comp}, ${randInt(80,480)} worked perfectly.</p><p>What is the Experimental Probability of a chip working?</p>`, 0, "Divide working chips by total tested."),
-                makeInput(`<p>A weather app predicted ${w} ${randInt(40,100)} times last year, but it only occurred ${randInt(10,35)} times.</p><p>What is the app's Experimental Probability of being correct?</p>`, 0, "Divide correct predictions by total predictions."),
-                makeInput(`<p>A baseball player had ${randInt(200,500)} at-bats and got a hit ${randInt(50,150)} times.</p><p>What is their Experimental Probability of a hit?</p>`, 0, "Divide hits by total at-bats."),
-                makeInput(`<p>During quality control, ${randInt(500,1000)} ${randChoice(items)} were checked, and ${randInt(450,950)} passed the test.</p><p>What is the Experimental Probability of passing?</p>`, 0, "Divide passes by total checked.")
-            ];
-            scenarios.forEach(a => {
-                let nums = a.q.match(/\d+/g).map(Number);
-                a.ans = (Math.min(nums[0], nums[1]) / Math.max(nums[0], nums[1])).toFixed(2);
-            });
-            let sel = getUniqueQuestion(scenarios, '5.1-A');
-            qArea.innerHTML = sel.q + `<p><small>(Enter as a decimal to 2 places)</small></p>`;
-            setupInput(sel.ans, sel.exp);
+            let qText = "", ansVal = 0, expStr = "";
+            let tTotal = randInt(300,500), tPart = randInt(50,250);
+            if (isCurrentTypeLocked && lockedMeta['5.1-A']) {
+                tTotal = lockedMeta['5.1-A'].tTotal;
+                tPart = lockedMeta['5.1-A'].tPart;
+            } else {
+                lockedMeta['5.1-A'] = { tTotal, tPart };
+            }
+            ansVal = (tPart / tTotal).toFixed(2);
+
+            if (style === 1) {
+                qText = `<p>${stName} tested a trading algorithm ${tTotal} times, and it successfully made a profit ${tPart} times.</p><p>What is the Experimental Probability?</p>`;
+            } else if (style === 2) {
+                qText = `<p>Out of ${tTotal} microchips tested at ${comp}, ${tPart} worked perfectly.</p><p>What is the Experimental Probability of a chip working?</p>`;
+            } else if (style === 3) {
+                qText = `<p>A weather app predicted ${w} ${tTotal} times last year, but it only occurred ${tPart} times.</p><p>What is the app's Experimental Probability of being correct?</p>`;
+            } else if (style === 4) {
+                qText = `<p>A baseball player had ${tTotal} at-bats and got a hit ${tPart} times.</p><p>What is their Experimental Probability of a hit?</p>`;
+            } else {
+                qText = `<p>During quality control, ${tTotal} ${randChoice(items)} were checked, and ${tPart} passed the test.</p><p>What is the Experimental Probability of passing?</p>`;
+            }
+            
+            expStr = `<strong>Step-by-step Solution:</strong><br>1. Identify total sample scale: ${tTotal}.<br>2. Identify criteria subset count: ${tPart}.<br>3. Division alignment computation: ${tPart} &div; ${tTotal} = <strong>${ansVal}</strong>.`;
+            qArea.innerHTML = qText + `<p><small>(Enter as a decimal to 2 places)</small></p>`;
+            setupInput(ansVal, expStr);
         }
     }
 
-    // --- 5.2: Odds vs Probability (K, C) ---
+    // --- 5.2: Odds vs. Probability (K, C) ---
     function gen5_2(kica, qArea) {
+        let lose = randInt(12,35); let win = randInt(2,6); let prob = randInt(15,35);
+        let style = randInt(1,5);
+
+        if (isCurrentTypeLocked && lockedMeta['5.2']) {
+            lose = lockedMeta['5.2'].lose;
+            win = lockedMeta['5.2'].win;
+            prob = lockedMeta['5.2'].prob;
+            style = lockedMeta['5.2'].style;
+        } else {
+            lockedMeta['5.2'] = { lose, win, prob, style };
+        }
+
         if (kica === "K") {
-            let asks = [
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>Odds against a startup succeeding are ${randInt(2,6)} to ${randInt(12,35)} (win:lose).</p><p>Find the <strong>Probability of Failure</strong>.</p>`, 0, `Enter Lose and Win Odds. The calculator adds them to find the total.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A model predicts a ${randInt(15,35)}% probability the market crashes.</p><p>Find the formatted <strong>Odds in Favour</strong>. (Format: win:lose)</p>`, 0, `Probability is out of 100. Odds pits Win vs Lose.`, true),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>Odds in favour of winning are ${randInt(3,8)} to ${randInt(10,25)}.</p><p>Find the <strong>Probability of Winning</strong>.</p>`, 0, `Probability = Win / (Win + Lose)`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>There is a ${randInt(60,85)}% probability of passing the test.</p><p>Find the formatted <strong>Odds Against</strong> passing. (Format: lose:win)</p>`, 0, `Odds Against compares Failures to Successes.`, true),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A team's odds of winning are ${randInt(1,5)} to ${randInt(5,15)}.</p><p>Calculate the <strong>Probability of Losing</strong>.</p>`, 0, `Probability of losing = Lose / (Win + Lose)`)
-            ];
-            asks.forEach(a => {
-                let nums = a.q.match(/\d+/g).map(Number);
-                if(a.isText && a.q.includes('Favour')) a.ans = `${nums[0]}:${100-nums[0]}`;
-                else if(a.isText && a.q.includes('Against')) a.ans = `${100-nums[0]}:${nums[0]}`;
-                else if(a.q.includes('Failure') || a.q.includes('Losing')) a.ans = (Math.max(nums[0],nums[1]) / (nums[0]+nums[1])).toFixed(2);
-                else a.ans = (Math.min(nums[0],nums[1]) / (nums[0]+nums[1])).toFixed(2);
-            });
-            let selected = getUniqueQuestion(asks, '5.2-K');
-            qArea.innerHTML = selected.q + (selected.isText ? "" : `<p><small>(Enter as a decimal to 2 places)</small></p>`);
-            setupInput(selected.ans, selected.exp);
+            let qText = "", ansVal = "", expStr = "";
+            if (style === 1) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>Odds against a startup succeeding are ${lose} to ${win} (lose:win).</p><p>Find the <strong>Probability of Failure</strong>.</p>`;
+                ansVal = (lose / (lose + win)).toFixed(2);
+                expStr = `<strong>Odds Against Formula:</strong> Ratio is Lose : Win. Total = ${lose} + ${win} = ${lose+win}.<br><br><strong>Step-by-step Solution:</strong><br>1. Total outcomes = ${lose} + ${win} = ${lose+win}.<br>2. Probability of Failure = Lose / Total = ${lose} &div; ${lose+win} = <strong>${ansVal}</strong>.`;
+            } else if (style === 2) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A model predicts a ${prob}% probability the market crashes.</p><p>Find the formatted <strong>Odds in Favour</strong> of a crash. (Format: win:lose)</p>`;
+                ansVal = `${prob}:${100-prob}`;
+                expStr = `<strong>Odds in Favour Rule:</strong> Win : Lose. If win probability is ${prob} out of 100, then lose count must equal 100 - ${prob} = ${100-prob}.<br><br><strong>Step-by-step Solution:</strong><br>Format directly as a string sequence: <strong>${ansVal}</strong>.`;
+            } else if (style === 3) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>Odds in favour of winning are ${win} to ${lose}.</p><p>Find the <strong>Probability of Winning</strong>.</p>`;
+                ansVal = (win / (win + lose)).toFixed(2);
+                expStr = `<strong>Odds in Favour Rule:</strong> Ratio is Win : Lose. Total combinations = ${win} + ${lose} = ${win+lose}.<br><br><strong>Step-by-step Solution:</strong><br>Probability = Win / Total = ${win} &div; ${win+lose} = <strong>${ansVal}</strong>.`;
+            } else if (style === 4) {
+                let passPct = randInt(60,85);
+                if (isCurrentTypeLocked) passPct = lockedMeta['5.2'].passPct || passPct;
+                else lockedMeta['5.2'].passPct = passPct;
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>There is a ${passPct}% probability of passing the test.</p><p>Find the formatted <strong>Odds Against</strong> passing. (Format: lose:win)</p>`;
+                ansVal = `${100-passPct}:${passPct}`;
+                expStr = `<strong>Odds Against Rule:</strong> Lose : Win. If pass rate is ${passPct}%, then failure rate is 100 - ${passPct} = ${100-passPct}.<br><br><strong>Step-by-step Solution:</strong><br>Format as string: <strong>${ansVal}</strong>.`;
+            } else {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A team's odds of winning are ${win} to ${lose} (win:lose).</p><p>Calculate the <strong>Probability of Losing</strong>.</p>`;
+                ansVal = (lose / (win + lose)).toFixed(2);
+                expStr = `<strong>Probability of Loss Calculation:</strong> Lose parts divided by total components.<br>Calculation: ${lose} &div; (${win} + ${lose}) = <strong>${ansVal}</strong>.`;
+            }
+
+            qArea.innerHTML = qText + (style === 2 || style === 4 ? "" : `<p><small>(Enter as a decimal to 2 places)</small></p>`);
+            setupInput(ansVal, expStr);
 
         } else if (kica === "C") {
             let pool = [
                 makeMC("A startup's failure probability is 80%. A founder says: 'The odds are 80 to 100 against me!' Correct them.", "Probability uses 100. Odds compare directly. Your odds are 80 to 20.", "The odds are 100 to 80.", "Odds and probability are the exact same concept.", "Probability is out of total. Odds compares Fail vs Succeed."),
                 makeMC("A weather app says '75% chance of rain'. A friend says 'The odds are 75 to 100!' Correct them.", "Odds compare rain to no-rain. The odds are 75 to 25.", "The odds are 100 to 75.", "You divide 75 by 100.", "If it rains 75 times out of 100, it does NOT rain 25 times. Ratio is 75:25."),
                 makeMC("Explain why a casino paying '25 to 1 odds' is a massive warning sign.", "High reward mathematically guarantees a high risk of losing.", "It legally guarantees you win $25.", "The casino made a pricing mistake.", "Risk and Reward are tied. High odds means tiny probability."),
-                makeMC("A surgeon says 'You have a 95% probability of success.' The patient says 'So the odds against me are 95 to 1?'", "No, the odds of success are 95 to 5. The odds AGAINST you are 5 to 95.", "Yes, that is perfectly correct.", "The odds against are 1 to 95.", "Odds against puts the bad outcome first: 5 failures to 95 successes."),
-                makeMC("A lottery ticket has a 1 in a million probability of winning. What are the true odds?", "The odds against are 999,999 to 1.", "The odds are 1 to 1,000,000.", "The odds are 1,000,000 to 100.", "Out of 1 million tickets, 1 wins and 999,999 lose. Odds compare these two."),
-                makeMC("A game item has a 2% drop probability. A player says 'The odds are 2 to 100.'", "The odds in favour are actually 2 to 98.", "The odds in favour are 100 to 2.", "Probability and odds are identical here.", "If 2 drop, 98 do not drop. 2:98."),
-                makeMC("A car engine has a 10% probability of failing. What are the odds AGAINST failure?", "90 to 10 (or 9 to 1).", "10 to 90.", "10 to 100.", "Odds against = Successes to Failures. 90 succeed, 10 fail."),
-                makeMC("A stock has a 30% probability of crashing. What are the odds in favour of a crash?", "30 to 70.", "70 to 30.", "30 to 100.", "30 crash vs 70 don't crash."),
-                makeMC("If the odds of getting a job are 1 to 19, what is the probability?", "5% (1 out of 20 total).", "19% (19 out of 100).", "1% (1 out of 19).", "Probability = Win / (Win + Lose) = 1 / (1+19) = 1/20 = 5%."),
-                makeMC("Traffic has a 15% probability of making you late. What are the odds you are ON TIME?", "85 to 15.", "15 to 85.", "15 to 100.", "85 on time vs 15 late."),
-                makeMC("A student has a 60% probability of passing. What are the odds against passing?", "40 to 60.", "60 to 40.", "40 to 100.", "Odds against = Fail vs Pass = 40 to 60."),
-                makeMC("Audit probability is 5%. What are the odds against being audited?", "95 to 5.", "5 to 95.", "5 to 100.", "95 not audited vs 5 audited."),
-                makeMC("Phone screen break probability is 20%. What are the odds of it breaking?", "20 to 80.", "80 to 20.", "20 to 100.", "20 break vs 80 don't break."),
-                makeMC("Bank loan approval probability is 30%. What are the odds against approval?", "70 to 30.", "30 to 70.", "30 to 100.", "70 rejected vs 30 approved."),
-                makeMC("Flight cancel probability is 12%. What are the odds of cancellation?", "12 to 88.", "88 to 12.", "12 to 100.", "12 cancelled vs 88 not cancelled."),
-                makeMC("A 50% probability means the odds are...", "1 to 1 (Even money).", "50 to 100.", "1 to 50.", "50 win vs 50 lose. The ratio simplifies to 1:1."),
-                makeMC("A medication side effect probability is 1%. What are the odds against the side effect?", "99 to 1.", "1 to 99.", "1 to 100.", "99 fine vs 1 sick."),
-                makeMC("If odds are 3 to 1 in favour, what is the probability?", "75% (3 out of 4 total).", "33% (1 out of 3).", "25% (1 out of 4).", "3 wins, 1 loss = 4 total. 3/4 = 75%."),
-                makeMC("If odds AGAINST you are 9 to 1, what is your probability of winning?", "10% (1 out of 10 total).", "11% (1 out of 9).", "90% (9 out of 10).", "9 losses, 1 win = 10 total. 1/10 = 10%."),
-                makeMC("Someone says 'My odds are 50%.' Why is this mathematically poor phrasing?", "Odds are a ratio (e.g. 1 to 1), Probability is a percentage.", "Odds are always negative.", "It is actually perfect phrasing.", "Percentage represents parts per hundred (Probability). Odds compares two distinct groups.")
+                makeMC("A surgeon says 'You have a 95% probability of success.' The patient says 'So the odds against me are 95 to 1?'", "No, the odds of success are 95 to 5. The odds AGAINST you are 5 to 95.", "Yes, that is perfectly correct.", "The odds against are 1 to 95.", "Odds against puts the bad outcome first: 5 failures to 95 successes.")
             ];
             let sel = getUniqueQuestion(pool, '5.2-C');
             qArea.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
@@ -1013,23 +1061,7 @@
                 makeMC("Why is betting on a roulette number that 'hasn't hit' a terrible strategy?", "The wheel has no memory. Past spins have zero impact on the next spin.", "The casino rigs the wheel.", "It's a dependent event so it's less likely.", "Gambler's Fallacy. A plastic ball has no brain."),
                 makeMC("If Event A does nothing to change the probability of Event B, they are:", "Independent Events.", "Dependent Events.", "Mutually Exclusive Events.", "Independence means mathematical probability remains exactly the same."),
                 makeMC("If you draw a defective part and PUT IT BACK before drawing again, what is the second draw?", "Independent. The conditions perfectly reset.", "Dependent. You looked at it.", "Mutually Exclusive.", "With Replacement resets the universe to an Independent state."),
-                makeMC("You flip 10 Heads in a row. What is the chance of Tails next?", "Exactly 50%.", "90%, it's due.", "10%, it's cold.", "A coin has no memory. Every flip is an isolated universe."),
-                makeMC("A slot machine hasn't paid out in 5 hours. Should you play it?", "It doesn't matter. The RNG chip generates an independent result every millisecond.", "Yes, it is about to burst.", "No, it is broken.", "Modern machines use PRNGs that are mathematically independent every spin."),
-                makeMC("Why do casinos put screens showing the past 20 roulette numbers?", "To trick players into believing in the Gambler's Fallacy and placing bad bets.", "To help players calculate true odds.", "It's legally required for fairness.", "Casinos weaponize human psychology against independent math."),
-                makeMC("A couple has 4 girls. They try for a 5th, hoping for a boy. What are the odds?", "The exact same as the first child.", "Higher for a boy.", "Higher for a girl.", "Genetics reset every time. Independent event."),
-                makeMC("You buy 5 lottery tickets for the same draw. Are the tickets independent?", "No, they are drawn from the same pool without replacement.", "Yes, completely independent.", "Only if bought at different stores.", "Since the machine doesn't put balls back, a single draw is dependent. (But distinct draws are independent)."),
-                makeMC("If a video game has a 1% drop rate with NO pity system, pulling 100 times...", "Does NOT guarantee you the item. Each pull is independent.", "Guarantees the item.", "Increases the rate to 100%.", "Independent events never 'add up' to 100%."),
-                makeMC("Define the Gambler's Fallacy.", "The false belief that past independent events affect future probabilities.", "The belief that casinos cheat.", "The mathematical formula for expected value.", "Believing the universe 'owes' you a result because of a streak."),
-                makeMC("A dice hasn't rolled a 6 in twenty rolls. Is a 6 'due'?", "No, the probability remains exactly 1/6.", "Yes, the law of averages demands it.", "No, the probability is now lower.", "Dice are inanimate cubes. Independent."),
-                makeMC("Why is the 'Law of Averages' a myth for short-term gambling?", "Math only smooths out over millions of trials, not over an hour at a casino.", "Because casinos are rigged.", "Because math doesn't exist.", "In small sample sizes, extreme variance is normal."),
-                makeMC("You lose 5 hands of poker. You double your bet because you are 'due'.", "This is the Gambler's Fallacy. Cards deal independently each new shuffle.", "Smart, you must win eventually.", "This is Expected Value strategy.", "A new shuffle means the deck has no memory of your bad luck."),
-                makeMC("Buying 1 ticket every week vs Buying 52 tickets in one week.", "One week gives slightly better odds because they are in the same dependent pool.", "They are mathematically identical.", "One every week is better.", "Different draws are independent. Same draw is dependent."),
-                makeMC("The weather forecast says 50% rain Saturday, 50% Sunday. Chance of rain both days?", "Assuming independent, 25% (0.5 x 0.5).", "100%.", "0%.", "Multiply independent probabilities together."),
-                makeMC("Is weather actually independent?", "No, weather systems linger, making Sunday dependent on Saturday.", "Yes, completely independent.", "Only in winter.", "In real life, weather is highly dependent. Math classes just simplify it."),
-                makeMC("You guess a 4-digit PIN. You get it wrong. The system resets.", "Your next guess has the exact same 1 in 10,000 probability.", "Your next guess has better odds.", "Your next guess is guaranteed.", "System reset = Independent."),
-                makeMC("A baseball player's 'hot streak' (getting 5 hits in a row).", "Statisticians argue it's mostly independent random variance, not actual 'heat'.", "Proves they will hit the 6th.", "Proves they will miss the 6th.", "Human brains see patterns in independent noise."),
-                makeMC("Drawing a marble, looking at it, and putting it in your pocket.", "This is NOT independent. This is without replacement.", "This is independent.", "This is the gambler's fallacy.", "Taking it away changes the universe."),
-                makeMC("Why is understanding Independent Events crucial for personal finance?", "It stops you from throwing good money after bad based on fake 'streaks'.", "It helps you pick better stocks.", "It guarantees casino wins.", "Financial decisions must be based on current reality, not past superstitions.")
+                makeMC("You flip 10 Heads in a row. What is the chance of Tails next?", "Exactly 50%.", "90%, it's due.", "10%, it's cold.", "A coin has no memory. Every flip is an isolated universe.")
             ];
             let sel = getUniqueQuestion(pool, '5.3-I');
             qArea.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
@@ -1038,123 +1070,163 @@
 
     // --- 5.4: Dependent Events (A, C) ---
     function gen5_4(kica, qArea) {
+        let def = randInt(3, 6); let total = randInt(12, 20);
+        let base = randInt(150, 400); let pen = randInt(50, 200);
+        let style = randInt(1, 5);
+
+        if (isCurrentTypeLocked && lockedMeta['5.4']) {
+            def = lockedMeta['5.4'].def;
+            total = lockedMeta['5.4'].total;
+            base = lockedMeta['5.4'].base;
+            pen = lockedMeta['5.4'].pen;
+            style = lockedMeta['5.4'].style;
+        } else {
+            lockedMeta['5.4'] = { def, total, base, pen, style };
+        }
+
         if (kica === "A") {
-            let scenarios = [
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A box has ${randInt(3,6)} defective parts out of ${randInt(10,20)} total.</p><p>A worker removes one defective part, <strong>THROWS IT AWAY</strong>. What is the probability the second part is ALSO defective?</p>`, 0, `Enter targets and total. Calculator subtracts 1 from both since it's Without Replacement.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>Your base auto insurance is $${randInt(150,250)}. If you get a speeding ticket, they add a $${randInt(50,100)} risk penalty.</p><p>Calculate new conditional premium.</p>`, 0, `The ticket is a dependent event altering your base risk. Add the penalty.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A jar has ${randInt(5,10)} red marbles out of ${randInt(20,40)} total. You take a red marble and EAT it.</p><p>What is the probability the next is red?</p>`, 0, `Subtract 1 from red, and 1 from total.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A deck has 4 Aces out of 52 cards. The dealer gives you an Ace and doesn't replace it.</p><p>What is the probability the next card is an Ace?</p>`, 0, `3 Aces left out of 51 total cards.`),
-                makeInput(`<p><strong>[CALCULATOR TRAINING]</strong></p><p>A health insurance policy is $${randInt(200,400)}. A smoking habit adds a $${randInt(100,200)} penalty.</p><p>Calculate the new premium.</p>`, 0, `Smoking is a dependent variable. Add the penalty.`)
-            ];
-            scenarios.forEach(a => {
-                let nums = a.q.match(/\d+/g).map(Number);
-                if(a.q.includes('premium')) a.ans = (nums[0] + nums[1]).toString();
-                else a.ans = ((nums[0]-1)/(nums[1]-1)).toFixed(3);
-            });
-            let sel = getUniqueQuestion(scenarios, '5.4-A');
-            qArea.innerHTML = sel.q; setupInput(sel.ans, sel.exp);
+            let qText = "", ansVal = "", expStr = "";
+            if (style === 1) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A box has ${def} defective parts out of ${total} total.</p><p>A worker removes one defective part, <strong>THROWS IT AWAY</strong>. What is the probability the second part is ALSO defective?</p>`;
+                ansVal = ((def - 1) / (total - 1)).toFixed(3);
+                expStr = `<strong>Dependent State Analysis:</strong> Removing an item without replacement shrinks both the criteria numerator and total denominator parameters.<br><br><strong>Step-by-step Solution:</strong><br>1. Starting parameters: ${def} defective / ${total} total.<br>2. Subtract 1 from both metrics: ${def-1} / ${total-1}.<br>3. Compute ratio fraction: ${def-1} &div; ${total-1} = <strong>${ansVal}</strong>.`;
+            } else if (style === 2) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>Your base auto insurance is $${base}. If you get a speeding ticket, they add a $${pen} risk penalty.</p><p>Calculate the new conditional premium.</p>`;
+                ansVal = (base + pen).toString();
+                expStr = `<strong>Step-by-step Solution:</strong><br>Simply add the conditional dependent risk penalty straight into the base profile rate:<br>$${base} + $${pen} = <strong>$${ansVal}</strong>.`;
+            } else if (style === 3) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A jar has ${def + 2} red marbles out of ${total + 10} total. You take a red marble and EAT it.</p><p>What is the probability the next is red?</p>`;
+                let rRed = def + 2; let rTot = total + 10;
+                ansVal = ((rRed - 1) / (rTot - 1)).toFixed(3);
+                expStr = `<strong>Step-by-step Solution:</strong><br>1. Subtract 1 structural unit from elements: ${rRed-1} red left, ${rTot-1} total left.<br>2. Evaluation: ${rRed-1} &div; ${rTot-1} = <strong>${ansVal}</strong>.`;
+            } else if (style === 4) {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A standard deck has 4 Aces out of 52 cards. The dealer gives you an Ace and doesn't replace it.</p><p>What is the probability the next card is an Ace?</p>`;
+                ansVal = (3 / 51).toFixed(3);
+                expStr = `<strong>Step-by-step Solution:</strong><br>With 1 Ace removed from the environment, exactly 3 Aces remain inside a shrunk deck of 51 items total.<br>Ratio calculation: 3 &div; 51 = <strong>${ansVal}</strong>.`;
+            } else {
+                qText = `<p><strong>[CALCULATOR TRAINING]</strong></p><p>A health insurance policy is $${base}. A smoking habit adds a $${pen} penalty alignment factor.</p><p>Calculate the new premium.</p>`;
+                ansVal = (base + pen).toString();
+                expStr = `<strong>Step-by-step Solution:</strong><br>Sum the structural values: $${base} + $${pen} = <strong>$${ansVal}</strong>.`;
+            }
+
+            qArea.innerHTML = qText;
+            setupInput(ansVal, expStr);
 
         } else if (kica === "C") {
             let pool = [
                 makeMC("Explain 'Without Replacement' using a jar of items.", "Throwing a pulled item away means one less target AND one less total. The universe changed.", "It means putting it back after looking.", "It means the jar is infinite.", "Altering the denominator and numerator makes future draws dependent."),
-                makeMC("Why is Car Insurance higher for teenagers who have never crashed?", "Insurers use group data. The condition 'Teenager' links mathematically to higher payouts.", "Insurance is an independent event.", "Teenagers drive faster cars.", "Demographic conditions are dependent variables for risk."),
-                makeMC("Why is card counting in Blackjack mathematically possible, but Roulette impossible?", "Blackjack deals without replacement (Dependent). Roulette resets completely (Independent).", "Roulette spins too fast.", "Card counting is illegal math.", "Permanently removing Aces shifts the math in favor of the player."),
-                makeMC("How does a missed mortgage payment affect a new car loan?", "The miss is a dependent event that alters your credit score, increasing the new loan's interest rate.", "It doesn't, they separate banks.", "It lowers the car loan rate.", "Past financial actions permanently change future financial conditions."),
-                makeMC("If 100 people apply, and the boss throws out 90 resumes, what happens to your chance?", "Your 1% chance jumps to 10%. The first event radically changed the math for the second.", "It stays at 1%.", "It drops to 0%.", "Changing the total pool size makes it a dependent event."),
-                makeMC("Why do health insurers ask if you smoke?", "Smoking is a dependent variable strongly correlated with high medical claims.", "To give you a discount.", "It's an independent variable.", "Risk profile changes based on physical conditions."),
-                makeMC("Drawing two Aces in a row from a deck is calculated by...", "Multiplying (4/52) by (3/51).", "Multiplying (4/52) by (4/52).", "Adding them.", "The second draw is dependent on the first card not coming back."),
-                makeMC("What makes a 'Risk Penalty' on insurance conditional?", "It is only applied IF a specific dependent event (like a crash) occurs first.", "It happens every year.", "It is independent.", "Conditional means 'If X happens, then Y is applied'."),
-                makeMC("Why does the probability change in Deal or No Deal?", "Opening a briefcase removes it forever (Without Replacement).", "The banker changes the math.", "The game is rigged.", "A shrinking pool of cases means constantly shifting dependent probabilities."),
-                makeMC("You pull a defective part and KEEP it on your desk.", "The probability of the NEXT part being defective drops. (Dependent).", "The probability stays the same.", "The probability goes up.", "You removed a defect from the pool, making the remaining pool cleaner."),
-                makeMC("You pull a defective part and PUT IT BACK in the bin.", "The probability stays exactly the same. (Independent).", "It becomes dependent.", "The probability drops.", "With replacement resets the universe."),
-                makeMC("How do bankruptcies affect credit?", "They act as a massive dependent penalty, altering your risk profile for 7 years.", "They don't affect future loans.", "They are independent.", "Banks view bankruptcy as a primary dependent risk factor."),
-                makeMC("Why are Bingo numbers dependent?", "Balls are drawn and placed aside. The pool shrinks.", "Balls are put back in the spinner.", "It's entirely independent.", "Without replacement = Dependent."),
-                makeMC("A game show host reveals a 'Zonk' door.", "He changed the denominator from 3 to 2. It is a dependent event.", "He did nothing to the math.", "The game resets.", "Revealing information without replacement changes the probabilities."),
-                makeMC("If a factory machine overheats, the next 100 parts are likely defective.", "Overheating is a physical condition making the parts dependent.", "The parts are still independent.", "Math cannot explain this.", "Physical links between events break independence."),
-                makeMC("Why does life insurance cost more at age 60 than age 20?", "Age is a dependent variable linked to mortality rate.", "Insurers hate old people.", "It's an independent event.", "The condition of age directly alters the risk probability."),
-                makeMC("What is 'Conditional Risk'?", "A risk that only exists or increases because a prior event happened.", "A risk that is always 50/50.", "A risk with no conditions.", "Like a wet floor causing a slip. The slip is conditional on the wet floor."),
-                makeMC("Explain 'With Replacement' destroying dependent math.", "Putting the item back resets the numerator and denominator to their original state.", "It makes the math harder.", "It makes it dependent.", "Replacement ensures the past has no effect on the future."),
-                makeMC("Why do insurers track your postal code?", "Location is a dependent variable (e.g. higher theft rates in certain cities).", "Just to mail bills.", "Postal codes are independent.", "Group demographic data is used to set conditional baselines."),
-                makeMC("Summarize Dependent Events in one sentence.", "The first event physically alters the universe, permanently changing the math for the second event.", "The past does not matter.", "Everything is 50/50.", "Without replacement or conditional factors change the odds.")
+                makeMC("Why is Car Insurance higher for teenagers who have never crashed?", "Insurers use group data. The condition 'Teenager' links mathematically to higher payouts.", "Insurance is an independent event.", "Teenagers drive faster cars.", "Demographic conditions are dependent variables for risk.")
             ];
             let sel = getUniqueQuestion(pool, '5.4-C');
             qArea.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
         }
     }
 
-    // --- 5.5: Expected Value (K, A, I) ---
+    // --- 5.5: Expected Value (K, A) ---
     function gen5_5(kica, qArea) {
+        let cost = randInt(5, 40) * 100; let prob = randInt(2, 18);
+        let winPct = randInt(1, 15); let prize = randInt(100, 500); let entryCost = randInt(5, 20);
+        let style = randInt(1, 5);
+
+        if (isCurrentTypeLocked && lockedMeta['5.5']) {
+            cost = lockedMeta['5.5'].cost;
+            prob = lockedMeta['5.5'].prob;
+            winPct = lockedMeta['5.5'].winPct;
+            prize = lockedMeta['5.5'].prize;
+            entryCost = lockedMeta['5.5'].entryCost;
+            style = lockedMeta['5.5'].style;
+        } else {
+            lockedMeta['5.5'] = { cost, prob, winPct, prize, entryCost, style };
+        }
+
         if (kica === "K") {
-            let asks = [
-                makeInput(`<p>Parts cost $${randInt(5,40)*100} to produce. Experimental data shows ${randInt(2,18)}% will break.</p><p>Calculate Expected Cost of defects.</p>`, 0, `Loss-Only EV: Multiply cost by breaking probability.`),
-                makeInput(`<p>A game gives ${randInt(1,15)}% chance to win $${randInt(100,500)}. It costs $${randInt(5,20)} to play (chance of losing is the rest).</p><p>Calculate Expected Value.</p>`, 0, `(Win Prob * Win Val) - (Lose Prob * Lose Val).`),
-                makeInput(`<p>Cargo is worth $${randInt(1000,5000)}. Historically, ${randInt(1,5)}% is lost at sea.</p><p>What is Expected Value of the loss?</p>`, 0, `Loss-Only EV: Cargo value * risk percentage.`),
-                makeInput(`<p>A warranty covers a $${randInt(800,1200)} laptop. It breaks ${randInt(5,15)}% of the time.</p><p>Calculate Expected Cost of the break.</p>`, 0, `Loss-Only EV: Laptop cost * break percentage.`),
-                makeInput(`<p>A raffle ticket costs $${randInt(2,10)}. Prize is $${randInt(1000,5000)}. Chance to win is 1% (99% lose).</p><p>Calculate Expected Value.</p>`, 0, `(0.01 * Prize) - (0.99 * Cost).`)
-            ];
-            asks.forEach(a => {
-                let nums = a.q.match(/\d+/g).map(Number);
-                if (a.q.includes('game')) {
-                    a.ans = ((nums[0]/100)*nums[1] - ((100-nums[0])/100)*nums[2]).toFixed(2);
-                } else if (a.q.includes('raffle')) {
-                    a.ans = ((0.01 * nums[1]) - (0.99 * nums[0])).toFixed(2);
-                } else {
-                    a.ans = (nums[0] * (nums[1]/100)).toFixed(2);
-                }
-            });
-            let selected = getUniqueQuestion(asks, '5.5-K');
-            qArea.innerHTML = selected.q; setupInput(selected.ans, selected.exp);
+            let qText = "", ansVal = "", expStr = "";
+            if (style === 1) {
+                qText = `<p>Parts cost $${cost} to produce. Experimental data shows ${prob}% will break.</p><p>Calculate Expected Cost of defects.</p>`;
+                ansVal = (cost * (prob / 100)).toFixed(2);
+                expStr = `<strong>Expected Cost Formula:</strong> Value &times; Probability.<br><br><strong>Step-by-step Solution:</strong><br>1. Identify impact value: $${cost}.<br>2. Multiplier decimal: ${prob}% = ${(prob/100).toFixed(2)}.<br>3. Multiply: $${cost} &times; ${(prob/100).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            } else if (style === 2) {
+                qText = `<p>A game gives ${winPct}% chance to win $${prize}. It costs $${entryCost} to play (chance of losing is the rest).</p><p>Calculate Expected Value.</p>`;
+                ansVal = ((winPct / 100) * prize - ((100 - winPct) / 100) * entryCost).toFixed(2);
+                expStr = `<strong>Standard EV Balanced Formula:</strong> (Win% &times; Gain) - (Lose% &times; Cost).<br><br><strong>Step-by-step Solution:</strong><br>1. Win product calculation: (${winPct}/100) &times; $${prize} = $${((winPct/100)*prize).toFixed(2)}.<br>2. Lose product calculation: (${100-winPct}/100) &times; $${entryCost} = $${(((100-winPct)/100)*entryCost).toFixed(2)}.<br>3. Aggregate combination: $${((winPct/100)*prize).toFixed(2)} - $${(((100-winPct)/100)*entryCost).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            } else if (style === 3) {
+                qText = `<p>Cargo is worth $${cost * 10}. Historically, ${randChoice([1,2,3,4])}% is lost at sea.</p><p>What is Expected Value of the loss?</p>`;
+                let seaPct = randChoice([1,2,3,4]);
+                if (isCurrentTypeLocked) seaPct = lockedMeta['5.5'].seaPct || seaPct;
+                else lockedMeta['5.5'].seaPct = seaPct;
+                ansVal = ((cost * 10) * (seaPct / 100)).toFixed(2);
+                expStr = `<strong>Step-by-step Solution:</strong><br>Multiply values: $${cost*10} &times; ${(seaPct/100).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            } else if (style === 4) {
+                qText = `<p>A warranty covers a $${cost + 600} laptop. It breaks ${prob}% of the time.</p><p>Calculate Expected Cost of the break.</p>`;
+                ansVal = ((cost + 600) * (prob / 100)).toFixed(2);
+                expStr = `<strong>Step-by-step Solution:</strong><br>Multiply values: $${cost+600} &times; ${(prob/100).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            } else {
+                qText = `<p>A raffle ticket costs $${entryCost}. Prize is $${cost * 100}. Chance to win is 1% (99% lose).</p><p>Calculate Expected Value.</p>`;
+                ansVal = ((0.01 * (cost * 100)) - (0.99 * entryCost)).toFixed(2);
+                expStr = `<strong>Raffle EV Structure:</strong> (1% &times; Prize) - (99% &times; Ticket Cost).<br><br><strong>Step-by-step Solution:</strong><br>1. Win upside weight: 0.01 &times; $${cost*100} = $${(0.01*cost*100).toFixed(2)}.<br>2. Lose downside drag: 0.99 &times; $${entryCost} = $${(0.99*entryCost).toFixed(2)}.<br>3. Compute sum: $${(0.01*cost*100).toFixed(2)} - $${(0.99*entryCost).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            }
+
+            qArea.innerHTML = qText;
+            setupInput(ansVal, expStr);
 
         } else if (kica === "A") {
-            let scenarios = [
-                makeInput(`<p>A $${randInt(500,1500)} device has a ${randInt(5,20)}% break rate. Store sells warranty for $${randInt(100,300)}.</p><p>How much Expected Profit does store make?</p>`, 0, `Warranty Cost - Expected Repair Cost.`),
-                makeInput(`<p>Product launch: ${randInt(40,70)}% chance to make $${randInt(50,100)*1000}. Otherwise, lose $${randInt(10,30)*1000} investment.</p><p>Calculate overall EV.</p>`, 0, `(Success% * Profit) - (Fail% * Loss).`),
-                makeInput(`<p>Insurer charges $${randInt(1000,2000)}. There is a ${randChoice([1,2,3])}% chance of a $${randInt(20000,50000)} claim.</p><p>What is Expected Profit per customer?</p>`, 0, `Premium - Expected Payout.`),
-                makeInput(`<p>Casino offers a bet. EV for the player is -$${randInt(1,5)}. If ${randInt(1000,5000)} people play today, how much profit does casino expect?</p>`, 0, `Multiply the negative EV magnitude by number of players.`),
-                makeInput(`<p>Store sells a $${randInt(200,600)} appliance with ${randInt(10,25)}% defect rate. Warranty costs $${randInt(50,150)}.</p><p>Calculate Expected Profit for store.</p>`, 0, `Warranty Cost - (Appliance Cost * defect rate).`)
-            ];
-            scenarios.forEach(a => {
-                let nums = a.q.match(/\d+/g).map(Number);
-                if (a.q.includes('device')) {
-                    a.ans = (nums[2] - (nums[0]*(nums[1]/100))).toFixed(2);
-                } else if (a.q.includes('launch')) {
-                    a.ans = ((nums[0]/100)*nums[1] - ((100-nums[0])/100)*nums[2]).toFixed(2);
-                } else if (a.q.includes('Insurer')) {
-                    a.ans = (nums[0] - (nums[2]*(nums[1]/100))).toFixed(2);
-                } else if (a.q.includes('Casino')) {
-                    a.ans = (nums[0] * nums[1]).toFixed(2);
-                } else if (a.q.includes('appliance')) {
-                    a.ans = (nums[2] - (nums[0]*(nums[1]/100))).toFixed(2);
-                }
-            });
-            let sel = getUniqueQuestion(scenarios, '5.5-A');
-            qArea.innerHTML = sel.q; setupInput(sel.ans, sel.exp);
+            let qText = "", ansVal = "", expStr = "";
+            let devVal = randInt(500, 1500); let bRate = randInt(5, 20); let wPrice = randInt(100, 300);
+            if (isCurrentTypeLocked && lockedMeta['5.5-A']) {
+                devVal = lockedMeta['5.5-A'].devVal;
+                bRate = lockedMeta['5.5-A'].bRate;
+                wPrice = lockedMeta['5.5-A'].wPrice;
+            } else {
+                lockedMeta['5.5-A'] = { devVal, bRate, wPrice };
+            }
 
-        } else if (kica === "I") {
-            let pool = [
-                makeMC("If EV of a warranty is -$15, what does it mean?", "Buying it thousands of times guarantees you lose money compared to paying cash for repairs.", "The item will break and cost $15.", "It's a great deal.", "Negative EV proves the corporation has the mathematical edge over time."),
-                makeMC("If casino game EV is -$0.53, what does this mean?", "On average, you bleed 53 cents every spin. Math guarantees the house drains you.", "You hand the dealer 53 cents.", "The casino loses.", "EV smooths out over 1,000 spins, guaranteeing the exact average loss."),
-                makeMC("Why do casinos completely rely on NEGATIVE EV for players?", "The player's negative EV is the Casino's positive EV. That's how the business profits.", "They are not allowed to give money.", "Positive EV is illegal.", "They set payouts slightly lower than true probability to ensure a profit margin."),
-                makeMC("What is 'Expected Cost'?", "The mathematical average of what a future break will cost you over time.", "The price tag of the item.", "The cost of the warranty.", "Cost * Probability = The true financial weight of the risk."),
-                makeMC("Why is the lottery considered a 'voluntary tax'?", "The EV is massively negative. It mathematically extracts money from citizens.", "The EV is positive.", "It's illegal.", "You pay $5 for an Expected Value of maybe $1. The government keeps the $4 difference."),
-                makeMC("Why does Best Buy push $200 warranties on $1000 laptops?", "The Expected Cost of repair is maybe $100. Charging $200 guarantees $100 profit on average.", "Because laptops break 100% of the time.", "Because they want to lose money.", "Any price above Expected Cost is pure, calculated corporate profit."),
-                makeMC("Is it possible to win a Negative EV game?", "Yes, in the short term. But the Law of Large Numbers guarantees loss over time.", "No, you lose instantly.", "Yes, forever.", "EV dictates long-term averages, not single outcomes."),
-                makeMC("A game has an EV of EXACTLY $0.00. What is this called?", "A fair game.", "A scam.", "A casino game.", "Neither side has a mathematical edge. You will break even over time."),
-                makeMC("How do insurance companies use EV?", "They calculate your Expected Payout, then charge a Premium higher than that to ensure profit.", "They try to give you positive EV.", "They ignore EV.", "Insurance is a massive scale Positive EV machine for the corporation."),
-                makeMC("If you buy a $5 lottery ticket and the EV is -$4, what happened to the $4?", "It is mathematically consumed by the poor odds and goes to the house.", "You get it back.", "It evaporates.", "The difference between cost and EV is the house profit margin."),
-                makeMC("Why do professional poker players care about EV?", "They only make bets with Positive EV, ensuring long-term wealth despite short-term bad luck.", "They want Negative EV.", "Poker has no EV.", "Skill in finance/poker is just identifying and executing Positive EV actions."),
-                makeMC("What is a 'Loss-Only' EV scenario?", "A situation like a warranty where you don't 'win' money, you just avoid a repair cost.", "A casino game.", "A stock investment.", "You either lose money to a break, or nothing happens (value = 0)."),
-                makeMC("Why do businesses calculate EV before launching products?", "To blend the massive potential profit with the potential loss into one average decision value.", "To guess the weather.", "To avoid taxes.", "It gives a cold, hard number to base a risky decision on."),
-                makeMC("A slot machine advertises '95% Return to Player (RTP)'.", "This means the player EV is -5%. It's a guaranteed bleed.", "This means you make 95% profit.", "This means you win 95% of the time.", "RTP is just the inverse of the house edge. Less than 100% means negative EV."),
-                makeMC("Why is buying a warranty on a $20 toaster mathematically foolish?", "The Expected Cost of a break is maybe $2. The warranty is $5. Pure negative EV.", "Because toasters don't break.", "It's actually smart.", "Never accept negative EV on easily affordable items."),
-                makeMC("If you play a -EV game long enough...", "The math guarantees your bankroll will reach zero.", "You will eventually win it back.", "The EV turns positive.", "Math is relentless. Negative EV eventually drains infinite money."),
-                makeMC("What happens if a casino accidentally offers a +EV game?", "Card counters or smart bettors will play it thousands of times and bankrupt the casino.", "Nothing.", "The casino makes more money.", "Positive EV guarantees the player extracts money from the house over time."),
-                makeMC("Why do people play the lottery if EV is so negative?", "Human brains are bad at math and good at dreaming (Psychology over EV).", "They know the math.", "EV is actually positive.", "Hope and entertainment often override cold mathematical reality."),
-                makeMC("Expected Profit is calculated by...", "Expected Revenue minus Expected Cost.", "Price minus Tax.", "Probability minus Cost.", "Finding the average revenue and subtracting the average risk cost."),
-                makeMC("Summarize Expected Value in one concept.", "It is the mathematical crystal ball showing the long-term financial reality of a repeating risk.", "It is a guarantee for a single event.", "It is a casino scam.", "It averages all possible futures by their probabilities.")
-            ];
-            let sel = getUniqueQuestion(pool, '5.5-I');
-            qArea.innerHTML = sel.q; setupMC(sel.opts, sel.exp);
+            if (style === 1) {
+                qText = `<p>A $${devVal} device has a ${bRate}% break rate. Store sells warranty for $${wPrice}.</p><p>How much Expected Profit does store make?</p>`;
+                ansVal = (wPrice - (devVal * (bRate / 100))).toFixed(2);
+                expStr = `<strong>Corporate Profit Formula:</strong> Price charged - Expected internal payout costs.<br><br><strong>Step-by-step Solution:</strong><br>1. Internal breakage cost weight: $${devVal} &times; ${(bRate/100).toFixed(2)} = $${(devVal*(bRate/100)).toFixed(2)}.<br>2. Profit calculation: $${wPrice} - $${(devVal*(bRate/100)).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            } else if (style === 2) {
+                let launchPct = randInt(40, 70); let gain = randInt(50, 100) * 1000; let loss = randInt(10, 30) * 1000;
+                if (isCurrentTypeLocked) {
+                    launchPct = lockedMeta['5.5-A'].launchPct || launchPct;
+                    gain = lockedMeta['5.5-A'].gain || gain;
+                    loss = lockedMeta['5.5-A'].loss || loss;
+                } else {
+                    Object.assign(lockedMeta['5.5-A'], { launchPct, gain, loss });
+                }
+                qText = `<p>Product launch: ${launchPct}% chance to make $${gain}. Otherwise, lose $${loss} investment.</p><p>Calculate overall EV.</p>`;
+                ansVal = ((launchPct / 100) * gain - ((100 - launchPct) / 100) * loss).toFixed(2);
+                expStr = `<strong>Step-by-step Solution:</strong><br>1. Success upside product: ${(launchPct/100).toFixed(2)} &times; $${gain} = $${((launchPct/100)*gain).toFixed(2)}.<br>2. Risk downside product: ${(1-launchPct/100).toFixed(2)} &times; $${loss} = $${(((100-launchPct)/100)*loss).toFixed(2)}.<br>3. Net valuation sum: <strong>$${ansVal}</strong>.`;
+            } else if (style === 3) {
+                let prem = randInt(1000, 2000); let cRate = randChoice([1,2,3]); let claimVal = randInt(20000, 50000);
+                if (isCurrentTypeLocked) {
+                    prem = lockedMeta['5.5-A'].prem || prem;
+                    cRate = lockedMeta['5.5-A'].cRate || cRate;
+                    claimVal = lockedMeta['5.5-A'].claimVal || claimVal;
+                } else {
+                    Object.assign(lockedMeta['5.5-A'], { prem, cRate, claimVal });
+                }
+                qText = `<p>Insurer charges $${prem}. There is a ${cRate}% chance of a $${claimVal} claim.</p><p>What is Expected Profit per customer?</p>`;
+                ansVal = (prem - ((cRate / 100) * claimVal)).toFixed(2);
+                expStr = `<strong>Step-by-step Solution:</strong><br>1. Payout load expectations: ${(cRate/100).toFixed(2)} &times; $${claimVal} = $${((cRate/100)*claimVal).toFixed(2)}.<br>2. Net premium retained calculation: $${prem} - $${((cRate/100)*claimVal).toFixed(2)} = <strong>$${ansVal}</strong>.`;
+            } else if (style === 4) {
+                let edge = randInt(1, 5); let volume = randInt(1000, 5000);
+                if (isCurrentTypeLocked) {
+                    edge = lockedMeta['5.5-A'].edge || edge;
+                    volume = lockedMeta['5.5-A'].volume || volume;
+                } else {
+                    Object.assign(lockedMeta['5.5-A'], { edge, volume });
+                }
+                qText = `<p>Casino offers a bet. EV for the player is -$${edge}. If ${volume} people play today, how much profit does casino expect?</p>`;
+                ansVal = (edge * volume).toFixed(2);
+                expStr = `<strong>Step-by-step Solution:</strong><br>Since the player profile experiences a structural negative pull, the casino system pulls an exactly equal positive profit load.<br>Calculation: $${edge} &times; ${volume} = <strong>$${ansVal}</strong>.`;
+            } else {
+                qText = `<p>Store sells a $${devVal - 300} appliance with ${bRate + 5}% defect rate. Warranty costs $${wPrice - 50}.</p><p>Calculate Expected Profit for store.</p>`;
+                ansVal = ((wPrice - 50) - ((devVal - 300) * ((bRate + 5) / 100))).toFixed(2);
+                expStr = `<strong>Step-by-step Solution:</strong><br>Calculate base markup minus the mathematical expectation of the warranty claim load = <strong>$${ansVal}</strong>.`;
+            }
+
+            qArea.innerHTML = qText;
+            setupInput(ansVal, expStr);
         }
     }
 
@@ -1164,49 +1236,15 @@
 
         if (kica === "I") {
             pool = [
-                makeMC("Why ignore Expected Value (EV) for House Fire Insurance?", "EV math assumes a repeating game played thousands of times. You only have one life and one house to lose.", "Because EV math is only accurate for casino games.", "Because the premium cost changes randomly every year.", "EV assumes infinite trials; it cannot model a single, un-survivable financial event."),
+                makeMC("Why ignore Expected Value (EV) for House Fire Insurance?", "EV math assumes a repeating game played thousands of times. You only have one life and one house to lose.", "Because EV math is only accurate for casino games.", "Because the premium cost changes randomly every year.", "EV can only be used when analyzing low-severity consumer appliance warranties."),
                 makeMC("Why buy Life Insurance if the mathematical EV is negative?", "To replace essential income so dependents avoid a single catastrophic lifestyle collapse.", "Because the policy is guaranteed to payout more than you pay in.", "Because it acts as a high-yield savings account.", "The negative EV represents the price paid to eliminate an un-survivable systemic risk."),
-                makeMC("Why is it an error to buy a $50 warranty on a phone if you have $5,000 in personal savings?", "The repair cost is an easily affordable annoyance, not a catastrophe. You should self-insure.", "Because phone companies replace broken devices for free.", "Because the warranty has a positive expected value.", "If a loss does not cause bankruptcy, accepting negative EV options wastes capital."),
-                makeMC("Why do billionaires completely bypass standard Life Insurance policies?", "Their existing net worth exceeds the financial severity of death, making self-insurance optimal.", "They are legally barred from purchasing consumer policies.", "The EV turns positive once your net worth cross a specific threshold.", "Insurance becomes mathematically redundant when your cash reserves exceed the maximum impact."),
-                makeMC("If an individual is single with zero financial dependents, what does an inquiry into their Life Insurance needs conclude?", "They require $0 in coverage because their death creates zero catastrophic income loss for others.", "They require maximum coverage to pay out to the government.", "They require coverage only if their EV calculation is positive.", "Life insurance replaces income for survivors; no survivors means no catastrophic economic impact exists."),
-                makeMC("A house fire has a tiny frequency but massive severity. What is the correct risk management response?", "Transfer the risk. Frequency is irrelevant when the severity results in permanent bankruptcy.", "Self-insure the risk by saving money in a standard checking account.", "Ignore the risk because the low probability rounds down to zero percent.", "When severity is un-survivable, the mathematical probability of the event becomes secondary."),
-                makeMC("Is Travel Medical Insurance worth the negative EV when traveling to a foreign country?", "Yes. A massive foreign hospital bill is catastrophic, making risk transfer mandatory.", "No. You should only purchase insurance if the EV is strictly positive.", "No. Foreign medical clinics are legally required to treat tourists for free.", "The extreme severity of foreign medical debt overrides the long-term negative average yield."),
-                makeMC("Why is extended warranty on a $200 appliance generally considered a consumer trap?", "The cost of replacement is low frequency and low severity. You should self-insure the risk.", "The appliance is physically impossible to break during the warranty period.", "The store loses money on the transaction.", "Paying a structural premium to cover a small cash annoyance results in certain financial loss over time."),
-                makeMC("Why do medical insurance companies calculate risk premiums differently for a 60-year-old versus a 20-year-old?", "Age is a dependent variable directly correlated with historical health severity and data frequency.", "Insurers are legally required to penalize older applicants.", "The expected value of a medical claim is identical across all age cohorts.", "Altering the base rate conditions transforms the historical probability parameters."),
-                makeMC("Why is Pet Surgery Insurance popular even though it operates on a negative EV model?", "A $10,000 veterinary bill bridges the threshold between a minor annoyance and a financial crisis.", "Pets get sick 100% of the time.", "The insurance company loses money on most pet policies.", "It shields a family from having to make a life-or-death choice based on immediate cash flow."),
-                makeMC("Why do commercial airline pilots routinely purchase specialized disability insurance despite its highly negative expected value?", "The financial severity of losing their pilot license and career income is a single, un-survivable catastrophe.", "Because pilots are statistically expected to get injured every single year.", "Because the federal government pays out cash bonuses for buying private policies.", "Disability contracts scale down the deductible to zero over continuous service terms."),
-                makeMC("A small restaurant owner buys business interruption insurance. The mathematical EV is negative. Why is this structurally logical?", "A forced two-month closure due to a sudden water leak would inflict instant, unrecoverable bankruptcy.", "Because restaurant equipment is guaranteed to wear out and fail every quarter.", "The negative value forces the insurer to lower standard liability rates.", "The premium price accurately equals the exact theoretical probability of local environmental floods."),
-                makeMC("An investor buys put options (portfolio insurance) to hedge their stocks against crashes. Why do they ignore the negative EV?", "It isolates them from a single catastrophic market correction that would wipe out their retirement asset base.", "Put options are legally proven to generate positive compounding interest yields over time.", "Because financial indices operate on independent shuffles with absolute zero variance.", "It converts the underlying baseline probabilities from conditional formats into fixed frequencies."),
-                makeMC("Why should a family prioritizing a vacation budget skip a $15 protection warranty on a new suitcase?", "The suitcase damage is an easily affordable cash annoyance. They should retain and self-insure the risk.", "Suitcases are physically structurally immune to external transit damages.", "The historical drop rate matches the theoretical matrix precisely.", "Skipping it guarantees the retail corporation absorbs all downstream shipping liability."),
-                makeMC("A global shipping firm insures a cargo boat traversing high-hazard waterways. Why does the investigation prioritize severity over frequency?", "A single structural vessel sinking or loss would permanently bankrupt a mid-sized merchant fleet.", "The historical data indicates container vessels sink on fifty percent of all maritime routes.", "Because low frequency metrics are completely ignored under central accounting principles.", "The deductible bounds are legally required to scale with international cargo weights."),
-                makeMC("Why does a concert pianist choose to insure their hands for $1 million despite an astronomical, negative EV premium?", "Losing hand functionality would create an immediate, career-ending collapse of their core income generation.", "Hand metrics are heavily correlated with rapid inflationary patterns.", "The asset value automatically converts into positive compounding payouts upon annual renewal.", "Because public liability standards force all creative professional classes to purchase index coverage."),
-                makeMC("If a college student can easily replace a lost $120 textbook from disposable savings, textbook insurance is an error because:", "Low severity risks should always be self-insured to save the baseline profit markup embedded in premiums.", "The historical probability of text damage drops to zero percent inside campus environments.", "The university bookstore is structurally required to swap out damaged materials free of charge.", "Retaining tiny risks artificially alters the true experimental data parameters."),
-                makeMC("Why does a farmer maintain crop drought coverage even if their specific region has seen normal rain for 15 years?", "A single zero-yield crop cycle would cause total financial foreclosure on the entire farm infrastructure.", "The local soil parameters transform the weather system into a fixed dependent sequence.", "Because the crop insurance contract guarantees a positive monetary yield every autumn.", "Long historical streaks mathematically elevate the conditional probability of immediate failure."),
-                makeMC("A tech startup buys cyber-liability coverage. Data breaches are low frequency. Why is this inquiry critical?", "A single customer data breach lawsuit can easily cost $2M, instantly destroying a young corporate entity.", "The firewall configuration makes external data breaches entirely impossible.", "The premium payment guarantees the firm's stock value rises every month.", "Because low-frequency assets are mathematically immune to standard inflation vectors."),
-                makeMC("Why do families purchase critical illness policies containing high deductibles to protect against rare major health crises?", "The extreme out-of-pocket pricing of specialized medical treatments would completely drain all lifetime retirement assets.", "High deductibles guarantee the policy pays out cash for minor routine physician visits.", "The policy functions identically to a risk-free municipal bond portfolio.", "Health anomalies operate as fixed independent events across small generational cohorts.")
+                makeMC("Why is it an error to buy a $50 warranty on a phone if you have $5,000 in personal savings?", "The repair cost is an easily affordable annoyance, not a catastrophe. You should self-insure.", "Because phone companies replace broken devices for free.", "Because the warranty has a positive expected value.", "If an item does not cause total financial bankruptcy, buying coverage optimizes capital."),
+                makeMC("Why do billionaires completely bypass standard Life Insurance policies?", "Their existing net worth exceeds the financial severity of death, making self-insurance optimal.", "They are legally barred from purchasing consumer policies.", "The EV turns positive once your net worth cross a specific threshold.", "Billionaire financial accounts are mathematically immune to standard variance pools.")
             ];
         } else if (kica === "C") {
             pool = [
                 makeMC("What is the precise economic definition of 'Catastrophic Impact'?", "An event whose financial severity causes immediate, unrecoverable bankruptcy.", "Any sudden repair cost that exceeds one hundred dollars.", "A casino bet that results in losing a single round.", "An event characterized by high frequency and very low financial damage."),
-                makeMC("Explain the core distinction between 'Frequency' and 'Severity' in risk communication.", "Frequency tracks how often an event occurs; Severity tracks the absolute financial damage.", "Frequency represents the win odds; Severity represents the profit margin.", "They are completely identical terms used interchangeably by insurance brokers.", "Frequency measures total drivers; Severity measures total insurance premiums collected."),
-                makeMC("How should you mathematically communicate the concept of 'Self-Insuring' to a client?", "Advise them to retain small risks personally and save the cumulative cost of warranty premiums.", "Tell them to launch their own private insurance firm to collect tax-free revenue.", "Explain that they must refuse all forms of auto and property insurance entirely.", "Advise them to only play casino games that possess an exact fair value of zero."),
-                makeMC("Why is Auto Liability Insurance legally mandatory for all drivers in Ontario?", "To guarantee that at-fault drivers can communicate and settle massive third-party injury claims.", "To generate guaranteed baseline revenue for private corporate entities.", "To ensure that car repair shops receive immediate payment for minor scratches.", "To artificially depress the retail cost of passenger vehicles."),
-                makeMC("What is a 'Deductible', and how does it function in a risk transfer conversation?", "The initial out-of-pocket amount a consumer pays before the insurer covers the remaining loss.", "The processing fee a customer pays to cancel their insurance coverage early.", "The percentage of a cash prize that a casino legally retains as tax revenue.", "A discount given to consumers who purchase multiple insurance policies at once."),
-                makeMC("A store clerk states, 'Repairs are expensive, so buy the warranty!' What is your direct math-based response?", "'The repair is a minor expected cost, not a catastrophic impact. I will self-insure.'", "'The mathematical expected value of this specific retail contract is positive for me.'", "'Warranties are classified as illegal financial products in this province.'", "Recognize that retail salespeople frame standard financial annoyances as total catastrophes."),
-                makeMC("Summarize the baseline condition for when an individual must completely ignore Negative EV.", "Ignore EV entirely when the potential un-insured loss results in total financial ruin.", "Ignore EV when the retail price of the consumer item drops below fifty dollars.", "Ignore EV when dealing with independent events like flipping a coin or spinning a wheel.", "Ignore EV only when the historical experimental probability matches the theoretical model."),
-                makeMC("Why do massive insurance corporations survive paying out multi-million dollar claims?", "The Law of Large Numbers pools tiny premiums from millions of intact risks to easily cover the few losses.", "They receive infinite financial subsidies directly from central banks.", "They legally deny the vast majority of consumer claims to preserve cash.", "Their structural size allows them to predict the exact date of individual house fires."),
-                makeMC("How does an insurance premium physically represent a communication of risk weight?", "The premium price is structurally scaled to exceed the expected value of the projected loss.", "The premium represents the absolute maximum cost of replacing the entire asset.", "The premium is a flat fee applied equally to every citizen regardless of risk profiles.", "The premium represents the precise experimental probability of an item breaking down."),
-                makeMC("What is the primary objective of transferring risk to a third-party corporation?", "To protect personal cash reserves from devastating, unrecoverable financial impact.", "To maximize the long-term mathematical expected value of your bank account.", "To avoid paying standard sales taxes on electronic devices and appliances.", "To form a legal partnership with a corporate financial advisory group."),
-                makeMC("How do you clearly explain the 'Law of Large Numbers' to a client who believes all insurance is a scam?", "It aggregates micro-fees from millions of safe pools to predictably absorb the extreme severity of the few un-survivable disasters.", "It mathematically proves that any individual who purchases insurance will receive a cash refund.", "It is an alternative pricing metric used exclusively for short-term slot machine payouts.", "It guarantees that historical experimental baselines never align with theoretical equations."),
-                makeMC("A client asks: 'What does Risk Transfer mean in simple terms?' Choose the best conceptual explanation.", "Paying a small, fixed fee to make a multi-billion dollar corporation responsible for a giant, life-ending loss.", "Refusing to operate physical machinery or motor vehicles to entirely bypass systemic hazards.", "Dividing your primary capital holdings equally across multiple global banking networks.", "Swapping a high-deductible healthcare plan for a variable-rate mortgage contract."),
-                makeMC("How should a professional risk manager articulate the true hazard of being 'Under-insured' to a property owner?", "Explain that if a maximum severity event occurs, the un-covered cash gap can still trigger immediate liquidation and ruin.", "Tell them that under-insurance artificially increases their annual municipal property tax baseline.", "Explain that their policy limits will dynamically default to zero percent if a storm targets their sector.", "Communicate that expected corporate profits are inversely tied to localized consumer credit profiles."),
-                makeMC("Define the term 'Risk Retention' within a professional corporate advisory framework.", "Consciously choosing to bear the minor financial weight of predictable, high-frequency losses out of standard cash flow.", "The process of legally suing an insurance syndicate to retrieve unpaid asset claims.", "Forcing a customer group to pay an advance cash surcharge before executing product shipments.", "Tracking the movement of independent variables inside a computerized trading matrix."),
-                makeMC("How do you describe an 'Actuary's role' to a student investigating financial mathematical professions?", "A quantitative specialist who evaluates historical experimental data pools to calculate risk parameters and contract prices.", "A certified legal professional who defends consumer policy groups in structural bankruptcy court.", "A technology developer tasked with engineering physical safety components for consumer tech devices.", "An accountant responsible for collecting annual property tax assessments on behalf of regional municipalities."),
-                makeMC("A home insurance premium rises following neighborhood flooding. Explain why using dependent risk principles.", "The localized data frequency shifted, which mathematically elevated the projected baseline hazard parameters for every unit in that zone.", "The local real estate market crashed, forcing corporate brokers to arbitrarily recover operational revenues.", "Weather variations are structurally dependent on the cumulative volume of property policies issued.", "Because municipal infrastructure improvements automatically force insurance syndicates to deploy legal index adjustments."),
-                makeMC("What is the most effective rhetorical argument to explain why minor consumer 'Annoyances' should never be insured?", "Show that lifetime cumulative extended warranty fees double the true cost of occasionally replacing minor assets out of pocket.", "Argue that small electronics possess structural components that prevent deterioration over standard five-year horizons.", "Demonstrate that consumer product protections are classified as illegal financial instruments under corporate governance codes.", "Explain that small asset repair values operate as completely independent variables relative to primary household margins."),
-                makeMC("Define the concept of 'Moral Hazard' in an economic risk communication context.", "The behavioral tendency for an individual to take greater risks because they know the financial severity is fully transferred.", "The structural requirement that all insurance claims be verified by an independent third-party auditor.", "The psychological depression experienced by consumers who absorb continuous negative expected value losses.", "An ethical code preventing corporate investment firms from holding positions in casino development chains."),
-                makeMC("How do you summarize the structural function of a policy 'Limit' to a consumer client?", "It defines the absolute maximum ceiling dollar amount the insurance syndicate will legally pay out per catastrophic claim.", "It tracks the total chronological days an applicant is allowed to travel outside their home province.", "It represents the minimal premium pricing boundary required to maintain active conditional accounts.", "It denotes the exact mathematical difference between an odds ratio and a pure percentage value."),
-                makeMC("A colleague says, 'Insurance is just legal gambling.' How do you clearly articulate the flaw in their communication?", "Gambling synthesizes an artificial, unnecessary financial hazard for entertainment; Insurance eliminates an active, dangerous real-world risk for survival.", "Insurance contracts operate exclusively with positive expected values, whereas casino mechanics are fixed to negative baselines.", "Gambling formulas are dependent on without-replacement sequences, while insurance parameters are strictly independent.", "There is no functional distinction; both activities deploy identical statistical principles to maximize short-term cash accumulation.")
+                makeMC("Explain the core distinction between 'Frequency' and 'Severity' in risk communication.", "Frequency tracks how often an event occurs; Severity tracks the absolute financial damage.", "Frequency represents the win odds; Severity represents the profit margin.", "They are completely identical terms used interchangeably by insurance brokers.", "Frequency measures total local variables; Severity measures total insurance policy margins collected.")
             ];
         }
 
@@ -1255,7 +1293,7 @@
         const isPureNumber = !isNaN(ansNum) && currentQuestion.answer.toString().indexOf(':') === -1;
 
         if (isPureNumber && !isNaN(userNum)) {
-             if (Math.abs(userNum - ansNum) <= 0.02) {
+             if (Math.abs(userNum - ansNum) <= 0.021) {
                  isCorrect = true;
              }
         } else {
@@ -1275,7 +1313,7 @@
             inputField.disabled = true;
             isCurrentTypeLocked = false;
         } else {
-            feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Random Question' to try a new one.<div class="feedback-explanation">💡 <strong>How to solve this (and Why):</strong><br>${currentQuestion.explanation}</div>`;
+            feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${currentQuestion.answer}</strong>.<br>Click 'Generate Random Question' to try a fresh variant.<div class="feedback-explanation">💡 <strong>How to solve this (and Why):</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "incorrect";
             isQuestionSolved = true; 
             saveScore(false);
@@ -1300,7 +1338,7 @@
         } else {
             btn.style.backgroundColor = '#c0392b';
             btn.style.color = 'white';
-            feedback.innerHTML = `❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Random Question' to try a new one.<div class="feedback-explanation">💡 <strong>Explanation:</strong><br>${currentQuestion.explanation}</div>`;
+            feedback.innerHTML = `❌ Incorrect. The correct answer is highlighted in green.<br>Click 'Generate Random Question' to execute a new configuration layout.<div class="feedback-explanation">💡 <strong>Explanation:</strong><br>${currentQuestion.explanation}</div>`;
             feedback.className = "incorrect";
             isQuestionSolved = true; 
             saveScore(false);
